@@ -17,14 +17,7 @@ export default function BackButton({ href, label }: BackButtonProps) {
       aria-label={label || 'Go back'}
       title={label || 'Go back'}
     >
-      <div className="relative w-6 h-6">
-        <Image
-          src="/logo.png"
-          alt="LizoCalculator"
-          fill
-          className="object-contain opacity-70 group-hover:opacity-100 transition-opacity"
-        />
-      </div>
+    
       <ArrowLeft className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
     </Link>
   )

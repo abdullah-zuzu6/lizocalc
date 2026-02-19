@@ -13,7 +13,7 @@ const slides = [
     color: 'from-blue-600 to-blue-400',
     cta: 'Explore Financial',
     href: '/calculators/financial',
-    image: '/hero-calc.jpg',
+    image: '/image-finance-calc.jpg',
   },
   {
     title: 'Fitness & Health',
@@ -22,7 +22,7 @@ const slides = [
     color: 'from-red-600 to-pink-400',
     cta: 'Explore Fitness',
     href: '/calculators/fitness',
-    image: '/fitness-hero.jpg',
+     image: '/image-health-calc.jpg',
   },
   {
     title: 'Math Calculators',
@@ -31,7 +31,7 @@ const slides = [
     color: 'from-purple-600 to-purple-400',
     cta: 'Explore Math',
     href: '/calculators/math',
-    image: '/hero-calc.jpg',
+   image: '/image-math-calc.jpg',
   },
 ]
 
