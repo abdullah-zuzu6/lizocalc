@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
-import { Info, TrendingDown, BarChart3 } from 'lucide-react'
+import { Info, TrendingDown, BarChart3, PieChart as PieIcon, Calendar as TableIcon } from 'lucide-react'
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import BackButton from '@/components/BackButton'
@@ -10,250 +11,254 @@ import FAQ from '@/components/FAQ'
 import RelatedCalculators from '@/components/RelatedCalculators'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
-export default function LoanCalculator() {
-  const [principal, setPrincipal] = useState<number>(300000)
+type LoanType = 'amortized' | 'deferred' | 'bond'
+
+export default function AdvancedLoanCalculator() {
+  const [activeTab, setActiveTab] = useState<LoanType>('amortized')
+  const [principal, setPrincipal] = useState<number>(100000)
   const [interestRate, setInterestRate] = useState<number>(5.5)
-  const [years, setYears] = useState<number>(30)
+  const [years, setYears] = useState<number>(10)
+  const [months, setMonths] = useState<number>(0)
+  const [compounding, setCompounding] = useState<number>(12) 
+  const [payFrequency, setPayFrequency] = useState<number>(12) 
+  const [showSchedule, setShowSchedule] = useState(false)
   const [isMounted, setIsMounted] = useState(false)
 
-  // Load from cookies on mount
+  const COLORS = ['#3b82f6', '#ef4444']
+
+  // FAQ and Related Calculators Data (Fixed missing variables)
+  const faqItems = [
+    {
+      question: 'How is an amortized loan different from a bond?',
+      answer: 'An amortized loan is paid back in regular installments (like a mortgage), while a bond usually involves paying back a lump sum at maturity.',
+    },
+    {
+      question: 'What does compounding frequency mean?',
+      answer: 'It is how often interest is calculated and added to the principal. More frequent compounding (like daily) increases the total interest compared to annual compounding.',
+    }
+  ]
+
+  const relatedCalculators = [
+    { name: 'Mortgage Calculator', description: 'Calculate home loan payments', href: '/calculator/mortgage', icon: BarChart3 },
+    { name: 'Auto Loan Calculator', description: 'Calculate vehicle financing', href: '/calculator/auto-loan', icon: TrendingDown },
+  ]
+
   useEffect(() => {
     setIsMounted(true)
     const consent = getConsentPreference()
     const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['loan']?.data) {
-      setPrincipal(history['loan'].data.principal || 300000)
-      setInterestRate(history['loan'].data.interestRate || 5.5)
-      setYears(history['loan'].data.years || 30)
+    if (consent?.functional && history['adv-loan']?.data) {
+      const d = history['adv-loan'].data
+      setPrincipal(d.principal); setInterestRate(d.interestRate); setYears(d.years)
     }
   }, [])
 
-  // Save to cookies whenever values change
   useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('loan', { principal, interestRate, years })
+    if (isMounted && getConsentPreference()?.functional) {
+      saveCalculatorHistory('adv-loan', { principal, interestRate, years })
     }
   }, [principal, interestRate, years, isMounted])
 
-  const calculateLoan = () => {
-    const monthlyRate = interestRate / 100 / 12
-    const numberOfPayments = years * 12
+  const totalMonths = useMemo(() => years * 12 + months, [years, months])
+
+  const results = useMemo(() => {
+    const r = interestRate / 100
+    const t = totalMonths / 12 || 0.0001 // prevent division by zero
+    const n = compounding
     
-    if (monthlyRate === 0) {
-      return (principal / numberOfPayments).toFixed(2)
+    const effectiveRate = Math.pow(1 + r / n, n / payFrequency) - 1
+    const totalPeriods = (totalMonths / 12) * payFrequency
+
+    if (activeTab === 'amortized') {
+      const periodicPayment = effectiveRate === 0 
+        ? principal / (totalPeriods || 1) 
+        : (principal * effectiveRate) / (1 - Math.pow(1 + effectiveRate, -totalPeriods))
+      const totalPay = periodicPayment * totalPeriods
+      return {
+        mainValue: periodicPayment.toFixed(2),
+        totalInterest: (totalPay - principal).toFixed(2),
+        totalPayment: totalPay.toFixed(2),
+        chartData: [{ name: 'Principal', value: principal }, { name: 'Interest', value: Math.max(0, totalPay - principal) }]
+      }
+    } else if (activeTab === 'deferred') {
+      const maturityValue = principal * Math.pow(1 + r / n, n * t)
+      return {
+        mainValue: maturityValue.toFixed(2),
+        totalInterest: (maturityValue - principal).toFixed(2),
+        totalPayment: maturityValue.toFixed(2),
+        chartData: [{ name: 'Principal', value: principal }, { name: 'Interest', value: maturityValue - principal }]
+      }
+    } else {
+      const initialReceived = principal / Math.pow(1 + r / n, n * t)
+      return {
+        mainValue: initialReceived.toFixed(2),
+        totalInterest: (principal - initialReceived).toFixed(2),
+        totalPayment: principal.toFixed(2),
+        chartData: [{ name: 'Initial Value', value: initialReceived }, { name: 'Interest Discount', value: principal - initialReceived }]
+      }
     }
-    
-    const monthlyPayment =
-      (principal * (monthlyRate * Math.pow(1 + monthlyRate, numberOfPayments))) /
-      (Math.pow(1 + monthlyRate, numberOfPayments) - 1)
-    
-    return monthlyPayment.toFixed(2)
-  }
+  }, [activeTab, principal, interestRate, totalMonths, compounding, payFrequency])
 
-  const totalInterest = (
-    Number(calculateLoan()) * years * 12 - principal
-  ).toFixed(2)
+  const schedule = useMemo(() => {
+    if (!showSchedule || activeTab !== 'amortized') return []
+    const data = []
+    let balance = principal
+    const pRate = (interestRate / 100) / 12
+    const mPay = Number(results.mainValue)
 
-  const totalPayment = (principal + Number(totalInterest)).toFixed(2)
-
-  const faqItems = [
-    {
-      question: 'How is a loan payment calculated?',
-      answer: 'Loan payments are calculated using a standard amortization formula that considers the principal (loan amount), interest rate, and loan term in months. The formula distributes payments across the loan period.',
-    },
-    {
-      question: 'What is the difference between APR and interest rate?',
-      answer: 'The interest rate is the cost of borrowing the principal, while APR (Annual Percentage Rate) includes additional fees and costs of the loan.',
-    },
-    {
-      question: 'Can I pay off my loan early?',
-      answer: 'Yes, most loans allow early payoff. Paying early reduces the total interest you pay over the life of the loan.',
-    },
-    {
-      question: 'What factors affect loan approval?',
-      answer: 'Credit score, income, debt-to-income ratio, and collateral (for secured loans) are the main factors that affect loan approval and interest rates.',
-    },
-  ]
-
-  const relatedCalculators = [
-    {
-      name: 'Mortgage Calculator',
-      description: 'Calculate home loan payments',
-      href: '/calculator/mortgage',
-      icon: BarChart3,
-    },
-    {
-      name: 'Auto Loan Calculator',
-      description: 'Calculate vehicle financing payments',
-      href: '/calculator/auto-loan',
-      icon: TrendingDown,
-    },
-  ]
+    for (let i = 1; i <= Math.min(totalMonths, 600); i++) {
+      const interest = balance * pRate
+      const principalPaid = mPay - interest
+      balance -= principalPaid
+      data.push({ period: i, payment: mPay, principal: principalPaid, interest: interest, balance: Math.max(0, balance) })
+    }
+    return data
+  }, [showSchedule, activeTab, principal, totalMonths, interestRate, results.mainValue])
 
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
       
-      {/* Back Button */}
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/financial" />
-        </div>
-      </div>
+      
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Loan Calculator</h1>
-          <p className="text-lg text-muted-foreground">
-            Calculate your monthly loan payment and total interest costs
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Advanced Loan Calculator</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Calculate amortized payments, deferred maturity values, or bond discounts.
           </p>
         </div>
 
-        {/* Calculator */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-8">
-            {/* Principal Amount */}
+        <div className="flex flex-wrap gap-2 mb-8 bg-muted p-1 rounded-xl">
+          {(['amortized', 'deferred', 'bond'] as LoanType[]).map((type) => (
+            <button
+              key={type}
+              onClick={() => { setActiveTab(type); setShowSchedule(false); }}
+              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all capitalize ${
+                activeTab === type ? 'bg-background text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {type} Loan
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          <div className="bg-card rounded-2xl border border-border p-8 space-y-6">
             <div>
               <label className="block text-sm font-semibold mb-3">
-                Loan Amount: ${principal.toLocaleString()}
+                {activeTab === 'bond' ? 'Due Amount at Maturity' : 'Loan Amount'}: ${principal.toLocaleString()}
               </label>
-              <input
-                type="range"
-                min="1000"
-                max="1000000"
-                step="1000"
-                value={principal}
-                onChange={(e) => setPrincipal(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={principal}
-                onChange={(e) => setPrincipal(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
+              <input type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full px-4 py-2 bg-background border border-border rounded-lg" />
             </div>
 
-            {/* Interest Rate */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Annual Interest Rate: {interestRate.toFixed(2)}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="20"
-                step="0.1"
-                value={interestRate}
-                onChange={(e) => setInterestRate(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={interestRate}
-                onChange={(e) => setInterestRate(Number(e.target.value))}
-                step="0.1"
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div><label className="block text-sm font-semibold mb-2">Years</label><input type="number" value={years} onChange={(e) => setYears(Number(e.target.value))} className="w-full px-4 py-2 bg-background border border-border rounded-lg" /></div>
+              <div><label className="block text-sm font-semibold mb-2">Months</label><input type="number" value={months} onChange={(e) => setMonths(Number(e.target.value))} className="w-full px-4 py-2 bg-background border border-border rounded-lg" /></div>
             </div>
 
-            {/* Loan Term */}
             <div>
-              <label className="block text-sm font-semibold mb-3">
-                Loan Term: {years} years
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="50"
-                step="1"
-                value={years}
-                onChange={(e) => setYears(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={years}
-                onChange={(e) => setYears(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
+              <label className="block text-sm font-semibold mb-3">Interest Rate: {interestRate}%</label>
+              <input type="range" min="0" max="25" step="0.1" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none accent-primary" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-semibold mb-2 text-xs">Compounding</label>
+                <select value={compounding} onChange={(e) => setCompounding(Number(e.target.value))} className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm">
+                  <option value={1}>Annually (APY)</option>
+                  <option value={4}>Quarterly</option>
+                  <option value={12}>Monthly (APR)</option>
+                  <option value={365}>Daily</option>
+                </select>
+              </div>
+              {activeTab === 'amortized' && (
+                <div>
+                  <label className="block font-semibold mb-2 text-xs">Frequency</label>
+                  <select value={payFrequency} onChange={(e) => setPayFrequency(Number(e.target.value))} className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm">
+                    <option value={52}>Weekly</option>
+                    <option value={12}>Monthly</option>
+                    <option value={1}>Yearly</option>
+                  </select>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="space-y-6">
+            <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="text-center md:text-left">
+                  <p className="text-muted-foreground text-sm mb-1 capitalize">{activeTab} Value</p>
+                  <p className="text-4xl font-bold text-primary">${results.mainValue}</p>
+                  <div className="mt-4 space-y-1">
+                    <p className="text-sm">Interest: <span className="font-semibold text-accent">${results.totalInterest}</span></p>
+                    <p className="text-sm">Total: <span className="font-semibold">${results.totalPayment}</span></p>
+                  </div>
+                </div>
+                <div className="w-32 h-32">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart><Pie data={results.chartData} innerRadius={25} outerRadius={45} paddingAngle={5} dataKey="value">
+                      {results.chartData.map((_, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
+                    </Pie><Tooltip /></PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+              <button onClick={() => setShowSchedule(!showSchedule)} className="w-full mt-6 py-3 px-4 bg-background border border-border rounded-xl text-sm font-bold flex items-center justify-center gap-2">
+                <TableIcon className="w-4 h-4" /> {showSchedule ? 'Hide' : 'View'} Schedule
+              </button>
             </div>
           </div>
         </div>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Monthly Payment</p>
-            <p className="text-4xl font-bold text-primary">${calculateLoan()}</p>
+        {showSchedule && activeTab === 'amortized' && (
+          <div className="bg-card rounded-2xl border border-border overflow-hidden mb-12">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm text-left">
+                <thead className="bg-muted text-muted-foreground uppercase text-xs font-bold">
+                  <tr>
+                    <th className="px-6 py-4">Period</th>
+                    <th className="px-6 py-4">Payment</th>
+                    <th className="px-6 py-4">Principal</th>
+                    <th className="px-6 py-4">Interest</th>
+                    <th className="px-6 py-4">Balance</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {schedule.map((row) => (
+                    <tr key={row.period} className="hover:bg-muted/30">
+                      <td className="px-6 py-4 font-medium">{row.period}</td>
+                      <td className="px-6 py-4">${row.payment.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-primary">${row.principal.toFixed(2)}</td>
+                      <td className="px-6 py-4 text-accent">${row.interest.toFixed(2)}</td>
+                      <td className="px-6 py-4 font-semibold">${row.balance.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Interest</p>
-            <p className="text-4xl font-bold text-accent">${totalInterest}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Payment</p>
-            <p className="text-4xl font-bold text-foreground">${totalPayment}</p>
-          </div>
-        </div>
+        )}
 
-        {/* Info Section */}
         <div className="bg-card rounded-2xl border border-border p-8 mb-8">
           <div className="flex gap-3 mb-4">
             <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Loan Calculations</h3>
+            <h3 className="font-semibold text-lg">Detailed Loan Analysis</h3>
           </div>
-          <p className="text-muted-foreground">
-            This loan calculator uses the standard amortization formula to calculate monthly payments. 
-            The calculation takes into account the principal amount, interest rate, and loan term. 
-            The monthly payment remains constant throughout the loan period.
-          </p>
+          <div className="text-muted-foreground text-sm leading-relaxed space-y-4">
+            <p>
+              The mathematical model used depends on the loan structure. For Amortized Loans, we use the standard time-value-of-money formula to calculate periodic payments based on principal, rate, and total periods.
+            </p>
+            <div className="bg-muted p-4 rounded-lg text-center font-mono">
+              {/* Note: Standard text instead of LaTeX to avoid JSX errors */}
+              Payment = [ r * PV ] / [ 1 - (1 + r)^-n ]
+            </div>
+          </div>
         </div>
 
-        {/* Related Calculators */}
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <h3 className="font-semibold text-lg mb-6">Related Calculators</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/calculator/mortgage"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Mortgage Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate mortgage payments</p>
-            </Link>
-            <Link
-              href="/calculator/auto-loan"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Auto Loan Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate car loan payments</p>
-            </Link>
-            <Link
-              href="/calculator/interest"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Interest Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate compound interest</p>
-            </Link>
-            <Link
-              href="/calculator/payment"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Payment Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate payments</p>
-            </Link>
-          </div>
-        </div>
+        <RelatedCalculators calculators={relatedCalculators} />
+        <FAQ items={faqItems} title="Advanced Loan FAQ" />
       </div>
-
-      <RelatedCalculators calculators={relatedCalculators} />
-      <FAQ items={faqItems} title="Loan Calculator FAQs" />
-
       <Footer />
     </main>
   )

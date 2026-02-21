@@ -26,7 +26,7 @@ export default function Navbar() {
             <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-primary/10 flex items-center justify-center">
               <Image
                 src="/logo.png"
-                alt="LizoCalculator"
+                alt="LizoCalculator-logo"
                 fill
                 className="object-contain p-1 group-hover:scale-110 transition-transform"
               />

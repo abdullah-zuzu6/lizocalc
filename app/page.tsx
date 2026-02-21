@@ -8,7 +8,7 @@ import { BarChart3, Heart, Sigma, Zap, Target, Lock } from 'lucide-react'
 const financialCalculators = [
   {
     name: 'Mortgage Calculator',
-    description: 'Calculate monthly mortgage payments and loan details',
+    description: 'Calculate monthly mortgage payments  details',
     icon: BarChart3,
     href: '/calculator/mortgage',
     category: 'financial' as const,

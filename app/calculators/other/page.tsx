@@ -8,31 +8,31 @@ import { Search, ArrowLeft, Clock } from 'lucide-react'
 
 const calculators = [
   {
-    name: 'Age Calculator',
+    name: 'Age Calculator ->',
     description: 'Calculate your age in years, months, and days',
     href: '/calculator/age',
     category: 'Time',
   },
   {
-    name: 'Date Calculator',
+    name: 'Date Calculator ->',
     description: 'Add or subtract days from dates, calculate date differences',
     href: '/calculator/date',
     category: 'Time',
   },
   {
-    name: 'Time Calculator',
+    name: 'Time Calculator ->',
     description: 'Add and subtract time durations, convert time units',
     href: '/calculator/time',
     category: 'Time',
   },
   {
-    name: 'Hours Calculator',
+    name: 'Hours Calculator ->',
     description: 'Calculate working hours, billing time, and time tracking',
     href: '/calculator/hours',
     category: 'Time',
   },
   {
-    name: 'GPA Calculator',
+    name: 'GPA Calculator ->',
     description: 'Calculate your Grade Point Average and weighted GPA',
     href: '/calculator/gpa',
     category: 'Education',
@@ -104,7 +104,7 @@ export default function OtherCalculators() {
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {calc.name}
+                    {calc.name }
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     {calc.description}
