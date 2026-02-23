@@ -8,7 +8,7 @@ import CookieBanner from '@/components/CookieBanner'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'LizoCalculator - Free Online Calculators for Financial, Fitness & Math',
+  title: 'LizoCalc - Free Online Calculators for Financial, Fitness & Math',
   description: 'Professional online calculators for financial planning, fitness tracking, mathematics, and more. Fast, accurate, and easy to use.',
   keywords: 'calculator, mortgage calculator, loan calculator, BMI calculator, scientific calculator, free calculator online',
   authors: [{ name: 'LizoCalculator' }],

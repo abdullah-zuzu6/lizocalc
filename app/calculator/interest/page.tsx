@@ -1,243 +1,282 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
+import { useState, useEffect, useMemo } from 'react'
+import { Info, Printer, TrendingUp, Calendar, Clock } from 'lucide-react'
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import BackButton from '@/components/BackButton'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
-export default function InterestCalculator() {
-  const [principal, setPrincipal] = useState<number>(1000)
-  const [rate, setRate] = useState<number>(5)
-  const [years, setYears] = useState<number>(10)
-  const [compounding, setCompounding] = useState<'annually' | 'quarterly' | 'monthly' | 'daily'>('annually')
-  const [isMounted, setIsMounted] = useState(false)
+const COLORS = ['#10b981', '#3b82f6', '#f59e0b'];
 
-  // Load from cookies on mount
+type Frequency = 'annually' | 'semiannually' | 'quarterly' | 'monthly' | 'semimonthly' | 'biweekly' | 'weekly' | 'daily' | 'continuously';
+
+const compoundingValues: Record<Frequency, number> = {
+  annually: 1, semiannually: 2, quarterly: 4, monthly: 12,
+  semimonthly: 24, biweekly: 26, weekly: 52, daily: 365, continuously: 1000000,
+};
+
+export default function InterestCalculator() {
+  const [initialInvestment, setInitialInvestment] = useState<number>(10000)
+  const [monthlyContribution, setMonthlyContribution] = useState<number>(100)
+  const [annualContribution, setAnnualContribution] = useState<number>(0)
+  const [rate, setRate] = useState<number>(7)
+  const [years, setYears] = useState<number>(10)
+  const [taxRate, setTaxRate] = useState<number>(0)
+  const [inflationRate, setInflationRate] = useState<number>(2)
+  const [compounding, setCompounding] = useState<Frequency>('monthly')
+  const [isMounted, setIsMounted] = useState(false)
+  const [viewMode, setViewMode] = useState<'annual' | 'monthly'>('annual')
+
   useEffect(() => {
     setIsMounted(true)
     const consent = getConsentPreference()
     const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['interest']?.data) {
-      setPrincipal(history['interest'].data.principal || 1000)
-      setRate(history['interest'].data.rate || 5)
-      setYears(history['interest'].data.years || 10)
-      setCompounding(history['interest'].data.compounding || 'annually')
+    if (consent?.functional && history['interest-adv']?.data) {
+      const d = history['interest-adv'].data
+      setInitialInvestment(d.initialInvestment ?? 10000); 
+      setMonthlyContribution(d.monthlyContribution ?? 100);
+      setAnnualContribution(d.annualContribution ?? 0); 
+      setRate(d.rate ?? 7); setYears(d.years ?? 10);
+      setTaxRate(d.taxRate ?? 0); setInflationRate(d.inflationRate ?? 2); 
+      setCompounding(d.compounding ?? 'monthly');
     }
   }, [])
 
-  // Save to cookies whenever values change
   useEffect(() => {
     if (!isMounted) return
-    
     const consent = getConsentPreference()
     if (consent?.functional) {
-      saveCalculatorHistory('interest', { principal, rate, years, compounding })
+      saveCalculatorHistory('interest-adv', { initialInvestment, monthlyContribution, annualContribution, rate, years, taxRate, inflationRate, compounding })
     }
-  }, [principal, rate, years, compounding, isMounted])
+  }, [initialInvestment, monthlyContribution, annualContribution, rate, years, taxRate, inflationRate, compounding, isMounted])
 
-  const compoundingValues = {
-    annually: 1,
-    quarterly: 4,
-    monthly: 12,
-    daily: 365,
-  }
+  const results = useMemo(() => {
+    const schedule = []; let currentBalance = initialInvestment;
+    let totalContributions = 0; let totalInterest = 0;
+    // Safety cap for calculation loop to prevent browser hang
+    const totalMonths = Math.min(years * 12, 1200); 
+    const n = compoundingValues[compounding];
 
-  const calculateCompoundInterest = () => {
-    const n = compoundingValues[compounding]
-    const amount = principal * Math.pow(1 + rate / 100 / n, n * years)
-    return {
-      amount: amount.toFixed(2),
-      interest: (amount - principal).toFixed(2),
+    for (let m = 1; m <= totalMonths; m++) {
+      currentBalance += monthlyContribution;
+      totalContributions += monthlyContribution;
+      if (m > 1 && (m - 1) % 12 === 0) {
+        currentBalance += annualContribution;
+        totalContributions += annualContribution;
+      }
+      let interestThisMonth = compounding === 'continuously' 
+        ? currentBalance * (Math.exp((rate / 100) / 12) - 1)
+        : currentBalance * (Math.pow(1 + (rate / 100) / n, n / 12) - 1);
+
+      const netInterest = interestThisMonth * (1 - taxRate / 100);
+      currentBalance += netInterest;
+      totalInterest += netInterest;
+
+      schedule.push({ month: m, year: Math.ceil(m / 12), interest: netInterest, balance: currentBalance });
     }
-  }
+    return { endingBalance: currentBalance, totalContributions, totalInterest, inflationAdjusted: currentBalance / Math.pow(1 + (inflationRate / 100), years), schedule };
+  }, [initialInvestment, monthlyContribution, annualContribution, rate, years, taxRate, inflationRate, compounding]);
 
-  const result = calculateCompoundInterest()
+  if (!isMounted) return null;
+
+  const formatCurrency = (val: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0,
+    }).format(val);
+  };
 
   return (
-    <main className="min-h-screen bg-background">
-      <Navbar />
+    <main className="min-h-screen bg-background text-foreground">
+      <div className="print:hidden"><Navbar /></div>
       
-      {/* Back Button */}
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="flex justify-between items-center mb-8 print:hidden">
           <BackButton href="/calculators/financial" />
-        </div>
-      </div>
-
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Interest Calculator</h1>
-          <p className="text-lg text-muted-foreground">
-            Calculate compound interest on your investments
-          </p>
+          <button onClick={() => window.print()} className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-xl hover:opacity-90 transition-all shadow-md">
+            <Printer className="w-4 h-4" /> Print Results (PDF)
+          </button>
         </div>
 
-        {/* Calculator */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-8">
-            {/* Principal */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Principal Amount: ${principal.toLocaleString()}
-              </label>
-              <input
-                type="range"
-                min="100"
-                max="1000000"
-                step="100"
-                value={principal}
-                onChange={(e) => setPrincipal(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={principal}
-                onChange={(e) => setPrincipal(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
-
-            {/* Interest Rate */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Annual Interest Rate: {rate.toFixed(2)}%
-              </label>
-              <input
-                type="range"
-                min="0"
-                max="20"
-                step="0.1"
-                value={rate}
-                onChange={(e) => setRate(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={rate}
-                onChange={(e) => setRate(Number(e.target.value))}
-                step="0.1"
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
-
-            {/* Years */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Time Period: {years} years
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="50"
-                step="1"
-                value={years}
-                onChange={(e) => setYears(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={years}
-                onChange={(e) => setYears(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
-
-            {/* Compounding */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">Compounding Frequency</label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {(Object.keys(compoundingValues) as Array<keyof typeof compoundingValues>).map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setCompounding(option)}
-                    className={`py-2 px-3 rounded-lg border font-medium transition-all capitalize ${
-                      compounding === option
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border bg-background hover:border-primary/50'
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Controls */}
+          <section className="lg:col-span-1 space-y-6 print:hidden">
+            <div className="bg-card p-6 rounded-3xl border border-border shadow-sm">
+              <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-primary" /> Strategy
+              </h3>
+              <div className="space-y-4">
+                <div>
+                  <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Initial Investment</label>
+                  <input type="number" value={initialInvestment} onChange={e => setInitialInvestment(Number(e.target.value))} className="w-full mt-1 p-3 bg-background border border-border rounded-xl focus:ring-2 ring-primary/20 outline-none transition-all" />
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Monthly</label>
+                    <input type="number" value={monthlyContribution} onChange={e => setMonthlyContribution(Number(e.target.value))} className="w-full mt-1 p-3 bg-background border border-border rounded-xl" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Annual</label>
+                    <input type="number" value={annualContribution} onChange={e => setAnnualContribution(Number(e.target.value))} className="w-full mt-1 p-3 bg-background border border-border rounded-xl" />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Interest Rate (%)</label>
+                  <input type="number" step="0.01" value={rate} onChange={e => setRate(Number(e.target.value))} className="w-full mt-1 p-3 bg-background border border-border rounded-xl focus:ring-2 ring-primary/20 outline-none transition-all" />
+                  <input type="range" min="0" max="25" step="0.1" value={rate} onChange={e => setRate(Number(e.target.value))} className="w-full h-1.5 bg-muted rounded-lg appearance-none cursor-pointer accent-primary mt-4" />
+                </div>
+                <div>
+                  <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Compounding</label>
+                  <select value={compounding} onChange={e => setCompounding(e.target.value as Frequency)} className="w-full mt-1 p-3 bg-background border border-border rounded-xl capitalize cursor-pointer">
+                    {Object.keys(compoundingValues).map(k => <option key={k} value={k}>{k}</option>)}
+                  </select>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Years</label>
+                    <input type="number" value={years} onChange={e => setYears(Number(e.target.value))} className="w-full mt-1 p-3 bg-background border border-border rounded-xl" />
+                  </div>
+                  <div>
+                    <label className="text-xs font-bold uppercase text-muted-foreground ml-1">Tax (%)</label>
+                    <input type="number" value={taxRate} onChange={e => setTaxRate(Number(e.target.value))} className="w-full mt-1 p-3 bg-background border border-border rounded-xl" />
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          {/* Results Area */}
+          <section className="lg:col-span-2 space-y-6 overflow-hidden">
+            {/* Summary Cards with containment */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-6 bg-primary text-primary-foreground rounded-3xl shadow-lg overflow-hidden whitespace-nowrap">
+                <p className="text-xs font-bold uppercase opacity-80">Final Balance</p>
+                <p className="text-2xl xl:text-3xl font-black truncate">{formatCurrency(results.endingBalance)}</p>
+              </div>
+              <div className="p-6 bg-card border border-border rounded-3xl shadow-sm overflow-hidden whitespace-nowrap">
+                <p className="text-xs font-bold uppercase text-muted-foreground">Total Interest</p>
+                <p className="text-2xl xl:text-3xl font-black text-primary truncate">{formatCurrency(results.totalInterest)}</p>
+              </div>
+              <div className="p-6 bg-card border border-border rounded-3xl shadow-sm overflow-hidden whitespace-nowrap">
+                <p className="text-xs font-bold uppercase text-muted-foreground">Adjusted (Inflation)</p>
+                <p className="text-2xl xl:text-3xl font-black text-accent truncate">{formatCurrency(results.inflationAdjusted)}</p>
+              </div>
+            </div>
+
+            {/* Sliding Schedule Component */}
+            
+            
+            {/* Visual Charts */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 print:block">
+              <div className="bg-card p-6 rounded-3xl border border-border h-[350px]">
+                <h3 className="font-bold mb-4">Wealth Breakdown</h3>
+                <ResponsiveContainer width="100%" height="90%">
+                  <PieChart>
+                    <Pie data={[{ name: 'Principal', value: initialInvestment + results.totalContributions }, { name: 'Interest', value: results.totalInterest }]} innerRadius={60} outerRadius={100} paddingAngle={8} dataKey="value">
+                      <Cell fill="#3b82f6" /><Cell fill="#10b981" />
+                    </Pie>
+                    <Tooltip />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div className="bg-card p-6 rounded-3xl border border-border h-[350px] print:mt-10">
+                <h3 className="font-bold mb-4">Accumulation Path</h3>
+                <ResponsiveContainer width="100%" height="90%">
+                  <BarChart data={results.schedule.filter((_, i) => (i + 1) % 12 === 0).map(s => ({ name: `Yr ${s.year}`, Balance: s.balance }))}>
+                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} />
+                    <YAxis axisLine={false} tickLine={false} tickFormatter={v => `$${v/1000}k`} />
+                    <Tooltip cursor={{fill: 'transparent'}} />
+                    <Bar dataKey="Balance" fill="#3b82f6" radius={[6, 6, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+            
+          </section>
+          
         </div>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Interest Earned</p>
-            <p className="text-4xl font-bold text-primary">${result.interest}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Amount</p>
-            <p className="text-4xl font-bold text-accent">${result.amount}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Principal</p>
-            <p className="text-4xl font-bold text-foreground">${principal.toLocaleString()}</p>
-          </div>
-        </div>
+        
+<div className="bg-card rounded-3xl border border-border overflow-hidden shadow-sm">
+              <div className="p-6 border-b border-border flex flex-col sm:flex-row justify-between items-center gap-4 print:hidden">
+                <h3 className="font-bold text-lg">Detailed Schedule</h3>
+                
+                {/* Sliding Toggle */}
+                <div className="relative bg-muted p-1 rounded-xl flex w-full sm:w-[240px]">
+                  <div 
+                    className="absolute top-1 bottom-1 transition-all duration-300 ease-in-out bg-background rounded-lg shadow-sm"
+                    style={{ 
+                      left: viewMode === 'annual' ? '4px' : '50%',
+                      width: 'calc(50% - 4px)'
+                    }}
+                  />
+                  <button onClick={() => setViewMode('annual')} className={`relative z-10 flex-1 py-2 text-xs font-bold transition-colors ${viewMode === 'annual' ? 'text-foreground' : 'text-muted-foreground'}`}>Annual</button>
+                  <button onClick={() => setViewMode('monthly')} className={`relative z-10 flex-1 py-2 text-xs font-bold transition-colors ${viewMode === 'monthly' ? 'text-foreground' : 'text-muted-foreground'}`}>Monthly</button>
+                </div>
+              </div>
 
-        {/* Info Section */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Compound Interest</h3>
-          </div>
-          <p className="text-muted-foreground mb-4">
-            Compound interest is the interest calculated on both the principal amount and the accumulated interest. 
-            The frequency of compounding (annually, quarterly, monthly, or daily) significantly affects the total amount earned.
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Formula: A = P(1 + r/n)^(nt), where A is the final amount, P is principal, r is annual interest rate, 
-            n is compounding frequency, and t is time in years.
-          </p>
-        </div>
+              {/* Sliding Content Container */}
+              
+            </div>
+            <div className="relative overflow-hidden h-[450px]">
+                <div 
+                  className="flex transition-transform duration-500 ease-in-out h-full"
+                  style={{ transform: `translateX(${viewMode === 'annual' ? '0%' : '-100%'})` }}
+                >
+                  {/* Yearly Table */}
+                  <div className="w-full flex-shrink-0 h-full overflow-y-auto px-4 py-2">
+                    <table className="w-full text-left border-separate border-spacing-y-2">
+                      <thead className="sticky top-0 bg-card z-10">
+                        <tr className="text-muted-foreground text-[10px] uppercase tracking-widest font-bold">
+                          <th className="p-4">Year</th>
+                          <th className="p-4">Interest Earned</th>
+                          <th className="p-4 text-right">Balance</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {results.schedule.filter(s => s.month % 12 === 0).map((row) => (
+                          <tr key={row.month} className="group transition-colors">
+                            <td className="p-4 bg-muted/30 rounded-l-2xl font-bold">Year {row.year}</td>
+                            <td className="p-4 bg-muted/30 text-emerald-600 font-medium">+{formatCurrency(row.interest)}</td>
+                            <td className="p-4 bg-muted/30 rounded-r-2xl text-right font-black truncate max-w-[150px]">{formatCurrency(row.balance)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
-        {/* Related Calculators */}
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <h3 className="font-semibold text-lg mb-6">Related Calculators</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/calculator/loan"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Loan Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate loan payments</p>
-            </Link>
-            <Link
-              href="/calculator/mortgage"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Mortgage Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate mortgage details</p>
-            </Link>
-            <Link
-              href="/calculator/payment"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Payment Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate payments</p>
-            </Link>
-            <Link
-              href="/calculator/auto-loan"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Auto Loan Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate auto loan details</p>
-            </Link>
-          </div>
-        </div>
+                  {/* Monthly Table */}
+                  <div className="w-full flex-shrink-0 h-full overflow-y-auto px-4 py-2">
+                    <table className="w-full text-left border-separate border-spacing-y-2">
+                      <thead className="sticky top-0 bg-card z-10">
+                        <tr className="text-muted-foreground text-[10px] uppercase tracking-widest font-bold">
+                          <th className="p-4">Month</th>
+                          <th className="p-4">Interest Earned</th>
+                          <th className="p-4 text-right">Balance</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {results.schedule.map((row) => (
+                          <tr key={row.month} className="group transition-colors">
+                            <td className="p-4 bg-muted/30 rounded-l-2xl font-bold">Month {row.month}</td>
+                            <td className="p-4 bg-muted/30 text-emerald-600 font-medium">+{formatCurrency(row.interest)}</td>
+                            <td className="p-4 bg-muted/30 rounded-r-2xl text-right font-black truncate max-w-[150px]">{formatCurrency(row.balance)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
       </div>
-
-      <Footer />
+      
+      <div className="print:hidden"><Footer /></div>
     </main>
   )
 }
