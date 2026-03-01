@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: 'Financial', href: '/calculators/financial' },
     { name: 'Health', href: '/calculators/fitness' },
     { name: 'Math', href: '/calculators/math' },
+    { name: 'Others', href: '/calculators/other' },
     { name: 'All', href: '/calculators' },
   ]
 

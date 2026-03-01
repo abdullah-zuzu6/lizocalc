@@ -37,6 +37,37 @@ const calculators = [
     href: '/calculator/payment',
     category: 'Payment',
   },
+  {
+    name: 'Compound Interest',
+    description: 'Convert interest rates and compare APY across different compounding frequencies.',
+    href: '/calculator/compound-interest',
+    category: 'Financial',
+  },
+  {
+    name: 'Inflation Calculator',
+    description: 'Calculate the effect of inflation on purchasing power over time.',
+    href: '/calculator/inflation',
+    category: 'Financial',
+  },
+  {
+    name: 'Salary Calculator',
+    description: 'Professional tool for adjusted and unadjusted income projections.',
+    href: '/calculator/salary',
+    category: 'Financial',
+  },
+  {
+    name: 'ROI Calculator',
+    description: 'Calculate return on investment and annualized returns.',
+    href: '/calculator/roi',
+    category: 'Financial',
+  },
+  {
+    name: 'Credit Card Calculator',
+    description: 'Calculate credit card payments, interest charges, and payoff timelines.',
+    href: '/calculator/creditcard',
+    category: 'Financial',
+  },
+
 ]
 
 export default function FinancialCalculators() {
