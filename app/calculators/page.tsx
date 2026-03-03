@@ -121,6 +121,41 @@ const allCalculators = [
     category: 'Fitness',
     icon: Heart,
   },
+  {
+    name: 'TDEE Calculator',
+    description: 'Calculate Total Daily Energy Expenditure',
+    href: '/calculator/tdee',
+    category: 'Fitness',
+    icon: Heart,
+  },
+  {
+    name: 'Macros Calculator',
+    description: 'Calculate protein, carbs, and fats needed for your goals',
+    href: '/calculator/macros',
+    category: 'Fitness',
+    icon: Heart,
+  },
+  {
+    name: 'Ideal Weight Calculator',
+    description: 'Calculate your ideal weight using various medical formulas',
+    href: '/calculator/ideal-weight',
+    category: 'Fitness',
+    icon: Heart,
+  },
+  {
+    name: 'Calorie Deficit Calculator',
+    description: 'Calculate the calorie deficit needed to reach your weight loss goals',
+    href: '/calculator/calorie-deficit',
+    category: 'Fitness',
+    icon: Heart,
+  },
+  {
+    name: 'BAC Calculator',
+    description: 'Calculate your Blood Alcohol Concentration based on consumption and time',
+    href: '/calculator/bac',
+    category: 'Fitness',
+    icon: Heart,
+  },
   // Math
   {
     name: 'Scientific Calculator',

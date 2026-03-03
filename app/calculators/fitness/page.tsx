@@ -31,6 +31,33 @@ const calculators = [
     href: '/calculator/bmr',
     category: 'Fitness',
   },
+  {
+    name: 'TDEE Calculator',
+    description: 'Calculate Total Daily Energy Expenditure based on activity level',
+    href: '/calculator/tdee',
+    category: 'Fitness',
+  },
+  {
+    name: 'Macros Calculator',
+    description: 'Calculate protein, carbs, and fats needed for your goals',
+    href: '/calculator/macros',
+    category: 'Fitness',
+  },
+  {
+    name: 'Calorie Deficit Calculator',
+    description: 'Calculate the calorie deficit needed to reach your weight loss goals',
+    href: '/calculator/calorie-deficit',
+    category: 'Fitness',
+  },
+  {
+    name: 'BAC Calculator',
+    description: 'Calculate your Blood Alcohol Concentration based on consumption and time',
+    href: '/calculator/bac',
+    category: 'Fitness',
+  },
+  
+
+  
 ]
 
 export default function FitnessCalculators() {
