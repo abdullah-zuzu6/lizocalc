@@ -37,6 +37,61 @@ const calculators = [
     href: '/calculator/gpa',
     category: 'Education',
   },
+  {
+    name: 'Grade Calculator ->',
+    description: 'Calculate the grade you need on a final exam to reach your target grade',
+    href: '/calculator/grade',
+    category: 'Education',
+  },
+  {
+    name: 'Ohm\'s Law Calculator ->',
+    description: 'Calculate Voltage, Current, Resistance, and Power',
+    href: '/calculator/ohms',
+    category: 'Education',
+  },
+  {
+    name: 'Sleep Calculator ->',
+    description: 'Calculate the best bedtime and wake-up times based on sleep cycles',
+    href: '/calculator/sleep',
+    category: 'Health',
+  },
+  {
+    name: 'GDP Calculator ->',
+    description: 'Calculate Gross Domestic Product using the expenditure approach',
+    href: '/calculator/gdp',
+    category: 'Health',
+  },
+  {
+    name: 'Density Calculator ->',
+    description: 'Calculate density, mass, or volume',
+    href: '/calculator/density',
+    category: 'Health',
+  },
+  {
+    name: 'Mass Calculator ->',
+    description: 'Calculate mass, weight, or force',
+    href: '/calculator/mass',
+    category: 'Health',
+  },
+  {
+    name: 'Speed Calculator ->',
+    description: 'Calculate average speed, travel time, or distance',
+    href: '/calculator/speed',
+    category: 'Health',
+  },
+  {
+    name: 'Weight Calculator ->',
+    description: 'Calculate weight on different celestial bodies',
+    href: '/calculator/weight',
+    category: 'Health',
+  },
+  {
+    name: 'Conversion Calculator ->',
+    description: 'Convert between different units of measurement',
+    href: '/calculator/conversion',
+    category: 'Health',
+  },
+  
 ]
 
 export default function OtherCalculators() {
