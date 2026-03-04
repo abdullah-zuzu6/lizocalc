@@ -25,6 +25,66 @@ const calculators = [
     href: '/calculator/percentage',
     category: 'Basic',
   },
+  {
+    name: 'Triangle Calculator',
+    description: 'Solve triangles using known sides and angles',
+    href: '/calculator/triangle',
+    category: 'Advanced',
+  },
+  {
+    name: 'Pythagorean Calculator',
+    description: 'Solve right triangles using the Pythagorean theorem',
+    href: '/calculator/pythagorean',
+    category: 'Advanced',
+  },
+ {
+    name: 'Half-Life Calculator',
+    description: 'Calculate remaining substance after a given time period',
+    href: '/calculator/half-life',
+    category: 'Advanced',
+  },
+  {
+    name: 'Binary Calculator',
+    description: 'Perform bitwise arithmetic and convert between binary, decimal, and hexadecimal',
+    href: '/calculator/binary',
+    category: 'Advanced',
+  },
+  {
+    name: 'Hex Calculator',
+    description: 'Perform arithmetic operations on hexadecimal values',
+    href: '/calculator/hex',
+    category: 'Advanced',
+  },
+  {
+    name: 'LCM Calculator',
+    description: 'Find the least common multiple of a set of integers',
+    href: '/calculator/lcm',
+    category: 'Advanced',
+  },
+   {
+    name: 'GCF Calculator',
+    description: 'Find the greatest common factor of a set of integers',
+    href: '/calculator/gcf',
+    category: 'Advanced',
+  },
+  {
+    name: 'Scientific Notation Calculator',
+    description: 'Convert numbers to and from scientific notation',
+    href: '/calculator/scientific-notation',
+    category: 'Advanced',
+  },
+  {
+    name: 'Permutation & Combination Calculator',
+    description: 'Calculate permutations and combinations of items',
+    href: '/calculator/per&com',
+    category: 'Advanced',
+  },
+  {
+    name: 'Z-Score Calculator',
+    description: 'Calculate z-scores and percentile ranks for normally distributed data',
+    href: '/calculator/z-score',
+    category: 'Advanced',
+  },
 ]
 
 export default function MathCalculators() {

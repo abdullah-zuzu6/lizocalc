@@ -55,6 +55,12 @@ const calculators = [
     href: '/calculator/bac',
     category: 'Fitness',
   },
+  {
+    name: 'Ideal Weight Calculator',
+    description: 'Calculate your ideal weight using various medical formulas',
+    href: '/calculator/ideal-weight',
+    category: 'Fitness',
+  },
   
 
   
