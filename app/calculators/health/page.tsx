@@ -10,59 +10,57 @@ const calculators = [
   {
     name: 'BMI Calculator',
     description: 'Calculate your Body Mass Index based on height and weight',
-    href: '/calculator/bmi',
+    href: '/calculators/health/bmi-calculator',
     category: 'Health',
   },
   {
     name: 'Calorie Calculator',
     description: 'Estimate daily calorie needs based on activity level and goals',
-    href: '/calculator/calorie',
-    category: 'Fitness',
+    href: '/calculators/health/calorie-calculator',
+    category: 'Health',
   },
   {
     name: 'Body Fat Calculator',
     description: 'Estimate body fat percentage using various methods',
-    href: '/calculator/body-fat',
+    href: '/calculators/health/body-fat-calculator',
     category: 'Health',
   },
   {
     name: 'BMR Calculator',
     description: 'Calculate Basal Metabolic Rate and daily energy expenditure',
-    href: '/calculator/bmr',
-    category: 'Fitness',
+    href: '/calculators/health/bmr-calculator',
+    category: 'Health',
   },
   {
     name: 'TDEE Calculator',
     description: 'Calculate Total Daily Energy Expenditure based on activity level',
-    href: '/calculator/tdee',
-    category: 'Fitness',
+    href: '/calculators/health/tdee-calculator',
+    category: 'Health',
   },
   {
     name: 'Macros Calculator',
     description: 'Calculate protein, carbs, and fats needed for your goals',
-    href: '/calculator/macros',
-    category: 'Fitness',
+    href: '/calculators/health/macros-calculator',
+    category: 'Health',
   },
   {
     name: 'Calorie Deficit Calculator',
     description: 'Calculate the calorie deficit needed to reach your weight loss goals',
-    href: '/calculator/calorie-deficit',
-    category: 'Fitness',
+    href: '/calculators/health/calorie-deficit-calculator',
+    category: 'Health',
   },
   {
     name: 'BAC Calculator',
     description: 'Calculate your Blood Alcohol Concentration based on consumption and time',
-    href: '/calculator/bac',
-    category: 'Fitness',
+    href: '/calculators/health/bac-calculator',
+    category: 'Health',
   },
   {
     name: 'Ideal Weight Calculator',
     description: 'Calculate your ideal weight using various medical formulas',
-    href: '/calculator/ideal-weight',
-    category: 'Fitness',
+    href: '/calculators/health/ideal-weight-calculator',
+    category: 'Health',
   },
-  
-
   
 ]
 

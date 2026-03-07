@@ -26,7 +26,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/calculators/fitness" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/calculators/health" className="text-muted-foreground hover:text-primary transition-colors">
                   Fitness & Health
                 </Link>
               </li>

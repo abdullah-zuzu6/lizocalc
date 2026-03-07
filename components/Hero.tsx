@@ -21,7 +21,7 @@ const slides = [
     icon: Heart,
     color: 'from-red-600 to-pink-400',
     cta: 'Explore Fitness',
-    href: '/calculators/fitness',
+    href: '/calculators/health',
      image: '/image-health-calc.jpg',
   },
   {

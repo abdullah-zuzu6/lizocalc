@@ -10,7 +10,7 @@ export default function Navbar() {
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'Financial', href: '/calculators/financial' },
-    { name: 'Health', href: '/calculators/fitness' },
+    { name: 'Health', href: '/calculators/health' },
     { name: 'Math', href: '/calculators/math' },
     { name: 'Others', href: '/calculators/other' },
     { name: 'All', href: '/calculators' },

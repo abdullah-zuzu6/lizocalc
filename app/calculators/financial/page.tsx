@@ -10,64 +10,77 @@ const calculators = [
   {
     name: 'Mortgage Calculator',
     description: 'Calculate monthly mortgage payments, total interest, and amortization schedules',
-    href: '/calculator/mortgage',
+    href: '/calculators/financial/mortgage-calculator',
     category: 'Loan',
   },
   {
     name: 'Loan Calculator',
     description: 'Determine loan payments, APR, and total interest costs',
-    href: '/calculator/loan',
+    href: '/calculators/financial/loan-calculator',
     category: 'Loan',
   },
   {
     name: 'Auto Loan Calculator',
     description: 'Calculate car loan payments with different terms and interest rates',
-    href: '/calculator/auto-loan',
+    href: '/calculators/financial/auto-loan-calculator',
     category: 'Loan',
   },
   {
     name: 'Interest Calculator',
     description: 'Calculate simple and compound interest on investments and savings',
-    href: '/calculator/interest',
+    href: '/calculators/financial/interest-calculator',
     category: 'Interest',
   },
   {
     name: 'Payment Calculator',
     description: 'Calculate payment schedules and installment plans',
-    href: '/calculator/payment',
+    href: '/calculators/financial/payment-calculator',
     category: 'Payment',
   },
   {
     name: 'Compound Interest',
     description: 'Convert interest rates and compare APY across different compounding frequencies.',
-    href: '/calculator/compound-interest',
+    href: '/calculators/financial/compound-interest-calculator',
     category: 'Financial',
+  },
+  {
+    name: '401k Calculator',
+    description: 'Calculate 401k contributions and retirement savings',
+    href: '/calculators/financial/401k-calculator',
+    category: 'Financial',
+
   },
   {
     name: 'Inflation Calculator',
     description: 'Calculate the effect of inflation on purchasing power over time.',
-    href: '/calculator/inflation',
+    href: '/calculators/financial/inflation-calculator',
     category: 'Financial',
   },
   {
     name: 'Salary Calculator',
     description: 'Professional tool for adjusted and unadjusted income projections.',
-    href: '/calculator/salary',
+    href: '/calculators/financial/salary-calculator',
     category: 'Financial',
   },
   {
     name: 'ROI Calculator',
     description: 'Calculate return on investment and annualized returns.',
-    href: '/calculator/roi',
+    href: '/calculators/financial/roi-calculator',
     category: 'Financial',
   },
   {
     name: 'Credit Card Calculator',
     description: 'Calculate credit card payments, interest charges, and payoff timelines.',
-    href: '/calculator/creditcard',
+    href: '/calculators/financial/credit-card-calculator',
     category: 'Financial',
   },
-
+  {
+    name: 'Sales Tax Calculator',
+    description: 'Calculate sales tax amounts and total costs',
+    href: '/calculators/financial/salestax-calculator',
+    category: 'Financial',
+    
+  },
 ]
 
 export default function FinancialCalculators() {
