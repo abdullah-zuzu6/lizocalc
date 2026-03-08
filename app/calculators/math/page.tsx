@@ -85,6 +85,12 @@ const calculators = [
     href: '/calculators/math/z-score-calculator',
     category: 'Advanced',
   },
+  {
+    name: 'Conversion Calculator',
+    description: 'Convert between different units of measurement',
+    href: '/calculators/math/conversion-calculator',
+    category: 'Advanced',
+  },
 ]
 
 export default function MathCalculators() {

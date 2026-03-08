@@ -4,72 +4,36 @@ import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { Search, ArrowLeft, Heart } from 'lucide-react'
+import { Search, ArrowLeft, Clock } from 'lucide-react'
 
 const calculators = [
   {
-    name: 'BMI Calculator',
-    description: 'Calculate your Body Mass Index based on height and weight',
-    href: '/calculators/health/bmi-calculator',
-    category: 'Health',
+    name: 'Age Calculator ->',
+    description: 'Calculate your age in years, months, and days',
+    href: '/calculators/time/age-calculator',
+    category: 'Time',
   },
   {
-    name: 'Calorie Calculator',
-    description: 'Estimate daily calorie needs based on activity level and goals',
-    href: '/calculators/health/calorie-calculator',
-    category: 'Health',
+    name: 'Date Calculator ->',
+    description: 'Add or subtract days from dates, calculate date differences',
+    href: '/calculators/time/date-calculator',
+    category: 'Time',
   },
   {
-    name: 'Body Fat Calculator',
-    description: 'Estimate body fat percentage using various methods',
-    href: '/calculators/health/body-fat-calculator',
-    category: 'Health',
+    name: 'Time Calculator ->',
+    description: 'Add and subtract time durations, convert time units',
+    href: '/calculators/time/time-calculator',
+    category: 'Time',
   },
   {
-    name: 'BMR Calculator',
-    description: 'Calculate Basal Metabolic Rate and daily energy expenditure',
-    href: '/calculators/health/bmr-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'TDEE Calculator',
-    description: 'Calculate Total Daily Energy Expenditure based on activity level',
-    href: '/calculators/health/tdee-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Macros Calculator',
-    description: 'Calculate protein, carbs, and fats needed for your goals',
-    href: '/calculators/health/macros-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Calorie Deficit Calculator',
-    description: 'Calculate the calorie deficit needed to reach your weight loss goals',
-    href: '/calculators/health/calorie-deficit-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'BAC Calculator',
-    description: 'Calculate your Blood Alcohol Concentration based on consumption and time',
-    href: '/calculators/health/bac-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Ideal Weight Calculator',
-    description: 'Calculate your ideal weight using various medical formulas',
-    href: '/calculators/health/ideal-weight-calculator',
-    category: 'Health',
-  },
-   {
-    name: 'Sleep Calculator',
-    description: 'Calculate your ideal sleep duration based on age and lifestyle',
-    href: '/calculators/health/sleep-calculator',
-    category: 'Health',
-  },
+    name: 'Hours Calculator ->',
+    description: 'Calculate working hours, billing time, and time tracking',
+    href: '/calculators/time/hours-calculator',
+    category: 'Time',
+  }
 ]
 
-export default function FitnessCalculators() {
+export default function OtherCalculators() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const filteredCalculators = useMemo(
@@ -97,11 +61,11 @@ export default function FitnessCalculators() {
             >
               <ArrowLeft className="w-6 h-6" />
             </Link>
-            <Heart className="w-8 h-8 text-red-500" />
-            <h1 className="text-4xl font-bold">Fitness & Health Calculators</h1>
+            <Clock className="w-8 h-8 text-green-500" />
+            <h1 className="text-4xl font-bold">Other Calculators</h1>
           </div>
           <p className="text-lg text-muted-foreground mb-8">
-            Track your fitness goals with our comprehensive health and fitness calculators. Calculate BMI, calories, body fat, and more.
+            Useful calculators for various purposes including time, dates, age, GPA, and more.
           </p>
 
           {/* Search */}
@@ -126,15 +90,15 @@ export default function FitnessCalculators() {
               <Link key={calc.href} href={calc.href}>
                 <div className="p-6 rounded-xl border border-border bg-card hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all group cursor-pointer">
                   <div className="flex items-start justify-between mb-4">
-                    <div className="p-2 rounded-lg bg-red-600/10">
-                      <Heart className="w-6 h-6 text-red-500" />
+                    <div className="p-2 rounded-lg bg-green-600/10">
+                      <Clock className="w-6 h-6 text-green-500" />
                     </div>
-                    <span className="text-xs font-semibold text-red-500 bg-red-600/10 px-3 py-1 rounded-full">
+                    <span className="text-xs font-semibold text-green-500 bg-green-600/10 px-3 py-1 rounded-full">
                       {calc.category}
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {calc.name}
+                    {calc.name }
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     {calc.description}

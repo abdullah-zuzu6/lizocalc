@@ -7,89 +7,25 @@ import Footer from '@/components/Footer'
 import { Search, ArrowLeft, Clock } from 'lucide-react'
 
 const calculators = [
-  {
-    name: 'Age Calculator ->',
-    description: 'Calculate your age in years, months, and days',
-    href: '/calculators/other/age-calculator',
-    category: 'Time',
-  },
-  {
-    name: 'Date Calculator ->',
-    description: 'Add or subtract days from dates, calculate date differences',
-    href: '/calculators/other/date-calculator',
-    category: 'Time',
-  },
-  {
-    name: 'Time Calculator ->',
-    description: 'Add and subtract time durations, convert time units',
-    href: '/calculators/other/time-calculator',
-    category: 'Time',
-  },
-  {
-    name: 'Hours Calculator ->',
-    description: 'Calculate working hours, billing time, and time tracking',
-    href: '/calculators/other/hours-calculator',
-    category: 'Time',
-  },
+  
+  
   {
     name: 'GPA Calculator ->',
     description: 'Calculate your Grade Point Average and weighted GPA',
-    href: '/calculators/other/gpa-calculator',
+    href: '/calculators/education/gpa-calculator',
     category: 'Education',
   },
   {
     name: 'Grade Calculator ->',
     description: 'Calculate the grade you need on a final exam to reach your target grade',
-    href: '/calculators/other/grade-calculator',
+    href: '/calculators/education/grade-calculator',
     category: 'Education',
   },
   {
     name: 'Ohm\'s Law Calculator ->',
     description: 'Calculate Voltage, Current, Resistance, and Power',
-    href: '/calculators/other/ohms-law-calculator',
+    href: '/calculators/education/ohms-law-calculator',
     category: 'Education',
-  },
-  {
-    name: 'Sleep Calculator ->',
-    description: 'Calculate the best bedtime and wake-up times based on sleep cycles',
-    href: '/calculators/other/sleep-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'GDP Calculator ->',
-    description: 'Calculate Gross Domestic Product using the expenditure approach',
-    href: '/calculators/other/gdp-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Density Calculator ->',
-    description: 'Calculate density, mass, or volume',
-    href: '/calculators/other/density-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Mass Calculator ->',
-    description: 'Calculate mass, weight, or force',
-    href: '/calculators/other/mass-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Speed Calculator ->',
-    description: 'Calculate average speed, travel time, or distance',
-    href: '/calculators/other/speed-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Weight Calculator ->',
-    description: 'Calculate weight on different celestial bodies',
-    href: '/calculators/other/weight-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Conversion Calculator ->',
-    description: 'Convert between different units of measurement',
-    href: '/calculators/other/conversion-calculator',
-    category: 'Health',
   },
   
 ]

@@ -77,7 +77,15 @@ const calculators = [
   {
     name: 'Sales Tax Calculator',
     description: 'Calculate sales tax amounts and total costs',
-    href: '/calculators/financial/salestax-calculator',
+    href: '/calculators/financial/sales-tax-calculator',
+    category: 'Financial',
+    
+  },
+
+  {
+    name: 'GDP Calculator',
+    description: 'Calculate Gross Domestic Product using the expenditure approach',
+    href: '/calculators/financial/gdp-calculator',
     category: 'Financial',
     
   },
