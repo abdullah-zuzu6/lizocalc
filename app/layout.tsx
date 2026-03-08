@@ -1,10 +1,9 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
-
 import './globals.css'
 import CookieBanner from '@/components/CookieBanner'
-
+import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -92,6 +91,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
         <CookieBanner />
+         <Analytics/>
       </body>
     </html>
   )
