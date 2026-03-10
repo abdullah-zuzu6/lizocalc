@@ -4,25 +4,38 @@ interface CalculatorMetadata {
   title: string
   description: string
   keywords: string[]
-  category: 'financial' | 'fitness' | 'math' | 'other'
+  category: 'financial' | 'fitness' | 'math' | 'education'|'time'|'physics'
   slug: string
 }
 
+// lib/seo.ts
+export function getCategoryPath(category: string): string {
+  const categoryMap: Record<string, string> = {
+    financial: '/calculators/financial',
+    health: '/calculators/health',
+    math: '/calculators/math',
+    time: '/calculators/time',
+    education: '/calculators/education',
+    physics: '/calculators/physics',
+  }
+  return categoryMap[category] || '/calculators'
+}
 export function generateCalculatorMetadata(config: CalculatorMetadata): Metadata {
-  const fullTitle = `${config.title} - Free Online Calculator | LizoCalculator`
+  const fullTitle = `${config.title} - Free Online Calculator | LizoCalc`
   const fullDescription = `${config.description} Fast and accurate calculations. No registration required.`
+  const calculatorUrl = `https://lizocalc.com${getCategoryPath(config.category)}/${config.slug}`
 
   return {
     title: fullTitle,
     description: fullDescription,
-    keywords: [...config.keywords, 'calculator', 'free online calculator', 'lizo calculator'],
-    authors: [{ name: 'LizoCalculator' }],
-    metadataBase: new URL('https://lizocalculator.com'),
+    keywords: [...config.keywords, 'calculator', 'free online calculator', 'lizo calc'],
+    authors: [{ name: 'LizoCalc' }],
+    metadataBase: new URL('https://lizocalc.com'),
     openGraph: {
       type: 'website',
       locale: 'en_US',
-      url: `https://lizocalculator.com/calculator/${config.slug}`,
-      siteName: 'LizoCalculator',
+      url: calculatorUrl,
+      siteName: 'LizoCalc',
       title: fullTitle,
       description: fullDescription,
       images: [
@@ -57,10 +70,10 @@ export function generateCalculatorMetadata(config: CalculatorMetadata): Metadata
 export function generateStructuredData(config: CalculatorMetadata) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'WebApplication',
+    '@type': 'SoftwareApplication',
     name: config.title,
     description: config.description,
-    url: `https://lizocalculator.com/calculator/${config.slug}`,
+    url: `https://lizocalc.com${getCategoryPath(config.category)}/${config.slug}`,
     applicationCategory: 'Productivity',
     offers: {
       '@type': 'Offer',
@@ -69,18 +82,8 @@ export function generateStructuredData(config: CalculatorMetadata) {
     },
     creator: {
       '@type': 'Organization',
-      name: 'LizoCalculator',
-      url: 'https://lizocalculator.com',
+      name: 'LizoCalc',
+      url: 'https://lizocalc.com',
     },
   }
-}
-
-export function getCategoryPath(category: string): string {
-  const categoryMap: Record<string, string> = {
-    financial: '/calculators/financial',
-    fitness: '/calculators/fitness',
-    math: '/calculators/math',
-    other: '/calculators/other',
-  }
-  return categoryMap[category] || '/calculators'
 }
