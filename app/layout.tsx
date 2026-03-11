@@ -1,86 +1,79 @@
-import React from "react"
-import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-import CookieBanner from '@/components/CookieBanner'
-import { Analytics } from "@vercel/analytics/react"
-const inter = Inter({ subsets: ['latin'] })
+import React from "react";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import './globals.css';
+import CookieBanner from '@/components/CookieBanner';
+import { Analytics } from "@vercel/analytics/react";
+
+const inter = Inter({ subsets: ['latin'] });
+const BASE_URL = 'https://lizocalc.com';
 
 export const metadata: Metadata = {
-  title: 'LizoCalc - Free Online Calculators for Financial, Fitness & Math',
-  description: 'Professional online calculators for financial planning, fitness tracking, mathematics, and more. Fast, accurate, and easy to use.',
-  keywords: 'calculator, mortgage calculator, loan calculator, BMI calculator, scientific calculator, free calculator online',
-  authors: [{ name: 'LizoCalculator' }],
-  metadataBase: new URL('https://lizocalculator.com'),
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'LizoCalc - Free Online Calculators for Financial, Fitness & Math',
+    template: '%s | LizoCalc',
+  },
+  description: 'Professional online calculators for financial planning, fitness tracking, mathematics, and more.',
+  keywords: ['calculator', 'mortgage calculator', 'loan calculator', 'BMI calculator'],
+  authors: [{ name: 'LizoCalc' }],
+  alternates: { canonical: BASE_URL },
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/logo.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://lizocalculator.com',
-    siteName: 'LizoCalculator',
-    title: 'LizoCalculator - Free Online Calculators',
+    url: BASE_URL,
+    siteName: 'LizoCalc',
+    title: 'LizoCalc - Free Online Calculators',
     description: 'Professional online calculators for all your calculation needs',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'LizoCalculator',
-      },
-    ],
+    images: [{ url: '/lizo-calc-logo.jpeg', width: 1200, height: 630, alt: 'LizoCalc' }],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-snippet': -1,
-      'max-image-preview': 'large',
-      'max-video-preview': -1,
-    },
-  },
-}
+  robots: { index: true, follow: true },
+};
 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
   themeColor: '#0d111f',
-}
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const organizationStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'LizoCalculator',
-    url: 'https://lizocalculator.com',
-    logo: 'https://lizocalculator.com/logo.png',
-    description: 'Professional online calculators for financial planning, fitness tracking, and mathematics',
+    name: 'LizoCalc',
+    url: BASE_URL,
+    logo: `${BASE_URL}/logo.png`,
     sameAs: [
-      'https://www.facebook.com/lizocalculator',
-      'https://twitter.com/lizocalculator',
-      'https://www.linkedin.com/company/lizocalculator',
+      'https://www.facebook.com/lizocalc',
+      'https://twitter.com/lizocalc',
     ],
-    contact: {
-      '@type': 'ContactPoint',
-      telephone: '+1-XXX-XXX-XXXX',
-      contactType: 'Customer Service',
-    },
-  }
+  };
 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="canonical" href="https://lizocalculator.com" />
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        {/* Favicons */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo.png" />
-        <link rel="manifest" href="/manifest.json" />
+        <link rel="mask-icon" href="/logo.png" color="#0d111f" />
         <meta name="theme-color" content="#0d111f" />
+
+        {/* PWA Manifest */}
+        <link rel="manifest" href="/manifest.json" />
+
+        {/* Organization Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -91,8 +84,8 @@ export default function RootLayout({
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
         <CookieBanner />
-         <Analytics/>
+        <Analytics />
       </body>
     </html>
-  )
+  );
 }

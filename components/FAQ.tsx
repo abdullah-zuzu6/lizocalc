@@ -92,7 +92,7 @@ export default function FAQ({ items, title = 'Frequently Asked Questions' }: FAQ
           ))}
         </div>
 
-        {/* Footer CTA */}
+        {/* Footer CTA
         <div className="mt-16 p-8 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
@@ -106,7 +106,7 @@ export default function FAQ({ items, title = 'Frequently Asked Questions' }: FAQ
               Get in Touch
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   )
