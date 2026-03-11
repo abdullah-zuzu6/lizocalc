@@ -1,16 +1,20 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { Home, DollarSign, TrendingDown, Table as TableIcon, LineChart as ChartIcon } from 'lucide-react'
+import { Home, DollarSign, BarChart3,TrendingDown, Table as TableIcon, LineChart as ChartIcon } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts'
-
-
-import BackButton from '@/components/BackButton'
-import FAQ from '@/components/FAQ'
 import RelatedCalculators from '@/components/RelatedCalculators'
+
+
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
 export default function AdvancedMortgageCalculator() {
+  const relatedCalculators = [
+    { name: 'Interest Calculator ', description: ' Calculate compound interest', href:'/calculators/financial/interest-calculator', icon: BarChart3 },
+    { name: 'Payment Calculator', description: ' Calculate your payments',  href:"/calculators/financial/payment-calculator", icon: TrendingDown },
+    { name: 'Loan Calculator', description: '   Calculate personal loan payments',  href:"/calculators/financial/loan-calculator", icon: TrendingDown },
+  ]
+
   // Core Inputs
   const [homePrice, setHomePrice] = useState(400000)
   const [downPayment, setDownPayment] = useState(80000)
@@ -296,6 +300,7 @@ export default function AdvancedMortgageCalculator() {
           </div>
 
         </div>
+         <RelatedCalculators calculators={relatedCalculators} />
       </section>
 
    

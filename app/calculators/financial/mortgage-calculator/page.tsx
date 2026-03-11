@@ -184,41 +184,7 @@ export default function MortgagePage() {
       <section className="px-4 py-8">
         <AdvancedMortgageCalculator />
 
-        <div className="bg-card rounded-2xl border border-border p-8 mt-8 max-w-6xl mx-auto">
-          <h3 className="font-semibold text-lg mb-6">Related Calculators</h3>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link
-              href="/calculators/financial/loan-calculator"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Loan Calculator</p>
-              <p className="text-sm text-muted-foreground">
-                Calculate personal loan payments
-              </p>
-            </Link>
-
-            <Link
-              href="/calculators/financial/interest-calculator"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Interest Calculator</p>
-              <p className="text-sm text-muted-foreground">
-                Calculate compound interest
-              </p>
-            </Link>
-
-            <Link
-              href="/calculators/financial/payment-calculator"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Payment Calculator</p>
-              <p className="text-sm text-muted-foreground">
-                Calculate payments
-              </p>
-            </Link>
-          </div>
-        </div>
+        
       </section>
 
       {/* SEO Content */}

@@ -6,7 +6,7 @@ import { Info, TrendingDown, BarChart3, PieChart as PieIcon, Calendar as TableIc
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
+
 import FAQ from '@/components/FAQ'
 import RelatedCalculators from '@/components/RelatedCalculators'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
