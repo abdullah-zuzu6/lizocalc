@@ -1,237 +1,189 @@
-'use client'
+import { Metadata } from "next";
+import { Hash } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
+import GCFCalculator from "./clientside"; // Imported as requested
 
-import { useState, useEffect, useMemo } from 'react'
-import { Hash, RotateCcw, Info, ChevronRight, Calculator, Zap, CheckCircle2, ListFilter, Box } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import RelatedCalculators from '@/components/RelatedCalculators'
+const faqData = [
+  {
+    question: "What is GCF?",
+    answer:
+      "GCF stands for Greatest Common Factor. It is the largest positive integer that divides each of the integers without a remainder.",
+  },
+  {
+    question: "How do you find the GCF of numbers?",
+    answer:
+      "The GCF can be calculated using prime factorization, the Euclidean algorithm, or by listing all factors of each number and finding the largest one they have in common.",
+  },
+  {
+    question: "What is the difference between GCF and LCM?",
+    answer:
+      "GCF is the largest factor that divides the numbers, while LCM (Least Common Multiple) is the smallest multiple that is divisible by the numbers.",
+  },
+];
 
-type GCFResult = {
-  gcf: number
-  numbers: number[]
-  allFactors: { [key: number]: number[] }
-  steps: string[]
-}
+export const metadata: Metadata = {
+  title: "GCF Calculator (Greatest Common Factor)",
+  description:
+    "Free GCF calculator to find the greatest common factor of two or more numbers instantly with step-by-step prime factorization.",
 
-export default function GCFCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
-  const [showResults, setShowResults] = useState(false)
+  keywords: [
+    "gcf calculator",
+    "greatest common factor calculator",
+    "find gcf online",
+    "hcf calculator",
+    "highest common factor tool",
+    "greatest common divisor calculator",
+  ],
 
-  // --- Input States ---
-  const [inputValues, setInputValues] = useState<string>('24, 36, 48')
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/math/gcf-calculator",
+  },
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  // --- Helper Functions ---
-  const getGCD = (a: number, b: number): number => {
-    a = Math.abs(a)
-    b = Math.abs(b)
-    while (b) {
-      a %= b
-      ;[a, b] = [b, a]
-    }
-    return a
-  }
+  openGraph: {
+    title: "GCF Calculator | LizoCalc",
+    description:
+      "Find the Greatest Common Factor (GCF) of numbers instantly using our free calculator.",
+    url: "https://lizocalc.com/calculators/math/gcf-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-  const getAllFactors = (n: number): number[] => {
-    const factors: number[] = []
-    for (let i = 1; i <= Math.sqrt(n); i++) {
-      if (n % i === 0) {
-        factors.push(i)
-        if (i !== n / i) factors.push(n / i)
-      }
-    }
-    return factors.sort((a, b) => a - b)
-  }
+  twitter: {
+    card: "summary_large_image",
+    title: "GCF Calculator | LizoCalc",
+    description:
+      "Calculate the Greatest Common Factor of numbers quickly using our free GCF calculator.",
+  },
+};
 
-  // --- Calculation Engine ---
-  const results = useMemo((): GCFResult | { error: string } | null => {
-    const nums = inputValues
-      .split(',')
-      .map(n => parseInt(n.trim()))
-      .filter(n => !isNaN(n) && n > 0)
-
-    if (nums.length < 2) return null
-    if (nums.some(n => n > 1000000)) return { error: "Please use numbers below 1,000,000." }
-
-    const finalGCF = nums.reduce((acc, curr) => getGCD(acc, curr))
-    
-    const factorMap: { [key: number]: number[] } = {}
-    nums.forEach(n => {
-      factorMap[n] = getAllFactors(n)
-    })
-
-    return {
-      gcf: finalGCF,
-      numbers: nums,
-      allFactors: factorMap,
-      steps: [
-        `Identify common factors for the set: ${nums.join(', ')}`,
-        `Apply Euclidean algorithm: GCD of inputs is ${finalGCF}`
-      ]
-    }
-  }, [inputValues])
-
-  if (!isMounted) return null
-
+export default function GCFPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <div className="mb-12 text-center md:text-left">
-          <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter uppercase">
-            GCF <span className="text-primary">Calculator</span>
+
+      {/* JSON-LD Structured Data */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "GCF Calculator",
+                    item: "https://lizocalc.com/calculators/math/gcf-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "SoftwareApplication",
+                name: "GCF Calculator",
+                applicationCategory: "EducationalApplication",
+                operatingSystem: "Any",
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto flex items-center gap-3">
+          <div className="p-3 rounded-lg bg-blue-600/10">
+            <Hash className="w-8 h-8 text-blue-500" />
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            GCF Calculator
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-            Find the Greatest Common Factor (GCF/GCD) for a set of numbers. Essential for simplifying fractions and factoring polynomials.
-          </p>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* LEFT BLOCK: Results Dashboard */}
-          <div className="lg:col-span-4 order-2 lg:order-1">
-            {showResults && results && !('error' in results) ? (
-              <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-                <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl relative overflow-hidden">
-                  <div className="relative z-10">
-                    <span className="text-[10px] font-bold uppercase tracking-widest opacity-70">Greatest Common Factor</span>
-                    <h3 className="text-6xl font-black mt-2 tracking-tighter">
-                      {results.gcf}
-                    </h3>
-                    <div className="mt-6 p-4 bg-white/10 rounded-2xl backdrop-blur-sm border border-white/10">
-                        <p className="text-[10px] uppercase font-bold opacity-60 mb-1">Numbers Processed</p>
-                        <p className="text-lg font-bold">{results.numbers.join(', ')}</p>
-                    </div>
-                  </div>
-                </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <GCFCalculator />
+      </section>
 
-                <div className="bg-card border border-border rounded-3xl p-6 shadow-sm overflow-hidden">
-                   <h4 className="text-[10px] font-black uppercase text-muted-foreground mb-4 tracking-widest">Factor Sets</h4>
-                   <div className="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
-                      {Object.entries(results.allFactors).map(([num, factors]) => (
-                        <div key={num} className="space-y-1">
-                          <span className="text-[10px] font-bold text-muted-foreground">Factors of {num}:</span>
-                          <div className="flex flex-wrap gap-1">
-                            {factors.map(f => (
-                                <span key={f} className={`px-2 py-0.5 rounded text-[10px] font-mono ${f === results.gcf ? 'bg-primary text-primary-foreground font-bold' : 'bg-muted text-muted-foreground'}`}>
-                                    {f}
-                                </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                   </div>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-muted/30 border-2 border-dashed border-border rounded-3xl p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
-                {results && 'error' in results ? (
-                    <div className="text-rose-500 space-y-2">
-                        <Info size={40} className="mx-auto" />
-                        <p className="text-xs font-bold uppercase tracking-widest">{results.error}</p>
-                    </div>
-                ) : (
-                    <>
-                        <Box size={48} className="opacity-10 mb-4" />
-                        <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Input Numbers to Start</p>
-                    </>
-                )}
-              </div>
-            )}
-          </div>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is the Greatest Common Factor (GCF)?
+        </h2>
 
-          {/* MAIN BLOCK: Inputs */}
-          <div className="lg:col-span-8 order-1 lg:order-2 space-y-6">
-            <section className="bg-card rounded-3xl border border-border p-6 md:p-10 shadow-xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
-                <Hash size={140} />
-              </div>
+        <p>
+          The Greatest Common Factor (GCF), also known as the Highest Common Factor (HCF) or Greatest Common Divisor (GCD), 
+          is the largest number that divides a set of numbers without leaving a remainder. It is a fundamental concept used 
+          to simplify fractions and factor algebraic expressions.
+        </p>
 
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-10">
-                  <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-                    <ListFilter size={20} />
-                  </div>
-                  <h2 className="text-xl font-bold tracking-tight">Integer Set</h2>
-                </div>
+        <h2>How to Calculate GCF</h2>
 
-                <div className="space-y-4">
-                  <div className="relative group">
-                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[10px] font-black uppercase text-muted-foreground">Values</div>
-                    <input 
-                      type="text" 
-                      value={inputValues} 
-                      onChange={(e) => {setInputValues(e.target.value); setShowResults(false)}}
-                      className="w-full pl-24 pr-4 py-6 bg-muted border-none rounded-2xl text-lg font-bold focus:ring-2 ring-primary/20 outline-none transition-all"
-                      placeholder="e.g. 12, 24, 48"
-                    />
-                  </div>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest ml-2">Use commas to separate multiple integers</p>
-                </div>
+        <p>
+          There are several reliable methods to find the GCF. The <strong>Prime Factorization method</strong> involves 
+          listing the prime factors of each number and multiplying the common ones. The <strong>Euclidean Algorithm</strong> 
+          is a more efficient method for larger numbers, involving repeated division until the remainder is zero.
+        </p>
 
-                <div className="mt-10 flex flex-col md:flex-row gap-4">
-                  <button 
-                    onClick={() => setShowResults(true)}
-                    className="flex-[2] py-4 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-primary/40 hover:shadow-2xl transition-all flex items-center justify-center gap-2"
-                  >
-                    Find GCF <CheckCircle2 size={18} />
-                  </button>
-                  <button 
-                    onClick={() => {setShowResults(false); setInputValues('');}}
-                    className="flex-1 py-4 bg-muted text-muted-foreground rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-muted/80 transition-all flex items-center justify-center gap-2"
-                  >
-                    <RotateCcw size={16} /> Reset
-                  </button>
-                </div>
-              </div>
-            </section>
-          </div>
-        </div>
+        <p>
+          Our GCF calculator uses advanced algorithms to provide you with instant results and the step-by-step 
+          factorization needed to understand the solution.
+        </p>
+      </article>
 
-        {/* --- Educational Content --- */}
-        <section className="mt-16 bg-card rounded-3xl border border-border p-8 md:p-12 shadow-sm">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div className="space-y-6">
-                    <h3 className="text-2xl font-black uppercase tracking-tight">How GCF Works</h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                        The Greatest Common Factor is the largest number that divides exactly into two or more numbers. It is often found by listing all factors or using the prime factorization method.
-                    </p>
-                    
-                    <div className="p-4 bg-primary/5 border border-primary/20 rounded-2xl">
-                        <code className="text-primary font-bold text-sm">Example: GCF(12, 18) = 6</code>
-                    </div>
-                </div>
-                <div className="space-y-6">
-                    <h3 className="text-2xl font-black uppercase tracking-tight">When to use GCF</h3>
-                    <div className="space-y-4">
-                        <TipItem text="Simplifying Fractions: Divide the numerator and denominator by their GCF to get the simplest form." />
-                        <TipItem text="Distribution: Organizing different items into the largest possible equal groups." />
-                        <TipItem text="Algebra: Factoring out common terms from equations or polynomials." />
-                    </div>
-                    
-                </div>
-            </div>
-        </section>
+      <FAQ items={faqData} />
 
-        <RelatedCalculators calculators={[
-          { name: 'LCM Calculator', description: 'Least Common Multiple', href: '/calculator/lcm', icon: Zap },
-          { name: 'Prime Factors', description: 'Find prime factorization', href: '/calculator/factors', icon: Hash }
-        ]} />
-      </div>
       <Footer />
     </main>
-  )
-}
-
-function TipItem({ text }: { text: string }) {
-  return (
-    <div className="flex gap-3 p-4 bg-muted/50 rounded-2xl border border-border text-sm leading-relaxed text-muted-foreground hover:border-primary/30 transition-colors">
-      <ChevronRight size={18} className="text-primary shrink-0" />
-      <p>{text}</p>
-    </div>
-  )
+  );
 }

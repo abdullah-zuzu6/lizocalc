@@ -9,6 +9,7 @@ export const calculators: Calculator[] = [
   { slug: 'bmi-calculator', category: 'health' },
   { slug: 'mortgage-calculator', category: 'financial' },
   { slug: 'scientific-calculator', category: 'math' },
+  { slug: 'lcm-calculator', category: 'math' },
   { slug: 'age-calculator', category: 'time' },
   { slug: 'gpa-calculator', category: 'education' },
   { slug: 'speed-calculator', category: 'physics' },
