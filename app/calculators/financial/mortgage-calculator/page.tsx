@@ -3,7 +3,6 @@ import AdvancedMortgageCalculator from "./clientside";
 import { Home } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import Link from "next/link";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 
@@ -21,7 +20,7 @@ const faqData = [
 ];
 
 export const metadata: Metadata = {
-  title: "Advanced Mortgage Calculator | LizoCalc",
+  title: "Advanced Mortgage Calculator ",
   description:
     "Use our advanced mortgage calculator to estimate monthly payments, interest, taxes, and insurance instantly.",
 
@@ -174,7 +173,7 @@ export default function MortgagePage() {
               <Home className="w-8 h-8 text-blue-500" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold">
-              Advanced Mortgage Calculator
+             Mortgage Calculator
             </h1>
           </div>
         </div>

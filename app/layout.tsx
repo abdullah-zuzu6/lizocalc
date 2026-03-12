@@ -10,10 +10,7 @@ const BASE_URL = 'https://lizocalc.com';
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
-  title: {
-    default: 'LizoCalc - Free Online Calculators for Financial, Fitness & Math',
-    template: '%s | LizoCalc',
-  },
+  title: { default: 'LizoCalc - Free Online Calculators for Financial, Fitness & Math', template: '%s | LizoCalc' },
   description: 'Professional online calculators for financial planning, fitness tracking, mathematics, and more.',
   keywords: ['calculator', 'mortgage calculator', 'loan calculator', 'BMI calculator'],
   authors: [{ name: 'LizoCalc' }],

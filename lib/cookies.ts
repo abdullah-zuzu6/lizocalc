@@ -24,7 +24,8 @@ export function setCookie(
   if (typeof document === 'undefined') return
 
   const {
-    maxAge = 365 * 24 * 60 * 60, // 1 year default
+   maxAge = 365 * 24 * 60 * 60, // 1 year default
+    
     path = '/',
     secure = true,
     sameSite = 'Lax',
