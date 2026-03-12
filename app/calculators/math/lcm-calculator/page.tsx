@@ -79,6 +79,8 @@ export default function LCMPage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/math/lcm-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
@@ -95,6 +97,12 @@ export default function LCMPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
+                    name: "Math Calculators",
+                    item: "https://lizocalc.com/calculators/math",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
                     name: "LCM Calculator",
                     item: "https://lizocalc.com/calculators/math/lcm-calculator",
                   },
@@ -133,9 +141,7 @@ export default function LCMPage() {
           <div className="p-3 rounded-lg bg-blue-600/10">
             <Hash className="w-8 h-8 text-blue-500" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold">
-            LCM Calculator
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold">LCM Calculator</h1>
         </div>
       </section>
 
@@ -156,14 +162,12 @@ export default function LCMPage() {
         prose-p:text-gray-600
         prose-p:leading-relaxed"
       >
-        <h2 className="text-3xl md:text-4xl font-bold">
-         What is LCM?
-        </h2>
+        <h2 className="text-3xl md:text-4xl font-bold">What is LCM?</h2>
 
         <p>
-          The Least Common Multiple (LCM) is the smallest number that is divisible
-          by two or more integers. It is commonly used in mathematics when working
-          with fractions, ratios, and repeating cycles.
+          The Least Common Multiple (LCM) is the smallest number that is
+          divisible by two or more integers. It is commonly used in mathematics
+          when working with fractions, ratios, and repeating cycles.
         </p>
 
         <h2>How to Calculate LCM</h2>

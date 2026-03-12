@@ -1,178 +1,185 @@
-'use client'
+import { Metadata } from "next";
+import { Hash } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
+import FractionCalculator from "./clientside";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+const faqData = [
+  {
+    question: "What is a fraction calculator?",
+    answer:
+      "A fraction calculator helps you perform operations like addition, subtraction, multiplication, and division on fractions and shows the simplified result.",
+  },
+  {
+    question: "How do you add fractions?",
+    answer:
+      "To add fractions, first make the denominators the same, then add the numerators and simplify the result.",
+  },
+  {
+    question: "Can this calculator simplify fractions?",
+    answer:
+      "Yes. The calculator automatically simplifies the fraction result to its lowest terms using the greatest common divisor (GCD).",
+  },
+];
 
-const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b))
-const simplifyFraction = (num: number, den: number) => {
-  const g = gcd(Math.abs(num), Math.abs(den))
-  return { numerator: num / g, denominator: den / g }
-}
+export const metadata: Metadata = {
+  title: "Fraction Calculator | Simplify, Add, Subtract, Multiply Fractions",
+  description:
+    "Free online fraction calculator to add, subtract, multiply, divide, and simplify fractions instantly with decimal conversion.",
+  keywords: [
+    "fraction calculator",
+    "simplify fractions",
+    "add fractions calculator",
+    "fraction to decimal calculator",
+    "math fraction tool",
+  ],
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/math/fraction-calculator",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Fraction Calculator | LizoCalc",
+    description:
+      "Perform fraction calculations instantly including addition, subtraction, multiplication, and division.",
+    url: "https://lizocalc.com/calculators/math/fraction-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fraction Calculator | LizoCalc",
+    description:
+      "Use our free fraction calculator to simplify and convert fractions quickly.",
+  },
+};
 
-export default function FractionCalculator() {
-  const [num1, setNum1] = useState<number>(1)
-  const [den1, setDen1] = useState<number>(2)
-  const [num2, setNum2] = useState<number>(1)
-  const [den2, setDen2] = useState<number>(3)
-  const [isMounted, setIsMounted] = useState(false)
-
-  // Load from cookies on mount
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['fraction']?.data) {
-      setNum1(history['fraction'].data.num1 || 1)
-      setDen1(history['fraction'].data.den1 || 2)
-      setNum2(history['fraction'].data.num2 || 1)
-      setDen2(history['fraction'].data.den2 || 3)
-    }
-  }, [])
-
-  // Save to cookies whenever values change
-  useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('fraction', { num1, den1, num2, den2 })
-    }
-  }, [num1, den1, num2, den2, isMounted])
-  const [operation, setOperation] = useState<'add' | 'subtract' | 'multiply' | 'divide'>('add')
-
-  const calculate = () => {
-    let resultNum = 0, resultDen = 1
-    
-    switch (operation) {
-      case 'add':
-        resultNum = num1 * den2 + num2 * den1
-        resultDen = den1 * den2
-        break
-      case 'subtract':
-        resultNum = num1 * den2 - num2 * den1
-        resultDen = den1 * den2
-        break
-      case 'multiply':
-        resultNum = num1 * num2
-        resultDen = den1 * den2
-        break
-      case 'divide':
-        resultNum = num1 * den2
-        resultDen = den1 * num2
-        break
-    }
-
-    const simplified = simplifyFraction(resultNum, resultDen)
-    const decimal = (resultNum / resultDen).toFixed(6)
-    
-    return { simplified, decimal }
-  }
-
-  const result = calculate()
-
+export default function FractionPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/math" />
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Fraction Calculator</h1>
-          <p className="text-lg text-muted-foreground">Add, subtract, multiply, and divide fractions</p>
-        </div>
+      {/* JSON-LD Structured Data */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/math/fraction-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Math Calculators",
+                    item: "https://lizocalc.com/calculators/math",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Fraction Calculator",
+                    item: "https://lizocalc.com/calculators/math/fraction-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "SoftwareApplication",
+                name: "Fraction Calculator",
+                applicationCategory: "EducationalApplication",
+                operatingSystem: "Any",
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-8">
-            {/* First Fraction */}
-            <div className="bg-background rounded-lg p-6 border border-border">
-              <label className="block text-sm font-semibold mb-4">First Fraction</label>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <input type="number" value={num1} onChange={(e) => setNum1(Number(e.target.value))} placeholder="Numerator" className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground" />
-                  <div className="border-t border-border my-2"></div>
-                  <input type="number" value={den1} onChange={(e) => setDen1(Number(e.target.value))} placeholder="Denominator" className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground" />
-                </div>
-                <div className="text-2xl font-bold text-muted-foreground">=</div>
-                <div className="text-xl font-semibold text-primary">{(num1 / den1).toFixed(4)}</div>
-              </div>
-            </div>
-
-            {/* Operation */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">Operation</label>
-              <div className="grid grid-cols-4 gap-2">
-                {(['add', 'subtract', 'multiply', 'divide'] as const).map((op) => (
-                  <button key={op} onClick={() => setOperation(op)} className={`py-2 px-3 rounded-lg border font-medium transition-all capitalize ${operation === op ? 'border-primary bg-primary/10 text-primary' : 'border-border bg-background hover:border-primary/50'}`}>
-                    {op === 'add' && '+'}{op === 'subtract' && '−'}{op === 'multiply' && '×'}{op === 'divide' && '÷'}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Second Fraction */}
-            <div className="bg-background rounded-lg p-6 border border-border">
-              <label className="block text-sm font-semibold mb-4">Second Fraction</label>
-              <div className="flex items-center gap-4">
-                <div className="flex-1">
-                  <input type="number" value={num2} onChange={(e) => setNum2(Number(e.target.value))} placeholder="Numerator" className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground" />
-                  <div className="border-t border-border my-2"></div>
-                  <input type="number" value={den2} onChange={(e) => setDen2(Number(e.target.value))} placeholder="Denominator" className="w-full px-4 py-2 bg-card border border-border rounded-lg text-foreground" />
-                </div>
-                <div className="text-2xl font-bold text-muted-foreground">=</div>
-                <div className="text-xl font-semibold text-primary">{(num2 / den2).toFixed(4)}</div>
-              </div>
-            </div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto flex items-center gap-3">
+          <div className="p-3 rounded-lg bg-blue-600/10">
+            <Hash className="w-8 h-8 text-blue-500" />
           </div>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            Fraction Calculator
+          </h1>
         </div>
+      </section>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Simplified Result</p>
-            <div className="text-3xl font-bold text-primary">
-              {result.simplified.numerator}/{result.simplified.denominator}
-            </div>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Decimal Form</p>
-            <p className="text-3xl font-bold text-accent">{result.decimal}</p>
-          </div>
-        </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <FractionCalculator />
+      </section>
 
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Fractions</h3>
-          </div>
-          <p className="text-muted-foreground">This calculator simplifies fractions to their lowest terms automatically and displays results as both fractions and decimals.</p>
-        </div>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold" >What is a Fraction?</h2>
 
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <h3 className="font-semibold text-lg mb-6">Related Calculators</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link href="/calculator/percentage" className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all">
-              <p className="font-medium">Percentage Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate percentages</p>
-            </Link>
-            <Link href="/calculator/scientific" className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all">
-              <p className="font-medium">Scientific Calculator</p>
-              <p className="text-sm text-muted-foreground">Advanced calculations</p>
-            </Link>
-          </div>
-        </div>
-      </div>
+        <p>
+          A fraction represents a part of a whole and consists of a numerator
+          and a denominator. The numerator shows how many parts are taken, while
+          the denominator represents the total number of equal parts.
+        </p>
+
+        <h2>How to Use the Fraction Calculator</h2>
+
+        <p>
+          Enter the numerator and denominator for both fractions, choose the
+          operation (addition, subtraction, multiplication, or division), and
+          press calculate. The tool will display the simplified fraction and its
+          decimal value instantly.
+        </p>
+      </article>
+
+      <FAQ items={faqData} />
 
       <Footer />
     </main>
-  )
+  );
 }

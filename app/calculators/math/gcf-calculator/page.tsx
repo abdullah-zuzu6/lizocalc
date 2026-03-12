@@ -80,6 +80,8 @@ export default function GCFPage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/math/gcf-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
@@ -96,6 +98,12 @@ export default function GCFPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
+                    name: "Math Calculators",
+                    item: "https://lizocalc.com/calculators/math",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
                     name: "GCF Calculator",
                     item: "https://lizocalc.com/calculators/math/gcf-calculator",
                   },
@@ -134,9 +142,7 @@ export default function GCFPage() {
           <div className="p-3 rounded-lg bg-blue-600/10">
             <Hash className="w-8 h-8 text-blue-500" />
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold">
-            GCF Calculator
-          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold">GCF Calculator</h1>
         </div>
       </section>
 
@@ -162,22 +168,28 @@ export default function GCFPage() {
         </h2>
 
         <p>
-          The Greatest Common Factor (GCF), also known as the Highest Common Factor (HCF) or Greatest Common Divisor (GCD), 
-          is the largest number that divides a set of numbers without leaving a remainder. It is a fundamental concept used 
-          to simplify fractions and factor algebraic expressions.
+          The Greatest Common Factor (GCF), also known as the Highest Common
+          Factor (HCF) or Greatest Common Divisor (GCD), is the largest number
+          that divides a set of numbers without leaving a remainder. It is a
+          fundamental concept used to simplify fractions and factor algebraic
+          expressions.
         </p>
 
         <h2>How to Calculate GCF</h2>
 
         <p>
-          There are several reliable methods to find the GCF. The <strong>Prime Factorization method</strong> involves 
-          listing the prime factors of each number and multiplying the common ones. The <strong>Euclidean Algorithm</strong> 
-          is a more efficient method for larger numbers, involving repeated division until the remainder is zero.
+          There are several reliable methods to find the GCF. The{" "}
+          <strong>Prime Factorization method</strong> involves listing the prime
+          factors of each number and multiplying the common ones. The{" "}
+          <strong>Euclidean Algorithm</strong>
+          is a more efficient method for larger numbers, involving repeated
+          division until the remainder is zero.
         </p>
 
         <p>
-          Our GCF calculator uses advanced algorithms to provide you with instant results and the step-by-step 
-          factorization needed to understand the solution.
+          Our GCF calculator uses advanced algorithms to provide you with
+          instant results and the step-by-step factorization needed to
+          understand the solution.
         </p>
       </article>
 
