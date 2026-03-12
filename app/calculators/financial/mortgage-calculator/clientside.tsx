@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { Home, DollarSign, BarChart3,TrendingDown, Table as TableIcon, LineChart as ChartIcon } from 'lucide-react'
+import { BarChart3,TrendingDown, Table as TableIcon, LineChart as ChartIcon } from 'lucide-react'
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts'
 import RelatedCalculators from '@/components/RelatedCalculators'
 

@@ -1,169 +1,175 @@
-'use client'
+import { Metadata } from "next";
+import PercentageCalculator from "./clientside";
+import { Percent } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+const faqData = [
+  {
+    question: "How do I calculate a percentage of a number?",
+    answer:
+      "To calculate a percentage of a number, multiply the number by the percentage value and divide by 100. For example, 10% of 100 is (10 * 100) / 100 = 10.",
+  },
+  {
+    question:
+      "What is the difference between percentage change and difference?",
+    answer:
+      "Percentage change measures the increase or decrease relative to an original value, whereas percentage difference measures the relative difference between two values compared to their average.",
+  },
+];
 
-export default function PercentageCalculator() {
-  const [calcMode, setCalcMode] = useState<'percentage' | 'discount' | 'increase'>('percentage')
-  const [value, setValue] = useState<number>(100)
-  const [percent, setPercent] = useState<number>(20)
-  const [original, setOriginal] = useState<number>(100)
-  const [isMounted, setIsMounted] = useState(false)
+export const metadata: Metadata = {
+  title: "Percentage Calculator | Calculate Percentages Instantly",
+  description:
+    "Free online percentage calculator. Instantly calculate percentage of a number, percentage change, percentage difference, and more with our easy-to-use tool.",
+  keywords: [
+    "percentage calculator",
+    "percent off calculator",
+    "percentage change calculator",
+    "percentage difference",
+    "calculate percentage",
+  ],
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/math/percentage-calculator",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Percentage Calculator | LizoCalc",
+    description:
+      "Easily calculate percentages for math, business, and daily tasks.",
+    url: "https://lizocalc.com/calculators/math/percentage-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
+};
 
-  // Load from cookies on mount
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['percentage']?.data) {
-      setCalcMode(history['percentage'].data.calcMode || 'percentage')
-      setValue(history['percentage'].data.value || 100)
-      setPercent(history['percentage'].data.percent || 20)
-      setOriginal(history['percentage'].data.original || 100)
-    }
-  }, [])
-
-  // Save to cookies whenever values change
-  useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('percentage', { calcMode, value, percent, original })
-    }
-  }, [calcMode, value, percent, original, isMounted])
-
-  const calculatePercentage = (val: number, pct: number) => (val * pct) / 100
-  const result = calculatePercentage(value, percent)
-
+export default function PercentagePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/math" />
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Percentage Calculator</h1>
-          <p className="text-lg text-muted-foreground">Calculate percentages, discounts, and percentage changes</p>
-        </div>
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/math/percentage-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Math Calculators",
+                    item: "https://lizocalc.com/calculators/math",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Percentage Calculator",
+                    item: "https://lizocalc.com/calculators/math/percentage-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id":
+                  "https://lizocalc.com/calculators/math/percentage-calculator",
+                url: "https://lizocalc.com/calculators/math/percentage-calculator",
+                name: "Percentage Calculator",
+                description:
+                  "Free online percentage calculator for all your math needs.",
+                inLanguage: "en",
+                isPartOf: {
+                  "@type": "WebSite",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/math/percentage-calculator#app",
+                name: "Percentage Calculator",
+                applicationCategory: "EducationApplication",
+                operatingSystem: "Any",
+                featureList: [
+                  "Percentage of number",
+                  "Percentage change",
+                  "Percentage difference",
+                ],
+                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: { "@type": "Answer", text: item.answer },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          {/* Calculation Mode */}
-          <div className="mb-8">
-            <label className="block text-sm font-semibold mb-3">Calculation Type</label>
-            <div className="grid grid-cols-3 gap-2">
-              {(['percentage', 'discount', 'increase'] as const).map((mode) => (
-                <button key={mode} onClick={() => setCalcMode(mode)} className={`py-2 px-3 rounded-lg border font-medium transition-all capitalize ${calcMode === mode ? 'border-primary bg-primary/10 text-primary' : 'border-border bg-background hover:border-primary/50'}`}>
-                  {mode === 'percentage' && 'Percentage'}{mode === 'discount' && 'Discount'}{mode === 'increase' && 'Increase'}
-                </button>
-              ))}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Percent className="w-8 h-8 text-blue-500" />
             </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Percentage Calculator
+            </h1>
           </div>
-
-          <div className="space-y-8">
-            {calcMode === 'percentage' && (
-              <>
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Value: {value}</label>
-                  <input type="range" min="0" max="10000" step="1" value={value} onChange={(e) => setValue(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-                  <input type="number" value={value} onChange={(e) => setValue(Number(e.target.value))} className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Percentage: {percent}%</label>
-                  <input type="range" min="0" max="100" step="0.1" value={percent} onChange={(e) => setPercent(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-                  <input type="number" value={percent} onChange={(e) => setPercent(Number(e.target.value))} step="0.1" className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-                </div>
-              </>
-            )}
-
-            {calcMode === 'discount' && (
-              <>
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Original Price: ${original}</label>
-                  <input type="range" min="0" max="10000" step="1" value={original} onChange={(e) => setOriginal(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-                  <input type="number" value={original} onChange={(e) => setOriginal(Number(e.target.value))} className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Discount: {percent}%</label>
-                  <input type="range" min="0" max="100" step="0.1" value={percent} onChange={(e) => setPercent(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-                  <input type="number" value={percent} onChange={(e) => setPercent(Number(e.target.value))} step="0.1" className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-                </div>
-              </>
-            )}
-
-            {calcMode === 'increase' && (
-              <>
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Original Amount: {original}</label>
-                  <input type="range" min="0" max="10000" step="1" value={original} onChange={(e) => setOriginal(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-                  <input type="number" value={original} onChange={(e) => setOriginal(Number(e.target.value))} className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold mb-3">Increase: {percent}%</label>
-                  <input type="range" min="0" max="200" step="0.1" value={percent} onChange={(e) => setPercent(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-                  <input type="number" value={percent} onChange={(e) => setPercent(Number(e.target.value))} step="0.1" className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-                </div>
-              </>
-            )}
-          </div>
         </div>
+      </section>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 gap-6 mb-8">
-          {calcMode === 'percentage' && (
-            <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-              <p className="text-muted-foreground text-sm mb-2">{percent}% of {value}</p>
-              <p className="text-4xl font-bold text-primary">{result.toFixed(2)}</p>
-            </div>
-          )}
+      <section className="px-4 py-8">
+        <PercentageCalculator />
+      </section>
 
-          {calcMode === 'discount' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-                <p className="text-muted-foreground text-sm mb-2">Discount Amount</p>
-                <p className="text-4xl font-bold text-accent">${(original * percent / 100).toFixed(2)}</p>
-              </div>
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-                <p className="text-muted-foreground text-sm mb-2">Final Price</p>
-                <p className="text-4xl font-bold text-primary">${(original - original * percent / 100).toFixed(2)}</p>
-              </div>
-            </div>
-          )}
+      <article className="max-w-6xl mx-auto px-6 py-16 prose prose-blue prose-lg lg:prose-xl">
+        <h2 className="text-3xl font-bold">Understanding Percentages</h2>
+        <p>
+          Percentages are a fundamental part of daily life, used in everything
+          from calculating discounts at a store to understanding complex
+          financial interest rates. Our percentage calculator simplifies these
+          calculations so you don't have to worry about manual formulas.
+        </p>
 
-          {calcMode === 'increase' && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-                <p className="text-muted-foreground text-sm mb-2">Increase Amount</p>
-                <p className="text-4xl font-bold text-accent">{(original * percent / 100).toFixed(2)}</p>
-              </div>
-              <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-                <p className="text-muted-foreground text-sm mb-2">New Amount</p>
-                <p className="text-4xl font-bold text-primary">{(original + original * percent / 100).toFixed(2)}</p>
-              </div>
-            </div>
-          )}
-        </div>
+        <h3>Why use our Percentage Calculator?</h3>
+        <p>
+          Whether you are a student, a professional, or just someone trying to
+          split a bill, our tool provides instant, accurate results for all your
+          percentage-related needs.
+        </p>
+      </article>
 
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Percentage Calculations</h3>
-          </div>
-          <p className="text-muted-foreground">Use this calculator to quickly calculate percentages of any number, apply discounts, or calculate percentage increases. Perfect for shopping, taxes, and financial calculations.</p>
-        </div>
-      </div>
-
+      <FAQ items={faqData} />
       <Footer />
     </main>
-  )
+  );
 }

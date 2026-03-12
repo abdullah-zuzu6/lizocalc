@@ -1,367 +1,241 @@
-"use client";
 
-import { useState, useEffect } from "react";
-import Navbar from "@/components/Navbar";
+import { Metadata } from "next";
+import CasioCalculatorAdvanced from "./clientside";
+import { Calculator } from "lucide-react";
 import Footer from "@/components/Footer";
-import BackButton from "@/components/BackButton";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-export default function CasioCalculatorAdvanced() {
-  const [expression, setExpression] = useState("");
-  const [display, setDisplay] = useState("0");
-  const [angleMode, setAngleMode] = useState<"DEG" | "RAD">("DEG");
-  const [memory, setMemory] = useState(0);
-  const [ans, setAns] = useState(0);
-  const [history, setHistory] = useState<string[]>([]);
+const faqData = [
+  {
+    question: "How do I use the scientific calculator?",
+    answer:
+      "Simply use the calculator buttons to enter numbers and functions. The calculator supports arithmetic operations, trigonometric functions, logarithms, square roots, and memory features. You can switch between degree and radian modes using the DEG/RAD toggle.",
+  },
+  {
+    question: "Does this calculator save my calculations?",
+    answer:
+      "Yes. The calculator stores your last 10 calculations in the history section so you can review previous results even after refreshing the page.",
+  },
+];
 
-  // Load history from localStorage
-  useEffect(() => {
-    const savedHistory = localStorage.getItem("calcHistory");
-    if (savedHistory) setHistory(JSON.parse(savedHistory));
-  }, []);
+export const metadata: Metadata = {
+  title: "Scientific Calculator",
+  description:
+    "Free online scientific calculator for advanced mathematical calculations including trigonometry, logarithms, square roots, and more.",
 
-  // Keyboard support
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      const key = e.key;
-      if (!isNaN(Number(key)) || key === ".") input(key);
-      if (key === "+" || key === "-" || key === "*" || key === "/") input(key);
-      if (key === "Enter") calculate();
-      if (key === "Backspace") backspace();
-      if (key === "Delete") clear();
-      if (key === "(" || key === ")") input(key);
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [expression, display]);
+  keywords: [
+    "scientific calculator",
+    "advanced calculator",
+    "math calculator",
+    "trigonometry calculator",
+    "online scientific calculator",
+  ],
 
-  const input = (val: string) => {
-    setExpression((prev) => prev + val);
-    setDisplay((prev) => (prev === "0" ? val : prev + val));
-  };
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/math/scientific-calculator",
+  },
 
-  const clear = () => {
-    setExpression("");
-    setDisplay("0");
-  };
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  const backspace = () => {
-    setExpression((prev) => prev.slice(0, -1));
-    setDisplay((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
-  };
+  openGraph: {
+    title: "Scientific Calculator | LizoCalc",
+    description:
+      "Use our advanced scientific calculator to perform complex mathematical calculations online for free.",
+    url: "https://lizocalc.com/calculators/math/scientific-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-  const sci = (fn: string) => {
-    switch (fn) {
-      case "sin":
-        input("sin(");
-        break;
-      case "cos":
-        input("cos(");
-        break;
-      case "tan":
-        input("tan(");
-        break;
-      case "asin":
-        input("asin(");
-        break;
-      case "acos":
-        input("acos(");
-        break;
-      case "atan":
-        input("atan(");
-        break;
-      case "sqrt":
-        input("√(");
-        break;
-      case "log":
-        input("log(");
-        break;
-      case "ln":
-        input("ln(");
-        break;
-      case "pi":
-        input("π");
-        break;
-      case "x²":
-        input("^2");
-        break;
-      case "1/x":
-        input("1/(");
-        break;
-      case "exp":
-        input("exp(");
-        break;
-    }
-  };
+  twitter: {
+    card: "summary_large_image",
+    title: "Scientific Calculator | LizoCalc",
+    description:
+      "Free scientific calculator for trigonometry, logarithms, square roots, and advanced math operations.",
+  },
+};
 
-  const calculate = () => {
-    try {
-      let exp = expression;
-      exp = exp.replace(/sin\(/g, "Math.sin(");
-      exp = exp.replace(/cos\(/g, "Math.cos(");
-      exp = exp.replace(/tan\(/g, "Math.tan(");
-      exp = exp.replace(/asin\(/g, "Math.asin(");
-      exp = exp.replace(/acos\(/g, "Math.acos(");
-      exp = exp.replace(/atan\(/g, "Math.atan(");
-      exp = exp.replace(/√/g, "Math.sqrt");
-      exp = exp.replace(/π/g, "Math.PI");
-      exp = exp.replace(/log\(/g, "Math.log10(");
-      exp = exp.replace(/ln\(/g, "Math.log(");
-      exp = exp.replace(/exp\(/g, "Math.exp(");
-      exp = exp.replace(/Ans/g, ans.toString());
-      exp = exp.replace(/\^2/g, "**2");
-
-      if (angleMode === "DEG") {
-        exp = exp.replace(
-          /Math\.sin\(([^)]+)\)/g,
-          "Math.sin(($1)*Math.PI/180)",
-        );
-        exp = exp.replace(
-          /Math\.cos\(([^)]+)\)/g,
-          "Math.cos(($1)*Math.PI/180)",
-        );
-        exp = exp.replace(
-          /Math\.tan\(([^)]+)\)/g,
-          "Math.tan(($1)*Math.PI/180)",
-        );
-        exp = exp.replace(
-          /Math\.asin\(([^)]+)\)/g,
-          "(Math.asin($1)*180/Math.PI)",
-        );
-        exp = exp.replace(
-          /Math\.acos\(([^)]+)\)/g,
-          "(Math.acos($1)*180/Math.PI)",
-        );
-        exp = exp.replace(
-          /Math\.atan\(([^)]+)\)/g,
-          "(Math.atan($1)*180/Math.PI)",
-        );
-      }
-
-      const result = eval(exp);
-      setDisplay(String(result));
-      setExpression(String(result));
-      setAns(result);
-      const newHistory = [expression + " = " + result, ...history].slice(0, 10);
-      setHistory(newHistory);
-      localStorage.setItem("calcHistory", JSON.stringify(newHistory));
-    } catch {
-      setDisplay("Error");
-    }
-  };
-
-  // Memory functions
-  const memoryAdd = () => setMemory((prev) => prev + Number(display));
-  const memorySubtract = () => setMemory((prev) => prev - Number(display));
-  const memoryRecall = () => input(memory.toString());
-  const memoryClear = () => setMemory(0);
-
-  const clearHistory = () => {
-    setHistory([]);
-    localStorage.removeItem("calcHistory");
-  };
-
+export default function ScientificPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          <BackButton href="/calculators/math" />
-          <h1 className="text-4xl font-bold mt-4 mb-6">
-            Scientific Calculator
-          </h1>
+      {/* === STRUCTURED DATA === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/math/scientific-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Math Calculators",
+                    item: "https://lizocalc.com/calculators/math",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Scientific Calculator",
+                    item: "https://lizocalc.com/calculators/math/scientific-calculator",
+                  },
+                ],
+              },
 
-          <div className="flex justify-center">
-            <div className="bg-card border border-border rounded-3xl p-6 w-[380px] shadow-2xl">
-              {/* Dual display */}
-              <div className="bg-background p-2 rounded mb-2 text-sm text-muted-foreground overflow-x-auto">
-                {expression || "0"}
-              </div>
-              <div className="bg-background p-4 rounded mb-4 text-3xl font-bold text-foreground overflow-x-auto">
-                {display}
-              </div>
+              {
+                "@type": "WebPage",
+                "@id":
+                  "https://lizocalc.com/calculators/math/scientific-calculator",
+                url: "https://lizocalc.com/calculators/math/scientific-calculator",
+                name: "Scientific Calculator",
+                description:
+                  "Free scientific calculator for advanced math operations including trigonometry, logarithms, and square roots.",
+                inLanguage: "en",
+                isPartOf: {
+                  "@type": "WebSite",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
 
-              {/* Memory + Angle */}
-              <div className="grid grid-cols-6 gap-2 mb-3">
-                <button className="btn-calc" onClick={memoryAdd}>
-                  M+
-                </button>
-                <button className="btn-calc" onClick={memorySubtract}>
-                  M-
-                </button>
-                <button className="btn-calc" onClick={memoryRecall}>
-                  MR
-                </button>
-                <button className="btn-calc" onClick={memoryClear}>
-                  MC
-                </button>
-                <button className="btn-calc" onClick={() => input("Ans")}>
-                  Ans
-                </button>
-                <button
-                  className={`font-bold text-white py-2 rounded ${angleMode === "DEG" ? "bg-green-500" : "bg-red-500"}`}
-                  onClick={() =>
-                    setAngleMode(angleMode === "DEG" ? "RAD" : "DEG")
-                  }
-                >
-                  {angleMode}
-                </button>
-              </div>
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/math/scientific-calculator#app",
+                name: "Scientific Calculator",
+                url: "https://lizocalc.com/calculators/math/scientific-calculator",
+                description:
+                  "Online scientific calculator that supports trigonometry, logarithms, square roots, and advanced mathematical calculations.",
+                applicationCategory: "EducationalApplication",
+                applicationSubCategory: "Math Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Trigonometric calculations",
+                  "Logarithms and natural logs",
+                  "Square root and exponent operations",
+                  "Memory functions (M+, M-, MR, MC)",
+                  "Calculation history",
+                  "Degree and radian modes",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
 
-              {/* Scientific buttons */}
-              <div className="grid grid-cols-5 gap-2 mb-3">
-                {[
-                  "sin",
-                  "cos",
-                  "tan",
-                  "asin",
-                  "acos",
-                  "atan",
-                  "sqrt",
-                  "log",
-                  "ln",
-                  "pi",
-                  "x²",
-                  "1/x",
-                  "exp",
-                  "(",
-                  " )",
-                ].map((btn) => (
-                  <button
-                    key={btn}
-                    className="btn-func"
-                    onClick={() => sci(btn)}
-                  >
-                    {btn === "asin"
-                      ? "sin⁻¹"
-                      : btn === "acos"
-                        ? "cos⁻¹"
-                        : btn === "atan"
-                          ? "tan⁻¹"
-                          : btn}
-                  </button>
-                ))}
-              </div>
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-              {/* Digits + operators */}
-              <div className="grid grid-cols-4 gap-2">
-                {[
-                  "7",
-                  "8",
-                  "9",
-                  "/",
-                  "4",
-                  "5",
-                  "6",
-                  "*",
-                  "1",
-                  "2",
-                  "3",
-                  "-",
-                  "0",
-                  ".",
-                  "+",
-                  "=",
-                ].map((btn) => (
-                  <button
-                    key={btn}
-                    className={
-                      btn === "="
-                        ? "btn-equal"
-                        : /[/*\-+]/.test(btn)
-                          ? "btn-op"
-                          : "btn-num"
-                    }
-                    onClick={() => (btn === "=" ? calculate() : input(btn))}
-                  >
-                    {btn}
-                  </button>
-                ))}
-              </div>
-
-              {/* Clear / Back / Clear History */}
-              <div className="grid grid-cols-3 gap-2 mt-3">
-                <button className="btn-func" onClick={clear}>
-                  AC
-                </button>
-                <button className="btn-func" onClick={backspace}>
-                  Back
-                </button>
-                <button className="btn-func" onClick={clearHistory}>
-                  Clear History
-                </button>
-              </div>
-
-              {/* History */}
-              <div className="mt-4 p-2 bg-background border border-border rounded h-24 overflow-y-auto text-sm text-muted-foreground">
-                {history.map((h, i) => (
-                  <div key={i}>{h}</div>
-                ))}
-              </div>
+      {/* HERO */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Calculator className="w-8 h-8 text-blue-500" />
             </div>
+
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Scientific Calculator
+            </h1>
           </div>
         </div>
       </section>
 
-      <Footer />
+      {/* CALCULATOR */}
+      <section className="px-4 py-8">
+        <CasioCalculatorAdvanced />
+      </section>
 
-      <style jsx>{`
-        .btn-calc {
-          background: #a0a0a0;
-          color: black;
-          font-weight: bold;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          transition: all 0.1s;
-        }
-        .btn-calc:hover {
-          background: #b5b5b5;
-        }
-        .btn-func {
-          background: #4a90e2;
-          color: white;
-          font-weight: bold;
-          padding: 0.5rem;
-          border-radius: 0.5rem;
-          transition: all 0.1s;
-        }
-        .btn-func:hover {
-          background: #357ab8;
-        }
-        .btn-num {
-          background: #333;
-          color: white;
-          font-weight: bold;
-          padding: 0.75rem;
-          border-radius: 0.5rem;
-          transition: all 0.1s;
-        }
-        .btn-num:hover {
-          background: #444;
-        }
-        .btn-op {
-          background: #555;
-          color: white;
-          font-weight: bold;
-          padding: 0.75rem;
-          border-radius: 0.5rem;
-          transition: all 0.1s;
-        }
-        .btn-op:hover {
-          background: #666;
-        }
-        .btn-equal {
-          background: #facc15;
-          color: black;
-          font-weight: bold;
-          padding: 0.75rem;
-          border-radius: 0.5rem;
-          transition: all 0.1s;
-        }
-        .btn-equal:hover {
-          background: #eab308;
-        }
-      `}</style>
+      {/* SEO CONTENT */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is a Scientific Calculator?
+        </h2>
+
+        <p>
+          A scientific calculator is an advanced mathematical tool designed to
+          perform complex calculations beyond basic arithmetic. Unlike a
+          standard calculator, it supports trigonometric functions,
+          logarithmic operations, exponentiation, square roots, and many other
+          advanced mathematical features.
+        </p>
+
+        <h3>Features of this Scientific Calculator</h3>
+
+        <p>
+          This online calculator allows students, engineers, and professionals
+          to solve mathematical equations quickly and accurately. It includes
+          trigonometric functions such as sine, cosine, and tangent along with
+          logarithmic calculations and square root operations.
+        </p>
+
+        <p>
+          The calculator also includes memory functions and a history panel so
+          you can track previous calculations. These features make it useful
+          for solving complex equations while studying mathematics, physics,
+          or engineering.
+        </p>
+      </article>
+
+      <FAQ items={faqData} />
+
+      <Footer />
     </main>
   );
 }
+
