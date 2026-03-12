@@ -1,26 +1,92 @@
 "use client";
 
-import { useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { RotateCcw, ListFilter, CheckCircle2, Layers } from "lucide-react";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import {
+  getCalculatorHistory,
+  saveCalculatorHistory,
+  getConsentPreference,
+} from "@/lib/cookies";
+
+type FractionResult = {
+  numerator: number;
+  denominator: number;
+  decimal: number;
+};
 
 export default function FractionCalculator() {
-  const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
-
-  /* BASIC FRACTION */
+  const relatedCalculators = [
+    {
+      name: "LCM Calculator",
+      description: "Find Least Common Multiple",
+      href: "/calculators/math/lcm-calculator",
+      icon: Layers,
+    },
+    {
+      name: "GCF Calculator",
+      description: "Greatest Common Factor",
+      href: "/calculators/math/gcf-calculator",
+      icon: Layers,
+    },
+  ];
 
   const [num1, setNum1] = useState(1);
   const [den1, setDen1] = useState(2);
   const [num2, setNum2] = useState(1);
   const [den2, setDen2] = useState(3);
 
-  const [operation, setOperation] = useState<
-    "add" | "subtract" | "multiply" | "divide"
-  >("add");
+  const [operation, setOperation] = useState<"add" | "sub" | "mul" | "div">(
+    "add",
+  );
 
-  const [result, setResult] = useState<string | null>(null);
-  const [decimal, setDecimal] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [trigger, setTrigger] = useState(0);
 
-  const calculate = () => {
+  const gcd = (a: number, b: number): number => (!b ? a : gcd(b, a % b));
+
+  const simplify = (n: number, d: number) => {
+    const g = gcd(n, d);
+    return { n: n / g, d: d / g };
+  };
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    const consent = getConsentPreference();
+    const history = getCalculatorHistory();
+
+    if (consent?.functional && history["fraction-calc"]?.data) {
+      const data = history["fraction-calc"].data;
+
+      setNum1(data.num1 ?? 1);
+      setDen1(data.den1 ?? 2);
+      setNum2(data.num2 ?? 1);
+      setDen2(data.den2 ?? 3);
+      setOperation(data.operation ?? "add");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const consent = getConsentPreference();
+
+    if (consent?.functional) {
+      saveCalculatorHistory("fraction-calc", {
+        num1,
+        den1,
+        num2,
+        den2,
+        operation,
+      });
+    }
+  }, [num1, den1, num2, den2, operation, isMounted]);
+
+  const results = useMemo(() => {
+    if (trigger === 0) return null;
+
     let n = 0;
     let d = 1;
 
@@ -28,305 +94,192 @@ export default function FractionCalculator() {
       n = num1 * den2 + num2 * den1;
       d = den1 * den2;
     }
-    if (operation === "subtract") {
+
+    if (operation === "sub") {
       n = num1 * den2 - num2 * den1;
       d = den1 * den2;
     }
-    if (operation === "multiply") {
+
+    if (operation === "mul") {
       n = num1 * num2;
       d = den1 * den2;
     }
-    if (operation === "divide") {
+
+    if (operation === "div") {
       n = num1 * den2;
       d = den1 * num2;
     }
 
-    const g = gcd(Math.abs(n), Math.abs(d));
+    const simplified = simplify(n, d);
 
-    setResult(`${n / g}/${d / g}`);
-    setDecimal((n / d).toFixed(6));
+    return {
+      numerator: simplified.n,
+      denominator: simplified.d,
+      decimal: simplified.n / simplified.d,
+    };
+  }, [trigger]);
+
+  const handleCalculate = () => {
+    setTrigger((prev) => prev + 1);
+    setShowResults(true);
   };
 
-  const resetBasic = () => {
+  const handleReset = () => {
     setNum1(1);
     setDen1(2);
     setNum2(1);
     setDen2(3);
-    setResult(null);
-    setDecimal(null);
+    setOperation("add");
+    setTrigger(0);
+    setShowResults(false);
   };
 
-  /* SIMPLIFY FRACTION */
-
-  const [snum, setSnum] = useState(8);
-  const [sden, setSden] = useState(12);
-  const [simpRes, setSimpRes] = useState<string | null>(null);
-
-  const simplify = () => {
-    const g = gcd(snum, sden);
-
-    setSimpRes(`${snum / g}/${sden / g}`);
-  };
-
-  const resetSimplify = () => {
-    setSnum(8);
-    setSden(12);
-    setSimpRes(null);
-  };
-
-  /* DECIMAL → FRACTION */
-
-  const [dec, setDec] = useState("");
-  const [decRes, setDecRes] = useState<string | null>(null);
-
-  const convertDecimal = () => {
-    const d = parseFloat(dec);
-
-    if (!d) return;
-
-    const denom = 1000000;
-    const num = Math.round(d * denom);
-
-    const g = gcd(num, denom);
-
-    setDecRes(`${num / g}/${denom / g}`);
-  };
-
-  const resetDecimal = () => {
-    setDec("");
-    setDecRes(null);
-  };
-
-  /* FRACTION → DECIMAL */
-
-  const [fnum, setFnum] = useState(1);
-  const [fden, setFden] = useState(2);
-  const [fRes, setFRes] = useState<string | null>(null);
-
-  const convertFraction = () => {
-    setFRes((fnum / fden).toFixed(6));
-  };
-
-  const resetFraction = () => {
-    setFnum(1);
-    setFden(2);
-    setFRes(null);
-  };
+  if (!isMounted) return null;
 
   return (
-    <main className="min-h-screen bg-background text-foreground py-12 px-4 max-w-5xl mx-auto space-y-10">
-      {/* BASIC FRACTION */}
+    <main className="min-h-screen bg-background text-foreground">
+      <section className="py-8 px-4 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* LEFT PANEL */}
 
-      <section className="bg-card border rounded-2xl p-6 shadow-sm">
-        <h2 className="text-xl font-bold mb-6">Fraction Calculator</h2>
+          <div className="lg:col-span-4 space-y-6">
+            <div className="bg-card rounded-xl border p-6 shadow-sm">
+              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                <ListFilter className="text-blue-500" size={20} /> Parameters
+              </h2>
 
-        <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center flex-wrap">
-          <div className="flex flex-col gap-1">
-            <input
-              type="number"
-              value={num1}
-              onChange={(e) => setNum1(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-            <input
-              type="number"
-              value={den1}
-              onChange={(e) => setDen1(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
+              <div className="space-y-4">
+                {/* FRACTION 1 */}
+
+                <div>
+                  <label className="text-sm font-medium">Fraction 1</label>
+
+                  <div className="flex gap-2 mt-1">
+                    <input
+                      type="number"
+                      value={num1}
+                      onChange={(e) => {
+                        setNum1(Number(e.target.value));
+                        setShowResults(false);
+                      }}
+                      className="w-full px-3 py-3 bg-secondary rounded-md border"
+                    />
+
+                    <span className="flex items-center font-bold">/</span>
+
+                    <input
+                      type="number"
+                      value={den1}
+                      onChange={(e) => {
+                        setDen1(Number(e.target.value));
+                        setShowResults(false);
+                      }}
+                      className="w-full px-3 py-3 bg-secondary rounded-md border"
+                    />
+                  </div>
+                </div>
+
+                {/* OPERATION */}
+
+                <div>
+                  <label className="text-sm font-medium">Operation</label>
+
+                  <select
+                    value={operation}
+                    onChange={(e) => {
+                      setOperation(e.target.value as any);
+                      setShowResults(false);
+                    }}
+                    className="w-full mt-1 px-3 py-3 bg-secondary rounded-md border"
+                  >
+                    <option value="add">Add</option>
+                    <option value="sub">Subtract</option>
+                    <option value="mul">Multiply</option>
+                    <option value="div">Divide</option>
+                  </select>
+                </div>
+
+                {/* FRACTION 2 */}
+
+                <div>
+                  <label className="text-sm font-medium">Fraction 2</label>
+
+                  <div className="flex gap-2 mt-1">
+                    <input
+                      type="number"
+                      value={num2}
+                      onChange={(e) => {
+                        setNum2(Number(e.target.value));
+                        setShowResults(false);
+                      }}
+                      className="w-full px-3 py-3 bg-secondary rounded-md border"
+                    />
+
+                    <span className="flex items-center font-bold">/</span>
+
+                    <input
+                      type="number"
+                      value={den2}
+                      onChange={(e) => {
+                        setDen2(Number(e.target.value));
+                        setShowResults(false);
+                      }}
+                      className="w-full px-3 py-3 bg-secondary rounded-md border"
+                    />
+                  </div>
+                </div>
+
+                {/* BUTTONS */}
+
+                <div className="pt-4 flex flex-col gap-3">
+                  <button
+                    onClick={handleCalculate}
+                    className="w-full py-3 bg-blue-600 text-white rounded-md font-bold text-sm hover:bg-blue-700 flex items-center justify-center gap-2"
+                  >
+                    Calculate <CheckCircle2 size={16} />
+                  </button>
+
+                  <button
+                    onClick={handleReset}
+                    className="w-full py-2 bg-secondary text-muted-foreground rounded-md font-bold text-xs flex items-center justify-center gap-2"
+                  >
+                    <RotateCcw size={14} /> Reset
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <select
-            value={operation}
-            onChange={(e) => setOperation(e.target.value as any)}
-            className="bg-secondary p-2 rounded"
-          >
-            <option value="add">+</option>
-            <option value="subtract">−</option>
-            <option value="multiply">×</option>
-            <option value="divide">÷</option>
-          </select>
+          {/* RIGHT PANEL */}
 
-          <div className="flex flex-col gap-1">
-            <input
-              type="number"
-              value={num2}
-              onChange={(e) => setNum2(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-            <input
-              type="number"
-              value={den2}
-              onChange={(e) => setDen2(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-          </div>
+          <div className="lg:col-span-8">
+            {showResults && results ? (
+              <div className="bg-card border rounded-xl p-6 flex flex-col justify-center min-w-0">
+                <p className="text-muted-foreground text-center text-xs font-bold uppercase tracking-widest">
+                  Result
+                </p>
 
-          <div className="flex gap-3 flex-wrap">
-            <button
-              onClick={calculate}
-              className="bg-primary text-primary-foreground px-5 py-2 rounded-xl font-bold"
-            >
-              Calculate
-            </button>
+                <h2 className="text-4xl md:text-5xl font-black text-blue-600 text-center my-4 break-all">
+                  {results.numerator} / {results.denominator}
+                </h2>
 
-            <button
-              onClick={resetBasic}
-              className="flex items-center gap-2 border px-5 py-2 rounded-xl"
-            >
-              <RotateCcw size={16} />
-              Reset
-            </button>
+                <p className="text-center text-muted-foreground text-sm">
+                  Decimal: {results.decimal.toFixed(6)}
+                </p>
+              </div>
+            ) : (
+              <div className="bg-secondary/20 border-2 border-dashed border-border rounded-xl p-12 text-center">
+                <Layers size={48} className="opacity-10 mb-4 mx-auto" />
+
+                <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
+                  Enter fractions and click calculate
+                </p>
+              </div>
+            )}
           </div>
         </div>
 
-        {result && (
-          <div className="grid sm:grid-cols-2 gap-6 mt-6">
-            <div className="bg-secondary p-6 rounded-xl text-center">
-              <p className="text-sm text-muted-foreground">Simplified</p>
-              <h3 className="text-3xl font-bold text-primary break-words">
-                {result}
-              </h3>
-            </div>
-
-            <div className="bg-secondary p-6 rounded-xl text-center">
-              <p className="text-sm text-muted-foreground">Decimal</p>
-              <h3 className="text-3xl font-bold text-primary break-words">
-                {decimal}
-              </h3>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {/* SIMPLIFY FRACTION */}
-
-      <section className="bg-card border rounded-2xl p-6 shadow-sm">
-        <h2 className="text-xl font-bold mb-6">Simplify Fraction</h2>
-
-        <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center flex-wrap">
-          <div className="flex flex-col gap-1">
-            <input
-              type="number"
-              value={snum}
-              onChange={(e) => setSnum(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-            <input
-              type="number"
-              value={sden}
-              onChange={(e) => setSden(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-          </div>
-
-          <div className="flex gap-3">
-            <button
-              onClick={simplify}
-              className="bg-primary text-primary-foreground px-5 py-2 rounded-xl font-bold"
-            >
-              Calculate
-            </button>
-
-            <button
-              onClick={resetSimplify}
-              className="border px-5 py-2 rounded-xl flex items-center gap-2"
-            >
-              <RotateCcw size={16} />
-              Reset
-            </button>
-          </div>
-
-          {simpRes && (
-            <div className="text-2xl font-bold text-primary break-words">
-              = {simpRes}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* DECIMAL TO FRACTION */}
-
-      <section className="bg-card border rounded-2xl p-6 shadow-sm">
-        <h2 className="text-xl font-bold mb-6">Decimal to Fraction</h2>
-
-        <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center flex-wrap">
-          <input
-            type="number"
-            value={dec}
-            onChange={(e) => setDec(e.target.value)}
-            className="bg-secondary p-2 rounded"
-          />
-
-          <div className="flex gap-3">
-            <button
-              onClick={convertDecimal}
-              className="bg-primary text-primary-foreground px-5 py-2 rounded-xl font-bold"
-            >
-              Calculate
-            </button>
-
-            <button
-              onClick={resetDecimal}
-              className="border px-5 py-2 rounded-xl flex items-center gap-2"
-            >
-              <RotateCcw size={16} />
-              Reset
-            </button>
-          </div>
-
-          {decRes && (
-            <div className="text-2xl font-bold text-primary break-words">
-              = {decRes}
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* FRACTION TO DECIMAL */}
-
-      <section className="bg-card border rounded-2xl p-6 shadow-sm">
-        <h2 className="text-xl font-bold mb-6">Fraction to Decimal</h2>
-
-        <div className="flex flex-col sm:flex-row gap-6 items-start sm:items-center flex-wrap">
-          <div className="flex flex-col gap-1">
-            <input
-              type="number"
-              value={fnum}
-              onChange={(e) => setFnum(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-            <input
-              type="number"
-              value={fden}
-              onChange={(e) => setFden(+e.target.value)}
-              className="bg-secondary p-2 rounded"
-            />
-          </div>
-
-          <div className="flex gap-3">
-            <button
-              onClick={convertFraction}
-              className="bg-primary text-primary-foreground px-5 py-2 rounded-xl font-bold"
-            >
-              Calculate
-            </button>
-
-            <button
-              onClick={resetFraction}
-              className="border px-5 py-2 rounded-xl flex items-center gap-2"
-            >
-              <RotateCcw size={16} />
-              Reset
-            </button>
-          </div>
-
-          {fRes && (
-            <div className="text-2xl font-bold text-primary break-words">
-              = {fRes}
-            </div>
-          )}
-        </div>
+        <RelatedCalculators calculators={relatedCalculators} />
       </section>
     </main>
   );
