@@ -718,13 +718,7 @@ const allCalculators = [
     category: 'Math',
     icon: Sigma,
   },
-  {
-    name: 'Scientific Notation Calculator',
-    description: 'Convert numbers to and from scientific notation',
-    href: '/calculators/math/scientific-notation-calculator',
-    category: 'Math',
-    icon: Sigma,
-  },
+  
   {
     name: 'Permutation & Combination Calculator',
     description: 'Calculate permutations and combinations of items',

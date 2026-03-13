@@ -67,12 +67,7 @@ const calculators = [
     href: '/calculators/math/gcf-calculator',
     category: 'Advanced',
   },
-  {
-    name: 'Scientific Notation Calculator',
-    description: 'Convert numbers to and from scientific notation',
-    href: '/calculators/math/scientific-notation-calculator',
-    category: 'Advanced',
-  },
+  
   {
     name: 'Permutation and Combination Calculator',
     description: 'Calculate permutations and combinations of items',
