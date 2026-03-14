@@ -6,10 +6,13 @@ export interface Calculator {
 
 // Add all your calculators here
 export const calculators: Calculator[] = [
-  { slug: 'bmi-calculator', category: 'health' },
+//Financial calculators
   { slug: 'mortgage-calculator', category: 'financial' },
 
+//Health calculators
+  { slug: 'bmi-calculator', category: 'health' },
 
+//Math calculators
   { slug: 'scientific-calculator', category: 'math' },
   { slug: 'lcm-calculator', category: 'math' },
   { slug: 'gcf-calculator', category: 'math' },
@@ -20,10 +23,25 @@ export const calculators: Calculator[] = [
   { slug: 'half-life-calculator', category: 'math' },
   { slug: 'hexadecimal-calculator', category: 'math' },
   { slug: 'permutation-combination-calculator', category: 'math' },
+  { slug: 'z-score-calculator', category: 'math' },
+  { slug: 'binary-calculator', category: 'math' },
+  { slug: 'conversion-calculator', category: 'math' },
 
-
+//Time calculators 
   { slug: 'age-calculator', category: 'time' },
-  { slug: 'gpa-calculator', category: 'education' },
+  { slug: 'date-calculator', category: 'time' },
+  { slug: 'time-calculator', category: 'time' },
+  { slug: 'hours-calculator', category: 'time' },
+
+//Density calculator
+  { slug: 'density-calculator', category: 'physics' },
   { slug: 'speed-calculator', category: 'physics' },
-  // Add more calculators as needed
+  { slug: 'mass-calculator', category: 'physics' },
+  { slug: 'weight-calculator', category: 'physics' },
+
+//Education Calculators
+   { slug: 'gpa-calculator', category: 'education' },
+   { slug: 'grade-calculator', category: 'education' },
+
+
 ]

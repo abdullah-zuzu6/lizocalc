@@ -1,88 +1,217 @@
-'use client'
+import { Metadata } from "next";
+import WeightCalculator from "./clientside";
+import { Home } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect, useMemo } from 'react'
-import { Scale, RotateCcw, Info, ChevronRight, CheckCircle2, Globe, Zap, Weight as WeightIcon } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import RelatedCalculators from '@/components/RelatedCalculators'
+const faqData = [
+  {
+    question: "How is weight calculated?",
+    answer:
+      "Weight is calculated using the formula Weight = Mass × Gravity. The gravitational force acting on an object determines its weight.",
+  },
+  {
+    question: "What is the difference between mass and weight?",
+    answer:
+      "Mass is the amount of matter in an object and remains constant, while weight is the force exerted on that mass due to gravity and can change depending on the planet.",
+  },
+];
 
-const PLANETS = [
-  { name: 'Mercury', g: 3.7 }, { name: 'Venus', g: 8.87 }, { name: 'Earth', g: 9.807 },
-  { name: 'Moon', g: 1.62 }, { name: 'Mars', g: 3.71 }, { name: 'Jupiter', g: 24.79 }
-]
+export const metadata: Metadata = {
+  title: "Weight Calculator ",
+  description:
+    "Use our weight calculator to calculate the weight of an object based on its mass and gravitational force instantly.",
 
-export default function WeightCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
-  const [mass, setMass] = useState<string>('70')
-  const [gravity, setGravity] = useState<string>('9.807')
-  const [showResults, setShowResults] = useState(false)
+  keywords: [
+    "weight calculator",
+    "mass to weight calculator",
+    "gravity weight calculator",
+    "physics weight calculator",
+    "object weight calculator",
+  ],
 
-  useEffect(() => setIsMounted(true), [])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/physics/weight-calculator",
+  },
 
-  const weightResult = useMemo(() => {
-    const m = parseFloat(mass)
-    const g = parseFloat(gravity)
-    if (isNaN(m) || isNaN(g)) return null
-    return (m * g).toFixed(2)
-  }, [mass, gravity])
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  if (!isMounted) return null
+  openGraph: {
+    title: "Weight Calculator | LizoCalc",
+    description:
+      "Free weight calculator to calculate weight using mass and gravity.",
+    url: "https://lizocalc.com/calculators/physics/weight-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
+  twitter: {
+    card: "summary_large_image",
+    title: "Weight Calculator | LizoCalc",
+    description:
+      "Calculate weight using mass and gravity with our free physics weight calculator.",
+  },
+};
+
+export default function WeightPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter uppercase">
-            Weight <span className="text-primary">Calculator</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Determine the gravitational force acting on an object across different celestial bodies.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-4 order-2 lg:order-1">
-            {showResults && weightResult ? (
-              <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-                <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl">
-                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-70">Calculated Weight</span>
-                  <h3 className="text-6xl font-black mt-2 tracking-tighter">{weightResult}<span className="text-2xl ml-2">N</span></h3>
-                  <p className="mt-4 text-sm opacity-80">This is equivalent to {(parseFloat(weightResult) / 4.448).toFixed(2)} lbs of force.</p>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-muted/30 border-2 border-dashed border-border rounded-3xl p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
-                <Scale size={48} className="opacity-10 mb-4" />
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Enter mass to solve</p>
-              </div>
-            )}
-          </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/physics/weight-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Physics Calculators",
+                    item: "https://lizocalc.com/calculators/physics",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Weight Calculator",
+                    item: "https://lizocalc.com/calculators/physics/weight-calculator",
+                  },
+                ],
+              },
+              {
+  "@type": "WebPage",
+  "@id": "https://lizocalc.com/calculators/physics/weight-calculator",
+  url: "https://lizocalc.com/calculators/physics/weight-calculator",
+  name: "Weight Calculator",
+  description: "Use our weight calculator to determine the weight of an object using mass and gravity instantly.",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "LizoCalc",
+    "url": "https://lizocalc.com"
+  }
+},
 
-          <div className="lg:col-span-8 order-1 lg:order-2 space-y-6">
-            <section className="bg-card rounded-3xl border border-border p-8 shadow-xl">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                <div className="relative">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground mb-2 block">Mass (kg)</label>
-                  <input type="number" value={mass} onChange={(e) => setMass(e.target.value)} className="w-full p-4 bg-muted rounded-2xl font-bold outline-none focus:ring-2 ring-primary/20" />
-                </div>
-                <div className="relative">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground mb-2 block">Gravity (m/s²)</label>
-                  <input type="number" value={gravity} onChange={(e) => setGravity(e.target.value)} className="w-full p-4 bg-muted rounded-2xl font-bold outline-none focus:ring-2 ring-primary/20" />
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-2 mb-8">
-                {PLANETS.map(p => (
-                  <button key={p.name} onClick={() => setGravity(p.g.toString())} className="px-3 py-1.5 bg-muted hover:bg-primary hover:text-white rounded-lg text-xs font-bold transition-all">{p.name}</button>
-                ))}
-              </div>
-              <button onClick={() => setShowResults(true)} className="w-full py-4 bg-primary text-white rounded-2xl font-black uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg hover:shadow-primary/30 transition-all">
-                Calculate Weight <CheckCircle2 size={18} />
-              </button>
-            </section>
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/physics/weight-calculator#app",
+                name: "Weight Calculator",
+                url: "https://lizocalc.com/calculators/physics/weight-calculator",
+                description:
+                  "Physics weight calculator to calculate the weight of an object using mass and gravitational acceleration.",
+                applicationCategory: "EducationalApplication",
+                applicationSubCategory: "Physics Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate weight using mass and gravity",
+                  "Instant physics calculation",
+                  "Supports different gravity values",
+                  "Accurate scientific calculation",
+                  "Simple and fast tool",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Home className="w-8 h-8 text-blue-500" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+             Weight Calculator
+            </h1>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <WeightCalculator />
+
+        
+      </section>
+
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Weight Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
+
+      <Footer />
     </main>
-  )
+  );
 }

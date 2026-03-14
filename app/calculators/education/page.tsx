@@ -21,12 +21,6 @@ const calculators = [
     href: '/calculators/education/grade-calculator',
     category: 'Education',
   },
-  {
-    name: 'Ohm\'s Law Calculator ->',
-    description: 'Calculate Voltage, Current, Resistance, and Power',
-    href: '/calculators/education/ohms-law-calculator',
-    category: 'Education',
-  },
   
 ]
 

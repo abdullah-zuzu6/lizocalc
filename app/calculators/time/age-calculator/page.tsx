@@ -1,151 +1,178 @@
-'use client'
+import { Metadata } from "next";
+import AgeCalculator from "./clientside";
+import { Cake, Calendar, Clock, History } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+const faqData = [
+  {
+    question: "How does the Age Calculator determine my exact age?",
+    answer:
+      "The calculator compares your birth date with the current date (or a specific target date). It precisely accounts for leap years and the varying number of days in each month to provide an accurate breakdown in years, months, and days.",
+  },
+  {
+    question: "Can I calculate how old I will be on a future date?",
+    answer:
+      "Yes! By changing the 'Age at the Date of' field, you can determine your exact age for any future event, such as a retirement date, an upcoming anniversary, or a travel plan.",
+  },
+  {
+    question: "Does the calculator account for leap years?",
+    answer:
+      "Absolutely. Our algorithm considers the extra day in February during leap years to ensure that your total days lived and exact age are 100% mathematically correct.",
+  },
+];
 
-interface AgeDetails {
-  years: number
-  months: number
-  days: number
-  totalDays: number
-  totalHours: number
-  totalMinutes: number
-  nextBirthday: number
-}
+export const metadata: Metadata = {
+  title: "Age Calculator | Exact Age in Years, Months, & Days",
+  description:
+    "Free advanced age calculator to find your exact age, total days lived, and time until your next birthday. Precise, fast, and easy to use.",
 
-export default function AgeCalculator() {
-  const [birthDate, setBirthDate] = useState<string>('2000-01-01')
-  const [isMounted, setIsMounted] = useState(false)
+  keywords: [
+    "age calculator",
+    "exact age calculator",
+    "chronological age calculator",
+    "how old am i",
+    "birthday calculator",
+    "age in days",
+  ],
 
-  // Load from cookies on mount
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['age']?.data) {
-      setBirthDate(history['age'].data.birthDate || '2000-01-01')
-    }
-  }, [])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/time/age-calculator",
+  },
 
-  // Save to cookies whenever date changes
-  useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('age', { birthDate })
-    }
-  }, [birthDate, isMounted])
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  const calculateAge = (): AgeDetails => {
-    const birth = new Date(birthDate)
-    const today = new Date()
+  openGraph: {
+    title: "Exact Age Calculator | LizoCalc",
+    description:
+      "Calculate your exact age in years, months, and days instantly with our free tool.",
+    url: "https://lizocalc.com/calculators/time/age-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-    let years = today.getFullYear() - birth.getFullYear()
-    let months = today.getMonth() - birth.getMonth()
-    let days = today.getDate() - birth.getDate()
+  twitter: {
+    card: "summary_large_image",
+    title: "Age Calculator - Find Your Exact Age",
+    description:
+      "Find out exactly how many years, months, and days you have been alive.",
+  },
+};
 
-    if (days < 0) {
-      months--
-      const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0)
-      days += prevMonth.getDate()
-    }
-
-    if (months < 0) {
-      years--
-      months += 12
-    }
-
-    const totalDays = Math.floor((today.getTime() - birth.getTime()) / (1000 * 60 * 60 * 24))
-    const totalHours = totalDays * 24
-    const totalMinutes = totalHours * 60
-
-    const nextBirthday = new Date(today.getFullYear(), birth.getMonth(), birth.getDate())
-    if (nextBirthday < today) {
-      nextBirthday.setFullYear(nextBirthday.getFullYear() + 1)
-    }
-    const daysToNextBirthday = Math.ceil((nextBirthday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
-
-    return { years, months, days, totalDays, totalHours, totalMinutes: Math.floor(totalMinutes), nextBirthday: daysToNextBirthday }
-  }
-
-  const age = calculateAge()
-  const maxDate = new Date().toISOString().split('T')[0]
-
+export default function AgeCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/other" />
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Age Calculator</h1>
-          <p className="text-lg text-muted-foreground">Calculate your exact age in years, months, and days</p>
-        </div>
+      {/* === JSON-LD STRUCTURED DATA === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id": "https://lizocalc.com/calculators/time/age-calculator#breadcrumb",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://lizocalc.com" },
+                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://lizocalc.com/calculators" },
+                  { "@type": "ListItem", position: 3, name: "Time Calculators", item: "https://lizocalc.com/calculators/time" },
+                  { "@type": "ListItem", position: 4, name: "Age Calculator", item: "https://lizocalc.com/calculators/time/age-calculator" },
+                ],
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id": "https://lizocalc.com/calculators/time/age-calculator#app",
+                name: "Advanced Age Calculator",
+                url: "https://lizocalc.com/calculators/time/age-calculator",
+                description: "Calculate exact age, total days lived, and countdown to next birthday.",
+                applicationCategory: "UtilitiesApplication",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+                creator: { "@type": "Organization", name: "LizoCalc", url: "https://lizocalc.com" },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: { "@type": "Answer", text: item.answer },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-semibold mb-3">Date of Birth</label>
-              <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} max={maxDate} className="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground text-lg" />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Cake className="w-8 h-8 text-blue-500" />
             </div>
+            <h1 className="text-3xl md:text-4xl font-bold">Age Calculator</h1>
+          </div>
+        </div>
+      </section>
+
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <AgeCalculator />
+      </section>
+
+      {/* SEO Content */}
+      <article className="max-w-6xl mx-auto px-6 py-16 prose prose-blue prose-lg lg:prose-xl prose-headings:font-extrabold prose-h2:text-blue-900 prose-h2:border-b-2 prose-h2:border-blue-200 prose-h2:pb-2 prose-p:text-gray-600 prose-p:leading-relaxed">
+        <h2>The Ultimate Guide to Calculating Your Exact Age</h2>
+        <p>
+          Have you ever wondered exactly how many days you've been on this planet? While most of us simply keep track of our years, our <strong>Advanced Age Calculator</strong> provides a much deeper dive. Whether you need your chronological age for a legal document, a school application, or just pure curiosity, this tool offers 100% accuracy.
+        </p>
+
+        <h3>Why Use a Chronological Age Calculator?</h3>
+        <p>
+          Calculating age manually is trickier than it looks. You have to account for the varying number of days in months (28, 30, or 31) and the quadrennial occurrence of leap years. Our tool automates this complex math instantly. 
+        </p>
+        
+        <div className="grid md:grid-cols-2 gap-6 not-prose my-8">
+          <div className="p-4 bg-white border rounded-xl shadow-sm">
+            <Calendar className="text-blue-500 mb-2" />
+            <h4 className="font-bold">Legal & Official Use</h4>
+            <p className="text-sm text-gray-500">Perfect for verifying eligibility for government services, exams, or retirement benefits.</p>
+          </div>
+          <div className="p-4 bg-white border rounded-xl shadow-sm">
+            <Clock className="text-blue-500 mb-2" />
+            <h4 className="font-bold">Milestone Tracking</h4>
+            <p className="text-sm text-gray-500">Know exactly when you hit 10,000 days or 500 months of life.</p>
           </div>
         </div>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8">
-            <p className="text-muted-foreground text-sm mb-2">Your Age</p>
-            <p className="text-3xl font-bold text-primary mb-4">{age.years} years</p>
-            <div className="text-sm space-y-2">
-              <p><span className="text-muted-foreground">{age.months}</span> months, <span className="text-muted-foreground">{age.days}</span> days</p>
-            </div>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8">
-            <p className="text-muted-foreground text-sm mb-2">Days Until Next Birthday</p>
-            <p className="text-3xl font-bold text-accent">{age.nextBirthday}</p>
-            <p className="text-sm text-muted-foreground mt-2">days remaining</p>
-          </div>
-        </div>
+        <h3>How to Use the Calculator</h3>
+        <p>
+          Using the LizoCalc Age Calculator is straightforward:
+        </p>
+        <ol>
+          <li><strong>Select Date of Birth:</strong> Use the dropdown menus to pick your day, month, and year of birth.</li>
+          <li><strong>Choose Target Date:</strong> By default, this is set to "Today," but you can change it to any date in history or the future.</li>
+          <li><strong>Calculate:</strong> The results will update instantly to show your age in years, months, and days.</li>
+        </ol>
 
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <h3 className="font-semibold text-lg mb-6">Detailed Breakdown</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="text-center p-4 bg-background rounded-lg border border-border">
-              <p className="text-muted-foreground text-sm mb-2">Days Lived</p>
-              <p className="text-2xl font-bold text-primary">{age.totalDays.toLocaleString()}</p>
-            </div>
-            <div className="text-center p-4 bg-background rounded-lg border border-border">
-              <p className="text-muted-foreground text-sm mb-2">Hours Lived</p>
-              <p className="text-2xl font-bold text-accent">{age.totalHours.toLocaleString()}</p>
-            </div>
-            <div className="text-center p-4 bg-background rounded-lg border border-border">
-              <p className="text-muted-foreground text-sm mb-2">Minutes Lived</p>
-              <p className="text-2xl font-bold text-foreground">{age.totalMinutes.toLocaleString()}</p>
-            </div>
-          </div>
-        </div>
+        <h3>Fascinating Facts About Time and Aging</h3>
+        <p>
+          Did you know that if you are 25 years old, you have lived through approximately 6 leap years and roughly 9,125 days? Time is the most valuable resource we have, and tracking it helps us appreciate the milestones we've achieved. From your first steps to your current professional journey, every day is a data point in your unique story.
+        </p>
+      </article>
 
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Age Calculation</h3>
-          </div>
-          <p className="text-muted-foreground">This calculator computes your exact age including years, months, and days. It also shows you how many days remain until your next birthday!</p>
-        </div>
-      </div>
-
+      <FAQ items={faqData} />
       <Footer />
     </main>
-  )
+  );
 }

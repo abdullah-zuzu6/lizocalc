@@ -1,108 +1,153 @@
-'use client'
+import { Metadata } from "next";
+import TimeCalculator from "./clientside";
+import { Clock } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+const faqData = [
+  {
+    question: "How does the time calculator work?",
+    answer:
+      "The time calculator converts your input into various units (seconds, minutes, hours) based on standard chronological conversion factors.",
+  },
+  {
+    question: "Can I use this for scheduling?",
+    answer:
+      "Yes, this tool helps you quickly calculate total durations, which is useful for time management, project scheduling, and daily planning.",
+  },
+];
 
-export default function TimeCalculator() {
-  const [hours, setHours] = useState<number>(1)
-  const [minutes, setMinutes] = useState<number>(30)
-  const [seconds, setSeconds] = useState<number>(45)
-  const [isMounted, setIsMounted] = useState(false)
+export const metadata: Metadata = {
+  title: "Time Calculator | Convert Hours, Minutes, and Seconds",
+  description:
+    "Use our free time calculator to instantly convert and calculate total durations in hours, minutes, and seconds.",
 
-  // Load from cookies on mount
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['time']?.data) {
-      setHours(history['time'].data.hours || 1)
-      setMinutes(history['time'].data.minutes || 30)
-      setSeconds(history['time'].data.seconds || 45)
-    }
-  }, [])
+  keywords: [
+    "time calculator",
+    "convert time",
+    "hours to minutes",
+    "time duration calculator",
+    "calculate time difference",
+  ],
 
-  // Save to cookies whenever values change
-  useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('time', { hours, minutes, seconds })
-    }
-  }, [hours, minutes, seconds, isMounted])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/time/time-calculator",
+  },
 
-  const totalSeconds = hours * 3600 + minutes * 60 + seconds
-  const totalMinutes = hours * 60 + minutes + seconds / 60
-  const totalHours = hours + minutes / 60 + seconds / 3600
+  robots: {
+    index: true,
+    follow: true,
+  },
 
+  openGraph: {
+    title: "Time Calculator | LizoCalc",
+    description:
+      "Easily convert and calculate time durations with our simple online time calculator.",
+    url: "https://lizocalc.com/calculators/time/time-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Time Calculator | LizoCalc",
+    description:
+      "Calculate total time durations and convert units instantly.",
+  },
+};
+
+export default function TimePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/other" />
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Time Calculator</h1>
-          <p className="text-lg text-muted-foreground">Convert and calculate time durations</p>
-        </div>
+      {/* === STRUCTURED DATA FOR TIME CALCULATOR === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id": "https://lizocalc.com/calculators/time/time-calculator#breadcrumb",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://lizocalc.com" },
+                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://lizocalc.com/calculators" },
+                  { "@type": "ListItem", position: 3, name: "Time Calculator", item: "https://lizocalc.com/calculators/time/time-calculator" },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/time/time-calculator",
+                url: "https://lizocalc.com/calculators/time/time-calculator",
+                name: "Time Calculator",
+                description: "Easily convert and calculate time durations in hours, minutes, and seconds.",
+                inLanguage: "en",
+                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://lizocalc.com" }
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: { "@type": "Answer", text: item.answer },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-8">
-            <div>
-              <label className="block text-sm font-semibold mb-3">Hours: {hours}</label>
-              <input type="range" min="0" max="23" step="1" value={hours} onChange={(e) => setHours(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-              <input type="number" value={hours} onChange={(e) => setHours(Number(e.target.value))} min="0" className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Clock className="w-8 h-8 text-blue-500" />
             </div>
-
-            <div>
-              <label className="block text-sm font-semibold mb-3">Minutes: {minutes}</label>
-              <input type="range" min="0" max="59" step="1" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-              <input type="number" value={minutes} onChange={(e) => setMinutes(Number(e.target.value))} min="0" className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold mb-3">Seconds: {seconds}</label>
-              <input type="range" min="0" max="59" step="1" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary" />
-              <input type="number" value={seconds} onChange={(e) => setSeconds(Number(e.target.value))} min="0" className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground" />
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Time Calculator
+            </h1>
           </div>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Seconds</p>
-            <p className="text-4xl font-bold text-primary">{totalSeconds.toLocaleString()}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Minutes</p>
-            <p className="text-4xl font-bold text-accent">{totalMinutes.toFixed(2)}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Hours</p>
-            <p className="text-4xl font-bold text-foreground">{totalHours.toFixed(4)}</p>
-          </div>
-        </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <TimeCalculator />
+      </section>
 
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Time Conversion</h3>
-          </div>
-          <p className="text-muted-foreground">This calculator quickly converts time between hours, minutes, and seconds. Useful for scheduling, cooking, sports, and time tracking.</p>
-        </div>
-      </div>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Time Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content here regarding time conversion...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation of time units...</p>
+      </article>
+
+      <FAQ items={faqData} />
 
       <Footer />
     </main>
-  )
+  );
 }

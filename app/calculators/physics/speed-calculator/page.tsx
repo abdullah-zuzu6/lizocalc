@@ -1,94 +1,211 @@
-'use client'
+import { Metadata } from "next";
+import SpeedCalculator from "./clientside";
+import { Zap } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect, useMemo } from 'react'
-import { Zap, RotateCcw, Info, ChevronRight, CheckCircle2, Navigation, Timer, Move } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+const faqData = [
+  {
+    question: "What is speed in physics?",
+    answer:
+      "Speed is the rate at which an object covers distance over time. It is commonly calculated using the formula Speed = Distance ÷ Time.",
+  },
+  {
+    question: "How do you calculate speed?",
+    answer:
+      "Speed can be calculated by dividing the total distance traveled by the total time taken. Our calculator automatically computes speed when you enter distance and time.",
+  },
+];
 
-export default function SpeedCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
-  const [distance, setDistance] = useState<string>('')
-  const [time, setTime] = useState<string>('')
-  const [unit, setUnit] = useState<'metric' | 'imperial'>('metric')
-  const [showResults, setShowResults] = useState(false)
+export const metadata: Metadata = {
+  title: "Speed Calculator ",
 
-  useEffect(() => setIsMounted(true), [])
+  description:
+    "Use our physics speed calculator to calculate speed, distance, or time instantly using the formula Speed = Distance ÷ Time.",
 
-  const results = useMemo(() => {
-    const d = parseFloat(distance)
-    const t = parseFloat(time)
-    if (isNaN(d) || isNaN(t) || t === 0) return null
-    
-    const speed = d / t
-    const pace = (60 / speed) // minutes per unit
+  keywords: [
+    "speed calculator",
+    "physics speed calculator",
+    "calculate speed formula",
+    "distance time speed calculator",
+    "speed formula calculator",
+  ],
 
-    return {
-      speed: speed.toFixed(2),
-      pace: pace.toFixed(2),
-      unitLabel: unit === 'metric' ? 'km/h' : 'mph'
-    }
-  }, [distance, time, unit])
+  alternates: {
+    canonical: "http://lizocalc.com/calculators/physics/speed-calculator",
+  },
 
-  if (!isMounted) return null
+  robots: {
+    index: true,
+    follow: true,
+  },
 
+  openGraph: {
+    title: "Speed Calculator | LizoCalc",
+    description:
+      "Free physics speed calculator to calculate speed, distance, and time using simple formulas.",
+    url: "http://lizocalc.com/calculators/physics/speed-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Speed Calculator | LizoCalc",
+    description:
+      "Calculate speed, distance, or time instantly with our free physics speed calculator.",
+  },
+};
+
+export default function SpeedCalculatorPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans">
+    <main className="min-h-screen bg-background">
+      {" "}
       <Navbar />
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter uppercase">
-            Speed <span className="text-primary">Calculator</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl">
-            Calculate average velocity, travel time, or distance covered using standard kinematics formulas.
-          </p>
-        </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "http://lizocalc.com/calculators/physics/speed-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "http://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "http://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Physics Calculators",
+                    item: "http://lizocalc.com/calculators/physics",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Speed Calculator",
+                    item: "http://lizocalc.com/calculators/physics/speed-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id":
+                  "http://lizocalc.com/calculators/physics/speed-calculator",
+                url: "http://lizocalc.com/calculators/physics/speed-calculator",
+                name: "Speed Calculator",
+                description:
+                  "Use our physics speed calculator to calculate speed, distance, and time instantly.",
+                inLanguage: "en",
+                isPartOf: {
+                  "@type": "WebSite",
+                  name: "LizoCalc",
+                  url: "http://lizocalc.com",
+                },
+              },
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-4 order-2 lg:order-1">
-            {showResults && results ? (
-              <div className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-500">
-                <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl">
-                  <span className="text-[10px] font-bold uppercase tracking-widest opacity-70">Average Speed</span>
-                  <h3 className="text-6xl font-black mt-2 tracking-tighter">{results.speed}<span className="text-2xl ml-2">{results.unitLabel}</span></h3>
-                  <div className="mt-6 p-4 bg-white/10 rounded-2xl border border-white/10">
-                    <p className="text-[10px] uppercase font-bold opacity-60">Travel Pace</p>
-                    <p className="text-lg font-bold">{results.pace} min/{unit === 'metric' ? 'km' : 'mi'}</p>
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="bg-muted/30 border-2 border-dashed border-border rounded-3xl p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
-                <Zap size={48} className="opacity-10 mb-4" />
-                <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Enter travel data</p>
-              </div>
-            )}
-          </div>
-
-          <div className="lg:col-span-8 order-1 lg:order-2">
-            <section className="bg-card rounded-3xl border border-border p-8 shadow-xl">
-              <div className="flex gap-4 mb-8">
-                <button onClick={() => setUnit('metric')} className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${unit === 'metric' ? 'bg-primary text-white shadow-md' : 'bg-muted text-muted-foreground'}`}>Metric (km)</button>
-                <button onClick={() => setUnit('imperial')} className={`flex-1 py-3 rounded-xl font-bold text-xs uppercase tracking-widest transition-all ${unit === 'imperial' ? 'bg-primary text-white shadow-md' : 'bg-muted text-muted-foreground'}`}>Imperial (mi)</button>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground flex items-center gap-2"><Move size={12}/> Distance ({unit === 'metric' ? 'km' : 'mi'})</label>
-                  <input type="number" value={distance} onChange={(e) => setDistance(e.target.value)} className="w-full p-4 bg-muted rounded-2xl font-bold outline-none border-2 border-transparent focus:border-primary/20 transition-all" placeholder="0.00" />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground flex items-center gap-2"><Timer size={12}/> Time (Hours)</label>
-                  <input type="number" value={time} onChange={(e) => setTime(e.target.value)} className="w-full p-4 bg-muted rounded-2xl font-bold outline-none border-2 border-transparent focus:border-primary/20 transition-all" placeholder="0.00" />
-                </div>
-              </div>
-              <button onClick={() => setShowResults(true)} className="w-full py-5 bg-primary text-white rounded-2xl font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
-                Calculate Velocity <CheckCircle2 size={20} />
-              </button>
-            </section>
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "http://lizocalc.com/calculators/physics/speed-calculator#app",
+                name: "Speed Calculator",
+                url: "http://lizocalc.com/calculators/physics/speed-calculator",
+                description:
+                  "Physics speed calculator to estimate speed, distance, or time using the formula Speed = Distance ÷ Time.",
+                applicationCategory: "EducationalApplication",
+                applicationSubCategory: "Physics Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate speed from distance and time",
+                  "Calculate distance using speed and time",
+                  "Calculate time using distance and speed",
+                  "Supports physics formulas",
+                  "Works on all devices",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "http://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Zap className="w-8 h-8 text-blue-500" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">Speed Calculator</h1>
           </div>
         </div>
-      </div>
+      </section>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <SpeedCalculator />
+      </section>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+    prose prose-blue prose-lg lg:prose-xl
+    prose-headings:font-extrabold
+    prose-h2:text-blue-900
+    prose-h2:border-b-2
+    prose-h2:border-blue-200
+    prose-h2:pb-2
+    prose-p:text-gray-600
+    prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Speed Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+      <FAQ items={faqData} />
       <Footer />
     </main>
-  )
+  );
 }

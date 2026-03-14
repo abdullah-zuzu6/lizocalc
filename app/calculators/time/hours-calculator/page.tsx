@@ -1,166 +1,213 @@
-'use client'
+import { Metadata } from "next";
+import HoursCalculator from "./clientside";
+import { Clock } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useMemo, useEffect } from 'react'
-import { Clock, Calendar, Info, ArrowRight, RotateCcw, Zap } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import FAQ from '@/components/FAQ'
-import RelatedCalculators from '@/components/RelatedCalculators'
+const faqData = [
+  {
+    question: "How are hours calculated between two times?",
+    answer:
+      "The calculator determines the duration by converting both start and end times into minutes from the start of the day (00:00), accounting for AM/PM and potential midnight crossovers.",
+  },
+  {
+    question: "Does this calculator support overnight shifts?",
+    answer:
+      "Yes, our calculator automatically detects when an end time is earlier than a start time and assumes the duration spans across midnight to the next day.",
+  },
+];
 
-type Period = 'AM' | 'PM'
+export const metadata: Metadata = {
+  title: "Hours Calculator | Calculate Time Difference ",
+  description:
+    "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
 
-export default function HoursCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
+  keywords: [
+    "hours calculator",
+    "time difference calculator",
+    "calculate hours between times",
+    "duration calculator",
+    "shift hours calculator",
+  ],
 
-  // Time Only State
-  const [startHour, setStartHour] = useState('08')
-  const [startMin, setStartMin] = useState('00')
-  const [startPeriod, setStartPeriod] = useState<Period>('AM')
-  
-  const [endHour, setEndHour] = useState('05')
-  const [endMin, setEndMin] = useState('30')
-  const [endPeriod, setEndPeriod] = useState<Period>('PM')
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/time/hours-calculator",
+  },
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  // Helper to set "Now"
-  const setTimeToNow = (target: 'start' | 'end') => {
-    const now = new Date()
-    let hours = now.getHours()
-    const minutes = now.getMinutes().toString().padStart(2, '0')
-    const period = hours >= 12 ? 'PM' : 'AM'
-    
-    hours = hours % 12
-    hours = hours ? hours : 12 // the hour '0' should be '12'
-    const hourStr = hours.toString().padStart(2, '0')
+  openGraph: {
+    title: "Hours Calculator | LizoCalc",
+    description:
+      "Free hours calculator to calculate time duration between two points in a 12-hour format.",
+    url: "https://lizocalc.com/calculators/time/hours-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-    if (target === 'start') {
-      setStartHour(hourStr); setStartMin(minutes); setStartPeriod(period)
-    } else {
-      setEndHour(hourStr); setEndMin(minutes); setEndPeriod(period)
-    }
-  }
+  twitter: {
+    card: "summary_large_image",
+    title: "Hours Calculator | LizoCalc",
+    description:
+      "Calculate time duration and hours between two specific times with our free hours calculator.",
+  },
+};
 
-  const results = useMemo(() => {
-    if (!isMounted) return null
-
-    const get24Hours = (h: string, m: string, p: Period) => {
-      let hour = parseInt(h)
-      if (p === 'PM' && hour !== 12) hour += 12
-      if (p === 'AM' && hour === 12) hour = 0
-      return hour * 60 + parseInt(m)
-    }
-
-    const startTotal = get24Hours(startHour, startMin, startPeriod)
-    let endTotal = get24Hours(endHour, endMin, endPeriod)
-
-    // Handle crossing midnight
-    if (endTotal < startTotal) {
-      endTotal += 24 * 60
-    }
-
-    const diffMinutes = endTotal - startTotal
-    const hours = Math.floor(diffMinutes / 60)
-    const mins = diffMinutes % 60
-    const decimalHours = (diffMinutes / 60).toFixed(2)
-
-    return { hours, mins, totalMinutes: diffMinutes, decimalHours }
-  }, [startHour, startMin, startPeriod, endHour, endMin, endPeriod, isMounted])
-
+export default function HoursPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold mb-4">Hours Calculator</h1>
-          <p className="text-muted-foreground">Calculate hours and minutes between two times with AM/PM support.</p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          {/* Input Section */}
-          <div className="bg-card rounded-2xl border border-border p-8 space-y-8">
-            {/* Start Time Group */}
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-bold text-primary uppercase">Start Time</label>
-                <button onClick={() => setTimeToNow('start')} className="text-xs flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors bg-muted px-2 py-1 rounded">
-                  <Zap size={12} /> Now
-                </button>
-              </div>
-              <div className="flex gap-2">
-                <input type="number" min="1" max="12" value={startHour} onChange={(e) => setStartHour(e.target.value.padStart(2, '0'))} className="flex-1 p-3 bg-background border border-border rounded-xl text-center" />
-                <span className="flex items-center font-bold">:</span>
-                <input type="number" min="0" max="59" value={startMin} onChange={(e) => setStartMin(e.target.value.padStart(2, '0'))} className="flex-1 p-3 bg-background border border-border rounded-xl text-center" />
-                <select value={startPeriod} onChange={(e) => setStartPeriod(e.target.value as Period)} className="flex-1 p-3 bg-muted border border-border rounded-xl font-bold">
-                  <option value="AM">AM</option>
-                  <option value="PM">PM</option>
-                </select>
-              </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/time/hours-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Time Calculators",
+                    item: "https://lizocalc.com/calculators/time",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Hours Calculator",
+                    item: "https://lizocalc.com/calculators/time/hours-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/time/hours-calculator",
+                url: "https://lizocalc.com/calculators/time/hours-calculator",
+                name: "Hours Calculator",
+                description: "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/time/hours-calculator#app",
+                name: "Hours Calculator",
+                url: "https://lizocalc.com/calculators/time/hours-calculator",
+                description:
+                  "Free hours calculator to determine the exact time duration between two times, supporting overnight calculations.",
+                applicationCategory: "UtilityApplication",
+                applicationSubCategory: "Time Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate duration between two times",
+                  "Supports AM/PM format",
+                  "Handles overnight (midnight) shifts",
+                  "Provides result in decimal hours and minutes",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Clock className="w-8 h-8 text-blue-500" />
             </div>
-
-            <div className="flex justify-center text-muted-foreground/30"><ArrowRight size={32} /></div>
-
-            {/* End Time Group */}
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-bold text-primary uppercase">End Time</label>
-                <button onClick={() => setTimeToNow('end')} className="text-xs flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors bg-muted px-2 py-1 rounded">
-                  <Zap size={12} /> Now
-                </button>
-              </div>
-              <div className="flex gap-2">
-                <input type="number" min="1" max="12" value={endHour} onChange={(e) => setEndHour(e.target.value.padStart(2, '0'))} className="flex-1 p-3 bg-background border border-border rounded-xl text-center" />
-                <span className="flex items-center font-bold">:</span>
-                <input type="number" min="0" max="59" value={endMin} onChange={(e) => setEndMin(e.target.value.padStart(2, '0'))} className="flex-1 p-3 bg-background border border-border rounded-xl text-center" />
-                <select value={endPeriod} onChange={(e) => setEndPeriod(e.target.value as Period)} className="flex-1 p-3 bg-muted border border-border rounded-xl font-bold">
-                  <option value="AM">AM</option>
-                  <option value="PM">PM</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          {/* Results Section */}
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 flex flex-col justify-center text-center">
-            <p className="text-sm text-muted-foreground mb-2">The total duration is:</p>
-            <h2 className="text-5xl font-bold text-primary mb-2">
-              {results?.hours}h {results?.mins}m
-            </h2>
-            <p className="text-lg font-medium text-muted-foreground mb-8">
-              {results?.decimalHours} Decimal Hours
-            </p>
-            
-            <div className="grid grid-cols-1 gap-3">
-              <div className="p-4 bg-background/50 rounded-xl border border-border flex justify-between items-center">
-                <span className="text-sm font-medium">Total Minutes</span>
-                <span className="font-bold">{results?.totalMinutes.toLocaleString()}</span>
-              </div>
-              <div className="p-4 bg-background/50 rounded-xl border border-border flex justify-between items-center">
-                <span className="text-sm font-medium">Time Format</span>
-                <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">12-Hour Standard</span>
-              </div>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Hours Calculator
+            </h1>
           </div>
         </div>
+      </section>
 
-        {/* Informational Content for SEO */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="text-primary" />
-            <h3 className="font-bold text-lg">About the 12-Hour Time Calculation</h3>
-          </div>
-          <p className="text-muted-foreground text-sm leading-relaxed">
-            The 12-hour clock is a time convention in which the 24 hours of the day are divided into two periods: 
-            <strong> AM</strong> (from Latin <em>ante meridiem</em>, meaning "before midday") and 
-            <strong> PM</strong> (<em>post meridiem</em>, meaning "after midday"). This calculator accurately computes 
-            the difference between two such times, even if the duration spans across midnight.
-          </p>
-        </div>
-      </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <HoursCalculator />
+      </section>
+
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Hours Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
+
       <Footer />
     </main>
-  )
+  );
 }
