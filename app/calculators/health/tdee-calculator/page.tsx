@@ -1,243 +1,214 @@
-'use client'
+import { Metadata } from "next";
+import AdvancedTDEECalculator from "./clientside";
+import { Gauge } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect, useMemo } from 'react'
-import { Activity, User, Target, Info, HelpCircle, RotateCcw, Zap, Flame, Scale, ChevronRight } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import RelatedCalculators from '@/components/RelatedCalculators'
+const faqData = [
+  {
+    question: "How is TDEE calculated?",
+    answer:
+      "TDEE (Total Daily Energy Expenditure) is calculated by taking your Basal Metabolic Rate (BMR) and multiplying it by an activity factor that represents your daily exercise and movement levels.",
+  },
+  {
+    question: "Why is knowing my TDEE important?",
+    answer:
+      "Knowing your TDEE is crucial for effective weight management; consuming calories above your TDEE leads to weight gain, while consuming below it leads to weight loss.",
+  },
+];
 
-export default function TDEECalculator() {
-  const [isMounted, setIsMounted] = useState(false)
+export const metadata: Metadata = {
+  title: "Advanced TDEE Calculator ",
+  description:
+    "Use our advanced TDEE calculator to estimate your Total Daily Energy Expenditure, understand your caloric maintenance level, and reach your fitness goals.",
 
-  // --- Input States ---
-  const [gender, setGender] = useState<'male' | 'female'>('male')
-  const [age, setAge] = useState<string>('25')
-  const [weight, setWeight] = useState<string>('70')
-  const [height, setHeight] = useState<string>('175')
-  const [activity, setActivity] = useState<string>('1.375') // Light Exercise default
+  keywords: [
+    "tdee calculator",
+    "total daily energy expenditure calculator",
+    "maintenance calorie calculator",
+    "daily calorie needs",
+    "advanced tdee calculator",
+  ],
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/health/tdee-calculator",
+  },
 
-  // --- Calculation Engine ---
-  const results = useMemo(() => {
-    const a = parseFloat(age) || 0
-    const w = parseFloat(weight) || 0
-    const h = parseFloat(height) || 0
-    const mult = parseFloat(activity) || 1.2
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-    if (!a || !w || !h) return null
+  openGraph: {
+    title: "Advanced TDEE Calculator | LizoCalc",
+    description:
+      "Free advanced TDEE calculator to calculate your daily energy expenditure and calorie needs.",
+    url: "https://lizocalc.com/calculators/health/tdee-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-    // Mifflin-St Jeor Equation
-    let bmr = (10 * w) + (6.25 * h) - (5 * a)
-    bmr = gender === 'male' ? bmr + 5 : bmr - 161
+  twitter: {
+    card: "summary_large_image",
+    title: "Advanced TDEE Calculator | LizoCalc",
+    description:
+      "Calculate your Total Daily Energy Expenditure (TDEE) with our free health calculator.",
+  },
+};
 
-    const tdee = bmr * mult
-    const bmi = w / ((h / 100) ** 2)
-
-    return {
-      bmr: Math.round(bmr),
-      tdee: Math.round(tdee),
-      bmi: bmi.toFixed(1),
-      cutting: Math.round(tdee - 500),
-      bulking: Math.round(tdee + 500),
-      macros: {
-        protein: Math.round((tdee * 0.3) / 4),
-        fats: Math.round((tdee * 0.25) / 9),
-        carbs: Math.round((tdee * 0.45) / 4)
-      }
-    }
-  }, [gender, age, weight, height, activity])
-
-  if (!isMounted) return null
-
+export default function TDEEPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      
-      <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Advanced TDEE Calculator</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Discover your maintenance calories and get a custom macro breakdown for your fitness goals.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
-          {/* Left Side: Inputs */}
-          <div className="lg:col-span-7 space-y-6">
-            <section className="bg-card rounded-3xl border border-border p-6 md:p-10 shadow-sm">
-              <div className="space-y-8">
-                
-                {/* Gender Toggle */}
-                <div className="flex bg-muted p-1.5 rounded-2xl border border-border">
-                  <button 
-                    onClick={() => setGender('male')}
-                    className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold transition-all ${gender === 'male' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
-                  >
-                    Male
-                  </button>
-                  <button 
-                    onClick={() => setGender('female')}
-                    className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold transition-all ${gender === 'female' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
-                  >
-                    Female
-                  </button>
-                </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/health/tdee-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Health Calculators",
+                    item: "https://lizocalc.com/calculators/health",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "TDEE Calculator",
+                    item: "https://lizocalc.com/calculators/health/tdee-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/health/tdee-calculator",
+                url: "https://lizocalc.com/calculators/health/tdee-calculator",
+                name: "Advanced TDEE Calculator",
+                description: "Use our advanced TDEE calculator to estimate your Total Daily Energy Expenditure, understand your caloric maintenance level, and reach your fitness goals.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/health/tdee-calculator#app",
+                name: "Advanced TDEE Calculator",
+                url: "https://lizocalc.com/calculators/health/tdee-calculator",
+                description:
+                  "Advanced TDEE calculator to estimate daily energy expenditure and caloric maintenance levels.",
+                applicationCategory: "HealthApplication",
+                applicationSubCategory: "TDEE Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate Total Daily Energy Expenditure (TDEE)",
+                  "Determine daily maintenance calories",
+                  "Activity level adjustments",
+                  "Support for weight loss and muscle gain goals",
+                  "Metric and imperial unit support",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="space-y-3">
-                    <label className="text-xs font-black uppercase text-muted-foreground">Age</label>
-                    <input type="number" value={age} onChange={(e) => setAge(e.target.value)} className="w-full p-4 bg-muted border-none rounded-2xl text-xl font-bold focus:ring-2 ring-primary/20 outline-none" />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-xs font-black uppercase text-muted-foreground">Weight (kg)</label>
-                    <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} className="w-full p-4 bg-muted border-none rounded-2xl text-xl font-bold focus:ring-2 ring-primary/20 outline-none" />
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-xs font-black uppercase text-muted-foreground">Height (cm)</label>
-                    <input type="number" value={height} onChange={(e) => setHeight(e.target.value)} className="w-full p-4 bg-muted border-none rounded-2xl text-xl font-bold focus:ring-2 ring-primary/20 outline-none" />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <label className="text-xs font-black uppercase text-muted-foreground">Activity Level</label>
-                  <select 
-                    value={activity} 
-                    onChange={(e) => setActivity(e.target.value)}
-                    className="w-full p-4 bg-muted border-none rounded-2xl text-lg font-bold focus:ring-2 ring-primary/20 outline-none appearance-none cursor-pointer"
-                  >
-                    <option value="1.2">Sedentary (Office Job)</option>
-                    <option value="1.375">Light Exercise (1-2 days/week)</option>
-                    <option value="1.55">Moderate Exercise (3-5 days/week)</option>
-                    <option value="1.725">Heavy Exercise (6-7 days/week)</option>
-                    <option value="1.9">Athlete (2x per day)</option>
-                  </select>
-                </div>
-
-                <button 
-                  onClick={() => {setAge('25'); setWeight('70'); setHeight('175');}}
-                  className="w-full flex items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <RotateCcw size={16} /> Reset
-                </button>
-              </div>
-            </section>
-          </div>
-
-          {/* Right Side: Dashboard */}
-          <div className="lg:col-span-5 space-y-6">
-            {results ? (
-              <div className="space-y-6">
-                <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl relative overflow-hidden">
-                  <div className="absolute -top-10 -right-10 opacity-10">
-                    <Flame size={200} />
-                  </div>
-                  <div className="relative z-10">
-                    <span className="text-xs font-bold uppercase tracking-widest opacity-70">Daily Maintenance</span>
-                    <h3 className="text-6xl font-black mt-2">{results.tdee} <span className="text-xl font-medium">kcal/day</span></h3>
-                    
-                    <div className="grid grid-cols-2 gap-4 mt-8 pt-8 border-t border-white/10">
-                      <div>
-                        <p className="text-[10px] uppercase font-bold opacity-60">Basal BMR</p>
-                        <p className="text-xl font-bold">{results.bmr}</p>
-                      </div>
-                      <div>
-                        <p className="text-[10px] uppercase font-bold opacity-60">BMI Score</p>
-                        <p className="text-xl font-bold">{results.bmi}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Macro Cards */}
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="bg-card border border-border p-6 rounded-3xl flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-blue-500/10 rounded-2xl text-blue-500"><Zap size={20}/></div>
-                      <div>
-                        <p className="text-xs font-bold text-muted-foreground uppercase">Protein</p>
-                        <p className="text-xl font-black">{results.macros.protein}g</p>
-                      </div>
-                    </div>
-                    <ChevronRight className="opacity-20" />
-                  </div>
-                  <div className="bg-card border border-border p-6 rounded-3xl flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-500"><Flame size={20}/></div>
-                      <div>
-                        <p className="text-xs font-bold text-muted-foreground uppercase">Carbs</p>
-                        <p className="text-xl font-black">{results.macros.carbs}g</p>
-                      </div>
-                    </div>
-                    <ChevronRight className="opacity-20" />
-                  </div>
-                  <div className="bg-card border border-border p-6 rounded-3xl flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="p-3 bg-rose-500/10 rounded-2xl text-rose-500"><Target size={20}/></div>
-                      <div>
-                        <p className="text-xs font-bold text-muted-foreground uppercase">Fats</p>
-                        <p className="text-xl font-black">{results.macros.fats}g</p>
-                      </div>
-                    </div>
-                    <ChevronRight className="opacity-20" />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="h-full border-2 border-dashed border-border rounded-3xl flex flex-col items-center justify-center p-12 text-center text-muted-foreground">
-                <Activity size={48} className="opacity-20 mb-4" />
-                <p>Fill in your stats to unlock your metabolic profile.</p>
-              </div>
-            )}
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Gauge className="w-8 h-8 text-blue-500" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              TDEE Calculator
+            </h1>
           </div>
         </div>
+      </section>
 
-        {/* --- Educational Content --- */}
-        <section className="mt-16 bg-card rounded-3xl border border-border p-8 md:p-12 space-y-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold flex items-center gap-3">
-                <Scale className="text-primary" /> What is TDEE?
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                Your <strong>Total Daily Energy Expenditure</strong> is an estimation of how many calories you burn per day when exercise is taken into account. It is calculated by first figuring out your Basal Metabolic Rate, then multiplying that value by an activity multiplier.
-              </p>
-              
-              <div className="p-6 bg-muted rounded-2xl space-y-2">
-                <h4 className="font-bold text-foreground">The Math Behind BMR (Mifflin-St Jeor)</h4>
-                <div className="font-mono text-xs text-primary">
-                   {"BMR = (10 \times weight) + (6.25 \times height) - (5 \times age) + s"}
-                </div>
-                <p className="text-[10px] text-muted-foreground italic mt-2">*Where s is +5 for males and -161 for females.</p>
-              </div>
-            </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <AdvancedTDEECalculator />
+      </section>
 
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold flex items-center gap-3">
-                <Target className="text-primary" /> Goal Setting
-              </h2>
-              <div className="space-y-4">
-                <div className="p-4 bg-muted/50 rounded-2xl border border-border">
-                  <h4 className="font-bold">To Lose Weight (Cutting)</h4>
-                  <p className="text-sm text-muted-foreground">Aim for 500 calories below your TDEE. This typically results in ~0.5kg of weight loss per week.</p>
-                </div>
-                <div className="p-4 bg-muted/50 rounded-2xl border border-border">
-                  <h4 className="font-bold">To Gain Weight (Bulking)</h4>
-                  <p className="text-sm text-muted-foreground">Aim for 500 calories above your TDEE. Combine this with strength training for muscle growth.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this TDEE Calculator?
+        </h2>
 
-        <RelatedCalculators calculators={[
-          { name: 'BMI Calculator', description: 'Body Mass Index assessment', href: '/calculator/bmi', icon: User },
-          { name: 'Macro Calculator', description: 'Detailed macro percentage splits', href: '/calculator/macros', icon: Target }
-        ]} />
-      </div>
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
+
       <Footer />
     </main>
-  )
+  );
 }

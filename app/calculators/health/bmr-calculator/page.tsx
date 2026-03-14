@@ -1,234 +1,213 @@
-'use client'
+import { Metadata } from "next";
+import AdvancedBMRCalculator from "./clientside";
+import { Zap } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+const faqData = [
+  {
+    question: "How is BMR calculated?",
+    answer:
+      "BMR is calculated using scientific equations like Mifflin-St Jeor or Harris-Benedict, which account for your age, gender, weight, and height to determine your body's energy expenditure at rest.",
+  },
+  {
+    question: "What is the difference between BMR and TDEE?",
+    answer:
+      "BMR is the energy your body burns at total rest just to survive, while TDEE (Total Daily Energy Expenditure) includes that BMR plus the calories you burn through daily movement and exercise.",
+  },
+];
 
-export default function BMRCalculator() {
-  const [age, setAge] = useState<number>(30)
-  const [weight, setWeight] = useState<number>(70)
-  const [height, setHeight] = useState<number>(175)
-  const [gender, setGender] = useState<'male' | 'female'>('male')
-  const [isMounted, setIsMounted] = useState(false)
+export const metadata: Metadata = {
+  title: "Advanced BMR Calculator ",
+  description:
+    "Use our advanced BMR calculator to estimate your Basal Metabolic Rate and understand how many calories your body burns at rest.",
 
-  // Load from cookies on mount
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['bmr']?.data) {
-      setAge(history['bmr'].data.age || 30)
-      setWeight(history['bmr'].data.weight || 70)
-      setHeight(history['bmr'].data.height || 175)
-      setGender(history['bmr'].data.gender || 'male')
-    }
-  }, [])
+  keywords: [
+    "bmr calculator",
+    "basal metabolic rate calculator",
+    "metabolism calculator",
+    "resting metabolic rate calculator",
+    "advanced bmr calculator",
+  ],
 
-  // Save to cookies whenever values change
-  useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('bmr', { age, weight, height, gender })
-    }
-  }, [age, weight, height, gender, isMounted])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/health/bmr-calculator",
+  },
 
-  const calculateBMR = () => {
-    if (gender === 'male') {
-      return 88.362 + 13.397 * weight + 4.799 * height - 5.677 * age
-    } else {
-      return 447.593 + 9.247 * weight + 3.098 * height - 4.33 * age
-    }
-  }
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  const bmr = calculateBMR()
-  const caloriesPerMonth = (bmr * 30).toFixed(0)
-  const caloriesPerYear = (bmr * 365).toFixed(0)
+  openGraph: {
+    title: "Advanced BMR Calculator | LizoCalc",
+    description:
+      "Free advanced BMR calculator to determine your basal metabolic rate and resting energy expenditure.",
+    url: "https://lizocalc.com/calculators/health/bmr-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
+  twitter: {
+    card: "summary_large_image",
+    title: "Advanced BMR Calculator | LizoCalc",
+    description:
+      "Calculate your Basal Metabolic Rate (BMR) accurately with our free health calculator.",
+  },
+};
+
+export default function BMRPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      
-      {/* Back Button */}
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/fitness" />
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">BMR Calculator</h1>
-          <p className="text-lg text-muted-foreground">
-            Calculate your Basal Metabolic Rate - calories burned at rest
-          </p>
-        </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Health Calculators",
+                    item: "https://lizocalc.com/calculators/health",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "BMR Calculator",
+                    item: "https://lizocalc.com/calculators/health/bmr-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/health/bmr-calculator",
+                url: "https://lizocalc.com/calculators/health/bmr-calculator",
+                name: "Advanced BMR Calculator",
+                description: "Use our advanced BMR calculator to estimate your Basal Metabolic Rate and understand how many calories your body burns at rest.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/health/bmr-calculator#app",
+                name: "Advanced BMR Calculator",
+                url: "https://lizocalc.com/calculators/health/bmr-calculator",
+                description:
+                  "Advanced BMR calculator to determine resting metabolic rate and daily baseline energy needs.",
+                applicationCategory: "HealthApplication",
+                applicationSubCategory: "BMR Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate Basal Metabolic Rate (BMR)",
+                  "Scientific estimation formulas",
+                  "Support for metric and imperial units",
+                  "Baseline calorie requirements analysis",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        {/* Calculator */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-8">
-            {/* Gender */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">Gender</label>
-              <div className="flex gap-4">
-                {(['male', 'female'] as const).map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => setGender(option)}
-                    className={`flex-1 py-3 px-4 rounded-lg border font-medium transition-all capitalize ${
-                      gender === option
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border bg-background hover:border-primary/50'
-                    }`}
-                  >
-                    {option}
-                  </button>
-                ))}
-              </div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Zap className="w-8 h-8 text-blue-500" />
             </div>
-
-            {/* Age */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Age: {age} years
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="120"
-                step="1"
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={age}
-                onChange={(e) => setAge(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
-
-            {/* Weight */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Weight: {weight} kg
-              </label>
-              <input
-                type="range"
-                min="20"
-                max="200"
-                step="0.1"
-                value={weight}
-                onChange={(e) => setWeight(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={weight}
-                onChange={(e) => setWeight(Number(e.target.value))}
-                step="0.1"
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
-
-            {/* Height */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Height: {height} cm
-              </label>
-              <input
-                type="range"
-                min="100"
-                max="250"
-                step="1"
-                value={height}
-                onChange={(e) => setHeight(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={height}
-                onChange={(e) => setHeight(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              BMR Calculator
+            </h1>
           </div>
         </div>
+      </section>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Daily BMR</p>
-            <p className="text-4xl font-bold text-primary">{bmr.toFixed(0)}</p>
-            <p className="text-xs text-muted-foreground mt-2">calories/day</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Monthly BMR</p>
-            <p className="text-4xl font-bold text-accent">{caloriesPerMonth}</p>
-            <p className="text-xs text-muted-foreground mt-2">calories/month</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Yearly BMR</p>
-            <p className="text-4xl font-bold text-foreground">{caloriesPerYear}</p>
-            <p className="text-xs text-muted-foreground mt-2">calories/year</p>
-          </div>
-        </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <AdvancedBMRCalculator />
+      </section>
 
-        {/* Info Section */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Basal Metabolic Rate</h3>
-          </div>
-          <p className="text-muted-foreground mb-4">
-            Basal Metabolic Rate (BMR) is the number of calories your body needs to function at rest. 
-            This calculation uses the Mifflin-St Jeor equation, which is considered one of the most accurate 
-            methods for estimating BMR based on age, weight, height, and gender.
-          </p>
-          <p className="text-muted-foreground text-sm">
-            Your actual daily energy expenditure (TDEE) will be higher when you factor in physical activity. 
-            BMR typically represents about 60-75% of your total daily calorie burn.
-          </p>
-        </div>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this BMR Calculator?
+        </h2>
 
-        {/* Related Calculators */}
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <h3 className="font-semibold text-lg mb-6">Related Calculators</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/calculator/bmi"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">BMI Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate body mass index</p>
-            </Link>
-            <Link
-              href="/calculator/calorie"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Calorie Calculator</p>
-              <p className="text-sm text-muted-foreground">Estimate daily calorie needs</p>
-            </Link>
-            <Link
-              href="/calculator/body-fat"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Body Fat Calculator</p>
-              <p className="text-sm text-muted-foreground">Estimate body fat percentage</p>
-            </Link>
-          </div>
-        </div>
-      </div>
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
 
       <Footer />
     </main>
-  )
+  );
 }

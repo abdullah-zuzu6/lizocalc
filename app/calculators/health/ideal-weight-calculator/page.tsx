@@ -1,235 +1,214 @@
-'use client'
+import { Metadata } from "next";
+import AdvancedIdealWeightCalculator from "./clientside";
+import { Scale } from "lucide-react";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect, useMemo } from 'react'
-import { Scale, User, Ruler, RotateCcw, Info, HelpCircle, ChevronRight, Calculator, Activity, CheckCircle2 } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import RelatedCalculators from '@/components/RelatedCalculators'
+const faqData = [
+  {
+    question: "How is an ideal weight calculated?",
+    answer:
+      "Ideal weight is typically estimated using scientific formulas that consider your height, gender, and sometimes body frame size to provide a healthy weight range.",
+  },
+  {
+    question: "Is ideal weight the same for everyone?",
+    answer:
+      "No, 'ideal weight' is a guideline. Factors like muscle mass, bone density, and overall body composition play a significant role in determining what is healthy and sustainable for your individual body.",
+  },
+];
 
-export default function IdealWeightCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
+export const metadata: Metadata = {
+  title: "Advanced Ideal Weight Calculator ",
+  description:
+    "Use our advanced ideal weight calculator to estimate your healthy weight range based on your height, gender, and scientific formulas.",
 
-  // --- Input States ---
-  const [gender, setGender] = useState<'male' | 'female'>('male')
-  const [height, setHeight] = useState<string>('180')
-  const [age, setAge] = useState<string>('25')
+  keywords: [
+    "ideal weight calculator",
+    "healthy weight calculator",
+    "weight range calculator",
+    "bmi based ideal weight",
+    "advanced ideal weight calculator",
+  ],
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/health/ideal-weight-calculator",
+  },
 
-  // --- Calculation Engine ---
-  const results = useMemo(() => {
-    const hCm = parseFloat(height) || 0
-    const a = parseFloat(age) || 0
-    
-    if (hCm < 152.4) return { error: "Height must be at least 152.4 cm (5 feet) for these formulas." }
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-    // Convert cm to inches for standard formulas
-    const hIn = hCm / 2.54
-    const inchesOver5ft = hIn - 60
+  openGraph: {
+    title: "Advanced Ideal Weight Calculator | LizoCalc",
+    description:
+      "Free advanced ideal weight calculator to determine a healthy weight range for your body.",
+    url: "https://lizocalc.com/calculators/health/ideal-weight-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-    let calc = {
-      robinson: 0,
-      miller: 0,
-      devine: 0,
-      hamwi: 0,
-      bmiLow: (18.5 * (hCm / 100) ** 2).toFixed(1),
-      bmiHigh: (24.9 * (hCm / 100) ** 2).toFixed(1)
-    }
+  twitter: {
+    card: "summary_large_image",
+    title: "Advanced Ideal Weight Calculator | LizoCalc",
+    description:
+      "Calculate your ideal weight range accurately with our free health calculator.",
+  },
+};
 
-    if (gender === 'male') {
-      calc.robinson = 52 + (1.9 * inchesOver5ft)
-      calc.miller = 56.2 + (1.41 * inchesOver5ft)
-      calc.devine = 50 + (2.3 * inchesOver5ft)
-      calc.hamwi = 48 + (2.7 * inchesOver5ft)
-    } else {
-      calc.robinson = 49 + (1.7 * inchesOver5ft)
-      calc.miller = 53.1 + (1.36 * inchesOver5ft)
-      calc.devine = 45.5 + (2.3 * inchesOver5ft)
-      calc.hamwi = 45.5 + (2.2 * inchesOver5ft)
-    }
-
-    return {
-      formulas: [
-        { name: 'Robinson (1983)', value: calc.robinson.toFixed(1) },
-        { name: 'Miller (1983)', value: calc.miller.toFixed(1) },
-        { name: 'Devine (1974)', value: calc.devine.toFixed(1) },
-        { name: 'Hamwi (1964)', value: calc.hamwi.toFixed(1) }
-      ],
-      bmiRange: `${calc.bmiLow} - ${calc.bmiHigh}`,
-      average: ((calc.robinson + calc.miller + calc.devine + calc.hamwi) / 4).toFixed(1)
-    }
-  }, [gender, height, age])
-
-  if (!isMounted) return null
-
+export default function IdealWeightPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      
-      <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Ideal Weight Calculator</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Compare various medical formulas to find your target weight range based on height, gender, and age.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
-          {/* Left Side: Inputs */}
-          <div className="lg:col-span-5 space-y-6">
-            <section className="bg-card rounded-3xl border border-border p-6 md:p-10 shadow-sm h-full">
-              <div className="space-y-8">
-                
-                {/* Gender Toggle */}
-                <div className="flex bg-muted p-1.5 rounded-2xl border border-border">
-                  <button 
-                    onClick={() => setGender('male')}
-                    className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold transition-all ${gender === 'male' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
-                  >
-                    Male
-                  </button>
-                  <button 
-                    onClick={() => setGender('female')}
-                    className={`flex-1 py-3 px-4 rounded-xl text-sm font-bold transition-all ${gender === 'female' ? 'bg-background shadow-sm text-primary' : 'text-muted-foreground'}`}
-                  >
-                    Female
-                  </button>
-                </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/health/ideal-weight-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Health Calculators",
+                    item: "https://lizocalc.com/calculators/health",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Ideal Weight Calculator",
+                    item: "https://lizocalc.com/calculators/health/ideal-weight-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/health/ideal-weight-calculator",
+                url: "https://lizocalc.com/calculators/health/ideal-weight-calculator",
+                name: "Advanced Ideal Weight Calculator",
+                description: "Use our advanced ideal weight calculator to estimate your healthy weight range based on your height, gender, and scientific formulas.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/health/ideal-weight-calculator#app",
+                name: "Advanced Ideal Weight Calculator",
+                url: "https://lizocalc.com/calculators/health/ideal-weight-calculator",
+                description:
+                  "Advanced ideal weight calculator to estimate healthy weight ranges using established health formulas.",
+                applicationCategory: "HealthApplication",
+                applicationSubCategory: "Ideal Weight Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate ideal weight range",
+                  "Support for various scientific formulas",
+                  "Adjustments for gender and height",
+                  "User-friendly health metrics",
+                  "Metric and imperial unit support",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-                <div className="space-y-6">
-                  <div className="space-y-3">
-                    <label className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2">
-                      <Ruler size={14} className="text-primary" /> Height (cm)
-                    </label>
-                    <input 
-                      type="number" value={height} onChange={(e) => setHeight(e.target.value)} 
-                      className="w-full p-4 bg-muted border-none rounded-2xl text-xl font-bold focus:ring-2 ring-primary/20 outline-none" 
-                    />
-                  </div>
-
-                  <div className="space-y-3">
-                    <label className="text-xs font-black uppercase text-muted-foreground flex items-center gap-2">
-                      <User size={14} className="text-primary" /> Age
-                    </label>
-                    <input 
-                      type="number" value={age} onChange={(e) => setAge(e.target.value)} 
-                      className="w-full p-4 bg-muted border-none rounded-2xl text-xl font-bold focus:ring-2 ring-primary/20 outline-none" 
-                    />
-                  </div>
-                </div>
-
-                <button 
-                  onClick={() => {setHeight('180'); setAge('25');}}
-                  className="w-full flex items-center justify-center gap-2 py-2 text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
-                >
-                  <RotateCcw size={16} /> Reset Stats
-                </button>
-              </div>
-            </section>
-          </div>
-
-          {/* Right Side: Dashboard */}
-          <div className="lg:col-span-7 space-y-6">
-            {results && !results.error ? (
-              <div className="grid grid-cols-1 gap-6">
-                <div className="bg-primary rounded-3xl p-8 text-primary-foreground shadow-2xl relative overflow-hidden">
-                  <div className="absolute -top-10 -right-10 opacity-10">
-                    <Scale size={240} />
-                  </div>
-                  <div className="relative z-10">
-                    <span className="text-xs font-bold uppercase tracking-widest opacity-70">Estimated Average Ideal</span>
-                    <h3 className="text-6xl font-black mt-2">{results.average} <span className="text-xl font-medium">kg</span></h3>
-                    
-                    <div className="mt-8 pt-8 border-t border-white/10 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-white/10 p-4 rounded-2xl">
-                            <p className="text-[10px] uppercase font-bold opacity-60 mb-1">Healthy BMI Range</p>
-                            <p className="text-xl font-bold">{results.bmiRange} kg</p>
-                        </div>
-                        <div className="flex items-center gap-3">
-                            <CheckCircle2 className="text-white/80" />
-                            <p className="text-xs leading-tight opacity-80">Based on your height of {height}cm</p>
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
-            
-                {/* Formula Comparison Grid */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-  {results && 'formulas' in results && results.formulas?.map((f, i) => (
-    <div key={i} className="bg-card border border-border p-5 rounded-3xl flex items-center justify-between group hover:border-primary/30 transition-all">
-      <div>
-        <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{f.name}</p>
-        <p className="text-2xl font-black text-foreground">{f.value} kg</p>
-      </div>
-      <div className="p-3 bg-muted rounded-2xl group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-        <Calculator size={18} />
-      </div>
-    </div>
-  ))}
-</div>
-              </div>
-            ) : (
-              <div className="h-full border-2 border-dashed border-border rounded-3xl flex flex-col items-center justify-center p-12 text-center text-muted-foreground">
-                <Activity size={48} className="opacity-20 mb-4" />
-                <p className="max-w-xs">{results?.error || "Please enter your height to calculate ideal weight ranges."}</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* --- Educational Content --- */}
-        <section className="mt-16 bg-card rounded-3xl border border-border p-8 md:p-12 space-y-12 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold flex items-center gap-3">
-                <Info className="text-primary" /> How Ideal Weight is Calculated
-              </h2>
-              <div className="text-muted-foreground leading-relaxed space-y-4">
-                <p>
-                  Most medical formulas use a "base weight" for a height of 5 feet (152.4 cm) and then add a specific number of kilograms for every additional inch of height.
-                </p>
-                                <p className="text-sm">
-                  While <strong>Devine</strong> is the most commonly used formula in clinical settings for calculating medication dosages, <strong>Miller</strong> and <strong>Robinson</strong> are often considered more updated for modern populations.
-                </p>
-              </div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Scale className="w-8 h-8 text-blue-500" />
             </div>
-
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold flex items-center gap-3">
-                <HelpCircle className="text-primary" /> Is "Ideal Weight" Accurate?
-              </h2>
-              <p className="text-muted-foreground leading-relaxed">
-                It's important to remember that these formulas only factor in <strong>height</strong> and <strong>gender</strong>. They do not account for:
-              </p>
-              <ul className="grid grid-cols-1 gap-3">
-                {[
-                  "Muscle mass vs. body fat percentage",
-                  "Bone density and frame size",
-                  "Athletic performance requirements",
-                  "Overall metabolic health"
-                ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm p-3 bg-muted/50 rounded-xl border border-border">
-                    <ChevronRight size={14} className="text-primary" /> {item}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-xs text-muted-foreground italic">
-                Always use these numbers as a general guideline rather than a strict medical requirement.
-              </p>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Ideal Weight Calculator
+            </h1>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <RelatedCalculators calculators={[
-          { name: 'BMI Calculator', description: 'Body Mass Index assessment', href: '/calculator/bmi', icon: Activity },
-          { name: 'Body Fat Calculator', description: 'Estimate your body composition', href: '/calculator/body-fat', icon: User },
-          { name: 'Calorie Calculator', description: 'Total daily energy needs', href: '/calculator/calorie', icon: Activity }
-        ]} />
-      </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <AdvancedIdealWeightCalculator />
+      </section>
+
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Ideal Weight Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
+
       <Footer />
     </main>
-  )
+  );
 }

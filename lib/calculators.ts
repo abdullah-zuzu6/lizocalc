@@ -11,7 +11,17 @@ export const calculators: Calculator[] = [
 
 //Health calculators
   { slug: 'bmi-calculator', category: 'health' },
+  { slug: 'calorie-calculator', category: 'health' },
+  { slug: 'body-fat-calculator', category: 'health' },
+  { slug: 'bmr-calculator', category: 'health' },
+  { slug: 'tdee-calculator', category: 'health' },
+  { slug: 'ideal-weight-calculator', category: 'health' },
+  { slug: 'bac-calculator', category: 'health' },
+  { slug: 'calorie-deficit-calculator', category: 'health' },
+  
 
+
+  
 //Math calculators
   { slug: 'scientific-calculator', category: 'math' },
   { slug: 'lcm-calculator', category: 'math' },
