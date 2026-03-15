@@ -80,7 +80,7 @@ export default function RootLayout({
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
         <CookieBanner />
-        <Analytics />
+        <Analytics/>
       </body>
     </html>
   );
