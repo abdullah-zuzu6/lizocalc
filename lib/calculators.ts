@@ -10,7 +10,14 @@ export const calculators: Calculator[] = [
   { slug: 'mortgage-calculator', category: 'financial' },
   {slug: 'loan-calculator', category: 'financial' },
   {slug: '401k-calculator', category: 'financial' },
-  
+  { slug: 'salary-calculator', category: 'financial' },
+  { slug: 'interest-calculator', category: 'financial' },
+  { slug: 'payment-calculator', category: 'financial' },
+  { slug: 'inflation-calculator', category: 'financial' },
+  {slug: 'credit-card-calculator', category: 'financial' },
+  {slug: 'sales-tax-calculator', category: 'financial' },
+  {slug: 'auto-loan-calculator', category: 'financial' },
+  {slug: 'roi-calculator', category: 'financial' },
 
 //Health calculators
   { slug: 'bmi-calculator', category: 'health' },

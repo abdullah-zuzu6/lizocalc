@@ -1,195 +1,220 @@
-'use client'
+import { Metadata } from "next";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { Info } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import BackButton from '@/components/BackButton'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+import AdvancedPaymentCalculator from "./clientside";
 
-export default function PaymentCalculator() {
-  const [totalAmount, setTotalAmount] = useState<number>(1000)
-  const [numberOfPayments, setNumberOfPayments] = useState<number>(12)
-  const [isMounted, setIsMounted] = useState(false)
+import { CreditCard } from "lucide-react";
 
-  // Load from cookies on mount
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    
-    if (consent?.functional && history['payment']?.data) {
-      setTotalAmount(history['payment'].data.totalAmount || 1000)
-      setNumberOfPayments(history['payment'].data.numberOfPayments || 12)
-    }
-  }, [])
+import Footer from "@/components/Footer";
 
-  // Save to cookies whenever values change
-  useEffect(() => {
-    if (!isMounted) return
-    
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('payment', { totalAmount, numberOfPayments })
-    }
-  }, [totalAmount, numberOfPayments, isMounted])
+import Navbar from "@/components/Navbar";
 
-  const paymentPerInstallment = (totalAmount / numberOfPayments).toFixed(2)
+import FAQ from "@/components/FAQ";
 
+import Script from "next/script";
+
+const faqData = [
+  {
+    question: "How is a loan payment calculated?",
+    answer:
+      "The monthly payment is calculated using the standard amortization formula based on your total loan principal, annual interest rate, and the loan term.",
+  },
+  {
+    question: "Can I adjust my payment frequency?",
+    answer:
+      "Yes, our calculator allows you to view payment breakdowns across different frequencies, such as monthly, bi-weekly, or weekly, to help you plan your budget.",
+  },
+];
+
+export const metadata: Metadata = {
+  title: "Advanced Payment Calculator ",
+  description:
+    "Use our advanced payment calculator to estimate monthly loan payments, interest costs, and repayment schedules instantly.",
+
+  keywords: [
+    "payment calculator",
+    "loan payment calculator",
+    "monthly payment calculator",
+    "repayment calculator",
+    "advanced payment calculator",
+  ],
+
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/financial/payment-calculator",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  openGraph: {
+    title: "Advanced Payment Calculator | LizoCalc",
+    description:
+      "Free advanced payment calculator to calculate monthly loan payments and amortization.",
+    url: "https://lizocalc.com/calculators/financial/payment-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Advanced Payment Calculator | LizoCalc",
+    description:
+      "Calculate loan payments, interest, and amortization schedules with our free payment calculator.",
+  },
+};
+
+export default function PaymentPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      
-      {/* Back Button */}
-      <div className="sticky top-20 z-40 bg-background/80 backdrop-blur-sm border-b border-border">
-        <div className="max-w-2xl mx-auto px-4 py-4">
-          <BackButton href="/calculators/financial" />
-        </div>
-      </div>
 
-      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Payment Calculator</h1>
-          <p className="text-lg text-muted-foreground">
-            Divide any amount into equal installment payments
-          </p>
-        </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/payment-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Financial Calculators",
+                    item: "https://lizocalc.com/calculators/financial",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Payment Calculator",
+                    item: "https://lizocalc.com/calculators/financial/payment-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/financial/payment-calculator",
+                url: "https://lizocalc.com/calculators/financial/payment-calculator",
+                name: "Advanced Payment Calculator",
+                description: "Use our advanced payment calculator to estimate monthly loan payments, interest costs, and repayment schedules instantly.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/payment-calculator#app",
+                name: "Advanced Payment Calculator",
+                url: "https://lizocalc.com/calculators/financial/payment-calculator",
+                description:
+                  "Advanced payment calculator to estimate monthly payments, interest, and complete amortization schedule.",
+                applicationCategory: "FinanceApplication",
+                applicationSubCategory: "Payment Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate monthly loan payments",
+                  "Estimate total interest payable",
+                  "View full amortization schedule",
+                  "Compare payment frequencies",
+                  "Assess impact of extra principal payments",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        {/* Calculator */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="space-y-8">
-            {/* Total Amount */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Total Amount: ${totalAmount.toLocaleString()}
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="1000000"
-                step="1"
-                value={totalAmount}
-                onChange={(e) => setTotalAmount(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={totalAmount}
-                onChange={(e) => setTotalAmount(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <CreditCard className="w-8 h-8 text-blue-500" />
             </div>
-
-            {/* Number of Payments */}
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                Number of Payments: {numberOfPayments}
-              </label>
-              <input
-                type="range"
-                min="1"
-                max="360"
-                step="1"
-                value={numberOfPayments}
-                onChange={(e) => setNumberOfPayments(Number(e.target.value))}
-                className="w-full h-2 bg-border rounded-lg appearance-none cursor-pointer accent-primary"
-              />
-              <input
-                type="number"
-                value={numberOfPayments}
-                onChange={(e) => setNumberOfPayments(Number(e.target.value))}
-                className="w-full mt-4 px-4 py-2 bg-background border border-border rounded-lg text-foreground"
-              />
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Payment Calculator
+            </h1>
           </div>
         </div>
+      </section>
 
-        {/* Results */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Payment Per Installment</p>
-            <p className="text-4xl font-bold text-primary">${paymentPerInstallment}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Total Amount</p>
-            <p className="text-4xl font-bold text-accent">${totalAmount.toLocaleString()}</p>
-          </div>
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8 text-center">
-            <p className="text-muted-foreground text-sm mb-2">Number of Payments</p>
-            <p className="text-4xl font-bold text-foreground">{numberOfPayments}</p>
-          </div>
-        </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <AdvancedPaymentCalculator />
+      </section>
 
-        {/* Payment Schedule */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <h3 className="font-semibold text-lg mb-6">Payment Schedule Preview</h3>
-          <div className="space-y-2 max-h-64 overflow-y-auto">
-            {Array.from({ length: Math.min(12, numberOfPayments) }).map((_, i) => (
-              <div key={i} className="flex justify-between items-center p-3 bg-background rounded-lg">
-                <span className="text-muted-foreground">Payment {i + 1}</span>
-                <span className="font-semibold">${paymentPerInstallment}</span>
-              </div>
-            ))}
-            {numberOfPayments > 12 && (
-              <div className="flex justify-between items-center p-3 text-muted-foreground text-sm">
-                <span>... and {numberOfPayments - 12} more payments</span>
-              </div>
-            )}
-          </div>
-        </div>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Payment Calculator?
+        </h2>
 
-        {/* Info Section */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">About Equal Installments</h3>
-          </div>
-          <p className="text-muted-foreground">
-            This payment calculator divides a total amount into equal installments. Each payment will be exactly 
-            the same amount, making budgeting and planning easy. This is useful for splitting bills, breaking down 
-            costs, or understanding purchase price over time.
-          </p>
-        </div>
+        <p>1000+ words of SEO content here...</p>
 
-        {/* Related Calculators */}
-        <div className="bg-card rounded-2xl border border-border p-8">
-          <h3 className="font-semibold text-lg mb-6">Related Calculators</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Link
-              href="/calculator/loan"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Loan Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate loan payments</p>
-            </Link>
-            <Link
-              href="/calculator/mortgage"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Mortgage Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate mortgage details</p>
-            </Link>
-            <Link
-              href="/calculator/interest"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Interest Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate compound interest</p>
-            </Link>
-            <Link
-              href="/calculator/auto-loan"
-              className="p-4 border border-border rounded-lg hover:border-primary/50 hover:bg-primary/5 transition-all"
-            >
-              <p className="font-medium">Auto Loan Calculator</p>
-              <p className="text-sm text-muted-foreground">Calculate auto loan details</p>
-            </Link>
-          </div>
-        </div>
-      </div>
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
 
       <Footer />
     </main>
-  )
+  );
 }

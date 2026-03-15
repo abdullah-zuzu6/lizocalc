@@ -1,203 +1,221 @@
-'use client'
+import { Metadata } from "next";
 
-import { useState, useMemo, useEffect } from 'react'
-import { TrendingUp, Info, ArrowRightLeft, Percent, RotateCcw } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import FAQ from '@/components/FAQ'
-import RelatedCalculators from '@/components/RelatedCalculators'
 
-type CompoundingPeriod = 'Annually (APY)' | 'Semiannually' | 'Quarterly' | 'Monthly (APR)' | 'Semimonthly' | 'Biweekly' | 'Weekly' | 'Daily' | 'Continuously'
+import { TrendingUp } from "lucide-react";
 
-export default function CompoundInterestCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
-  
-  // Input State matching reference images
-  const [inputInterest, setInputInterest] = useState<number>(10)
-  const [inputCompound, setInputCompound] = useState<CompoundingPeriod>('Monthly (APR)')
-  const [outputCompound, setOutputCompound] = useState<CompoundingPeriod>('Annually (APY)')
+import Footer from "@/components/Footer";
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+import Navbar from "@/components/Navbar";
 
-  const compoundingValues: Record<CompoundingPeriod, number> = {
-    'Annually (APY)': 1,
-    'Semiannually': 2,
-    'Quarterly': 4,
-    'Monthly (APR)': 12,
-    'Semimonthly': 24,
-    'Biweekly': 26,
-    'Weekly': 52,
-    'Daily': 365.25, // Using standard 365.25 for accuracy as per reference
-    'Continuously': Infinity
-  }
+import FAQ from "@/components/FAQ";
 
-  const results = useMemo(() => {
-    if (!isMounted) return null
+import Script from "next/script";
+import CompoundInterestCalculator from "./clientside";
 
-    const r = inputInterest / 100
-    const n_in = compoundingValues[inputCompound]
-    const n_out = compoundingValues[outputCompound]
+const faqData = [
+  {
+    question: "How is compound interest calculated?",
+    answer:
+      "Compound interest is calculated by multiplying the initial principal amount by one plus the annual interest rate raised to the number of compound periods, minus the original principal.",
+  },
+  {
+    question: "Can I add regular contributions?",
+    answer:
+      "Yes, our calculator includes a recurring contribution field to show you how consistent saving impacts your long-term wealth growth.",
+  },
+];
 
-    // Calculate effective annual rate (EAR) first
-    let ear: number
-    if (n_in === Infinity) {
-      ear = Math.exp(r) - 1
-    } else {
-      ear = Math.pow(1 + r / n_in, n_in) - 1
-    }
+export const metadata: Metadata = {
+  title: "Advanced Compound Interest Calculator ",
+  description:
+    "Use our advanced compound interest calculator to estimate investment growth, total interest, and future value instantly.",
 
-    // Convert EAR to target compounding frequency
-    let outputRate: number
-    if (n_out === Infinity) {
-      outputRate = Math.log(1 + ear)
-    } else {
-      outputRate = n_out * (Math.pow(1 + ear, 1 / n_out) - 1)
-    }
+  keywords: [
+    "compound interest calculator",
+    "investment growth calculator",
+    "future value calculator",
+    "interest calculator",
+    "advanced compound interest calculator",
+  ],
 
-    const dailyRate = ear / 365.25
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+  },
 
-    return {
-      equivalentRate: (outputRate * 100).toFixed(5),
-      dailyInterest: (dailyRate * 100).toFixed(5)
-    }
-  }, [inputInterest, inputCompound, outputCompound, isMounted])
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  const faqItems = [
-    {
-      question: 'What is the difference between APR and APY?',
-      answer: 'APR (Annual Percentage Rate) does not account for compounding within the year, while APY (Annual Percentage Yield) represents the actual interest earned including the effect of compounding.',
-    },
-    {
-      question: 'Why use 365.25 days for daily compounding?',
-      answer: 'Using 365.25 days accounts for leap years, ensuring the most mathematically accurate daily interest conversion over long periods.',
-    }
-  ]
+  openGraph: {
+    title: "Advanced Compound Interest Calculator | LizoCalc",
+    description:
+      "Free advanced compound interest calculator to calculate investment returns and future value.",
+    url: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-  const relatedCalcs = [
-    { name: 'Interest Calculator', description: 'Basic interest calculations', href: '/calculator/interest', icon: Percent },
-    { name: 'Investment Calculator', description: 'Project future portfolio growth', icon: TrendingUp, href: '/calculator/investment' },
-  ]
+  twitter: {
+    card: "summary_large_image",
+    title: "Advanced Compound Interest Calculator | LizoCalc",
+    description:
+      "Calculate investment growth, interest, and future value with our free compound interest calculator.",
+  },
+};
 
+export default function CompoundInterestPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      
-      <div className="max-w-4xl mx-auto px-4 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-bold mb-4">Compound Interest Calculator</h1>
-          <p className="text-muted-foreground">Compare and convert interest rates across different compounding periods.</p>
+
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/compound-interest-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Financial Calculators",
+                    item: "https://lizocalc.com/calculators/financial",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Compound Interest Calculator",
+                    item: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                url: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                name: "Advanced Compound Interest Calculator",
+                description: "Use our advanced compound interest calculator to estimate investment growth, total interest, and future value instantly.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/compound-interest-calculator#app",
+                name: "Advanced Compound Interest Calculator",
+                url: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                description:
+                  "Advanced compound interest calculator to estimate future value, total interest, and investment growth over time.",
+                applicationCategory: "FinanceApplication",
+                applicationSubCategory: "Compound Interest Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate future investment value",
+                  "Estimate total interest earned",
+                  "Visualize compound interest growth",
+                  "Include monthly or annual contributions",
+                  "Adjust compounding frequency",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
+
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <TrendingUp className="w-8 h-8 text-blue-500" />
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Compound Interest Calculator
+            </h1>
+          </div>
         </div>
+      </section>
 
-        {/* Result Banner - Matches the green style from reference */}
-        {isMounted && (
-          <div className="mb-8 bg-primary/10 border border-primary/20 rounded-xl p-6">
-            <h2 className="text-sm font-bold text-primary uppercase mb-2">Result</h2>
-            <p className="text-xl md:text-2xl font-semibold leading-tight">
-              {inputInterest}% compound {inputCompound.toLowerCase()} is equivalent to <span className="text-primary">{results?.equivalentRate}%</span> compound {outputCompound.toLowerCase()} or <span className="text-primary">{results?.dailyInterest}%</span> interest every day.
-            </p>
-            <p className="text-xs text-muted-foreground mt-3 italic">*The daily rate assumes 365.25 days per year.</p>
-          </div>
-        )}
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        
+        <CompoundInterestCalculator/>
+      </section>
 
-        {/* Main Calculator Card */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-12 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-end">
-            
-            {/* Input Interest */}
-            <div className="md:col-span-2 space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Input Interest</label>
-              <div className="relative">
-                <input 
-                  type="number" 
-                  value={inputInterest} 
-                  onChange={(e) => setInputInterest(Number(e.target.value))}
-                  className="w-full p-3 pr-8 bg-background border border-border rounded-xl font-bold focus:ring-2 focus:ring-primary outline-none"
-                />
-                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">%</span>
-              </div>
-            </div>
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Compound Interest Calculator?
+        </h2>
 
-            {/* Input Compound Select */}
-            <div className="md:col-span-3 space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Compound</label>
-              <select 
-                value={inputCompound} 
-                onChange={(e) => setInputCompound(e.target.value as CompoundingPeriod)}
-                className="w-full p-3 bg-muted border border-border rounded-xl font-medium outline-none cursor-pointer"
-              >
-                {Object.keys(compoundingValues).map(period => (
-                  <option key={period} value={period}>{period}</option>
-                ))}
-              </select>
-            </div>
+        <p>1000+ words of SEO content here...</p>
 
-            {/* Equals Sign */}
-            <div className="md:col-span-1 flex items-center justify-center pb-3">
-              <span className="text-2xl font-bold text-muted-foreground/50">=</span>
-            </div>
+        <h3>How it works</h3>
 
-            {/* Output Interest Display */}
-            <div className="md:col-span-2 space-y-2 text-center md:text-left">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Output Interest</label>
-              <div className="p-3 font-bold text-primary text-lg">
-                {results?.equivalentRate}%
-              </div>
-            </div>
+        <p>Your explanation...</p>
+      </article>
 
-            {/* Output Compound Select */}
-            <div className="md:col-span-3 space-y-2">
-              <label className="text-xs font-bold uppercase text-muted-foreground">Compound</label>
-              <select 
-                value={outputCompound} 
-                onChange={(e) => setOutputCompound(e.target.value as CompoundingPeriod)}
-                className="w-full p-3 bg-muted border border-border rounded-xl font-medium outline-none cursor-pointer"
-              >
-                {Object.keys(compoundingValues).map(period => (
-                  <option key={period} value={period}>{period}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+      <FAQ items={faqData} />
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-border">
-            <button className="flex-1 bg-primary text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary/90 transition-all">
-              Calculate <ArrowRightLeft size={18} />
-            </button>
-            <button 
-              onClick={() => {setInputInterest(0); setInputCompound('Annually (APY)');}}
-              className="px-8 py-3 bg-muted text-foreground rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-muted/80 transition-all"
-            >
-              Clear <RotateCcw size={18} />
-            </button>
-          </div>
-        </div>
-
-        {/* Informational Content for SEO */}
-        <div className="bg-card rounded-2xl border border-border p-8 mb-12">
-          <div className="flex gap-3 mb-6">
-            <Info className="w-6 h-6 text-primary" />
-            <h3 className="text-xl font-bold">How Compounding Frequency Works</h3>
-          </div>
-          <div className="prose prose-sm max-w-none text-muted-foreground space-y-4">
-            <p>
-              Compounding interest is the process where the interest you earn on an investment is added to the principal balance, and then you earn interest on that new, larger balance in the next period.
-            </p>
-            <p>
-              The more frequently interest is compounded (daily vs. annually), the higher the effective yield will be. This calculator helps you determine the <strong>Equivalent Rate</strong> so you can compare different financial products fairly.
-            </p>
-            <div className="bg-muted p-4 rounded-lg font-mono text-center overflow-x-auto">
-              APY = (1 + r/n)^n - 1
-            </div>
-          </div>
-        </div>
-
-        <RelatedCalculators calculators={relatedCalcs} />
-        <FAQ items={faqItems} title="Compound Interest FAQ" />
-      </div>
       <Footer />
     </main>
-  )
+  );
 }
