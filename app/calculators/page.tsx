@@ -92,13 +92,6 @@ const allCalculators = [
     category: 'Financial',
     icon: BarChart3,
   },
-  {
-    name: 'GDP Calculator',
-    description: 'Calculate Gross Domestic Product using the expenditure approach',
-    href: '/calculators/financial/gdp-calculator',
-    category: 'Financial',
-    icon: BarChart3,
-  },
 
   // Fitness and health
   {

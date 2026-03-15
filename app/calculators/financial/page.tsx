@@ -81,14 +81,6 @@ const calculators = [
     category: 'Financial',
     
   },
-
-  {
-    name: 'GDP Calculator',
-    description: 'Calculate Gross Domestic Product using the expenditure approach',
-    href: '/calculators/financial/gdp-calculator',
-    category: 'Financial',
-    
-  },
 ]
 
 export default function FinancialCalculators() {

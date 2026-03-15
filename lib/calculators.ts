@@ -8,6 +8,9 @@ export interface Calculator {
 export const calculators: Calculator[] = [
 //Financial calculators
   { slug: 'mortgage-calculator', category: 'financial' },
+  {slug: 'loan-calculator', category: 'financial' },
+  {slug: '401k-calculator', category: 'financial' },
+  
 
 //Health calculators
   { slug: 'bmi-calculator', category: 'health' },
@@ -18,9 +21,9 @@ export const calculators: Calculator[] = [
   { slug: 'ideal-weight-calculator', category: 'health' },
   { slug: 'bac-calculator', category: 'health' },
   { slug: 'calorie-deficit-calculator', category: 'health' },
+  { slug: 'macro-calculator', category: 'health' },
+  {slug: 'sleep-calculator', category: 'health' },
   
-
-
   
 //Math calculators
   { slug: 'scientific-calculator', category: 'math' },

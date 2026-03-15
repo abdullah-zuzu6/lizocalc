@@ -1,278 +1,214 @@
-'use client'
+import { Metadata } from "next";
+import { PiggyBank } from "lucide-react"; // Changed icon to fit 401k
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
+import Advanced401kDashboard from "./clientside";
 
-import { useState, useEffect, useMemo } from 'react'
-import { PieChart, Wallet, TrendingUp, Landmark,Zap,Calculator, RotateCcw, HelpCircle, Info, DollarSign, List } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
-import RelatedCalculators from '@/components/RelatedCalculators'
+const faqData = [
+  {
+    question: "How is a 401k contribution calculated?",
+    answer:
+      "A 401k contribution is typically calculated as a percentage of your gross annual salary, which is then deferred into your retirement account before taxes.",
+  },
+  {
+    question: "Can I adjust my 401k contributions?",
+    answer:
+      "Yes, our calculator allows you to input different contribution percentages to see how they impact your long-term retirement savings growth.",
+  },
+];
 
-export default function Advanced401kCalculator() {
-  const [isMounted, setIsMounted] = useState(false)
+export const metadata: Metadata = {
+  title: "401k Calculator",
+  description:
+    "Use our advanced 401k calculator to estimate your retirement savings growth, employer match, and total balance over time.",
 
-  // --- Input States ---
-  const [currentAge, setCurrentAge] = useState<number>(30)
-  const [retirementAge, setRetirementAge] = useState<number>(65)
-  const [currentBalance, setCurrentBalance] = useState<number>(10000)
-  const [annualSalary, setAnnualSalary] = useState<number>(75000)
-  const [contributionPct, setContributionPct] = useState<number>(6)
-  const [employerMatch, setEmployerMatch] = useState<number>(50)
-  const [employerLimit, setEmployerLimit] = useState<number>(6)
-  const [expectedReturn, setExpectedReturn] = useState<number>(7)
-  const [salaryIncrease, setSalaryIncrease] = useState<number>(3)
-  const [showTable, setShowTable] = useState(false)
+  keywords: [
+    "401k calculator",
+    "retirement calculator",
+    "401k savings calculator",
+    "retirement savings planner",
+    "advanced 401k calculator",
+  ],
 
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/financial/401k-calculator",
+  },
 
-  // --- Advanced Calculation Engine ---
-  const calculationData = useMemo(() => {
-    let totalYears = retirementAge - currentAge
-    if (totalYears <= 0) return null
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-    let balance = currentBalance
-    let salary = annualSalary
-    let totalContributed = 0
-    let totalMatched = 0
-    let yearlyLogs = []
+  openGraph: {
+    title: "401k Calculator | LizoCalc",
+    description:
+      "Free advanced 401k calculator to estimate your retirement savings and employer match.",
+    url: "https://lizocalc.com/calculators/financial/401k-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-    for (let year = 1; year <= totalYears; year++) {
-      const userContrib = salary * (contributionPct / 100)
-      const matchPossible = salary * (employerLimit / 100)
-      const actualMatch = Math.min(userContrib, matchPossible) * (employerMatch / 100)
-      const annualAddition = userContrib + actualMatch
-      
-      const interestEarned = (balance + annualAddition) * (expectedReturn / 100)
-      balance = balance + annualAddition + interestEarned
-      
-      totalContributed += userContrib
-      totalMatched += actualMatch
-      
-      yearlyLogs.push({
-        year: new Date().getFullYear() + year,
-        age: currentAge + year,
-        salary: salary.toFixed(0),
-        contribution: userContrib.toFixed(0),
-        match: actualMatch.toFixed(0),
-        balance: balance.toFixed(0)
-      })
+  twitter: {
+    card: "summary_large_image",
+    title: "401k Calculator | LizoCalc",
+    description:
+      "Calculate your 401k retirement growth and savings with our free calculator.",
+  },
+};
 
-      salary *= (1 + salaryIncrease / 100)
-    }
-
-    return {
-      finalBalance: balance,
-      totalContributed,
-      totalMatched,
-      totalInterest: balance - currentBalance - totalContributed - totalMatched,
-      yearlyLogs
-    }
-  }, [currentAge, retirementAge, currentBalance, annualSalary, contributionPct, employerMatch, employerLimit, expectedReturn, salaryIncrease])
-
-  if (!isMounted) return null
-
+export default function FourOhOneKPage() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    <main className="min-h-screen bg-background">
       <Navbar />
-      
-      <div className="max-w-7xl mx-auto px-4 py-12 md:py-16">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-6xl font-black mb-4 tracking-tighter">401(k) <span className="text-primary">PRO</span></h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Advanced retirement projection with employer matching and annual salary growth.
-          </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
-          {/* Left Side: Inputs with Sliders */}
-          <div className="lg:col-span-5 space-y-6">
-            <section className="bg-card rounded-3xl border border-border p-6 md:p-8 shadow-xl">
-              <div className="space-y-8">
-                {/* Contribution Slider */}
-                <div className="space-y-4">
-                  <div className="flex justify-between items-end">
-                    <label className="text-sm font-bold uppercase tracking-wider opacity-60">Personal Contribution</label>
-                    <span className="text-2xl font-black text-primary">{contributionPct}%</span>
-                  </div>
-                  <input 
-                    type="range" min="0" max="30" value={contributionPct} 
-                    onChange={(e) => setContributionPct(Number(e.target.value))}
-                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
-                  />
-                </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/401k-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Financial Calculators",
+                    item: "https://lizocalc.com/calculators/financial",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "401k Calculator",
+                    item: "https://lizocalc.com/calculators/financial/401k-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/financial/401k-calculator",
+                url: "https://lizocalc.com/calculators/financial/401k-calculator",
+                name: "401k Calculator",
+                description: "Use our advanced 401k calculator to estimate your retirement savings growth, employer match, and total balance over time.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/401k-calculator#app",
+                name: "401k Calculator",
+                url: "https://lizocalc.com/calculators/financial/401k-calculator",
+                description:
+                  "Advanced 401k calculator to estimate retirement savings growth, employer match, and future balance.",
+                applicationCategory: "FinanceApplication",
+                applicationSubCategory: "Retirement Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate retirement savings growth",
+                  "Include employer match contributions",
+                  "Estimate future portfolio balance",
+                  "Visualize compound interest impact",
+                  "Adjust annual contribution rates",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-                {/* Salary Input */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase opacity-60">Annual Salary</label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
-                      <input type="number" value={annualSalary} onChange={(e) => setAnnualSalary(Number(e.target.value))} className="w-full pl-7 p-3 bg-muted border-none rounded-xl font-bold" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold uppercase opacity-60">Current Age</label>
-                    <input type="number" value={currentAge} onChange={(e) => setCurrentAge(Number(e.target.value))} className="w-full p-3 bg-muted border-none rounded-xl font-bold" />
-                  </div>
-                </div>
-
-                {/* Growth & Match Accordion-style areas */}
-                <div className="p-5 bg-muted/30 rounded-2xl border border-border space-y-4">
-                   <h3 className="font-bold text-sm flex items-center gap-2"><TrendingUp size={16}/> Market & Match Assumptions</h3>
-                   <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-1">
-                        <label className="text-[10px] uppercase font-bold opacity-50">Expected Return</label>
-                        <input type="number" value={expectedReturn} onChange={(e) => setExpectedReturn(Number(e.target.value))} className="w-full p-2 bg-background rounded-lg border border-border" />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-[10px] uppercase font-bold opacity-50">Salary Increase</label>
-                        <input type="number" value={salaryIncrease} onChange={(e) => setSalaryIncrease(Number(e.target.value))} className="w-full p-2 bg-background rounded-lg border border-border" />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-[10px] uppercase font-bold opacity-50">Employer Match %</label>
-                        <input type="number" value={employerMatch} onChange={(e) => setEmployerMatch(Number(e.target.value))} className="w-full p-2 bg-background rounded-lg border border-border" />
-                      </div>
-                      <div className="space-y-1">
-                        <label className="text-[10px] uppercase font-bold opacity-50">Match Limit %</label>
-                        <input type="number" value={employerLimit} onChange={(e) => setEmployerLimit(Number(e.target.value))} className="w-full p-2 bg-background rounded-lg border border-border" />
-                      </div>
-                   </div>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          {/* Right Side: Visual Results */}
-          <div className="lg:col-span-7 space-y-6">
-            {calculationData && (
-              <div className="bg-card rounded-3xl border border-border p-8 shadow-xl h-full flex flex-col">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                  <div>
-                    <span className="text-sm font-bold uppercase text-muted-foreground">Est. Retirement Balance</span>
-                    <h2 className="text-6xl font-black text-primary tracking-tighter mt-2">
-                      ${calculationData.finalBalance.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                    </h2>
-                    <div className="mt-4 flex items-center gap-2 text-green-500 font-bold bg-green-500/10 w-fit px-3 py-1 rounded-full text-xs">
-                      <Zap size={14} /> Ready to retire at age {retirementAge}
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                     <div className="flex justify-between text-sm">
-                        <span className="opacity-60">User Contributed</span>
-                        <span className="font-bold">${calculationData.totalContributed.toLocaleString()}</span>
-                     </div>
-                     <div className="flex justify-between text-sm">
-                        <span className="opacity-60">Company Match</span>
-                        <span className="font-bold text-accent">${calculationData.totalMatched.toLocaleString()}</span>
-                     </div>
-                     <div className="flex justify-between text-sm">
-                        <span className="opacity-60">Market Earnings</span>
-                        <span className="font-bold text-primary">${calculationData.totalInterest.toLocaleString()}</span>
-                     </div>
-                     <div className="h-2 w-full bg-muted rounded-full flex overflow-hidden mt-4">
-                        <div style={{ width: `${(calculationData.totalContributed / calculationData.finalBalance) * 100}%` }} className="bg-foreground" />
-                        <div style={{ width: `${(calculationData.totalMatched / calculationData.finalBalance) * 100}%` }} className="bg-accent" />
-                        <div style={{ width: `${(calculationData.totalInterest / calculationData.finalBalance) * 100}%` }} className="bg-primary" />
-                     </div>
-                  </div>
-                </div>
-
-                <div className="flex-1 min-h-[200px] flex items-end gap-1">
-                    {calculationData.yearlyLogs.filter((_, i) => i % 5 === 0 || i === calculationData.yearlyLogs.length - 1).map((log, i) => (
-                        <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                            <div 
-                                style={{ height: `${(Number(log.balance) / calculationData.finalBalance) * 100}%` }} 
-                                className="w-full bg-primary/20 group-hover:bg-primary transition-all rounded-t-sm"
-                            />
-                            <span className="text-[10px] font-bold opacity-40 uppercase">{log.age}</span>
-                        </div>
-                    ))}
-                </div>
-
-                <button 
-                  onClick={() => setShowTable(!showTable)}
-                  className="mt-8 flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest py-3 bg-muted rounded-xl hover:bg-border transition-colors"
-                >
-                  <List size={14} /> {showTable ? 'Hide' : 'Show'} Full Yearly Breakdown
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Yearly Breakdown Table */}
-        {showTable && calculationData && (
-          <div className="mb-16 overflow-x-auto bg-card rounded-3xl border border-border shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-border bg-muted/50">
-                  <th className="p-4 text-xs font-bold uppercase opacity-60">Year (Age)</th>
-                  <th className="p-4 text-xs font-bold uppercase opacity-60">Salary</th>
-                  <th className="p-4 text-xs font-bold uppercase opacity-60">Contribution</th>
-                  <th className="p-4 text-xs font-bold uppercase opacity-60">Employer Match</th>
-                  <th className="p-4 text-xs font-bold uppercase opacity-60 text-right">End Balance</th>
-                </tr>
-              </thead>
-              <tbody>
-                {calculationData.yearlyLogs.map((log, i) => (
-                  <tr key={i} className="border-b border-border/50 hover:bg-muted/20 transition-colors">
-                    <td className="p-4 font-bold">{log.year} <span className="text-muted-foreground font-normal">({log.age})</span></td>
-                    <td className="p-4 text-muted-foreground">${Number(log.salary).toLocaleString()}</td>
-                    <td className="p-4 text-muted-foreground">${Number(log.contribution).toLocaleString()}</td>
-                    <td className="p-4 text-accent font-medium">${Number(log.match).toLocaleString()}</td>
-                    <td className="p-4 text-right font-black text-primary">${Number(log.balance).toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-
-        {/* --- Educational Content Section --- */}
-        <section className="bg-card rounded-3xl border border-border p-8 md:p-12 shadow-sm">
-            <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                    <HelpCircle className="text-primary" /> Mastering Your 401(k)
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 text-muted-foreground leading-relaxed">
-                    <div className="space-y-4">
-                        <p>
-                            A 401(k) is a powerful retirement tool that leverages <strong>tax-deferred growth</strong>. Unlike a standard savings account, your earnings reinvest automatically, allowing your balance to grow exponentially over decades.
-                        </p>
-                        
-
-[Image of compound interest vs simple interest graph]
-
-                        <p>
-                            The most critical factor is the <strong>Employer Match</strong>. It is essentially a 100% or 50% immediate return on your investment, which no other market vehicle can reliably offer.
-                        </p>
-                    </div>
-                    <div className="space-y-6">
-                        <div className="bg-muted/50 p-6 rounded-2xl border border-border">
-                            <h4 className="text-foreground font-bold mb-2 flex items-center gap-2"><Info size={18} className="text-primary"/> Pro Tip: The 1% Bump</h4>
-                            <p className="text-sm">
-                                Increasing your contribution by just 1% today can lead to hundreds of thousands of dollars more in retirement due to the compounding effect over 30+ years.
-                            </p>
-                        </div>
-                        <div className="bg-primary/5 p-6 rounded-2xl border border-primary/20">
-                            <h4 className="text-primary font-bold mb-2">The Formula</h4>
-                            <div className="font-mono text-xs overflow-x-auto py-2">
-                                {"Future Value = P(1 + r/n)^{nt} + \text{PMT} \left[ \frac{(1 + r/n)^{nt} - 1}{r/n} \right]"}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-green-600/10">
+              <PiggyBank className="w-8 h-8 text-green-500" />
             </div>
-        </section>
-
-        <div className="mt-16">
-          <RelatedCalculators calculators={[
-            { name: 'ROI Calculator', description: 'Measure investment gains', href: '/calculator/roi', icon: TrendingUp },
-            { name: 'Inflation Calculator', description: 'Future purchasing power', href: '/calculator/inflation', icon: Landmark }
-          ]} />
+            <h1 className="text-3xl md:text-4xl font-bold">
+              401k Calculator
+            </h1>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <Advanced401kDashboard />
+      </section>
+
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this 401k Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content about retirement planning here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation of how 401k matching and compounding works...</p>
+      </article>
+
+      <FAQ items={faqData} />
+
       <Footer />
     </main>
-  )
+  );
 }

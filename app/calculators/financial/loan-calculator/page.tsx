@@ -1,265 +1,214 @@
-'use client'
+import { Metadata } from "next";
+import AdvancedLoanCalculator from "./clientside";
+import { Landmark } from "lucide-react"; // Updated icon for general loan context
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import FAQ from "@/components/FAQ";
+import Script from "next/script";
 
-import { useState, useEffect, useMemo } from 'react'
-import Link from 'next/link'
-import { Info, TrendingDown, BarChart3, PieChart as PieIcon, Calendar as TableIcon } from 'lucide-react'
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
+const faqData = [
+  {
+    question: "How is a loan payment calculated?",
+    answer:
+      "The monthly payment is calculated using the standard amortization formula based on your total loan amount, annual interest rate, and the repayment term.",
+  },
+  {
+    question: "Can I pay off my loan early?",
+    answer:
+      "Yes, our calculator allows you to see how extra payments reduce your principal balance and shorten the overall loan term, saving you money on interest.",
+  },
+];
 
-import FAQ from '@/components/FAQ'
-import RelatedCalculators from '@/components/RelatedCalculators'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+export const metadata: Metadata = {
+  title: "Advanced Loan Calculator",
+  description:
+    "Use our advanced loan calculator to estimate monthly payments, interest, and total repayment costs for your personal or business loans instantly.",
 
-type LoanType = 'amortized' | 'deferred' | 'bond'
+  keywords: [
+    "loan calculator",
+    "personal loan calculator",
+    "loan payment calculator",
+    "monthly loan calculator",
+    "advanced loan calculator",
+  ],
 
-export default function AdvancedLoanCalculator() {
-  const [activeTab, setActiveTab] = useState<LoanType>('amortized')
-  const [principal, setPrincipal] = useState<number>(100000)
-  const [interestRate, setInterestRate] = useState<number>(5.5)
-  const [years, setYears] = useState<number>(10)
-  const [months, setMonths] = useState<number>(0)
-  const [compounding, setCompounding] = useState<number>(12) 
-  const [payFrequency, setPayFrequency] = useState<number>(12) 
-  const [showSchedule, setShowSchedule] = useState(false)
-  const [isMounted, setIsMounted] = useState(false)
+  alternates: {
+    canonical: "https://lizocalc.com/calculators/financial/loan-calculator",
+  },
 
-  const COLORS = ['#3b82f6', '#ef4444']
+  robots: {
+    index: true,
+    follow: true,
+  },
 
-  // FAQ and Related Calculators Data (Fixed missing variables)
-  const faqItems = [
-    {
-      question: 'How is an amortized loan different from a bond?',
-      answer: 'An amortized loan is paid back in regular installments (like a mortgage), while a bond usually involves paying back a lump sum at maturity.',
-    },
-    {
-      question: 'What does compounding frequency mean?',
-      answer: 'It is how often interest is calculated and added to the principal. More frequent compounding (like daily) increases the total interest compared to annual compounding.',
-    }
-  ]
+  openGraph: {
+    title: "Advanced Loan Calculator | LizoCalc",
+    description:
+      "Free advanced loan calculator to calculate monthly payments and amortization schedules.",
+    url: "https://lizocalc.com/calculators/financial/loan-calculator",
+    siteName: "LizoCalc",
+    type: "website",
+  },
 
-  const relatedCalculators = [
-    { name: 'Mortgage Calculator', description: 'Calculate home loan payments', href: '/calculator/mortgage', icon: BarChart3 },
-    { name: 'Auto Loan Calculator', description: 'Calculate vehicle financing', href: '/calculator/auto-loan', icon: TrendingDown },
-  ]
+  twitter: {
+    card: "summary_large_image",
+    title: "Advanced Loan Calculator | LizoCalc",
+    description:
+      "Calculate loan payments, interest, and amortization with our free loan calculator.",
+  },
+};
 
-  useEffect(() => {
-    setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-    if (consent?.functional && history['adv-loan']?.data) {
-      const d = history['adv-loan'].data
-      setPrincipal(d.principal); setInterestRate(d.interestRate); setYears(d.years)
-    }
-  }, [])
-
-  useEffect(() => {
-    if (isMounted && getConsentPreference()?.functional) {
-      saveCalculatorHistory('adv-loan', { principal, interestRate, years })
-    }
-  }, [principal, interestRate, years, isMounted])
-
-  const totalMonths = useMemo(() => years * 12 + months, [years, months])
-
-  const results = useMemo(() => {
-    const r = interestRate / 100
-    const t = totalMonths / 12 || 0.0001 // prevent division by zero
-    const n = compounding
-    
-    const effectiveRate = Math.pow(1 + r / n, n / payFrequency) - 1
-    const totalPeriods = (totalMonths / 12) * payFrequency
-
-    if (activeTab === 'amortized') {
-      const periodicPayment = effectiveRate === 0 
-        ? principal / (totalPeriods || 1) 
-        : (principal * effectiveRate) / (1 - Math.pow(1 + effectiveRate, -totalPeriods))
-      const totalPay = periodicPayment * totalPeriods
-      return {
-        mainValue: periodicPayment.toFixed(2),
-        totalInterest: (totalPay - principal).toFixed(2),
-        totalPayment: totalPay.toFixed(2),
-        chartData: [{ name: 'Principal', value: principal }, { name: 'Interest', value: Math.max(0, totalPay - principal) }]
-      }
-    } else if (activeTab === 'deferred') {
-      const maturityValue = principal * Math.pow(1 + r / n, n * t)
-      return {
-        mainValue: maturityValue.toFixed(2),
-        totalInterest: (maturityValue - principal).toFixed(2),
-        totalPayment: maturityValue.toFixed(2),
-        chartData: [{ name: 'Principal', value: principal }, { name: 'Interest', value: maturityValue - principal }]
-      }
-    } else {
-      const initialReceived = principal / Math.pow(1 + r / n, n * t)
-      return {
-        mainValue: initialReceived.toFixed(2),
-        totalInterest: (principal - initialReceived).toFixed(2),
-        totalPayment: principal.toFixed(2),
-        chartData: [{ name: 'Initial Value', value: initialReceived }, { name: 'Interest Discount', value: principal - initialReceived }]
-      }
-    }
-  }, [activeTab, principal, interestRate, totalMonths, compounding, payFrequency])
-
-  const schedule = useMemo(() => {
-    if (!showSchedule || activeTab !== 'amortized') return []
-    const data = []
-    let balance = principal
-    const pRate = (interestRate / 100) / 12
-    const mPay = Number(results.mainValue)
-
-    for (let i = 1; i <= Math.min(totalMonths, 600); i++) {
-      const interest = balance * pRate
-      const principalPaid = mPay - interest
-      balance -= principalPaid
-      data.push({ period: i, payment: mPay, principal: principalPaid, interest: interest, balance: Math.max(0, balance) })
-    }
-    return data
-  }, [showSchedule, activeTab, principal, totalMonths, interestRate, results.mainValue])
-
+export default function LoanPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      
-      
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Advanced Loan Calculator</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Calculate amortized payments, deferred maturity values, or bond discounts.
-          </p>
-        </div>
+      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/loan-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Financial Calculators",
+                    item: "https://lizocalc.com/calculators/financial",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Loan Calculator",
+                    item: "https://lizocalc.com/calculators/financial/loan-calculator",
+                  },
+                ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://lizocalc.com/calculators/financial/loan-calculator",
+                url: "https://lizocalc.com/calculators/financial/loan-calculator",
+                name: "Advanced Loan Calculator",
+                description: "Use our advanced loan calculator to estimate monthly loan payments, interest, and total repayment costs instantly.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://lizocalc.com"
+                }
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://lizocalc.com/calculators/financial/loan-calculator#app",
+                name: "Advanced Loan Calculator",
+                url: "https://lizocalc.com/calculators/financial/loan-calculator",
+                description:
+                  "Advanced loan calculator to estimate monthly payments, interest, and amortization schedule for various loan types.",
+                applicationCategory: "FinanceApplication",
+                applicationSubCategory: "Loan Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on modern browsers.",
+                featureList: [
+                  "Calculate monthly loan payments",
+                  "Estimate total interest cost",
+                  "View detailed amortization schedule",
+                  "Add extra monthly payments",
+                  "Compare different loan terms",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://lizocalc.com",
+                },
+              },
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
+            ],
+          }),
+        }}
+      />
 
-        <div className="flex flex-wrap gap-2 mb-8 bg-muted p-1 rounded-xl">
-          {(['amortized', 'deferred', 'bond'] as LoanType[]).map((type) => (
-            <button
-              key={type}
-              onClick={() => { setActiveTab(type); setShowSchedule(false); }}
-              className={`flex-1 py-3 px-4 rounded-lg text-sm font-semibold transition-all capitalize ${
-                activeTab === type ? 'bg-background text-primary shadow-sm' : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              {type} Loan
-            </button>
-          ))}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-          <div className="bg-card rounded-2xl border border-border p-8 space-y-6">
-            <div>
-              <label className="block text-sm font-semibold mb-3">
-                {activeTab === 'bond' ? 'Due Amount at Maturity' : 'Loan Amount'}: ${principal.toLocaleString()}
-              </label>
-              <input type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} className="w-full px-4 py-2 bg-background border border-border rounded-lg" />
+      {/* Hero Section */}
+      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex items-center gap-3">
+            <div className="p-3 rounded-lg bg-blue-600/10">
+              <Landmark className="w-8 h-8 text-blue-500" />
             </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div><label className="block text-sm font-semibold mb-2">Years</label><input type="number" value={years} onChange={(e) => setYears(Number(e.target.value))} className="w-full px-4 py-2 bg-background border border-border rounded-lg" /></div>
-              <div><label className="block text-sm font-semibold mb-2">Months</label><input type="number" value={months} onChange={(e) => setMonths(Number(e.target.value))} className="w-full px-4 py-2 bg-background border border-border rounded-lg" /></div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold mb-3">Interest Rate: {interestRate}%</label>
-              <input type="range" min="0" max="25" step="0.1" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} className="w-full h-2 bg-border rounded-lg appearance-none accent-primary" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-semibold mb-2 text-xs">Compounding</label>
-                <select value={compounding} onChange={(e) => setCompounding(Number(e.target.value))} className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm">
-                  <option value={1}>Annually (APY)</option>
-                  <option value={4}>Quarterly</option>
-                  <option value={12}>Monthly (APR)</option>
-                  <option value={365}>Daily</option>
-                </select>
-              </div>
-              {activeTab === 'amortized' && (
-                <div>
-                  <label className="block font-semibold mb-2 text-xs">Frequency</label>
-                  <select value={payFrequency} onChange={(e) => setPayFrequency(Number(e.target.value))} className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm">
-                    <option value={52}>Weekly</option>
-                    <option value={12}>Monthly</option>
-                    <option value={1}>Yearly</option>
-                  </select>
-                </div>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="text-center md:text-left">
-                  <p className="text-muted-foreground text-sm mb-1 capitalize">{activeTab} Value</p>
-                  <p className="text-4xl font-bold text-primary">${results.mainValue}</p>
-                  <div className="mt-4 space-y-1">
-                    <p className="text-sm">Interest: <span className="font-semibold text-accent">${results.totalInterest}</span></p>
-                    <p className="text-sm">Total: <span className="font-semibold">${results.totalPayment}</span></p>
-                  </div>
-                </div>
-                <div className="w-32 h-32">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <PieChart><Pie data={results.chartData} innerRadius={25} outerRadius={45} paddingAngle={5} dataKey="value">
-                      {results.chartData.map((_, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)}
-                    </Pie><Tooltip /></PieChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-              <button onClick={() => setShowSchedule(!showSchedule)} className="w-full mt-6 py-3 px-4 bg-background border border-border rounded-xl text-sm font-bold flex items-center justify-center gap-2">
-                <TableIcon className="w-4 h-4" /> {showSchedule ? 'Hide' : 'View'} Schedule
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {showSchedule && activeTab === 'amortized' && (
-          <div className="bg-card rounded-2xl border border-border overflow-hidden mb-12">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
-                <thead className="bg-muted text-muted-foreground uppercase text-xs font-bold">
-                  <tr>
-                    <th className="px-6 py-4">Period</th>
-                    <th className="px-6 py-4">Payment</th>
-                    <th className="px-6 py-4">Principal</th>
-                    <th className="px-6 py-4">Interest</th>
-                    <th className="px-6 py-4">Balance</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {schedule.map((row) => (
-                    <tr key={row.period} className="hover:bg-muted/30">
-                      <td className="px-6 py-4 font-medium">{row.period}</td>
-                      <td className="px-6 py-4">${row.payment.toFixed(2)}</td>
-                      <td className="px-6 py-4 text-primary">${row.principal.toFixed(2)}</td>
-                      <td className="px-6 py-4 text-accent">${row.interest.toFixed(2)}</td>
-                      <td className="px-6 py-4 font-semibold">${row.balance.toFixed(2)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        <div className="bg-card rounded-2xl border border-border p-8 mb-8">
-          <div className="flex gap-3 mb-4">
-            <Info className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
-            <h3 className="font-semibold text-lg">Detailed Loan Analysis</h3>
-          </div>
-          <div className="text-muted-foreground text-sm leading-relaxed space-y-4">
-            <p>
-              The mathematical model used depends on the loan structure. For Amortized Loans, we use the standard time-value-of-money formula to calculate periodic payments based on principal, rate, and total periods.
-            </p>
-            <div className="bg-muted p-4 rounded-lg text-center font-mono">
-              {/* Note: Standard text instead of LaTeX to avoid JSX errors */}
-              Payment = [ r * PV ] / [ 1 - (1 + r)^-n ]
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold">
+              Loan Calculator
+            </h1>
           </div>
         </div>
+      </section>
 
-        <RelatedCalculators calculators={relatedCalculators} />
-        <FAQ items={faqItems} title="Advanced Loan FAQ" />
-      </div>
+      {/* Calculator Tool */}
+      <section className="px-4 py-8">
+        <AdvancedLoanCalculator />
+      </section>
+
+      {/* SEO Content */}
+      <article
+        className="max-w-6xl mx-auto px-6 py-16 
+        prose prose-blue prose-lg lg:prose-xl
+        prose-headings:font-extrabold
+        prose-h2:text-blue-900
+        prose-h2:border-b-2
+        prose-h2:border-blue-200
+        prose-h2:pb-2
+        prose-p:text-gray-600
+        prose-p:leading-relaxed"
+      >
+        <h2 className="text-3xl md:text-4xl font-bold">
+          What is this Loan Calculator?
+        </h2>
+
+        <p>1000+ words of SEO content here...</p>
+
+        <h3>How it works</h3>
+
+        <p>Your explanation...</p>
+      </article>
+
+      <FAQ items={faqData} />
+
       <Footer />
     </main>
-  )
+  );
 }
