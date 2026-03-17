@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     siteName: 'LizoCalc',
     title: 'LizoCalc - Free Online Calculators',
     description: 'Professional online calculators for all your calculation needs',
-    images: [{ url: '/lizo-calc-logo.jpeg', width: 1200, height: 630, alt: 'LizoCalc' }],
+    images: [{ url: '/logo.png', width: 1200, height: 630, alt: 'LizoCalc' }],
   },
   robots: { index: true, follow: true },
 };

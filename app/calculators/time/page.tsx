@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import Link from 'next/link'
+import NoPrefetchLink from '@/components/NoPrefetchLink'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Search, ArrowLeft, Clock } from 'lucide-react'
@@ -54,18 +54,22 @@ export default function OtherCalculators() {
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-6">
-            <Link
+
+            {/* Back Button */}
+            <NoPrefetchLink
               href="/"
               className="p-2 rounded-lg hover:bg-secondary transition-colors"
               aria-label="Go back"
             >
               <ArrowLeft className="w-6 h-6" />
-            </Link>
+            </NoPrefetchLink>
+
             <Clock className="w-8 h-8 text-green-500" />
-            <h1 className="text-4xl font-bold">Other Calculators</h1>
+            <h1 className="text-4xl font-bold">Time Calculators</h1>
           </div>
+
           <p className="text-lg text-muted-foreground mb-8">
-            Useful calculators for various purposes including time, dates, age, GPA, and more.
+            Useful calculators for time, dates, age, and durations.
           </p>
 
           {/* Search */}
@@ -87,7 +91,7 @@ export default function OtherCalculators() {
         {filteredCalculators.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredCalculators.map((calc) => (
-              <Link key={calc.href} href={calc.href}>
+              <NoPrefetchLink key={calc.href} href={calc.href}>
                 <div className="p-6 rounded-xl border border-border bg-card hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all group cursor-pointer">
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 rounded-lg bg-green-600/10">
@@ -98,18 +102,20 @@ export default function OtherCalculators() {
                     </span>
                   </div>
                   <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-                    {calc.name }
+                    {calc.name}
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     {calc.description}
                   </p>
                 </div>
-              </Link>
+              </NoPrefetchLink>
             ))}
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground mb-4">No calculators found matching "{searchQuery}"</p>
+            <p className="text-muted-foreground mb-4">
+              No calculators found matching "{searchQuery}"
+            </p>
             <button
               onClick={() => setSearchQuery('')}
               className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg transition-all"

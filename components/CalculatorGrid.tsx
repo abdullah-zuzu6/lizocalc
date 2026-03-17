@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { type LucideIcon, BarChart3, Heart, Sigma, Calculator } from 'lucide-react'
+import { type LucideIcon,  } from 'lucide-react'
 
 interface CalculatorCard {
   name: string

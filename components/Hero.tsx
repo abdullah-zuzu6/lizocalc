@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ChevronRight, Zap, BarChart3, Heart, Sigma } from 'lucide-react'
-import Image from 'next/image'
 
 const slides = [
   {
@@ -13,7 +12,6 @@ const slides = [
     color: 'from-blue-600 to-blue-400',
     cta: 'Explore Financial',
     href: '/calculators/financial',
-    image: '/image-finance-calc.jpg',
   },
   {
     title: 'Fitness & Health',
@@ -22,7 +20,6 @@ const slides = [
     color: 'from-red-600 to-pink-400',
     cta: 'Explore Fitness',
     href: '/calculators/health',
-     image: '/image-health-calc.jpg',
   },
   {
     title: 'Math Calculators',
@@ -31,7 +28,6 @@ const slides = [
     color: 'from-purple-600 to-purple-400',
     cta: 'Explore Math',
     href: '/calculators/math',
-   image: '/image-math-calc.jpg',
   },
 ]
 
@@ -111,14 +107,7 @@ export default function Hero() {
           {/* Carousel Slide */}
           <div className="relative animate-slide-in-right">
             <div className={`bg-gradient-to-br ${Slide.color} rounded-2xl p-12 min-h-96 flex flex-col items-center justify-center text-white relative overflow-hidden`}>
-              {/* Image Background */}
-              <Image
-                src={Slide.image || "/placeholder.svg"}
-                alt={Slide.title}
-                fill
-                className="object-cover absolute inset-0"
-                priority
-              />
+             
               
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
