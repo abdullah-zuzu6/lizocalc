@@ -63,7 +63,7 @@ export default function MortgagePage() {
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
+    
       <Script
         id="structured-data"
         type="application/ld+json"
@@ -109,7 +109,7 @@ export default function MortgagePage() {
   url: "https://lizocalc.com/calculators/financial/mortgage-calculator",
   name: "Advanced Mortgage Calculator",
   description: "Use our advanced mortgage calculator to estimate monthly mortgage payments, interest, taxes, and insurance instantly.",
-  "inLanguage": "en",   // <-- add this
+  "inLanguage": "en",  
   "isPartOf": {
     "@type": "WebSite",
     "name": "LizoCalc",

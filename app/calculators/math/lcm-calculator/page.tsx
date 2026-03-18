@@ -5,23 +5,31 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import LCMCalculator from "./clientside";
-
 const faqData = [
   {
-    question: "What is LCM?",
-    answer:
-      "LCM stands for Least Common Multiple. It is the smallest number that is divisible by two or more numbers.",
+    question: "What is LCM and why is it important?",
+    answer: "LCM (Least Common Multiple) is the smallest number divisible by two or more integers. It is used in fraction addition, scheduling repeating events, and solving algebra problems. For example, LCM of 4 and 6 is 12 because 12 ÷ 4 = 3 and 12 ÷ 6 = 2."
   },
   {
-    question: "How do you find the LCM of numbers?",
-    answer:
-      "The LCM can be calculated using prime factorization or using the formula LCM(a,b) = (a × b) / GCD(a,b).",
+    question: "How can I calculate the LCM of two numbers?",
+    answer: "You can calculate LCM using the formula: LCM(a, b) = (a × b) / GCD(a, b). For example, to find LCM of 8 and 12: GCD(8,12)=4, so LCM = (8 × 12) / 4 = 96 / 4 = 24."
   },
   {
-    question: "Why is LCM important in math?",
-    answer:
-      "LCM is commonly used when adding or subtracting fractions and solving problems involving repeating cycles or schedules.",
+    question: "What are the different methods to find LCM?",
+    answer: "Common methods include: 1️⃣ Prime Factorization: Multiply highest powers of primes, 2️⃣ Listing Multiples: Find common multiples, 3️⃣ Division (Ladder) Method: Divide by common prime factors step by step. For example, LCM(6,8) via ladder: divide by 2 → (3,4), divide by 2 → (3,2), divide by 2 → (3,1), divide by 3 → (1,1), LCM = 2×2×2×3 = 24."
   },
+  {
+    question: "Can I calculate LCM for more than two numbers?",
+    answer: "Yes, LCM can be found iteratively. For numbers 4, 6, and 8: LCM(4,6)=12, then LCM(12,8)=24. So the smallest number divisible by 4, 6, and 8 is 24."
+  },
+  {
+    question: "Why should I use an online LCM calculator?",
+    answer: "An online LCM calculator saves time, reduces manual errors, and shows step-by-step calculations. You can quickly handle large numbers, multiple inputs, and learn the process. For example, finding LCM of 120, 90, and 150 manually is tedious, but the calculator gives LCM = 1800 instantly."
+  },
+  {
+    question: "How is LCM used in real-life problems?",
+    answer: "LCM helps with scheduling, synchronization, and fraction operations. For instance, if buses run every 12 and 18 minutes, LCM(12,18)=36, meaning both buses arrive together every 36 minutes. It is also useful in planning events, resource allocation, and repetitive tasks."
+  }
 ];
 
 export const metadata: Metadata = {

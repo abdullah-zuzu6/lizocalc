@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { type LucideIcon,  } from 'lucide-react'
+import NoPrefetchLink from './NoPrefetchLink'
 
 interface CalculatorCard {
   name: string
@@ -41,7 +41,7 @@ export default function CalculatorGrid({ title, calculators, showViewAll }: Calc
         {calculators.map((calc) => {
           const Icon = calc.icon
           return (
-            <Link key={calc.href} href={calc.href}>
+            <NoPrefetchLink key={calc.href} href={calc.href}>
               <div
                 className={`p-6 rounded-xl border transition-all duration-300 cursor-pointer group bg-gradient-to-br ${
                   categoryColors[calc.category]
@@ -58,19 +58,19 @@ export default function CalculatorGrid({ title, calculators, showViewAll }: Calc
                   {calc.description}
                 </p>
               </div>
-            </Link>
+            </NoPrefetchLink>
           )
         })}
       </div>
 
       {showViewAll && (
         <div className="text-center">
-          <Link
+          <NoPrefetchLink
             href="/calculators"
             className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all"
           >
             View All Calculators
-          </Link>
+          </NoPrefetchLink>
         </div>
       )}
     </section>

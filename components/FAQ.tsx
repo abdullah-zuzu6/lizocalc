@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { ChevronDown, HelpCircle, Zap } from 'lucide-react'
+import NoPrefetchLink from './NoPrefetchLink'
 
 interface FAQItem {
   question: string
@@ -22,18 +23,16 @@ export default function FAQ({ items, title = 'Frequently Asked Questions' }: FAQ
         {/* Header */}
         <div className="mb-16 text-center">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="p-3 rounded-lg bg-primary/10">
-              <HelpCircle className="w-6 h-6 text-primary" />
-            </div>
+            
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               {title}
             </h2>
           </div>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
             Get instant answers to the most common questions. Can't find what you're looking for?{' '}
-            <a href="/contact" className="text-primary hover:underline font-semibold">
+            <NoPrefetchLink href="/contact" className="text-primary hover:underline font-semibold">
               Contact us
-            </a>
+            </NoPrefetchLink>
           </p>
         </div>
 
@@ -92,21 +91,7 @@ export default function FAQ({ items, title = 'Frequently Asked Questions' }: FAQ
           ))}
         </div>
 
-        {/* Footer CTA
-        <div className="mt-16 p-8 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div>
-              <p className="text-sm font-semibold text-primary mb-1">Still have questions?</p>
-              <p className="text-foreground font-medium">We're here to help</p>
-            </div>
-            <a
-              href="/contact"
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all whitespace-nowrap"
-            >
-              Get in Touch
-            </a>
-          </div>
-        </div> */}
+        
       </div>
     </section>
   )
