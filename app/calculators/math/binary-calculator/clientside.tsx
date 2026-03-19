@@ -12,6 +12,7 @@ import {
   Check,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
+
 import {
   getCalculatorHistory,
   saveCalculatorHistory,

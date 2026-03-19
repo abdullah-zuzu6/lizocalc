@@ -1,9 +1,23 @@
 import { Metadata } from "next";
-import ConversionCalculator from "./clientside";
+// import ConversionCalculator from "./clientside";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
+import dynamic from "next/dynamic";
+
+const ConversionCalculator = dynamic(
+  () => import("./clientside"), // ← your interactive client part
+  {
+    ssr: false,
+    // Very good for perceived performance
+    loading: () => (
+      <div className="min-h-[500px] flex items-center justify-center">
+        <div className="animate-spin h-8 w-8 border-4 border-primary rounded-full border-t-transparent" />
+      </div>
+    ),
+  }
+);
 
 export const faqData = [
   {
@@ -178,7 +192,8 @@ export default function ConversionCalculatorPage() {
 
       {/* Calculator Component */}
       <section className="px-4 py-8">
-        <ConversionCalculator />
+      
+        <ConversionCalculator/>
       </section>
 
       {/* Expanded Content – ~1350+ words */}

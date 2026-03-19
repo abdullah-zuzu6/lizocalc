@@ -3,12 +3,13 @@ import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import CalculatorGrid from '@/components/CalculatorGrid'
 import FAQ from '@/components/FAQ'
+import NoPrefetchLink from '@/components/NoPrefetchLink' // ← new import
 import { BarChart3, Heart, Sigma, Zap, Target, Lock } from 'lucide-react'
 
 const financialCalculators = [
   {
     name: 'Mortgage Calculator',
-    description: 'Calculate monthly mortgage payments  details',
+    description: 'Calculate monthly mortgage payments details',
     icon: BarChart3,
     href: '/calculator/mortgage',
     category: 'financial' as const,
@@ -81,8 +82,9 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
+
       <Hero />
-      
+
       {/* Main Content */}
       <div className="bg-background">
         <CalculatorGrid
@@ -90,13 +92,13 @@ export default function Home() {
           calculators={financialCalculators}
           showViewAll={false}
         />
-        
+
         <CalculatorGrid
           title="Fitness & Health Calculators"
           calculators={fitnessCalculators}
           showViewAll={false}
         />
-        
+
         <CalculatorGrid
           title="Math Calculators"
           calculators={mathCalculators}
@@ -107,8 +109,10 @@ export default function Home() {
       {/* Features Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-secondary/30">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">Why Choose LizoCalculator?</h2>
-          
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+            Why Choose LizoCalculator?
+          </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-8 bg-card border border-border rounded-xl hover:border-primary/50 transition-colors">
               <div className="p-3 rounded-lg bg-primary/10 w-fit mb-4">
@@ -143,7 +147,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section – using NoPrefetchLink here */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -152,41 +156,47 @@ export default function Home() {
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Explore our complete collection of calculators for financial planning, fitness tracking, mathematics, and more.
           </p>
-          <a
+          <NoPrefetchLink
             href="/calculators"
             className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all"
           >
             View All Calculators
-          </a>
+          </NoPrefetchLink>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <FAQ 
+      <FAQ
         items={[
           {
             question: 'Are LizoCalculator tools free to use?',
-            answer: 'Yes, all of our calculators are completely free to use. No registration, sign-up, or subscription required. Simply access the calculator you need and start calculating.',
+            answer:
+              'Yes, all of our calculators are completely free to use. No registration, sign-up, or subscription required. Simply access the calculator you need and start calculating.',
           },
           {
             question: 'Do you store my calculations?',
-            answer: 'No, we do not store any of your calculations or personal information. All calculations are performed locally in your browser and are not sent to any server.',
+            answer:
+              'No, we do not store any of your calculations or personal information. All calculations are performed locally in your browser and are not sent to any server.',
           },
           {
             question: 'Which devices can I use these calculators on?',
-            answer: 'Our calculators work on all modern devices including smartphones, tablets, laptops, and desktop computers. They are fully responsive and optimized for any screen size.',
+            answer:
+              'Our calculators work on all modern devices including smartphones, tablets, laptops, and desktop computers. They are fully responsive and optimized for any screen size.',
           },
           {
             question: 'Are the calculations accurate?',
-            answer: 'Yes, our calculators use professional-grade algorithms and mathematical formulas to ensure accuracy. However, results are estimates and should be verified with professionals for important decisions.',
+            answer:
+              'Yes, our calculators use professional-grade algorithms and mathematical formulas to ensure accuracy. However, results are estimates and should be verified with professionals for important decisions.',
           },
           {
             question: 'Can I suggest a new calculator?',
-            answer: 'Absolutely! We are always looking to expand our calculator collection. Please visit our contact page to share your suggestions and ideas.',
+            answer:
+              'Absolutely! We are always looking to expand our calculator collection. Please visit our contact page to share your suggestions and ideas.',
           },
           {
             question: 'Is there an app version?',
-            answer: 'Currently, our calculators are web-based and work on any browser. They are optimized for mobile and can be added to your home screen for quick access.',
+            answer:
+              'Currently, our calculators are web-based and work on any browser. They are optimized for mobile and can be added to your home screen for quick access.',
           },
         ]}
         title="Common Questions"

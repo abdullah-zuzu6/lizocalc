@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import NoPrefetchLink from '@/components/NoPrefetchLink' // ← new import
 import { ChevronRight, Zap, BarChart3, Heart, Sigma } from 'lucide-react'
 
 const slides = [
@@ -70,19 +70,20 @@ export default function Hero() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
+              <NoPrefetchLink
                 href={Slide.href}
                 className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all flex items-center justify-center gap-2 group"
               >
                 {Slide.cta}
                 <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
+              </NoPrefetchLink>
+
+              <NoPrefetchLink
                 href="/calculators"
                 className="px-8 py-3 bg-secondary text-foreground rounded-lg font-semibold hover:bg-accent transition-colors border border-border"
               >
                 Explore All
-              </Link>
+              </NoPrefetchLink>
             </div>
 
             {/* Features */}
@@ -107,8 +108,6 @@ export default function Hero() {
           {/* Carousel Slide */}
           <div className="relative animate-slide-in-right">
             <div className={`bg-gradient-to-br ${Slide.color} rounded-2xl p-12 min-h-96 flex flex-col items-center justify-center text-white relative overflow-hidden`}>
-             
-              
               {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent" />
 
