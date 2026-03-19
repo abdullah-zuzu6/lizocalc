@@ -114,7 +114,7 @@ export default function BinaryCalculatorPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Math Calculators",
+                    name: "Math",
                     item: "https://lizocalc.com/calculators/math",
                   },
                   {
