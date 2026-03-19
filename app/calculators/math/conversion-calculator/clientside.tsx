@@ -5,14 +5,11 @@ import {
   ArrowRightLeft,
   RotateCcw,
   CheckCircle2,
-  Ruler,
+
   Weight,
-  Thermometer,
-  ChevronRight,
+  
   Settings2,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
@@ -231,7 +228,7 @@ export default function ConversionCalculator() {
             {
               name: "Density Calc",
               description: "Mass/Volume solver",
-              href: "/calculator/density",
+              href: "/calculator/physics/density-calculator",
               icon: Weight,
             },
           ]}
