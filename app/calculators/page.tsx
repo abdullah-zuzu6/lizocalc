@@ -76,27 +76,8 @@ const allCalculators = [
     category: 'Financial',
     icon: BarChart3,
   },
-  {
-    name: '401k Calculator',
-    description: 'Calculate 401k contributions and retirement savings',
-    href: '/calculators/financial/401k-calculator',
-    category: 'Financial',
-    icon: BarChart3,
-  },
-  {
-    name: 'Credit Card Calculator',
-    description: 'Calculate credit card payments and interest',
-    href: '/calculators/financial/credit-card-calculator',
-    category: 'Financial',
-    icon: BarChart3,
-  },
-  {
-    name: 'Sales Tax Calculator',
-    description: 'Calculate sales tax amounts and total costs',
-    href: '/calculators/financial/sales-tax-calculator',
-    category: 'Financial',
-    icon: BarChart3,
-  },
+ 
+ 
 
   // Fitness and health
   {
@@ -141,13 +122,7 @@ const allCalculators = [
     category: 'Fitness',
     icon: Heart,
   },
-  {
-    name: 'Ideal Weight Calculator',
-    description: 'Calculate your ideal weight using various medical formulas',
-    href: '/calculators/health/ideal-weight-calculator',
-    category: 'Fitness',
-    icon: Heart,
-  },
+  
   {
     name: 'Calorie Deficit Calculator',
     description: 'Calculate the calorie deficit needed to reach your weight loss goals',
@@ -155,13 +130,7 @@ const allCalculators = [
     category: 'Fitness',
     icon: Heart,
   },
-  {
-    name: 'BAC Calculator',
-    description: 'Calculate your Blood Alcohol Concentration based on consumption and time',
-    href: '/calculators/health/bac-calculator',
-    category: 'Fitness',
-    icon: Heart,
-  },
+  
   {
     name: 'Sleep Calculator',
     description: 'Calculate the best bedtime and wake-up times based on sleep cycles',

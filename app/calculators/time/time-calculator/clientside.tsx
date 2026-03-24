@@ -17,7 +17,7 @@ export default function TimeCalculator() {
 
   const relatedCalculators = [
     { name: 'Date Calculator', description: 'Calculate days between', href: '/calculators/time/date-calculator', icon: Clock },
-    { name: 'Time Converter', description: 'Convert time units', href: '/calculators/time/time-converter', icon: BarChart3 },
+    { name: 'Age Calculator', description: 'Calculate age based on birth date', href: '/calculators/time/age-calculator', icon: Clock },
   ]
 
   // --- Cookie Logic ---

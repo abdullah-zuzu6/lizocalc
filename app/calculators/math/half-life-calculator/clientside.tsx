@@ -29,20 +29,36 @@ export default function HalfLifeCalculator() {
   const [halfLifeTime, setHalfLifeTime] = useState("5");
   const [totalTime, setTotalTime] = useState("15");
   const [unit, setUnit] = useState("years");
+// Load Data on Mount
+useEffect(() => {
+  setIsMounted(true);
+  const consent = getConsentPreference();
+  const history = getCalculatorHistory();
 
-  useEffect(() => {
-    setIsMounted(true);
+  // Ensure we check for functional consent and that the data exists
+  if (consent?.functional && history["half-life-calc"]?.data) {
+    const d = history["half-life-calc"].data;
+    setInitialAmount(d.initial || "100");
+    setHalfLifeTime(d.hl || "5");
+    setTotalTime(d.total || "15");
+    setUnit(d.unit || "years"); // Added unit persistence
+  }
+}, []);
 
-    const consent = getConsentPreference();
-    const history = getCalculatorHistory();
+// Save Data on Change
+useEffect(() => {
+  if (!isMounted) return;
 
-    if (consent?.functional && history["half-life-calc"]?.data) {
-      const d = history["half-life-calc"].data;
-      setInitialAmount(d.initial || "100");
-      setHalfLifeTime(d.hl || "5");
-      setTotalTime(d.total || "15");
-    }
-  }, []);
+  const consent = getConsentPreference();
+  if (consent?.functional) {
+    saveCalculatorHistory("half-life-calc", {
+      initial: initialAmount,
+      hl: halfLifeTime,
+      total: totalTime,
+      unit: unit, // Added unit persistence
+    });
+  }
+}, [initialAmount, halfLifeTime, totalTime, unit, isMounted]);
 
   useEffect(() => {
     if (!isMounted) return;
@@ -250,23 +266,12 @@ export default function HalfLifeCalculator() {
           <RelatedCalculators
   calculators={[
     {
-      name: "Decay Calculator",
-      href: "/calculators/math/decay-calculator",
-      description: "Calculate exponential decay of a quantity over time.",
+      name: "Age Calculator",
+      href: "/calculators/time/age-calculator",
+      description: "Calculate the age of an object based on its decay.",
       icon: FlaskConical,
     },
-    {
-      name: "Exponential Decay Calculator",
-      href: "/calculators/math/exponential-decay-calculator",
-      description: "Compute exponential decay using decay rate and time.",
-      icon: Clock,
-    },
-    {
-      name: "Radioactive Decay Calculator",
-      href: "/calculators/math/radioactive-decay-calculator",
-      description: "Estimate radioactive decay and remaining material.",
-      icon: CheckCircle2,
-    },
+    
   ]}
 />
 

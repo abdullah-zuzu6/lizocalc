@@ -15,9 +15,8 @@ const payBackOptions = [
 
 export default function AdvancedLoanCalculator() {
   const relatedCalculators = [
-    { name: 'Mortgage Calculator', description: 'Calculate mortgage payments', href: '/calculators/mortgage', icon: Layers },
-    { name: 'Auto Loan', description: 'Auto loan calculator', href: '/calculators/auto-loan', icon: ListFilter },
-    { name: 'Interest Calculator', description: 'Compound interest', href: '/calculators/interest', icon: BarChart3 },
+    { name: 'Mortgage Calculator', description: 'Calculate mortgage payments', href: '/calculators/financial/mortgage-calculator', icon: Layers },
+    { name: 'Auto Loan', description: 'Auto loan calculator', href: '/calculators/financial/calculators/auto-loan-calculator', icon: ListFilter },
   ]
 
   // --- States ---

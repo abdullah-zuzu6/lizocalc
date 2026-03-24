@@ -8,12 +8,14 @@ import {
   ListFilter,
   BarChart3,
   Activity,
+  Layers,
 } from "lucide-react";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
   getConsentPreference,
 } from "@/lib/cookies";
+import RelatedCalculators from "@/components/RelatedCalculators";
 
 export default function CalorieCalculator() {
   // --- States ---
@@ -221,6 +223,21 @@ export default function CalorieCalculator() {
             the standard method for managing weight goals.
           </p>
         </div>
+        <RelatedCalculators
+                  calculators={[
+                            { name: 'BMI Calculator',
+                               description: 'Body Mass Index', 
+                               href: '/calculators/health/bmi-calculator',
+                                icon: Activity },
+
+                    {
+                      name: "Interest Calculator",
+                      description: "Calculate interest",
+                      href: "/calculators/financial/interest-calculator",
+                      icon: BarChart3,
+                    },
+                  ]}
+                />
       </section>
     </main>
   );

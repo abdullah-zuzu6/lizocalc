@@ -10,8 +10,7 @@ type CalcMode = 'difference' | 'add-subtract'
 export default function DateCalculator() {
   const relatedCalculators = [
     { name: 'Age Calculator', description: 'Find exact age in days', href: '/calculators/time/age-calculator', icon: Clock },
-    { name: 'Time Converter', description: 'Convert hours to minutes', href: '/calculators/other/time-converter', icon: BarChart3 },
-    { name: 'LCM Calculator', description: 'Least Common Multiple', href: '/calculators/math/lcm-calculator', icon: ListFilter },
+    { name: 'Hours Calculator', description: 'Convert hours to minutes', href: '/calculators/time/hours-calculator', icon: Clock },
   ]
 
   // --- States ---

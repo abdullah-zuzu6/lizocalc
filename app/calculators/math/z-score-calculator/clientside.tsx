@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo } from "react";
 import {
   Activity,
   RotateCcw,
-  Info,
   CheckCircle2,
   TrendingUp,
   BarChart3,

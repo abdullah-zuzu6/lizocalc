@@ -26,9 +26,8 @@ export default function InterestCalculator() {
   const [trigger, setTrigger] = useState(0)
 
   const relatedCalculators = [
-    { name: 'LCM Calculator', description: 'Find least common multiple', href: '/calculators/math/lcm', icon: Hash },
-    { name: 'Income Tax', description: 'Estimate your tax burden', href: '/tax', icon: Wallet },
-    { name: 'Salary Calculator', description: 'Calculate take-home pay', href: '/salary', icon: Calculator },
+    { name: 'LCM Calculator', description: 'Find least common multiple', href: '/calculators/math/lcm-calculator', icon: Hash },
+    { name: 'Salary Calculator', description: 'Calculate take-home pay', href: '/calculators/financial/salary-calculator', icon: Calculator },
   ]
 
   // --- Cookie Logic ---

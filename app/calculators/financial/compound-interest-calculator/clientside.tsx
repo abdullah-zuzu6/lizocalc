@@ -151,8 +151,7 @@ export default function CompoundInterestCalculator() {
         </div>
 
         <RelatedCalculators calculators={[
-          { name: 'Interest Calculator', description: 'Basic interest', href: '/calculator/interest', icon: Percent },
-          { name: 'Investment Calculator', description: 'Growth projection', href: '/calculator/investment', icon: TrendingUp }
+          { name: 'Interest Calculator', description: 'Basic interest' , href: '/calculators/financial/interest-calculator', icon: Percent },
         ]} />
       </section>
     </main>

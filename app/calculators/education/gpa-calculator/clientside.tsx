@@ -4,11 +4,10 @@ import { useState, useEffect, useMemo } from "react";
 import {
   Plus,
   Trash2,
-  RotateCcw,
+  
   GraduationCap,
   CheckCircle2,
   Calculator,
-  BookOpen,
   Award,
   ListFilter,
 } from "lucide-react";
@@ -236,15 +235,10 @@ export default function GPACalculator() {
             {
               name: "Grade Calculator",
               description: "Final exam predictor",
-              href: "/calculator/grade",
+              href: "/calculators/education/grade-calculator",
               icon: Award,
             },
-            {
-              name: "Scientific Notation",
-              description: "Math converter",
-              href: "/calculator/scientific-notation",
-              icon: Calculator,
-            },
+           
           ]}
         />
       </section>

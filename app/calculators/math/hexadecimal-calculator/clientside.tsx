@@ -4,8 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import {
   Code,
   RotateCcw,
-  Info,
-  ChevronRight,
+  
   Hash,
   CheckCircle2,
   Cpu,

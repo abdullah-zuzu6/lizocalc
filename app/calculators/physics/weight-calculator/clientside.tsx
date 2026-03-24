@@ -2,8 +2,6 @@
 
 import { useState, useEffect, useMemo } from 'react'
 import { Scale, RotateCcw, Info, ListFilter, BarChart3, CheckCircle2, Weight as WeightIcon, Globe } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import RelatedCalculators from '@/components/RelatedCalculators'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
@@ -14,8 +12,8 @@ const PLANETS = [
 
 export default function WeightCalculator() {
   const relatedCalculators = [
-    { name: 'Mass Calculator', description: 'Find mass from force', href: '/calculators/physics/mass-calculator', icon: Scale },
-    { name: 'Speed Calculator', description: 'Calculate velocity', href: '/calculators/physics/speed-calculator', icon: Globe },
+    { name: 'Mass Calculator', description: 'Find mass instantly', href: '/calculators/physics/mass-calculator', icon: Scale },
+    { name: 'Speed Calculator', description: 'Calculate speedy of object ', href: '/calculators/physics/speed-calculator', icon: Globe },
   ]
 
   // --- States ---

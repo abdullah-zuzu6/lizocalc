@@ -37,12 +37,7 @@ export default function HoursCalculator() {
       href: "/calculators/time/date-calculator",
       icon: Clock,
     },
-    {
-      name: "Time Converter",
-      description: "Convert time units",
-      href: "/calculators/time/time-converter",
-      icon: BarChart3,
-    },
+    
   ];
 
   // --- Cookie Persistence ---

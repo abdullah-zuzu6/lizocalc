@@ -154,8 +154,8 @@ export default function MacroCalculator() {
         </div>
         
         <RelatedCalculators calculators={[
-          { name: 'TDEE Calculator', description: 'Find your daily energy burn', href: '/calculator/tdee', icon: Flame },
-          { name: 'BMI Calculator', description: 'Body Mass Index assessment', href: '/calculator/bmi', icon: Scale }
+          { name: 'TDEE Calculator', description: 'Find your daily energy burn', href: '/calculators/health/tdee-calculator', icon: Flame },
+          { name: 'BMI Calculator', description: 'Body Mass Index assessment', href: '/calculators/health/bmi-calculator', icon: Scale }
         ]} />
       </section>
     </main>

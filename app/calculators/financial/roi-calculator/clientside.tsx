@@ -177,8 +177,7 @@ export default function ROICalculator() {
         </div>
 
         <RelatedCalculators calculators={[
-          { name: 'Investment Calculator', description: 'Project future growth', href: '/investment', icon: TrendingUp },
-          { name: 'Compound Interest', description: 'Calculate wealth over time', href: '/compound', icon: Calendar }
+          { name: 'Compound Interest', description: 'Calculate wealth over time', href: 'calculators/financial/compound-interest-calculator', icon: Calendar }
         ]} />
       </section>
     </main>

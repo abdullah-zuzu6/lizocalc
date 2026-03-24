@@ -34,13 +34,15 @@ export const metadata: Metadata = {
     canonical: BASE_URL,
   },
 
+  // ✅ FIXED ICONS (PNG for browser, WEBP avoided here)
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
-      { url: "/logo.webp", sizes: "512x512", type: "image/webp" },
+      { url: "/logo.png", sizes: "512x512", type: "image/png" },
     ],
+    shortcut: ["/favicon.ico"],
     apple: [
-      { url: "/logo.webp", sizes: "180x180", type: "image/webp" },
+      { url: "/logo.png", sizes: "180x180", type: "image/png" },
     ],
   },
 
@@ -52,6 +54,8 @@ export const metadata: Metadata = {
     title: "LizoCalc - Free Online Calculators",
     description:
       "Professional online calculators for all your calculation needs",
+
+    // ✅ WEBP for SEO (fast loading)
     images: [
       {
         url: "/logo.webp",
@@ -82,7 +86,10 @@ export default function RootLayout({
     "@type": "Organization",
     name: "LizoCalc",
     url: BASE_URL,
+
+    // ✅ WEBP ok for structured data
     logo: `${BASE_URL}/logo.webp`,
+
     sameAs: [
       "https://www.facebook.com/lizocalc",
       "https://twitter.com/lizocalc",
@@ -92,15 +99,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Favicons */}
+        {/* ✅ Favicon (browser friendly) */}
         <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/logo.webp" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+
+        {/* ✅ Apple devices */}
+        <link rel="apple-touch-icon" href="/logo.png" />
+
         <meta name="theme-color" content="#0d111f" />
 
-        {/* PWA */}
+        {/* ✅ PWA */}
         <link rel="manifest" href="/manifest.json" />
 
-        {/* Structured Data */}
+        {/* ✅ Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

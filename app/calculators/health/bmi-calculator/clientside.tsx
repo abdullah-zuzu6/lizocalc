@@ -277,13 +277,13 @@ export default function BMICalculator() {
             {
               name: "LCM Calculator",
               description: "Find common multiples",
-              href: "/calculators/math/lcm",
+              href: "/calculators/math/lcm-calculator",
               icon: Layers,
             },
             {
               name: "Interest Calculator",
               description: "Calculate interest",
-              href: "/calculators/financial/interest",
+              href: "/calculators/financial/interest-calculator",
               icon: BarChart3,
             },
           ]}

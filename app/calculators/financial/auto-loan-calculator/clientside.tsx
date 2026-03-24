@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Info, RotateCcw, Car, CheckCircle2, TrendingUp, DollarSign, Calendar } from 'lucide-react'
+import {  RotateCcw, Car,  TrendingUp, DollarSign, Calendar } from 'lucide-react'
 import RelatedCalculators from '@/components/RelatedCalculators'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
@@ -109,10 +109,9 @@ export default function AutoLoanCalculator() {
             </div>
           </div>
         </div>
-
         <RelatedCalculators calculators={[
-          { name: 'Loan Calculator', description: 'Personal loan payments', href: '/calculator/loan', icon: DollarSign },
-          { name: 'Mortgage Calculator', description: 'Home financing', href: '/calculator/mortgage', icon: Calendar }
+          { name: 'Loan Calculator', description: 'Personal loan payments'  , href: '/calculators/financial/loan-calculator', icon: DollarSign },
+          { name: 'Mortgage Calculator', description: 'Home financing', href: '/calculators/financial/mortgage-calculator', icon: Calendar }
         ]} />
       </section>
     </main>

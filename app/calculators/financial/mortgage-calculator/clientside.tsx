@@ -12,7 +12,6 @@ export default function AdvancedMortgageCalculator() {
   const relatedCalculators = [
     { name: 'Interest Calculator ', description: ' Calculate compound interest', href:'/calculators/financial/interest-calculator', icon: BarChart3 },
     { name: 'Payment Calculator', description: ' Calculate your payments',  href:"/calculators/financial/payment-calculator", icon: TrendingDown },
-    { name: 'Loan Calculator', description: '   Calculate personal loan payments',  href:"/calculators/financial/loan-calculator", icon: TrendingDown },
   ]
 
   // Core Inputs

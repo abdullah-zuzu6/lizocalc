@@ -35,16 +35,11 @@ export default function PermutationCombinationCalculator() {
   const [selectR, setSelectR] = useState<string>("3");
 
   const relatedCalculators = [
-    {
-      name: "Probability Solver",
-      description: "Event likelihood math",
-      href: "/calculator/probability",
-      icon: BarChart3,
-    },
+    
     {
       name: "LCM Calculator",
       description: "Least Common Multiple",
-      href: "/calculator/lcm",
+      href: "/calculators/math/lcm-calculator",
       icon: Hash,
     },
   ];

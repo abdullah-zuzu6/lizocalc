@@ -1,367 +1,206 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { RotateCcw, History, Trash2, Percent, Sigma, ChevronRight, Settings2 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
-import { Percent, Calculator, Sigma } from "lucide-react";
 
 export default function CasioCalculatorAdvanced() {
+  const [expression, setExpression] = useState<string>("");
+  const [result, setResult] = useState<string>("");
+  const [angleMode, setAngleMode] = useState<"DEG" | "RAD">("DEG");
+  const [history, setHistory] = useState<string[]>([]);
+  const [isMounted, setIsMounted] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
-const relatedCalculators = [
-{
-name: "Percentage Calculator",
-description: "Calculate percentages quickly",
-href: "/calculators/math/percentage-calculator",
-icon: Percent,
-},
-{
-name: "Basic Calculator",
-description: "Perform simple arithmetic",
-href: "/calculators/math/basic-calculator",
-icon: Calculator,
-},
-{
-name: "Statistics Calculator",
-description: "Solve statistical calculations",
-href: "/calculators/math/statistics-calculator",
-icon: Sigma,
-},
-];
+  const relatedCalculators = [
+    { name: "Percentage Calculator", description: "Quick percent & ratio solver", href: "/calculators/math/percentage-calculator", icon: Percent },
+    { name: "Statistics Calculator", description: "Standard deviation & variance", href: "/calculators/math/statistics-calculator", icon: Sigma },
+  ];
 
-const [expression, setExpression] = useState("");
-const [preview, setPreview] = useState("");
-const [angleMode, setAngleMode] = useState<"DEG" | "RAD">("DEG");
-const [memory, setMemory] = useState(0);
-const [ans, setAns] = useState(0);
-const [history, setHistory] = useState<string[]>([]);
+  useEffect(() => {
+    setIsMounted(true);
+    const saved = localStorage.getItem("scientific-history");
+    if (saved) setHistory(JSON.parse(saved));
+  }, []);
 
-useEffect(() => {
-const savedHistory = localStorage.getItem("calcHistory");
-if (savedHistory) setHistory(JSON.parse(savedHistory));
-}, []);
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+    }
+  }, [expression]);
 
-useEffect(() => {
-if (!expression) {
-setPreview("");
-return;
-}
+  const handleInput = (val: string) => setExpression(prev => prev + val);
+  const clearAll = () => { setExpression(""); setResult(""); };
+  const backspace = () => setExpression(prev => prev.slice(0, -1));
 
-try {
-const result = evaluate(expression);
-if (!isNaN(result)) setPreview(String(result));
-} catch {
-setPreview("");
-}
-}, [expression]);
+  // --- PRECISION TRIGONOMETRY FUNCTIONS ---
+  const DEGtoRAD = (x: number) => angleMode === "DEG" ? (x * Math.PI) / 180 : x;
+  const RADtoDEG = (x: number) => angleMode === "DEG" ? (x * 180) / Math.PI : x;
 
-// Keyboard support
-useEffect(() => {
-const handleKey = (e: KeyboardEvent) => {
-const key = e.key;
+  const mathFunctions: Record<string, (...args: number[]) => number> = {
+    sin: x => parseFloat(Math.sin(DEGtoRAD(x)).toFixed(10)),
+    cos: x => parseFloat(Math.cos(DEGtoRAD(x)).toFixed(10)),
+    tan: x => parseFloat(Math.tan(DEGtoRAD(x)).toFixed(10)),
+    asin: x => parseFloat(RADtoDEG(Math.asin(x)).toFixed(10)),
+    acos: x => parseFloat(RADtoDEG(Math.acos(x)).toFixed(10)),
+    atan: x => parseFloat(RADtoDEG(Math.atan(x)).toFixed(10)),
+    sqrt: x => Math.sqrt(x),
+    log: x => Math.log10(x),
+    ln: x => Math.log(x),
+    pow: (x, y) => Math.pow(x, y),
+    exp: x => Math.exp(x),
+    "1/x": x => 1 / x,
+  };
 
-if (!isNaN(Number(key)) || key === ".") input(key);
-if (key === "+" || key === "-" || key === "*" || key === "/") input(key);
-if (key === "(" || key === ")") input(key);
-if (key === "Enter") calculate();
-if (key === "Backspace") backspace();
-if (key === "Delete") clear();
-};
+  const calculate = () => {
+    if (!expression) return;
 
-window.addEventListener("keydown", handleKey);
-return () => window.removeEventListener("keydown", handleKey);
-}, [expression]);
+    try {
+      let expr = expression
+        .replace(/π/g, "Math.PI")
+        .replace(/e/g, "Math.E")
+        .replace(/\^/g, "**")
+        .replace(/√\(/g, "Math.sqrt(");
 
-const input = (val: string) => {
-setExpression((prev) => prev + val);
-};
+      // Evaluate expression safely
+      const func = new Function(
+        "sin","cos","tan","asin","acos","atan","sqrt","log","ln","pow","exp","1div","Math",
+        `return ${expr}`
+      );
 
-const clear = () => {
-setExpression("");
-setPreview("");
-};
+      const rawResult = func(
+        mathFunctions.sin,
+        mathFunctions.cos,
+        mathFunctions.tan,
+        mathFunctions.asin,
+        mathFunctions.acos,
+        mathFunctions.atan,
+        mathFunctions.sqrt,
+        mathFunctions.log,
+        mathFunctions.ln,
+        mathFunctions.pow,
+        mathFunctions.exp,
+        mathFunctions["1/x"],
+        Math
+      );
 
-const backspace = () => {
-setExpression((prev) => prev.slice(0, -1));
-};
+      const finalResult = parseFloat(Number(rawResult).toFixed(10)).toString();
+      setResult(finalResult);
 
-const sci = (fn: string) => {
-switch (fn) {
-case "sin":
-input("sin(");
-break;
-case "cos":
-input("cos(");
-break;
-case "tan":
-input("tan(");
-break;
-case "asin":
-input("asin(");
-break;
-case "acos":
-input("acos(");
-break;
-case "atan":
-input("atan(");
-break;
-case "sqrt":
-input("√(");
-break;
-case "log":
-input("log(");
-break;
-case "ln":
-input("ln(");
-break;
-case "pi":
-input("π");
-break;
-case "x²":
-input("^2");
-break;
-case "1/x":
-input("1/(");
-break;
-case "exp":
-input("exp(");
-break;
-}
-};
+      const historyEntry = `${expression} = ${finalResult}`;
+      setHistory(prev => [historyEntry, ...prev].slice(0, 10));
+      localStorage.setItem("scientific-history", JSON.stringify([historyEntry, ...history].slice(0, 10)));
 
-const evaluate = (expInput: string) => {
-let exp = expInput;
+    } catch (err) {
+      setResult("Syntax Error");
+    }
+  };
 
-exp = exp.replace(/sin\(/g, "Math.sin(");
-exp = exp.replace(/cos\(/g, "Math.cos(");
-exp = exp.replace(/tan\(/g, "Math.tan(");
-exp = exp.replace(/asin\(/g, "Math.asin(");
-exp = exp.replace(/acos\(/g, "Math.acos(");
-exp = exp.replace(/atan\(/g, "Math.atan(");
+  if (!isMounted) return null;
 
-exp = exp.replace(/√/g, "Math.sqrt");
-exp = exp.replace(/π/g, "Math.PI");
+  return (
+    <main className="min-h-screen bg-background text-foreground py-12 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* CALCULATOR UI */}
+        <div className="lg:col-span-7 flex justify-center">
+          <div className="bg-[#1c1c1c] p-6 rounded-[2.5rem] border-[6px] border-[#2a2a2a] shadow-2xl w-full max-w-[430px]">
+            {/* LCD */}
+            <div className="bg-[#94a37e] rounded-xl p-4 mb-6 shadow-inner border-2 border-black/20 font-mono text-black text-right relative">
+              <div className="absolute top-2 left-3 flex gap-2 text-[10px] font-bold opacity-70">
+                <span className={angleMode === "DEG" ? "bg-black text-[#94a37e] px-1" : ""}>DEG</span>
+                <span className={angleMode === "RAD" ? "bg-black text-[#94a37e] px-1" : ""}>RAD</span>
+              </div>
+              <div ref={scrollRef} className="h-8 text-lg opacity-80 overflow-x-auto whitespace-nowrap mt-2 scrollbar-hide">{expression || "0"}</div>
+              <div className="h-12 text-4xl font-black truncate">{result || "0"}</div>
+            </div>
 
-exp = exp.replace(/log\(/g, "Math.log10(");
-exp = exp.replace(/ln\(/g, "Math.log(");
-exp = exp.replace(/exp\(/g, "Math.exp(");
+            {/* Buttons */}
+            <div className="grid grid-cols-5 gap-2">
+              <button onClick={() => setAngleMode(angleMode === "DEG" ? "RAD" : "DEG")} className="btn-sci-func">{angleMode}</button>
+              <button onClick={() => handleInput("sin(")} className="btn-sci-func">sin</button>
+              <button onClick={() => handleInput("cos(")} className="btn-sci-func">cos</button>
+              <button onClick={() => handleInput("tan(")} className="btn-sci-func">tan</button>
+              <button onClick={() => handleInput("π")} className="btn-sci-func">π</button>
+              <button onClick={() => handleInput("asin(")} className="btn-sci-func">sin⁻¹</button>
+              <button onClick={() => handleInput("acos(")} className="btn-sci-func">cos⁻¹</button>
+              <button onClick={() => handleInput("atan(")} className="btn-sci-func">tan⁻¹</button>
+              <button onClick={() => handleInput("log(")} className="btn-sci-func">log</button>
+              <button onClick={() => handleInput("ln(")} className="btn-sci-func">ln</button>
+              <button onClick={() => handleInput("√(")} className="btn-sci-func">√</button>
+              <button onClick={() => handleInput("^2")} className="btn-sci-func">x²</button>
+              <button onClick={() => handleInput("^")} className="btn-sci-func">xʸ</button>
+              <button onClick={() => handleInput("(")} className="btn-sci-op">(</button>
+              <button onClick={() => handleInput(")")} className="btn-sci-op">)</button>
 
-exp = exp.replace(/Ans/g, ans.toString());
-exp = exp.replace(/\^2/g, "**2");
+              {["7","8","9","DEL","AC"].map(k => (
+                <button key={k} onClick={() => k==="DEL"?backspace():k==="AC"?clearAll():handleInput(k)} 
+                  className={k==="AC"||k==="DEL"?"btn-sci-danger":"btn-sci-num"}>{k}</button>
+              ))}
+              {["4","5","6","*","/"].map(k => (
+                <button key={k} onClick={() => handleInput(k)} className="btn-sci-op">{k==="*"?"×":k==="/"?"÷":k}</button>
+              ))}
+              {["1","2","3","+","-"].map(k => (
+                <button key={k} onClick={() => handleInput(k)} className="btn-sci-op">{k}</button>
+              ))}
+              <button onClick={() => handleInput("0")} className="btn-sci-num">0</button>
+              <button onClick={() => handleInput(".")} className="btn-sci-num">.</button>
+              <button onClick={() => handleInput("e")} className="btn-sci-num">e</button>
+              <button onClick={() => handleInput("1/")} className="btn-sci-num">1/x</button>
+              <button onClick={calculate} className="btn-sci-equal">=</button>
+            </div>
+          </div>
+        </div>
 
-if (angleMode === "DEG") {
-exp = exp.replace(
-/Math\.sin\(([^)]+)\)/g,
-"Math.sin(($1)*Math.PI/180)"
-);
-exp = exp.replace(
-/Math\.cos\(([^)]+)\)/g,
-"Math.cos(($1)*Math.PI/180)"
-);
-exp = exp.replace(
-/Math\.tan\(([^)]+)\)/g,
-"Math.tan(($1)*Math.PI/180)"
-);
-}
+        {/* Sidebar */}
+        <div className="lg:col-span-5 space-y-6">
+          <section className="bg-card border rounded-2xl p-6 shadow-sm">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <History size={20} className="text-primary" /> History
+            </h2>
+            <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+              {history.length>0 ? history.map((item,i)=>(
+                <div key={i} className="p-3 bg-secondary/40 rounded-lg text-sm font-mono border border-border/50 flex justify-between">
+                  <span className="truncate opacity-70">{item.split("=")[0]}</span>
+                  <span className="font-bold text-primary">={item.split("=")[1]}</span>
+                </div>
+              )) : (<p className="text-xs text-muted-foreground italic">No history yet.</p>)}
+            </div>
+            {history.length>0 && (
+              <button onClick={()=>{setHistory([]);localStorage.removeItem("scientific-history");}} className="mt-4 text-xs font-bold text-rose-500 flex items-center gap-1 hover:underline">
+                <Trash2 size={12}/> Clear History
+              </button>
+            )}
+          </section>
+          <section className="bg-card border rounded-2xl p-6 shadow-sm">
+            <h3 className="font-bold text-lg mb-4 flex items-center gap-2">
+              <Settings2 size={18} className="text-primary" /> Quick Tips
+            </h3>
+            <ul className="space-y-3">
+              <li className="flex gap-2 text-xs text-muted-foreground">
+                <ChevronRight size={14} className="text-primary shrink-0"/>
+                <span>Use <strong>sin⁻¹</strong> to find angles from ratios (e.g., asin(0.5) = 30°).</span>
+              </li>
+              <li className="flex gap-2 text-xs text-muted-foreground">
+                <ChevronRight size={14} className="text-primary shrink-0"/>
+                <span>The <strong>1/x</strong> button calculates the reciprocal of a value.</span>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
 
-return eval(exp);
-};
+      <RelatedCalculators calculators={relatedCalculators} />
 
-const calculate = () => {
-try {
-const result = evaluate(expression);
-
-setExpression(String(result));
-setPreview("");
-setAns(result);
-
-const newHistory = [`${expression} = ${result}`, ...history].slice(0, 10);
-setHistory(newHistory);
-
-localStorage.setItem("calcHistory", JSON.stringify(newHistory));
-} catch {
-setPreview("Error");
-}
-};
-
-// Memory functions
-const memoryAdd = () => setMemory((prev) => prev + Number(preview || 0));
-const memorySubtract = () => setMemory((prev) => prev - Number(preview || 0));
-const memoryRecall = () => input(memory.toString());
-const memoryClear = () => setMemory(0);
-
-const clearHistory = () => {
-setHistory([]);
-localStorage.removeItem("calcHistory");
-};
-
-return (
-<main className="min-h-screen bg-background">
-
-<section className="py-12 px-4 sm:px-6 lg:px-8">
-<div className="max-w-4xl mx-auto">
-
-<div className="flex justify-center">
-<div className="bg-card border border-border rounded-3xl p-6 w-[380px] shadow-2xl">
-
-{/* REAL TIME RESULT */}
-<div className="bg-background p-2 rounded mb-2 text-sm text-muted-foreground overflow-x-auto text-right">
-{preview || " "}
-</div>
-
-{/* USER INPUT */}
-<div className="bg-background p-4 rounded mb-4 text-3xl font-bold text-foreground overflow-x-auto text-right">
-{expression || "0"}
-</div>
-
-{/* Memory + Angle */}
-<div className="grid grid-cols-6 gap-2 mb-3">
-<button className="btn-calc" onClick={memoryAdd}>M+</button>
-<button className="btn-calc" onClick={memorySubtract}>M-</button>
-<button className="btn-calc" onClick={memoryRecall}>MR</button>
-<button className="btn-calc" onClick={memoryClear}>MC</button>
-<button className="btn-calc" onClick={() => input("Ans")}>Ans</button>
-
-<button
-className={`font-bold text-white py-2 rounded ${
-angleMode === "DEG" ? "bg-green-500" : "bg-red-500"
-}`}
-onClick={() =>
-setAngleMode(angleMode === "DEG" ? "RAD" : "DEG")
-}
->
-{angleMode}
-</button>
-</div>
-
-{/* Scientific buttons */}
-<div className="grid grid-cols-5 gap-2 mb-3">
-{[
-"sin","cos","tan","asin","acos",
-"atan","sqrt","log","ln","pi",
-"x²","1/x","exp","(",")"
-].map((btn) => (
-<button
-key={btn}
-className="btn-func"
-onClick={() => {
-if (btn === "(" || btn === ")") input(btn);
-else sci(btn);
-}}
->
-{btn === "asin"
-? "sin⁻¹"
-: btn === "acos"
-? "cos⁻¹"
-: btn === "atan"
-? "tan⁻¹"
-: btn}
-</button>
-))}
-</div>
-
-{/* Digits + operators */}
-<div className="grid grid-cols-4 gap-2">
-{[
-"7","8","9","/",
-"4","5","6","*",
-"1","2","3","-",
-"0",".","+","="
-].map((btn) => (
-<button
-key={btn}
-className={
-btn === "="
-? "btn-equal"
-: /[/*\-+]/.test(btn)
-? "btn-op"
-: "btn-num"
-}
-onClick={() => (btn === "=" ? calculate() : input(btn))}
->
-{btn}
-</button>
-))}
-</div>
-
-{/* Clear / Back / Clear History */}
-<div className="grid grid-cols-3 gap-2 mt-3">
-<button className="btn-func" onClick={clear}>AC</button>
-<button className="btn-func" onClick={backspace}>Back</button>
-<button className="btn-func" onClick={clearHistory}>Clear History</button>
-</div>
-
-{/* History */}
-<div className="mt-4 p-2 bg-background border border-border rounded h-24 overflow-y-auto text-sm text-muted-foreground">
-{history.map((h, i) => (
-<div key={i}>{h}</div>
-))}
-</div>
-
-</div>
-</div>
-
-</div>
-</section>
-
-<RelatedCalculators calculators={relatedCalculators} />
-
-<style jsx>{`
-.btn-calc {
-background: #a0a0a0;
-color: black;
-font-weight: bold;
-padding: 0.5rem;
-border-radius: 0.5rem;
-transition: all 0.1s;
-}
-.btn-calc:hover {
-background: #b5b5b5;
-}
-.btn-func {
-background: #4a90e2;
-color: white;
-font-weight: bold;
-padding: 0.5rem;
-border-radius: 0.5rem;
-transition: all 0.1s;
-}
-.btn-func:hover {
-background: #357ab8;
-}
-.btn-num {
-background: #333;
-color: white;
-font-weight: bold;
-padding: 0.75rem;
-border-radius: 0.5rem;
-transition: all 0.1s;
-}
-.btn-num:hover {
-background: #444;
-}
-.btn-op {
-background: #555;
-color: white;
-font-weight: bold;
-padding: 0.75rem;
-border-radius: 0.5rem;
-transition: all 0.1s;
-}
-.btn-op:hover {
-background: #666;
-}
-.btn-equal {
-background: #facc15;
-color: black;
-font-weight: bold;
-padding: 0.75rem;
-border-radius: 0.5rem;
-transition: all 0.1s;
-}
-.btn-equal:hover {
-background: #eab308;
-}
-`}</style>
-
-</main>
-);
+      <style jsx>{`
+        .btn-sci-func { @apply bg-[#3a3a3a] text-white py-3 rounded-md hover:bg-[#4a4a4a] text-[11px] font-bold border-b-[3px] border-black/50 shadow-md active:border-b-0 active:translate-y-[1px] transition-all; }
+        .btn-sci-op { @apply bg-[#2d2d2d] text-primary py-4 rounded-md hover:bg-[#3d3d3d] border-b-[3px] border-black/50 text-lg font-bold shadow-md active:border-b-0 active:translate-y-[1px] transition-all; }
+        .btn-sci-num { @apply bg-[#e5e5e5] text-black py-4 rounded-md hover:bg-white border-b-[3px] border-black/20 text-lg font-bold shadow-md active:border-b-0 active:translate-y-[1px] transition-all; }
+        .btn-sci-danger { @apply bg-rose-600 text-white py-4 rounded-md hover:bg-rose-500 border-b-[3px] border-black/50 font-bold shadow-md active:border-b-0 active:translate-y-[1px] transition-all; }
+        .btn-sci-equal { @apply bg-primary text-white py-4 rounded-md hover:opacity-90 border-b-[3px] border-black/50 text-xl font-bold shadow-md active:border-b-0 active:translate-y-[1px] transition-all; }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { @apply bg-primary/20 rounded-full; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+      `}</style>
+    </main>
+  );
 }

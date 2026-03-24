@@ -139,8 +139,8 @@ export default function BodyFatCalculator() {
         </div>
 
         <RelatedCalculators calculators={[
-          { name: 'BMI Calculator', description: 'Body Mass Index', href: '/calculator/bmi', icon: Activity },
-          { name: 'Calorie Calculator', description: 'Daily energy needs', href: '/calculator/calorie', icon: BarChart3 }
+          { name: 'BMI Calculator', description: 'Body Mass Index', href: '/calculators/health/bmi-calculator', icon: Activity },
+          { name: 'Calorie Calculator', description: 'Daily energy needs', href: '/calculators/health/calorie-calculator', icon: BarChart3 }
         ]} />
       </section>
     </main>

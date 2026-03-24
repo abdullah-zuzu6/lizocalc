@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { TrendingUp, TrendingDown, Globe, Calculator, RotateCcw, Info, ListFilter, CheckCircle2 } from 'lucide-react'
+import { TrendingUp, TrendingDown, Globe, Calculator, RotateCcw, Info, ListFilter, CheckCircle2, DollarSign, Calendar } from 'lucide-react'
 import RelatedCalculators from '@/components/RelatedCalculators'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
@@ -118,8 +118,8 @@ export default function InflationCalculator() {
         </div>
 
         <RelatedCalculators calculators={[
-          { name: 'Compound Interest', description: 'See how your wealth grows', href: '/compound-interest', icon: Calculator },
-          { name: 'ROI Calculator', description: 'Measure your investment gains', href: '/roi-calculator', icon: TrendingUp }
+          { name: 'Loan Calculator', description: 'Personal loan payments'  , href: '/calculators/financial/loan-calculator', icon: DollarSign },
+          { name: 'Mortgage Calculator', description: 'Home financing', href: '/calculators/financial/mortgage-calculator', icon: Calendar }
         ]} />
       </section>
     </main>

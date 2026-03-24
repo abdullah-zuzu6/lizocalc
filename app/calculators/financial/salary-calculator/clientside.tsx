@@ -22,9 +22,7 @@ export default function SalaryCalculator() {
 
   // --- Related Calculators Data ---
   const relatedCalculators = [
-    { name: 'Income Tax', description: 'Estimate your tax burden', href: '/tax', icon: Wallet },
-    { name: 'Hours Calculator', description: 'Track work time', href: '/hours', icon: Calculator },
-    { name: 'Interest Calculator', description: 'Compound interest solver', href: '/calculators/financial/interest', icon: BarChart3 }
+    { name: 'Interest Calculator', description: 'Compound interest solver', href: '/calculators/financial/interest-calculator', icon: BarChart3 }
   ]
 
   // --- Cookie Logic ---

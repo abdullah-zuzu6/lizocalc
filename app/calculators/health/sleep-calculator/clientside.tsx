@@ -156,8 +156,8 @@ export default function SleepCalculator() {
           
         </div>
         <RelatedCalculators calculators={[
-            { name: 'BMI Calculator', description: 'Health metrics', href: '/calculator/bmi', icon: Clock },
-            { name: 'Interest Calculator', description: 'Financial growth', href: '/calculator/interest', icon: Bed }
+            { name: 'BMI Calculator', description: 'Health metrics', href: '/calculators/health/bmi-calculator', icon: Clock },
+            { name: 'Interest Calculator', description: 'Financial growth', href: '/calculators/financial/interest-calculator', icon: Bed }
           ]} />
       </section>
     </main>

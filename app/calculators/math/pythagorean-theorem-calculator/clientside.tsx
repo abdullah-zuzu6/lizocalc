@@ -9,7 +9,6 @@ import {
   Triangle as TriangleIcon,
   CheckCircle2,
   Square,
-  Zap,
   BarChart3,
   ChevronRight,
 } from "lucide-react";
@@ -40,17 +39,12 @@ export default function PythagoreanCalculator() {
 
   const relatedCalculators = [
     {
-      name: "Triangle Solver",
+      name: "Triangle Calculator",
       description: "Solve for non-right triangles",
-      href: "/calculators/math/triangle-solver",
+      href: "/calculators/math/triangle-calculator",
       icon: TriangleIcon,
     },
-    {
-      name: "Area Calculator",
-      description: "Measure space within shapes",
-      href: "/calculators/math/area-calculator",
-      icon: Square,
-    },
+   
     {
       name: "GCF Calculator",
       description: "Greatest Common Factor",
@@ -142,7 +136,6 @@ export default function PythagoreanCalculator() {
   }, [trigger]);
 
   if (!isMounted) return null;
-
   return (
     <main className="min-h-screen bg-background text-foreground">
       <section className="py-8 px-4 max-w-7xl mx-auto">
@@ -170,7 +163,7 @@ export default function PythagoreanCalculator() {
                   label="Side C (Hypotenuse)"
                   value={sideC}
                   onChange={setSideC}
-                  placeholder="Solve for me"
+                  placeholder="e.g. 5"
                   highlight
                 />
                 <div className="pt-4 flex flex-col gap-3">

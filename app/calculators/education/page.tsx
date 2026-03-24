@@ -53,7 +53,7 @@ export default function OtherCalculators() {
             </NoPrefetchLink>
 
             <Clock className="w-8 h-8 text-green-500" />
-            <h1 className="text-4xl font-bold">Other Calculators</h1>
+            <h1 className="text-4xl font-bold">Education Calculators</h1>
           </div>
 
           <p className="text-lg text-muted-foreground mb-8">

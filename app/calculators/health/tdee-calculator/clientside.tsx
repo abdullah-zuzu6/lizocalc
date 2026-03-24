@@ -21,8 +21,8 @@ export default function TDEECalculator() {
   const [isMounted, setIsMounted] = useState(false);
 
   const relatedCalculators = [
-    { name: 'BMI Calculator', description: 'Body Mass Index assessment', href: '/calculator/bmi', icon: User },
-    { name: 'Macro Calculator', description: 'Detailed macro percentage splits', href: '/calculator/macros', icon: Target }
+    { name: 'BMI Calculator', description: 'Body Mass Index assessment', href: '/calculators/health/bmi-calculator', icon: User },
+    { name: 'Macro Calculator', description: 'Detailed macro percentage splits', href: '/calculators/health/macros-calculator', icon: Target }
   ];
 
   // --- Cookie Logic ---

@@ -9,15 +9,14 @@ export const calculators: Calculator[] = [
 //Financial calculators
   { slug: 'mortgage-calculator', category: 'financial' },
   {slug: 'loan-calculator', category: 'financial' },
-  {slug: '401k-calculator', category: 'financial' },
   { slug: 'salary-calculator', category: 'financial' },
   { slug: 'interest-calculator', category: 'financial' },
   { slug: 'payment-calculator', category: 'financial' },
   { slug: 'inflation-calculator', category: 'financial' },
-  {slug: 'credit-card-calculator', category: 'financial' },
-  {slug: 'sales-tax-calculator', category: 'financial' },
   {slug: 'auto-loan-calculator', category: 'financial' },
   {slug: 'roi-calculator', category: 'financial' },
+   {slug: 'compound-interest-calculator', category:'financial'},
+
 
 //Health calculators
   { slug: 'bmi-calculator', category: 'health' },
@@ -25,8 +24,6 @@ export const calculators: Calculator[] = [
   { slug: 'body-fat-calculator', category: 'health' },
   { slug: 'bmr-calculator', category: 'health' },
   { slug: 'tdee-calculator', category: 'health' },
-  { slug: 'ideal-weight-calculator', category: 'health' },
-  { slug: 'bac-calculator', category: 'health' },
   { slug: 'calorie-deficit-calculator', category: 'health' },
   { slug: 'macro-calculator', category: 'health' },
   {slug: 'sleep-calculator', category: 'health' },
@@ -46,7 +43,7 @@ export const calculators: Calculator[] = [
   { slug: 'z-score-calculator', category: 'math' },
   { slug: 'binary-calculator', category: 'math' },
   { slug: 'conversion-calculator', category: 'math' },
-
+ 
 //Time calculators 
   { slug: 'age-calculator', category: 'time' },
   { slug: 'date-calculator', category: 'time' },

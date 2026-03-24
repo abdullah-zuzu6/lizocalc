@@ -1,6 +1,6 @@
 {
-  "name": "LizoCalculator - Free Online Calculators",
-  "short_name": "LizoCalculator",
+  "name": "LizoCalc - Free Online Calculators",
+  "short_name": "LizoCalc",
   "description": "Professional online calculators for financial planning, fitness tracking, and mathematics",
   "start_url": "/",
   "scope": "/",
@@ -10,38 +10,37 @@
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "/logo.png",
+      "src": "/logo.webp",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "/logo.png",
+      "src": "/logo.webp",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/webp",
       "purpose": "any"
     },
     {
-      "src": "/logo.png",
+      "src": "/logo.webp",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/webp",
       "purpose": "maskable"
     }
   ],
   "screenshots": [
     {
-      "src": "/logo.png",
+      "src": "/logo.webp",
       "sizes": "540x720",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "narrow"
     },
     {
-      "src": "/logo.png",
+      "src": "/logo.webp",
       "sizes": "1280x720",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "wide"
     }
   ],
-  "categories": ["productivity", "education"],
-  "screenshots": []
+  "categories": ["productivity", "education"]
 }

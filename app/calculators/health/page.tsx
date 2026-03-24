@@ -49,18 +49,7 @@ const calculators = [
     href: '/calculators/health/calorie-deficit-calculator',
     category: 'Health',
   },
-  {
-    name: 'BAC Calculator',
-    description: 'Calculate your Blood Alcohol Concentration based on consumption and time',
-    href: '/calculators/health/bac-calculator',
-    category: 'Health',
-  },
-  {
-    name: 'Ideal Weight Calculator',
-    description: 'Calculate your ideal weight using various medical formulas',
-    href: '/calculators/health/ideal-weight-calculator',
-    category: 'Health',
-  },
+  
    {
     name: 'Sleep Calculator',
     description: 'Calculate your ideal sleep duration based on age and lifestyle',

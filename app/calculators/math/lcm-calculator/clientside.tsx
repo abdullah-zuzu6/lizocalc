@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { Hash, RotateCcw, Info, ListFilter, BarChart3, TrendingDown, Layers, CheckCircle2 } from 'lucide-react'
+import {  RotateCcw, Info, ListFilter, BarChart3, TrendingDown, Layers, CheckCircle2 } from 'lucide-react'
 import RelatedCalculators from '@/components/RelatedCalculators'
 import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
 
@@ -14,8 +14,6 @@ type LCMResult = {
 export default function LCMCalculator() {
   const relatedCalculators = [
     { name: 'GCF Calculator', description: 'Greatest Common Factor', href: '/calculators/math/gcf-calculator', icon: Layers },
-    { name: 'Factor Solver', description: 'Find all prime factors', href: '/calculator/factors', icon: Hash },
-    { name: 'Interest Calculator', description: 'Calculate compound interest', href: '/calculators/financial/interest-calculator', icon: BarChart3 },
   ]
 
   // --- States ---

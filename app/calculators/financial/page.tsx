@@ -47,12 +47,7 @@ const calculators = [
     href: "/calculators/financial/compound-interest-calculator",
     category: "Financial",
   },
-  {
-    name: "401k Calculator",
-    description: "Calculate 401k contributions and retirement savings",
-    href: "/calculators/financial/401k-calculator",
-    category: "Financial",
-  },
+  
   {
     name: "Inflation Calculator",
     description:
@@ -71,19 +66,6 @@ const calculators = [
     name: "ROI Calculator",
     description: "Calculate return on investment and annualized returns.",
     href: "/calculators/financial/roi-calculator",
-    category: "Financial",
-  },
-  {
-    name: "Credit Card Calculator",
-    description:
-      "Calculate credit card payments, interest charges, and payoff timelines.",
-    href: "/calculators/financial/credit-card-calculator",
-    category: "Financial",
-  },
-  {
-    name: "Sales Tax Calculator",
-    description: "Calculate sales tax amounts and total costs",
-    href: "/calculators/financial/sales-tax-calculator",
     category: "Financial",
   },
 ];

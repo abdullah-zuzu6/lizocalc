@@ -34,21 +34,16 @@ export default function PaymentCalculator() {
     {
       name: "Interest Calculator",
       description: "Compound interest solver",
-      href: "/calculator/interest",
+      href: "/calculators/financial/interest-calculator",
       icon: BarChart3,
     },
     {
       name: "Loan Calculator",
       description: "Calculate loan payments",
-      href: "/calculator/loan",
+      href: "/calculators/financial/loan-calculator",
       icon: Receipt,
     },
-    {
-      name: "LCM Calculator",
-      description: "Find common multiples",
-      href: "/calculators/math/lcm",
-      icon: Hash,
-    },
+    
   ];
 
   // --- Cookie Logic ---

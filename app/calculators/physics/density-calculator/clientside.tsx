@@ -1,322 +1,361 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useMemo } from 'react'
-import { 
-  RotateCcw, 
-  CheckCircle2, 
-  Layers, 
-  Weight, 
-  Box, 
-  Calculator as CalcIcon
-} from 'lucide-react'
-import RelatedCalculators from '@/components/RelatedCalculators'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+import { useState, useEffect, useMemo } from "react";
+import {
+  RotateCcw,
+  Layers,
+  CheckCircle2,
+  ListFilter,
+  BarChart3,
+  Box,
+  Weight,
+} from "lucide-react";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import {
+  getCalculatorHistory,
+  saveCalculatorHistory,
+  getConsentPreference,
+} from "@/lib/cookies";
 
-type DensityResult = {
-  mass: string
-  volume: string
-  density: string
-  solvedFor: string
+// ─────────────────────────────────────────────
+// Types & Professional Unit Constants
+// ─────────────────────────────────────────────
+
+interface UnitOption {
+  label: string;
+  value: string;
+  factor: number;
 }
 
+const UNITS = {
+  mass: [
+    { label: "kilogram [kg]", value: "kg", factor: 1 },
+    { label: "gram [g]", value: "g", factor: 0.001 },
+    { label: "milligram [mg]", value: "mg", factor: 0.000001 },
+    { label: "metric ton [t]", value: "t", factor: 1000 },
+    { label: "pound [lb]", value: "lb", factor: 0.45359237 },
+    { label: "ounce [oz]", value: "oz", factor: 0.02834952 },
+    { label: "carat [ct]", value: "ct", factor: 0.0002 },
+  ],
+  volume: [
+    { label: "cubic meter [m³]", value: "m3", factor: 1 },
+    { label: "liter [L]", value: "L", factor: 0.001 },
+    { label: "milliliter [mL]", value: "mL", factor: 0.000001 },
+    { label: "gallon [US]", value: "gal_us", factor: 0.00378541 },
+    { label: "gallon [UK]", value: "gal_uk", factor: 0.00454609 },
+    { label: "cubic foot [ft³]", value: "ft3", factor: 0.02831685 },
+    { label: "cubic yard [yd³]", value: "yd3", factor: 0.76455486 },
+    { label: "cubic inch [in³]", value: "in3", factor: 0.000016387 },
+    { label: "cubic centimeter [cm³]", value: "cm3", factor: 0.000001 },
+  ],
+  density: [
+    { label: "kilogram/cubic meter [kg/m³]", value: "kg_m3", factor: 1 },
+    {
+      label: "kilogram/cubic centimeter [kg/cm³]",
+      value: "kg_cm3",
+      factor: 1000000,
+    },
+    { label: "gram/cubic meter [g/m³]", value: "g_m3", factor: 0.001 },
+    { label: "gram/cubic centimeter [g/cm³]", value: "g_cm3", factor: 1000 },
+    { label: "kilogram/liter [kg/L]", value: "kg_L", factor: 1000 },
+    { label: "gram/liter [g/L]", value: "g_L", factor: 1 },
+    { label: "pound/cubic inch [lb/in³]", value: "lb_in3", factor: 27679.9 },
+    { label: "pound/cubic foot [lb/ft³]", value: "lb_ft3", factor: 16.01846 },
+    { label: "pound/cubic yard [lb/yd³]", value: "lb_yd3", factor: 0.5932764 },
+    { label: "pound/gallon [US]", value: "lb_gal_us", factor: 119.8264 },
+    { label: "pound/gallon [UK]", value: "lb_gal_uk", factor: 99.7763 },
+  ],
+};
+
 export default function DensityCalculator() {
+  const relatedCalculators = [
+    {
+      name: "Mass Calculator",
+      description: "Weight ↔ Mass conversions",
+      href: "/calculators/physics/mass-calculator",
+      icon: Weight,
+    },
+    {
+      name: "Speed Calculator",
+      description: "Velocity & motion solver",
+      href: "/calculators/physics/speed-calculator",
+      icon: Box,
+    },
+  ];
 
-  const [isMounted, setIsMounted] = useState(false)
-  const [showResults, setShowResults] = useState(false)
+  const [mass, setMass] = useState<string>("100");
+  const [massUnit, setMassUnit] = useState<string>("kg");
+  const [volume, setVolume] = useState<string>("1");
+  const [volumeUnit, setVolumeUnit] = useState<string>("m3");
+  const [densityUnit, setDensityUnit] = useState<string>("kg_m3");
 
-  const [mass, setMass] = useState<string>('')
-  const [volume, setVolume] = useState<string>('')
-  const [density, setDensity] = useState<string>('')
+  const [isMounted, setIsMounted] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [trigger, setTrigger] = useState(0);
 
-  // Load cookie data on mount
   useEffect(() => {
-    setIsMounted(true)
-
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-
-    if (consent?.functional && history['density-calc']?.data) {
-      const { m, v, d } = history['density-calc'].data
-      setMass(m || '')
-      setVolume(v || '')
-      setDensity(d || '')
+    setIsMounted(true);
+    const consent = getConsentPreference();
+    const history = getCalculatorHistory();
+    if (consent?.functional && history["density-calc"]?.data) {
+      const data = history["density-calc"].data;
+      setMass(data.mass || "8900");
+      setMassUnit(data.massUnit || "kg");
+      setVolume(data.volume || "1");
+      setVolumeUnit(data.volumeUnit || "m3");
+      setDensityUnit(data.densityUnit || "kg_m3");
     }
-  }, [])
+  }, []);
 
-  // Save cookie whenever values change
   useEffect(() => {
-    if (!isMounted) return
-
-    const consent = getConsentPreference()
-
+    if (!isMounted) return;
+    const consent = getConsentPreference();
     if (consent?.functional) {
-      saveCalculatorHistory('density-calc', {
-        m: mass,
-        v: volume,
-        d: density
-      })
+      saveCalculatorHistory("density-calc", {
+        mass,
+        massUnit,
+        volume,
+        volumeUnit,
+        densityUnit,
+      });
     }
-  }, [mass, volume, density])
+  }, [mass, massUnit, volume, volumeUnit, densityUnit, isMounted]);
 
-  // Sync values when switching tabs
-  useEffect(() => {
+  const results = useMemo(() => {
+    if (trigger === 0) return null;
+    const mVal = parseFloat(mass);
+    const vVal = parseFloat(volume);
 
-    const syncData = () => {
-      const consent = getConsentPreference()
-      const history = getCalculatorHistory()
+    if (isNaN(mVal) || isNaN(vVal))
+      return { error: "Please enter numeric values." };
+    if (vVal === 0) return { error: "Volume cannot be zero." };
 
-      if (consent?.functional && history['density-calc']?.data) {
-        const { m, v, d } = history['density-calc'].data
-        setMass(m || '')
-        setVolume(v || '')
-        setDensity(d || '')
-      }
-    }
+    const mFactor = UNITS.mass.find((u) => u.value === massUnit)?.factor || 1;
+    const vFactor =
+      UNITS.volume.find((u) => u.value === volumeUnit)?.factor || 1;
+    const dFactor =
+      UNITS.density.find((u) => u.value === densityUnit)?.factor || 1;
 
-    window.addEventListener('focus', syncData)
-
-    return () => window.removeEventListener('focus', syncData)
-
-  }, [])
-
-  const results = useMemo((): DensityResult | { error: string } | null => {
-
-    const m = parseFloat(mass)
-    const v = parseFloat(volume)
-    const d = parseFloat(density)
-
-    const inputs = [m, v, d].filter(val => !isNaN(val) && val !== 0)
-
-    if (inputs.length < 2) return null
-
-    let resM = m
-    let resV = v
-    let resD = d
-    let solved = ''
-
-    if (isNaN(m)) {
-      resM = d * v
-      solved = 'Mass'
-    } 
-    else if (isNaN(v)) {
-      resV = m / d
-      solved = 'Volume'
-    } 
-    else if (isNaN(d)) {
-      resD = m / v
-      solved = 'Density'
-    }
-
-    if (resV === 0 && solved === 'Density') {
-      return { error: 'Volume cannot be zero.' }
-    }
+    const massSI = mVal * mFactor;
+    const volumeSI = vVal * vFactor;
+    const densitySI = massSI / volumeSI;
 
     return {
-      mass: resM.toFixed(4).replace(/\.?0+$/, ""),
-      volume: resV.toFixed(4).replace(/\.?0+$/, ""),
-      density: resD.toFixed(4).replace(/\.?0+$/, ""),
-      solvedFor: solved
-    }
+      density: densitySI / dFactor,
+      mass: mVal,
+      volume: vVal,
+    };
+  }, [trigger, mass, massUnit, volume, volumeUnit, densityUnit]);
 
-  }, [mass, volume, density])
-
-  if (!isMounted) return null
+  if (!isMounted) return null;
 
   return (
-
     <main className="min-h-screen bg-background text-foreground">
-
-      <section className="py-12 px-4 max-w-7xl mx-auto">
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
-          {/* LEFT PANEL */}
-
-          <div className="lg:col-span-4 space-y-6">
-
-            <div className="bg-card rounded-xl border p-6 shadow-sm">
-
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <CalcIcon className="text-primary" size={20} />
+      <section className="py-4 md:py-8 px-4 max-w-7xl mx-auto space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+          {/* Inputs Section */}
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm">
+              <h2 className="text-xl font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
+                <ListFilter className="text-blue-600" size={22} />
                 Parameters
               </h2>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
+                <UnitInput
+                  label="Mass (m)"
+                  value={mass}
+                  unit={massUnit}
+                  options={UNITS.mass}
+                  onValueChange={setMass}
+                  onUnitChange={setMassUnit}
+                />
+                <UnitInput
+                  label="Volume (V)"
+                  value={volume}
+                  unit={volumeUnit}
+                  options={UNITS.volume}
+                  onValueChange={setVolume}
+                  onUnitChange={setVolumeUnit}
+                />
 
-                <InputField label="Mass (m)" unit="kg" value={mass} onChange={setMass} />
-
-                <InputField label="Volume (V)" unit="m³" value={volume} onChange={setVolume} />
-
-                <InputField label="Density (ρ)" unit="kg/m³" value={density} onChange={setDensity} />
-
-                <div className="pt-4 flex flex-col gap-3">
-
-                  <button
-                    onClick={() => setShowResults(true)}
-                    className="w-full py-3 bg-primary text-primary-foreground rounded-md font-bold text-sm hover:opacity-90 flex items-center justify-center gap-2"
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                    Result Density Unit (ρ)
+                  </label>
+                  <select
+                    value={densityUnit}
+                    onChange={(e) => setDensityUnit(e.target.value)}
+                    className="w-full px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-sm transition-all"
                   >
-                    Calculate
-                    <CheckCircle2 size={16} />
-                  </button>
+                    {UNITS.density.map((u) => (
+                      <option key={u.value} value={u.value}>
+                        {u.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
+                <div className="pt-4 flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={() => {
-                      setMass('')
-                      setVolume('')
-                      setDensity('')
-                      setShowResults(false)
-
-                      saveCalculatorHistory('density-calc', {
-                        m: '',
-                        v: '',
-                        d: ''
-                      })
+                      setTrigger((v) => v + 1);
+                      setShowResults(true);
                     }}
-                    className="w-full py-2 bg-secondary text-muted-foreground rounded-md font-bold text-xs flex items-center justify-center gap-2"
+                    className="flex-[2] py-4 bg-blue-600 text-white rounded-xl font-black text-sm hover:bg-blue-700 shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
-                    <RotateCcw size={14} />
-                    Reset
+                    CALCULATE <CheckCircle2 size={18} />
                   </button>
-
+                  <button
+                    onClick={() => {
+                      setMass("");
+                      setVolume("");
+                      setShowResults(false);
+                      setTrigger(0);
+                    }}
+                    className="flex-1 py-4 bg-secondary text-muted-foreground rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                  >
+                    <RotateCcw size={16} /> RESET
+                  </button>
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
-          {/* RIGHT PANEL */}
-
-          <div className="lg:col-span-8 space-y-6">
-
-            {showResults && results && !('error' in results) ? (
-
-              <div className="bg-primary text-primary-foreground rounded-xl p-8 shadow-xl">
-
-                <p className="text-xs font-bold uppercase opacity-70">
-                  Calculated {results.solvedFor}
-                </p>
-
-                <h2 className="text-5xl font-black my-2 tracking-tighter">
-                  {results.solvedFor === 'Density'
-                    ? results.density
-                    : results.solvedFor === 'Mass'
-                    ? results.mass
-                    : results.volume}
-                </h2>
-
-                <div className="grid grid-cols-3 gap-4 mt-8 pt-6 border-t border-white/20">
-
-                  <StatBox label="Mass" value={`${results.mass} kg`} />
-
-                  <StatBox label="Volume" value={`${results.volume} m³`} />
-
-                  <StatBox label="Density" value={`${results.density} kg/m³`} />
-
+          {/* Results Section */}
+          <div className="lg:col-span-7">
+            {showResults && results && !("error" in results) ? (
+              <div className="bg-card border-2 border-blue-600/20 rounded-3xl p-6 md:p-12 shadow-sm animate-in fade-in zoom-in-95 duration-300">
+                <div className="space-y-2 text-center">
+                  <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.3em]">
+                    Resultant Density
+                  </p>
+                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter break-all">
+                    {results.density.toLocaleString(undefined, {
+                      maximumFractionDigits: 6,
+                    })}
+                  </h2>
+                  <div className="inline-block px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mt-4">
+                    {UNITS.density.find((u) => u.value === densityUnit)?.label}
+                  </div>
                 </div>
 
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 pt-8 border-t border-dashed">
+                  <div className="p-4 bg-secondary/50 rounded-2xl text-center">
+                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">
+                      Total Mass
+                    </p>
+                    <p className="text-xl font-black">
+                      {results.mass}{" "}
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {massUnit}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="p-4 bg-secondary/50 rounded-2xl text-center">
+                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">
+                      Total Volume
+                    </p>
+                    <p className="text-xl font-black">
+                      {results.volume}{" "}
+                      <span className="text-sm font-medium text-muted-foreground">
+                        {volumeUnit}
+                      </span>
+                    </p>
+                  </div>
+                </div>
               </div>
-
+            ) : showResults && results && "error" in results ? (
+              <div className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-600 font-bold flex items-center gap-3">
+                <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
+                {results.error}
+              </div>
             ) : (
-
-              <div className="bg-secondary/20 border-2 border-dashed border-border rounded-xl p-12 text-center flex flex-col items-center justify-center h-full min-h-[300px]">
-
-                <Layers size={48} className="opacity-10 mb-4" />
-
-                <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest">
-                  Enter 2 values to solve
+              <div className="h-full min-h-[300px] bg-secondary/10 border-4 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center transition-all">
+                <Layers size={64} className="opacity-10 mb-6" />
+                <p className="text-sm font-black uppercase text-muted-foreground tracking-widest max-w-[200px]">
+                  Enter Parameters to Solve
                 </p>
-
               </div>
-
             )}
-
           </div>
-
         </div>
 
-        {/* FORMULA */}
-
-        <div className="mt-8 grid md:grid-cols-2 gap-8">
-
-          <div className="bg-card border rounded-xl p-8">
-
-            <h3 className="font-bold text-xl mb-4">Density Formula</h3>
-
-            <p className="text-sm text-muted-foreground mb-4">
-              Density is the ratio between mass and volume.
+        {/* Informational Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 bg-card border rounded-2xl space-y-3">
+            <h3 className="font-black uppercase text-sm flex items-center gap-2">
+              <BarChart3 size={18} className="text-blue-600" /> Theory
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Density ($\rho$) is defined as mass per unit volume. The formula
+              is $\rho = m / V$. It determines whether an object sinks or
+              floats.
             </p>
-
-            <div className="p-4 bg-primary/10 rounded-xl">
-
-              <code className="text-primary font-bold text-lg">
-                {"ρ = m / V"}
-              </code>
-
-            </div>
-
           </div>
-
+          <div className="p-6 bg-card border rounded-2xl space-y-3 text-sm">
+            <h3 className="font-black uppercase text-sm">Pro Tip</h3>
+            <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+              <li>Check your units: kg/m³ is the SI standard.</li>
+              <li>Ensure volume is not zero.</li>
+            </ul>
+          </div>
         </div>
 
-        <RelatedCalculators
-          calculators={[
-            {
-              name: 'Mass Calculator',
-              description: 'Weight vs mass solver',
-              href: '/calculator/mass',
-              icon: Weight
-            },
-            {
-              name: 'Volume Calculator',
-              description: '3D shape capacity',
-              href: '/calculator/volume',
-              icon: Box
-            }
-          ]}
-        />
-
+        <RelatedCalculators calculators={relatedCalculators} />
       </section>
-
     </main>
-  )
+  );
 }
 
-function InputField({ label, unit, value, onChange }: any) {
+// ─────────────────────────────────────────────
+// Fully Responsive Input Component
+// ─────────────────────────────────────────────
 
-  return (
-    <div>
-
-      <label className="text-xs font-bold uppercase text-muted-foreground">
-        {label} ({unit})
-      </label>
-
-      <input
-        type="number"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder="0"
-        className="w-full mt-1 px-3 py-3 bg-secondary rounded-md border focus:ring-2 ring-primary/20 outline-none font-bold"
-      />
-
-    </div>
-  )
+interface UnitInputProps {
+  label: string;
+  value: string;
+  unit: string;
+  options: UnitOption[];
+  onValueChange: (v: string) => void;
+  onUnitChange: (u: string) => void;
 }
 
-function StatBox({ label, value }: { label: string; value: string }) {
-
+function UnitInput({
+  label,
+  value,
+  unit,
+  options,
+  onValueChange,
+  onUnitChange,
+}: UnitInputProps) {
   return (
-    <div>
-
-      <p className="text-[10px] font-bold uppercase opacity-60">
+    <div className="space-y-2">
+      <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
         {label}
-      </p>
-
-      <p className="text-lg font-black">
-        {value}
-      </p>
-
+      </label>
+      <div className="flex flex-col sm:flex-row gap-2">
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => onValueChange(e.target.value)}
+          placeholder="0.00"
+          className="flex-[2] px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-lg transition-all"
+        />
+        <select
+          value={unit}
+          onChange={(e) => onUnitChange(e.target.value)}
+          className="flex-1 px-3 py-4 bg-secondary/50 rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xs cursor-pointer transition-all"
+        >
+          {options.map((u) => (
+            <option key={u.value} value={u.value}>
+              {u.label.includes("[")
+                ? u.label.split("[")[1].replace("]", "")
+                : u.label}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
-  )
+  );
 }

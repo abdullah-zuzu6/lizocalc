@@ -28,9 +28,8 @@ export default function BMRCalculator() {
   const [showResults, setShowResults] = useState(false);
 
   const relatedCalculators = [
-    { name: 'BMI Calculator', description: 'Body Mass Index', href: '/calculator/bmi', icon: Calculator },
-    { name: 'Calorie Calculator', description: 'Total Daily Energy Expenditure', href: '/calculator/calorie', icon: Activity },
-    { name: 'Body Fat Calculator', description: 'Estimate body fat %', href: '/calculator/body-fat', icon: Dumbbell },
+    { name: 'BMI Calculator', description: 'Body Mass Index', href: '/calculators/health/bmi-calculator', icon: Calculator },
+    { name: 'Calorie Calculator', description: 'Total Daily Energy Expenditure', href: '/calculators/health/calorie-calculator', icon: Activity },
   ];
 
   // --- Cookie Logic ---

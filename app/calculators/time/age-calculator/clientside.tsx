@@ -18,9 +18,8 @@ interface AgeDetails {
 
 export default function AgeCalculator() {
   const relatedCalculators = [
-    { name: 'Retirement Calculator', description: 'Plan your future savings', href: '/calculators/financial/retirement', icon: Milestone },
-    { name: 'Date Difference', description: 'Days between two dates', href: '/calculators/math/date-diff', icon: Calendar },
-    { name: 'Time Converter', description: 'Hours to minutes and more', href: '/calculators/other/time-converter', icon: Clock },
+    { name: 'Date Calculator', description: 'Days between two dates', href: '/calculators/time/date-calculator', icon: Calendar },
+    { name: 'Time Calculator', description: 'Hours to minutes and more', href: '/calculators/time/time-calculator', icon: Clock },
   ]
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

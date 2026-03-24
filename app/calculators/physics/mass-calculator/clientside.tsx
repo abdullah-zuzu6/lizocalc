@@ -1,301 +1,305 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useMemo } from 'react'
-import { Scale, RotateCcw, Info, ListFilter, Layers, CheckCircle2, Zap } from 'lucide-react'
-// import RelatedCalculators from '@/components/RelatedCalculators'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
-import RelatedCalculators from '@/components/RelatedCalculators'
+import { useState, useEffect, useMemo } from "react";
+import {
+  RotateCcw,
+  Layers,
+  CheckCircle2,
+  ListFilter,
+  BarChart3,
+  Scale,
+  Zap,
+} from "lucide-react";
+import RelatedCalculators from "@/components/RelatedCalculators";
+import {
+  getCalculatorHistory,
+  saveCalculatorHistory,
+  getConsentPreference,
+} from "@/lib/cookies";
 
-type MassResult = {
-  mass: string
-  weight: string
-  gravity: string
-  solvedFor: string
+// ─────────────────────────────────────────────
+// Comprehensive Unit Constants (From Your Set)
+// ─────────────────────────────────────────────
+
+interface UnitOption {
+  label: string;
+  value: string;
+  factor: number;
 }
 
-const PLANET_GRAVITY = [
-  { name: 'Earth', g: 9.807 },
-  { name: 'Moon', g: 1.622 },
-  { name: 'Mars', g: 3.711 },
-  { name: 'Jupiter', g: 24.79 },
-  { name: 'Saturn', g: 10.44 }
-]
+const UNITS = {
+  mass: [
+    { label: "kilogram [kg]", value: "kg", factor: 1 },
+    { label: "gram [g]", value: "g", factor: 0.001 },
+    { label: "milligram [mg]", value: "mg", factor: 0.000001 },
+    { label: "metric ton [t]", value: "t", factor: 1000 },
+    { label: "pound [lb]", value: "lb", factor: 0.45359237 },
+    { label: "ounce [oz]", value: "oz", factor: 0.02834952 },
+    { label: "carat [ct]", value: "ct", factor: 0.0002 },
+  ],
+  volume: [
+    { label: "cubic meter [m³]", value: "m3", factor: 1 },
+    { label: "liter [L]", value: "L", factor: 0.001 },
+    { label: "milliliter [mL]", value: "mL", factor: 0.000001 },
+    { label: "gallon [US]", value: "gal_us", factor: 0.00378541 },
+    { label: "gallon [UK]", value: "gal_uk", factor: 0.00454609 },
+    { label: "cubic foot [ft³]", value: "ft3", factor: 0.02831685 },
+    { label: "cubic yard [yd³]", value: "yd3", factor: 0.76455486 },
+    { label: "cubic inch [in³]", value: "in3", factor: 0.000016387 },
+    { label: "cubic centimeter [cm³]", value: "cm3", factor: 0.000001 },
+  ],
+  density: [
+    { label: "kilogram/cubic meter [kg/m³]", value: "kg_m3", factor: 1 },
+    { label: "kilogram/cubic centimeter [kg/cm³]", value: "kg_cm3", factor: 1000000 },
+    { label: "gram/cubic meter [g/m³]", value: "g_m3", factor: 0.001 },
+    { label: "gram/cubic centimeter [g/cm³]", value: "g_cm3", factor: 1000 },
+    { label: "kilogram/liter [kg/L]", value: "kg_L", factor: 1000 },
+    { label: "gram/liter [g/L]", value: "g_L", factor: 1 },
+    { label: "pound/cubic inch [lb/in³]", value: "lb_in3", factor: 27679.9 },
+    { label: "pound/cubic foot [lb/ft³]", value: "lb_ft3", factor: 16.01846 },
+    { label: "pound/cubic yard [lb/yd³]", value: "lb_yd3", factor: 0.5932764 },
+    { label: "pound/gallon [US]", value: "lb_gal_us", factor: 119.8264 },
+    { label: "pound/gallon [UK]", value: "lb_gal_uk", factor: 99.7763 },
+  ],
+};
 
 export default function MassCalculator() {
-
   const relatedCalculators = [
-    { name: 'Density Calculator', description: 'Mass per volume solver', href: '/calculator/density', icon: Scale },
-    { name: 'Speed Calculator', description: 'Distance and time math', href: '/calculator/speed', icon: Zap }
-  ]
+    {
+      name: "Density Calculator",
+      description: "Solve for ρ = m / V",
+      href: "/calculators/physics/density-calculator",
+      icon: Scale,
+    },
+    {
+      name: "Speed Calculator",
+      description: "Velocity & motion solver",
+      href: "/calculators/physics/speed-calculator",
+      icon: Zap,
+    },
+  ];
 
-  const [mass, setMass] = useState<string>('')
-  const [weight, setWeight] = useState<string>('')
-  const [gravity, setGravity] = useState<string>('9.807')
+  const [volume, setVolume] = useState<string>("1");
+  const [volumeUnit, setVolumeUnit] = useState<string>("m3");
+  const [density, setDensity] = useState<string>("1000");
+  const [densityUnit, setDensityUnit] = useState<string>("kg_m3");
+  const [targetMassUnit, setTargetMassUnit] = useState<string>("kg");
 
-  const [trigger, setTrigger] = useState<number>(0)
-  const [showResults, setShowResults] = useState<boolean>(false)
-  const [isMounted, setIsMounted] = useState<boolean>(false)
+  const [isMounted, setIsMounted] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [trigger, setTrigger] = useState(0);
 
-  // Load cookies
   useEffect(() => {
-
-    setIsMounted(true)
-
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
-
-    if (consent?.functional && history['mass-calc']?.data) {
-
-      setMass(history['mass-calc'].data.mass || '')
-      setWeight(history['mass-calc'].data.weight || '')
-      setGravity(history['mass-calc'].data.gravity || '9.807')
-
+    setIsMounted(true);
+    const consent = getConsentPreference();
+    const history = getCalculatorHistory();
+    if (consent?.functional && history["mass-vol-calc"]?.data) {
+      const data = history["mass-vol-calc"].data;
+      setVolume(data.volume || "1");
+      setVolumeUnit(data.volumeUnit || "m3");
+      setDensity(data.density || "1000");
+      setDensityUnit(data.densityUnit || "kg_m3");
+      setTargetMassUnit(data.targetMassUnit || "kg");
     }
+  }, []);
 
-  }, [])
-
-  // Save cookies
   useEffect(() => {
-
-    if (!isMounted) return
-
-    const consent = getConsentPreference()
-
+    if (!isMounted) return;
+    const consent = getConsentPreference();
     if (consent?.functional) {
-
-      saveCalculatorHistory('mass-calc', {
-        mass,
-        weight,
-        gravity
-      })
-
+      saveCalculatorHistory("mass-vol-calc", {
+        volume,
+        volumeUnit,
+        density,
+        densityUnit,
+        targetMassUnit,
+      });
     }
+  }, [volume, volumeUnit, density, densityUnit, targetMassUnit, isMounted]);
 
-  }, [mass, weight, gravity, isMounted])
+  const results = useMemo(() => {
+    if (trigger === 0) return null;
+    const vVal = parseFloat(volume);
+    const dVal = parseFloat(density);
 
-  const results = useMemo((): MassResult | { error: string } | null => {
+    if (isNaN(vVal) || isNaN(dVal))
+      return { error: "Please enter numeric values." };
 
-    if (trigger === 0) return null
+    const vFactor = UNITS.volume.find((u) => u.value === volumeUnit)?.factor || 1;
+    const dFactor = UNITS.density.find((u) => u.value === densityUnit)?.factor || 1;
+    const mFactor = UNITS.mass.find((u) => u.value === targetMassUnit)?.factor || 1;
 
-    const m = parseFloat(mass)
-    const w = parseFloat(weight)
-    const g = parseFloat(gravity)
-
-    const hasMass = !isNaN(m)
-    const hasWeight = !isNaN(w)
-    const hasGravity = !isNaN(g) && g !== 0
-
-    if (!hasGravity) return { error: 'Gravity cannot be zero.' }
-
-    let resM = m
-    let resW = w
-    let solved = ''
-
-    if (hasMass && hasGravity) {
-      resW = m * g
-      solved = 'Weight'
-    } 
-    else if (hasWeight && hasGravity) {
-      resM = w / g
-      solved = 'Mass'
-    } 
-    else {
-      return null
-    }
+    // Normalizing to SI units for calculation: Mass = Density * Volume
+    const massSI = (dVal * dFactor) * (vVal * vFactor);
 
     return {
-      mass: resM.toFixed(4).replace(/\.?0+$/, ""),
-      weight: resW.toFixed(4).replace(/\.?0+$/, ""),
-      gravity: g.toFixed(4).replace(/\.?0+$/, ""),
-      solvedFor: solved
-    }
+      mass: massSI / mFactor,
+      volume: vVal,
+      density: dVal,
+    };
+  }, [trigger, volume, volumeUnit, density, densityUnit, targetMassUnit]);
 
-  }, [trigger])
-
-  const handleCalculate = () => {
-    setTrigger(prev => prev + 1)
-    setShowResults(true)
-  }
-
-  if (!isMounted) return null
+  if (!isMounted) return null;
 
   return (
-
     <main className="min-h-screen bg-background text-foreground">
-
-      <section className="py-8 px-4 max-w-7xl mx-auto">
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
-          {/* LEFT PANEL */}
-
-          <div className="lg:col-span-4 space-y-6">
-
-            <div className="bg-card rounded-xl border p-6 shadow-sm">
-
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <ListFilter className="text-blue-500" size={20} /> Parameters
+      <section className="py-4 md:py-8 px-4 max-w-7xl mx-auto space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+          
+          <div className="lg:col-span-5 space-y-6">
+            <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm">
+              <h2 className="text-xl font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
+                <ListFilter className="text-blue-600" size={22} />
+                Parameters
               </h2>
 
-              <div className="space-y-4">
-
-                <InputField
-                  label="Mass (kg)"
-                  value={mass}
-                  onChange={(v: string) => { setMass(v); setShowResults(false) }}
+              <div className="space-y-6">
+                <UnitInput
+                  label="Density (ρ)"
+                  value={density}
+                  unit={densityUnit}
+                  options={UNITS.density}
+                  onValueChange={setDensity}
+                  onUnitChange={setDensityUnit}
+                />
+                <UnitInput
+                  label="Volume (V)"
+                  value={volume}
+                  unit={volumeUnit}
+                  options={UNITS.volume}
+                  onValueChange={setVolume}
+                  onUnitChange={setVolumeUnit}
                 />
 
-                <InputField
-                  label="Weight (Newtons)"
-                  value={weight}
-                  onChange={(v: string) => { setWeight(v); setShowResults(false) }}
-                />
-
-                <InputField
-                  label="Gravity (m/s²)"
-                  value={gravity}
-                  onChange={(v: string) => { setGravity(v); setShowResults(false) }}
-                />
-
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {PLANET_GRAVITY.map(p => (
-                    <button
-                      key={p.name}
-                      onClick={() => { setGravity(p.g.toString()); setShowResults(false) }}
-                      className="px-3 py-1 text-xs bg-secondary rounded-md hover:bg-blue-500 hover:text-white transition"
-                    >
-                      {p.name}
-                    </button>
-                  ))}
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                    Desired Mass Unit (m)
+                  </label>
+                  <select
+                    value={targetMassUnit}
+                    onChange={(e) => setTargetMassUnit(e.target.value)}
+                    className="w-full px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-sm transition-all"
+                  >
+                    {UNITS.mass.map((u) => (
+                      <option key={u.value} value={u.value}>
+                        {u.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
-                <div className="pt-4 flex flex-col gap-3">
-
-                  <button
-                    onClick={handleCalculate}
-                    className="w-full py-3 bg-blue-600 text-white rounded-md font-bold text-sm hover:bg-blue-700 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2"
-                  >
-                    Calculate <CheckCircle2 size={16} />
-                  </button>
-
+                <div className="pt-4 flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={() => {
-                      setMass('')
-                      setWeight('')
-                      setGravity('9.807')
-                      setShowResults(false)
-                      setTrigger(0)
+                      setTrigger((v) => v + 1);
+                      setShowResults(true);
                     }}
-                    className="w-full py-2 bg-secondary text-muted-foreground rounded-md font-bold text-xs hover:bg-secondary/80 flex items-center justify-center gap-2"
+                    className="flex-[2] py-4 bg-blue-600 text-white rounded-xl font-black text-sm hover:bg-blue-700 shadow-xl shadow-blue-600/20 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
                   >
-                    <RotateCcw size={14} /> Reset
+                    CALCULATE <CheckCircle2 size={18} />
                   </button>
-
+                  <button
+                    onClick={() => {
+                      setDensity("1000");
+                      setVolume("1");
+                      setShowResults(false);
+                      setTrigger(0);
+                    }}
+                    className="flex-1 py-4 bg-secondary text-muted-foreground rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                  >
+                    <RotateCcw size={16} /> RESET
+                  </button>
                 </div>
-
               </div>
-
             </div>
-
           </div>
 
-          {/* RIGHT PANEL */}
-
-          <div className="lg:col-span-8 space-y-6">
-
-            {showResults && results && !('error' in results) ? (
-
-              <div className="bg-card border rounded-xl p-6">
-
-                <p className="text-muted-foreground text-center text-xs font-bold uppercase tracking-widest">
-                  Calculated {results.solvedFor}
-                </p>
-
-                <h2 className="text-5xl font-black text-blue-600 text-center my-4 tracking-tighter">
-                  {results.solvedFor === 'Mass' ? results.mass : results.weight}
-                </h2>
-
-                <div className="grid grid-cols-3 gap-4 mt-6">
-
-                  <StatBox label="Mass" value={`${results.mass} kg`} />
-                  <StatBox label="Weight" value={`${results.weight} N`} />
-                  <StatBox label="Gravity" value={`${results.gravity} m/s²`} />
-
+          <div className="lg:col-span-7">
+            {showResults && results && !("error" in results) ? (
+              <div className="bg-card border-2 border-blue-600/20 rounded-3xl p-6 md:p-12 shadow-sm animate-in fade-in zoom-in-95 duration-300">
+                <div className="space-y-2 text-center">
+                  <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.3em]">
+                    Calculated Mass
+                  </p>
+                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter break-all">
+                    {results.mass.toLocaleString(undefined, {
+                      maximumFractionDigits: 5,
+                    })}
+                  </h2>
+                  <div className="inline-block px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mt-4">
+                    {UNITS.mass.find((u) => u.value === targetMassUnit)?.label}
+                  </div>
                 </div>
 
-              </div>
-
-            ) : (
-
-              <div className="bg-secondary/20 border-2 border-dashed border-border rounded-xl p-12 text-center flex flex-col items-center justify-center min-h-[300px]">
-
-                {results && 'error' in results ? (
-                  <div className="text-red-500 space-y-2">
-                    <Info size={40} />
-                    <p className="text-sm font-bold uppercase">{results.error}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 pt-8 border-t border-dashed">
+                  <div className="p-4 bg-secondary/50 rounded-2xl text-center">
+                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Density Used</p>
+                    <p className="text-xl font-black">{results.density} <span className="text-xs font-medium">{densityUnit}</span></p>
                   </div>
-                ) : (
-                  <>
-                    <Layers size={48} className="opacity-10 mb-4" />
-                    <p className="text-sm font-bold text-muted-foreground uppercase">
-                      Enter values and click calculate
-                    </p>
-                  </>
-                )}
-
+                  <div className="p-4 bg-secondary/50 rounded-2xl text-center">
+                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Volume Used</p>
+                    <p className="text-xl font-black">{results.volume} <span className="text-xs font-medium">{volumeUnit}</span></p>
+                  </div>
+                </div>
               </div>
-
+            ) : showResults && results && "error" in results ? (
+              <div className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-600 font-bold">
+                {results.error}
+              </div>
+            ) : (
+              <div className="h-full min-h-[400px] bg-secondary/10 border-4 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center">
+                <Layers size={64} className="opacity-10 mb-6" />
+                <p className="text-sm font-black uppercase text-muted-foreground tracking-widest">
+                  Ready to calculate mass
+                </p>
+              </div>
             )}
-
           </div>
-
         </div>
-
-        {/* <RelatedCalculators calculators={relatedCalculators} /> */}
-      <RelatedCalculators calculators={relatedCalculators}/>
       </section>
-
     </main>
-  )
+  );
 }
 
-function InputField({
+function UnitInput({
   label,
   value,
-  onChange
+  unit,
+  options,
+  onValueChange,
+  onUnitChange,
 }: {
-  label: string
-  value: string
-  onChange: (v: string) => void
+  label: string;
+  value: string;
+  unit: string;
+  options: UnitOption[];
+  onValueChange: (v: string) => void;
+  onUnitChange: (u: string) => void;
 }) {
-
   return (
-    <div>
-      <label className="text-sm font-medium">{label}</label>
-
-      <input
-        type="number"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="w-full mt-1 px-3 py-3 bg-secondary rounded-md border focus:ring-2 ring-blue-500/20 outline-none font-bold"
-        placeholder="0"
-      />
+    <div className="space-y-2">
+      <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+        {label}
+      </label>
+      <div className="flex flex-col sm:flex-row gap-2">
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => onValueChange(e.target.value)}
+          className="flex-[2] px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-lg transition-all"
+        />
+        <select
+          value={unit}
+          onChange={(e) => onUnitChange(e.target.value)}
+          className="flex-1 px-3 py-4 bg-secondary/50 rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xs cursor-pointer"
+        >
+          {options.map((u) => (
+            <option key={u.value} value={u.value}>
+              {u.label.includes("[") ? u.label.split("[")[1].replace("]", "") : u.label}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
-  )
-}
-
-function StatBox({
-  label,
-  value
-}: {
-  label: string
-  value: string
-}) {
-
-  return (
-    <div className="bg-secondary/30 p-4 rounded-lg border text-center">
-      <p className="text-xs text-muted-foreground uppercase font-bold">{label}</p>
-      <p className="text-lg font-bold text-blue-600">{value}</p>
-    </div>
-  )
+  );
 }
