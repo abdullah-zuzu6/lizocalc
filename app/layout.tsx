@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import CookieBanner from "@/components/CookieBanner";
 import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,19 +13,28 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "LizoCalc - Free Online Calculators for Financial, Fitness & Math",
+      "LizoCalc - Free Calculators for Financial, Fitness & Math and More ",
     template: "%s | LizoCalc",
   },
 
-  description:
-    "Professional online calculators for financial planning, fitness tracking, mathematics, and more.",
-
+  description:"LizoCalc offers free online calculators for finance, fitness, math, education,physics, and more. Simple, accurate, and fast tools designed to solve everyday calculations.",
   keywords: [
-    "calculator",
-    "mortgage calculator",
-    "loan calculator",
-    "BMI calculator",
-  ],
+  "LizoCalc",
+  "online calculator",
+  "free calculator",
+  "financial calculator",
+  "loan calculator",
+  "mortgage calculator",
+  "BMI calculator",
+  "fitness calculator",
+  "math calculator",
+  "conversion calculator",
+  "scientific calculator",
+  "easy online calculator",
+  "fast calculator",
+  "calculator for finance",
+  "calculator for health",
+],
 
   authors: [{ name: "LizoCalc" }],
 
@@ -124,7 +132,6 @@ export default function RootLayout({
         className={`${inter.className} bg-background text-foreground antialiased`}
       >
         {children}
-        <CookieBanner />
         <Analytics />
       </body>
     </html>

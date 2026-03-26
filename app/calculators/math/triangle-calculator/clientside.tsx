@@ -1,17 +1,29 @@
-"use client";
+'use client';
 
 import { useState, useEffect, useCallback } from "react";
-import { Ruler, Hash, Triangle as TriangleIcon } from "lucide-react";
+import { 
+  Ruler, 
+  Hash, 
+  Triangle as TriangleIcon, 
+  RotateCcw, 
+  CheckCircle2, 
+  Settings2, 
+  Heart,
+  Info,
+  BookOpen
+} from "lucide-react";
 
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
-  getConsentPreference,
-} from "@/lib/cookies";
+  getSavedCalculators,
+  toggleSavedCalculator,
+} from "@/lib/storage";
 
 export default function TriangleCalculator() {
   const [isMounted, setIsMounted] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const [sideA, setSideA] = useState("5");
   const [sideB, setSideB] = useState("6");
@@ -23,16 +35,14 @@ export default function TriangleCalculator() {
   const [results, setResults] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const calculatorInfo = {
+    name: 'Triangle Solver',
+    href: '/calculators/math/triangle-calculator',
+    category: 'Math',
+  };
+
   useEffect(() => {
     setIsMounted(true);
-  }, []);
-
-  // Load from cookies
-  useEffect(() => {
-    if (!isMounted) return;
-    const consent = getConsentPreference();
-    if (!consent?.functional) return;
-
     const history = getCalculatorHistory();
     const data = history["triangle"]?.data;
     if (data) {
@@ -43,89 +53,34 @@ export default function TriangleCalculator() {
       setAngleB(data.angleB ?? "");
       setAngleC(data.angleC ?? "70");
     }
-  }, [isMounted]);
 
-  const saveHistory = useCallback(() => {
-    const consent = getConsentPreference();
-    if (consent?.functional) {
-      saveCalculatorHistory("triangle", {
-        sideA,
-        sideB,
-        sideC,
-        angleA,
-        angleB,
-        angleC,
-      });
-    }
-  }, [sideA, sideB, sideC, angleA, angleB, angleC]);
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+  }, []);
 
-  // ─── Real-time input validation ────────────────────────────────────────
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
+
   const validateInputs = useCallback(() => {
-    const sidesFilled = [
-      sideA.trim() !== "",
-      sideB.trim() !== "",
-      sideC.trim() !== "",
-    ].filter(Boolean).length;
+    const s = [sideA, sideB, sideC].filter(x => x.trim() !== "").length;
+    const a = [angleA, angleB, angleC].filter(x => x.trim() !== "").length;
 
-    const anglesFilled = [
-      angleA.trim() !== "",
-      angleB.trim() !== "",
-      angleC.trim() !== "",
-    ].filter(Boolean).length;
-
-    // Rule 1: If 2 sides already filled → block 3rd side
-    if (sidesFilled >= 2 && sideC.trim() !== "" && !results) {
-      if (sidesFilled === 3) {
-        setError(
-          "You already entered 2 sides — the third side will be calculated.\nPlease clear side C."
-        );
-        return false;
-      }
-    }
-
-    // Rule 2: If 2 angles already filled → block 3rd angle
-    if (anglesFilled >= 2 && angleC.trim() !== "" && !results) {
-      if (anglesFilled === 3) {
-        setError(
-          "You already entered 2 angles — the third angle will be calculated.\nPlease clear one angle field."
-        );
-        return false;
-      }
-    }
-
-    // Rule 3: 3 sides + any angle = conflict
-    if (sidesFilled === 3 && anglesFilled >= 1) {
-      setError(
-        "When all three sides are known, angles are calculated automatically.\nPlease clear all angle fields."
-      );
+    if (s + a > 3) {
+      setError("Over-specified: Please provide exactly 3 values (at least one must be a side).");
       return false;
     }
-
-    // Rule 4: 2 sides + 2 angles = usually over-specified
-    if (sidesFilled >= 2 && anglesFilled >= 2) {
-      setError(
-        "Too many values — this combination over-determines the triangle.\nPlease remove one side or one angle."
-      );
-      return false;
-    }
-
     setError(null);
     return true;
-  }, [sideA, sideB, sideC, angleA, angleB, angleC, results]);
-
-  // Run validation on every input change
-  useEffect(() => {
-    validateInputs();
-  }, [sideA, sideB, sideC, angleA, angleB, angleC, validateInputs]);
+  }, [sideA, sideB, sideC, angleA, angleB, angleC]);
 
   const toRad = (deg: number) => (deg * Math.PI) / 180;
   const toDeg = (rad: number) => (rad * 180) / Math.PI;
 
   const calculateTriangle = () => {
     if (!validateInputs()) return;
-
-    setResults(null);
-
+    
     let a = sideA.trim() ? parseFloat(sideA) : null;
     let b = sideB.trim() ? parseFloat(sideB) : null;
     let c = sideC.trim() ? parseFloat(sideC) : null;
@@ -135,192 +90,178 @@ export default function TriangleCalculator() {
 
     let solved = false;
 
-    // Case 1: SAS (two sides + included angle C)
-    if (a && b && C && !c) {
-      const radC = toRad(C);
-      c = Math.sqrt(a ** 2 + b ** 2 - 2 * a * b * Math.cos(radC));
-      const radA = Math.asin((a * Math.sin(radC)) / c);
-      A = toDeg(radA);
-      B = 180 - C - A;
-      solved = true;
+    try {
+        // SAS
+        if (a && b && C && !c) {
+          const radC = toRad(C);
+          c = Math.sqrt(a ** 2 + b ** 2 - 2 * a * b * Math.cos(radC));
+          A = toDeg(Math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c)));
+          B = 180 - C - A;
+          solved = true;
+        }
+        // SSS
+        else if (a && b && c) {
+          if (a + b <= c || a + c <= b || b + c <= a) throw new Error("Triangle inequality violated.");
+          A = toDeg(Math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c)));
+          B = toDeg(Math.acos((a ** 2 + c ** 2 - b ** 2) / (2 * a * c)));
+          C = toDeg(Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b)));
+          solved = true;
+        }
+        // ASA / AAS
+        else if ([A, B, C].filter(Boolean).length === 2 && [a, b, c].filter(Boolean).length === 1) {
+          const sum = (A || 0) + (B || 0) + (C || 0);
+          if (sum >= 180) throw new Error("Angle sum must be < 180°");
+          if (!A) A = 180 - (B! + C!);
+          if (!B) B = 180 - (A! + C!);
+          if (!C) C = 180 - (A! + B!);
+
+          const knownSide = a || b || c!;
+          const oppAngle = a ? A : b ? B : C;
+          const ratio = knownSide / Math.sin(toRad(oppAngle));
+
+          if (!a) a = ratio * Math.sin(toRad(A));
+          if (!b) b = ratio * Math.sin(toRad(B));
+          if (!c) c = ratio * Math.sin(toRad(C));
+          solved = true;
+        }
+
+        if (!solved) throw new Error("Please provide 3 values (SAS, SSS, or ASA).");
+
+        const s = (a! + b! + c!) / 2;
+        const area = Math.sqrt(s * (s - a!) * (s - b!) * (s - c!));
+        
+        let type = "Scalene";
+        if (Math.abs(a! - b!) < 0.01 && Math.abs(b! - c!) < 0.01) type = "Equilateral";
+        else if (Math.abs(a! - b!) < 0.01 || Math.abs(b! - c!) < 0.01 || Math.abs(a! - c!) < 0.01) type = "Isosceles";
+
+        setResults({
+          sideA: a!.toFixed(2), sideB: b!.toFixed(2), sideC: c!.toFixed(2),
+          angleA: A!.toFixed(1), angleB: B!.toFixed(1), angleC: C!.toFixed(1),
+          area: area.toFixed(2), perimeter: (a! + b! + c!).toFixed(2), type
+        });
+        saveCalculatorHistory("triangle", { sideA, sideB, sideC, angleA, angleB, angleC });
+    } catch (e: any) {
+        setError(e.message);
     }
-
-    // Case 2: SSS (three sides)
-    else if (a && b && c && !A && !B && !C) {
-      if (a + b <= c || a + c <= b || b + c <= a) {
-        setError("These sides cannot form a triangle (triangle inequality violated).");
-        return;
-      }
-      A = toDeg(Math.acos((b ** 2 + c ** 2 - a ** 2) / (2 * b * c)));
-      B = toDeg(Math.acos((a ** 2 + c ** 2 - b ** 2) / (2 * a * c)));
-      C = toDeg(Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b)));
-      solved = true;
-    }
-
-    // Case 3: ASA / AAS (two angles + one side)
-    else if ([A, B, C].filter(Boolean).length === 2 && [a, b, c].filter(Boolean).length === 1) {
-      const sum = (A || 0) + (B || 0) + (C || 0);
-      if (sum >= 180) {
-        setError("Sum of angles must be less than 180°");
-        return;
-      }
-
-      if (!A) A = 180 - sum;
-      if (!B) B = 180 - sum;
-      if (!C) C = 180 - sum;
-
-      let knownSide: number, oppAngle: number;
-      if (a) { knownSide = a; oppAngle = A; }
-      else if (b) { knownSide = b; oppAngle = B; }
-      else { knownSide = c!; oppAngle = C; }
-
-      const ratio = knownSide / Math.sin(toRad(oppAngle));
-
-      if (!a) a = ratio * Math.sin(toRad(A));
-      if (!b) b = ratio * Math.sin(toRad(B));
-      if (!c) c = ratio * Math.sin(toRad(C));
-      solved = true;
-    }
-
-    if (!solved) {
-      setError(
-        "Unsupported combination or conflicting values.\n\n" +
-        "Supported cases:\n" +
-        "• Two sides + included angle (leave third side empty)\n" +
-        "• Three sides (leave angles empty)\n" +
-        "• Two angles + one side"
-      );
-      return;
-    }
-
-    // Calculate area
-    let area = 0;
-    if (a && b && C) area = 0.5 * a * b * Math.sin(toRad(C));
-    else if (b && c && A) area = 0.5 * b * c * Math.sin(toRad(A));
-    else if (a && c && B) area = 0.5 * a * c * Math.sin(toRad(B));
-    else {
-      const s = (a! + b! + c!) / 2;
-      area = Math.sqrt(s * (s - a!) * (s - b!) * (s - c!));
-    }
-
-    const perimeter = a! + b! + c!;
-
-    let type = "Scalene";
-    if (Math.abs(a! - b!) < 0.001 && Math.abs(b! - c!) < 0.001) type = "Equilateral";
-    else if (Math.abs(a! - b!) < 0.001 || Math.abs(b! - c!) < 0.001 || Math.abs(a! - c!) < 0.001)
-      type = "Isosceles";
-
-    setResults({
-      sideA: a!.toFixed(4),
-      sideB: b!.toFixed(4),
-      sideC: c!.toFixed(4),
-      angleA: A!.toFixed(2),
-      angleB: B!.toFixed(2),
-      angleC: C!.toFixed(2),
-      area: area.toFixed(4),
-      perimeter: perimeter.toFixed(4),
-      type,
-    });
-
-    saveHistory();
-  };
-
-  const resetAll = () => {
-    setSideA("5");
-    setSideB("6");
-    setSideC("");
-    setAngleA("");
-    setAngleB("");
-    setAngleC("70");
-    setResults(null);
-    setError(null);
-    saveHistory();
   };
 
   if (!isMounted) return null;
 
   return (
-    <main className="min-h-screen bg-background text-foreground font-sans">
+    <main className="min-h-screen bg-background text-foreground">
       <section className="py-12 px-4 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* INPUT PANEL */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-card rounded-xl border p-6 shadow-sm">
+            <div className="bg-card rounded-2xl border p-6 shadow-sm relative overflow-hidden">
+               <button 
+                onClick={handleToggleSave}
+                className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
+                  isSaved ? "bg-red-50 border-red-100 text-red-500 shadow-sm" : "bg-secondary text-muted-foreground hover:text-foreground border-transparent"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <TriangleIcon className="text-blue-500" />
-                Triangle Parameters
+                <Settings2 className="text-blue-500" size={20} /> Parameters
               </h2>
 
               {error && (
-                <div className="mb-6 p-4 bg-red-950/50 border border-red-700 rounded-xl text-red-200 text-sm leading-relaxed">
+                <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs font-bold flex items-start gap-2 animate-in fade-in duration-300">
+                  <Info size={16} className="shrink-0 mt-0.5" />
                   {error}
                 </div>
               )}
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <InputField label="Side A" value={sideA} onChange={setSideA} />
-                <InputField label="Side B" value={sideB} onChange={setSideB} />
-                <InputField label="Side C" value={sideC} onChange={setSideC} />
+              <div className="grid grid-cols-2 gap-4">
+                <InputField label="Side a" value={sideA} onChange={setSideA} />
                 <InputField label="Angle A" value={angleA} onChange={setAngleA} suffix="°" />
+                <InputField label="Side b" value={sideB} onChange={setSideB} />
                 <InputField label="Angle B" value={angleB} onChange={setAngleB} suffix="°" />
+                <InputField label="Side c" value={sideC} onChange={setSideC} />
                 <InputField label="Angle C" value={angleC} onChange={setAngleC} suffix="°" />
               </div>
 
-              <div className="mt-8 flex gap-4">
-                <button
-                  onClick={calculateTriangle}
-                  disabled={!!error}
-                  className={`flex-1 py-3.5 rounded-xl font-bold uppercase tracking-wide transition-all ${
-                    error
-                      ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                      : "bg-blue-600 hover:bg-blue-700 text-white"
-                  }`}
-                >
-                  Calculate
+              <div className="mt-8 flex gap-3">
+                <button onClick={calculateTriangle} className="flex-[2] py-4 bg-blue-600 text-white rounded-xl font-black uppercase text-xs tracking-widest hover:opacity-90 shadow-lg shadow-blue-500/20 transition-all flex items-center justify-center gap-2">
+                  Solve Triangle <CheckCircle2 size={16} />
                 </button>
-                <button
-                  onClick={resetAll}
-                  className="flex-1 py-3.5 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl font-bold uppercase tracking-wide transition-all border border-gray-600"
-                >
-                  Reset
+                <button onClick={() => { setResults(null); setError(null); }} className="flex-1 py-4 bg-secondary text-muted-foreground rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-secondary/80 transition-all flex items-center justify-center gap-2">
+                  <RotateCcw size={14} /> Clear
                 </button>
               </div>
             </div>
+
+            <div className="bg-blue-600/5 border border-blue-600/10 rounded-2xl p-6">
+                <h3 className="font-bold text-sm mb-3 flex items-center gap-2"><BookOpen size={16} className="text-blue-500"/> Solver Rules</h3>
+                <ul className="text-xs text-muted-foreground space-y-2 list-disc ml-4 leading-relaxed">
+                    <li>Provide exactly <strong>3 values</strong> to solve.</li>
+                    <li>At least <strong>one value must be a side</strong> length.</li>
+                    <li>Angle sum must be less than 180°.</li>
+                </ul>
+            </div>
           </div>
 
-          {/* RESULTS */}
-          <div className="lg:col-span-7 space-y-6">
+          {/* RESULTS PANEL */}
+          <div className="lg:col-span-7">
             {results ? (
-              <div className="bg-gradient-to-br from-blue-950/70 to-indigo-950/70 rounded-3xl p-7 shadow-2xl border border-blue-800/30 relative overflow-hidden">
-                <div className="absolute -bottom-16 -right-16 opacity-10 pointer-events-none">
-                  <TriangleIcon size={280} />
+              <div className="bg-card border rounded-3xl overflow-hidden shadow-xl animate-in slide-in-from-right-4 duration-500">
+                <div className="bg-blue-600 p-8 text-white">
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-70 mb-1">Classification</p>
+                    <h2 className="text-4xl font-black">{results.type} Triangle</h2>
                 </div>
-                <h3 className="text-3xl font-black mb-6 text-blue-100">
-                  {results.type} Triangle
-                </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                  <SolutionItem label="Side a" value={results.sideA} />
-                  <SolutionItem label="Side b" value={results.sideB} />
-                  <SolutionItem label="Side c" value={results.sideC} />
-                  <SolutionItem label="∠A" value={results.angleA + "°"} />
-                  <SolutionItem label="∠B" value={results.angleB + "°"} />
-                  <SolutionItem label="∠C" value={results.angleC + "°"} />
-                  <SolutionItem label="Area" value={results.area + " u²"} />
-                  <SolutionItem label="Perimeter" value={results.perimeter + " u"} />
+                <div className="p-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <ResultBox label="Side a" val={results.sideA} />
+                    <ResultBox label="Side b" val={results.sideB} />
+                    <ResultBox label="Side c" val={results.sideC} />
+                    <ResultBox label="Angle A" val={results.angleA + '°'} />
+                    <ResultBox label="Angle B" val={results.angleB + '°'} />
+                    <ResultBox label="Angle C" val={results.angleC + '°'} />
+                    <ResultBox label="Area" val={results.area} sub="sq u" />
+                    <ResultBox label="Perimeter" val={results.perimeter} sub="u" />
                 </div>
               </div>
             ) : (
-              <div className="h-[480px] border-2 border-dashed border-gray-700 rounded-3xl flex flex-col items-center justify-center p-10 text-center text-gray-400">
-                <TriangleIcon size={72} className="opacity-40 mb-6 animate-pulse" />
-                <h3 className="text-2xl font-semibold mb-3 text-gray-300">Ready to solve</h3>
-                <p className="text-base max-w-md leading-relaxed">
-                  Enter exactly one of these:<br />
-                  • Two sides + included angle (leave third side empty)<br />
-                  • Three sides (leave angles empty)<br />
-                  • Two angles + one side
-                </p>
+              <div className="h-full min-h-[400px] border-2 border-dashed border-secondary rounded-3xl flex flex-col items-center justify-center p-12 text-center">
+                 <TriangleIcon size={64} className="text-blue-500 opacity-10 mb-4" />
+                 <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Awaiting Inputs</p>
+                 <p className="text-sm text-muted-foreground/60 mt-2 max-w-xs leading-relaxed">Fill in 3 parameters on the left to generate the complete triangle solution.</p>
               </div>
             )}
           </div>
+        </div>
+
+        {/* EDUCATIONAL GUIDE */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 bg-secondary/20 p-8 rounded-3xl border">
+            <div>
+                <h3 className="text-lg font-bold mb-4 flex items-center gap-2 text-blue-500"><Info size={20}/> Standard Notation</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                    In trigonometry, side <strong>a</strong> is always opposite to Angle <strong>A</strong>, side <strong>b</strong> is opposite Angle <strong>B</strong>, and side <strong>c</strong> is opposite Angle <strong>C</strong>. This solver uses these standard relations to calculate the Law of Cosines and Law of Sines.
+                </p>
+                
+            </div>
+            <div className="flex items-center justify-center">
+                <div className="grid grid-cols-2 gap-4 w-full">
+                    <div className="p-4 bg-card border rounded-xl">
+                        <p className="font-bold text-xs uppercase mb-1">SAS</p>
+                        <p className="text-[10px] text-muted-foreground leading-tight">Side-Angle-Side: Two sides and the angle between them.</p>
+                    </div>
+                    <div className="p-4 bg-card border rounded-xl">
+                        <p className="font-bold text-xs uppercase mb-1">SSS</p>
+                        <p className="text-[10px] text-muted-foreground leading-tight">Side-Side-Side: Three side lengths provided.</p>
+                    </div>
+                    <div className="p-4 bg-card border rounded-xl">
+                        <p className="font-bold text-xs uppercase mb-1">ASA</p>
+                        <p className="text-[10px] text-muted-foreground leading-tight">Angle-Side-Angle: Two angles and the side between them.</p>
+                    </div>
+                    <div className="p-4 bg-card border rounded-xl">
+                        <p className="font-bold text-xs uppercase mb-1">AAS</p>
+                        <p className="text-[10px] text-muted-foreground leading-tight">Angle-Angle-Side: Two angles and a non-included side.</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <RelatedCalculators
@@ -334,49 +275,29 @@ export default function TriangleCalculator() {
   );
 }
 
-function InputField({
-  label,
-  value,
-  onChange,
-  suffix,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  suffix?: string;
-}) {
+function InputField({ label, value, onChange, suffix }: any) {
   return (
-    <div className="relative flex flex-col">
-      <label className="text-xs font-bold text-gray-500 uppercase mb-1.5 tracking-wide">
-        {label}
-      </label>
+    <div className="space-y-1.5">
+      <label className="text-[10px] font-black uppercase text-muted-foreground ml-1">{label}</label>
       <div className="relative">
         <input
           type="number"
-          step="any"
-          min="0"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-4 py-2.5 bg-gray-900/60 border border-gray-700 rounded-lg text-sm font-medium focus:ring-2 ring-blue-500/40 focus:border-blue-500/50 outline-none transition-all placeholder-gray-600"
-          placeholder="Enter value"
+          className="w-full p-3 bg-secondary/50 rounded-xl border focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 outline-none transition-all font-bold"
+          placeholder="0.00"
         />
-        {suffix && (
-          <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-blue-400 pointer-events-none">
-            {suffix}
-          </span>
-        )}
+        {suffix && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-blue-500">{suffix}</span>}
       </div>
     </div>
   );
 }
 
-function SolutionItem({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="p-4 bg-black/30 backdrop-blur-sm rounded-xl border border-blue-900/30 flex flex-col">
-      <span className="text-xs font-semibold text-blue-300/70 uppercase tracking-wider mb-1">
-        {label}
-      </span>
-      <span className="text-xl md:text-2xl font-black text-white">{value}</span>
-    </div>
-  );
+function ResultBox({ label, val, sub }: any) {
+    return (
+        <div className="flex flex-col">
+            <span className="text-[10px] font-black uppercase text-muted-foreground tracking-widest mb-1">{label}</span>
+            <span className="text-2xl font-black text-foreground">{val} <span className="text-[10px] font-normal text-muted-foreground">{sub}</span></span>
+        </div>
+    )
 }

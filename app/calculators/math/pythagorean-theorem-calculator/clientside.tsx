@@ -11,14 +11,18 @@ import {
   Square,
   BarChart3,
   ChevronRight,
+  Heart,
+  Calculator,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
-  getConsentPreference,
-} from "@/lib/cookies";
+  getSavedCalculators,
+  toggleSavedCalculator,
+} from "@/lib/storage";
 
+// --- Types ---
 type CalcResult = {
   a: string;
   b: string;
@@ -26,7 +30,6 @@ type CalcResult = {
   solvingFor: string;
   area: string;
   steps: string[];
-  error?: string;
 };
 
 export default function PythagoreanCalculator() {
@@ -36,6 +39,13 @@ export default function PythagoreanCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
+  const [isSaved, setIsSaved] = useState(false);
+
+  const calculatorInfo = {
+    name: "Pythagorean Calculator",
+    href: "/calculators/math/pythagorean-calculator",
+    category: "Math",
+  };
 
   const relatedCalculators = [
     {
@@ -44,7 +54,6 @@ export default function PythagoreanCalculator() {
       href: "/calculators/math/triangle-calculator",
       icon: TriangleIcon,
     },
-   
     {
       name: "GCF Calculator",
       description: "Greatest Common Factor",
@@ -53,26 +62,25 @@ export default function PythagoreanCalculator() {
     },
   ];
 
-  // --- Cookie Logic ---
+  // --- Persistence & Saved Status ---
   useEffect(() => {
     setIsMounted(true);
-    const consent = getConsentPreference();
     const history = getCalculatorHistory();
-    if (consent?.functional && history["pythag-calc"]?.data) {
+    if (history["pythag-calc"]?.data) {
       const data = history["pythag-calc"].data;
       setSideA(data.sideA || "");
       setSideB(data.sideB || "");
       setSideC(data.sideC || "");
     }
+
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
   }, []);
 
-  useEffect(() => {
-    if (!isMounted) return;
-    const consent = getConsentPreference();
-    if (consent?.functional) {
-      saveCalculatorHistory("pythag-calc", { sideA, sideB, sideC });
-    }
-  }, [sideA, sideB, sideC, isMounted]);
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
 
   // --- Calculation Engine ---
   const results = useMemo((): CalcResult | { error: string } | null => {
@@ -82,236 +90,186 @@ export default function PythagoreanCalculator() {
     const c = parseFloat(sideC) || 0;
     const inputs = [a, b, c].filter((x) => x > 0).length;
 
-    if (inputs < 2) return { error: "Please enter any two sides." };
-    if (inputs === 3) return { error: "Leave one field empty to solve." };
+    if (inputs < 2) return { error: "Please enter any two sides to calculate the third." };
+    if (inputs === 3) return { error: "Leave one field empty to solve for that side." };
 
     if (c > 0 && b > 0 && a === 0) {
-      if (c <= b) return { error: "Hypotenuse must be longer than Side B." };
+      if (c <= b) return { error: "Hypotenuse (C) must be longer than Side B." };
       const calcA = Math.sqrt(c ** 2 - b ** 2);
       return {
-        a: calcA.toFixed(2),
-        b: b.toFixed(2),
-        c: c.toFixed(2),
-        solvingFor: "Side A (Perpendicular)",
+        a: calcA.toFixed(2), b: b.toFixed(2), c: c.toFixed(2),
+        solvingFor: "Side A",
         area: (0.5 * calcA * b).toFixed(2),
-        steps: [
-          `a² + ${b}² = ${c}²`,
-          `a² = ${c ** 2} - ${b ** 2}`,
-          `a = √${(c ** 2 - b ** 2).toFixed(2)}`,
-        ],
+        steps: [`a² + ${b}² = ${c}²`, `a² = ${c ** 2} - ${b ** 2}`, `a = √${(c ** 2 - b ** 2).toFixed(2)}`],
       };
     }
     if (c > 0 && a > 0 && b === 0) {
-      if (c <= a) return { error: "Hypotenuse must be longer than Side A." };
+      if (c <= a) return { error: "Hypotenuse (C) must be longer than Side A." };
       const calcB = Math.sqrt(c ** 2 - a ** 2);
       return {
-        a: a.toFixed(2),
-        b: calcB.toFixed(2),
-        c: c.toFixed(2),
-        solvingFor: "Side B (Base)",
+        a: a.toFixed(2), b: calcB.toFixed(2), c: c.toFixed(2),
+        solvingFor: "Side B",
         area: (0.5 * a * calcB).toFixed(2),
-        steps: [
-          `${a}² + b² = ${c}²`,
-          `b² = ${c ** 2} - ${a ** 2}`,
-          `b = √${(c ** 2 - a ** 2).toFixed(2)}`,
-        ],
+        steps: [`${a}² + b² = ${c}²`, `b² = ${c ** 2} - ${a ** 2}`, `b = √${(c ** 2 - a ** 2).toFixed(2)}`],
       };
     }
     if (a > 0 && b > 0 && c === 0) {
       const calcC = Math.sqrt(a ** 2 + b ** 2);
       return {
-        a: a.toFixed(2),
-        b: b.toFixed(2),
-        c: calcC.toFixed(2),
-        solvingFor: "Side C (Hypotenuse)",
+        a: a.toFixed(2), b: b.toFixed(2), c: calcC.toFixed(2),
+        solvingFor: "Hypotenuse",
         area: (0.5 * a * b).toFixed(2),
-        steps: [
-          `${a}² + ${b}² = c²`,
-          `${a ** 2} + ${b ** 2} = c²`,
-          `c = √${(a ** 2 + b ** 2).toFixed(2)}`,
-        ],
+        steps: [`${a}² + ${b}² = c²`, `${a ** 2} + ${b ** 2} = c²`, `c = √${(a ** 2 + b ** 2).toFixed(2)}`],
       };
     }
     return null;
-  }, [trigger]);
+  }, [trigger, sideA, sideB, sideC]);
+
+  const handleSolve = () => {
+    setTrigger((t) => t + 1);
+    setShowResults(true);
+    saveCalculatorHistory("pythag-calc", { sideA, sideB, sideC });
+  };
 
   if (!isMounted) return null;
+
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <section className="py-8 px-4 max-w-7xl mx-auto">
+    <main className="min-h-screen bg-background text-foreground tracking-tight">
+      <section className="py-12 px-4 max-w-7xl mx-auto">
+        
+        {/* HEADER */}
+        <div className="flex justify-between items-start mb-10">
+          <div>
+            <h1 className="text-4xl font-black italic flex items-center gap-3">
+              <Calculator className="text-blue-600" size={36} /> Pythagorean Solver
+            </h1>
+            <p className="text-muted-foreground mt-2">Calculate sides, area, and steps for right-angled triangles.</p>
+          </div>
+          <button 
+            onClick={handleToggleSave}
+            className={`p-4 rounded-2xl transition-all border ${
+              isSaved ? "bg-red-50 border-red-100 text-red-500 shadow-sm" : "bg-secondary text-muted-foreground border-transparent"
+            }`}
+          >
+            <Heart size={24} className={isSaved ? "fill-current" : ""} />
+          </button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* LEFT PANEL: INPUTS */}
-          <div className="lg:col-span-4 space-y-6">
-            <div className="bg-card rounded-xl border p-6 shadow-sm">
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <ListFilter className="text-primary" size={20} /> Parameters
+          
+          {/* INPUTS */}
+          <div className="lg:col-span-4">
+            <div className="bg-card rounded-3xl border p-8 shadow-sm space-y-6">
+              <h2 className="text-xs font-black uppercase tracking-[0.2em] text-blue-600 flex items-center gap-2">
+                <Square size={14} className="fill-current" /> Triangle Sides
               </h2>
+              
               <div className="space-y-4">
-                <InputGroup
-                  label="Side A (Perpendicular)"
-                  value={sideA}
-                  onChange={setSideA}
-                  placeholder="e.g. 3"
-                />
-                <InputGroup
-                  label="Side B (Base)"
-                  value={sideB}
-                  onChange={setSideB}
-                  placeholder="e.g. 4"
-                />
-                <InputGroup
-                  label="Side C (Hypotenuse)"
-                  value={sideC}
-                  onChange={setSideC}
-                  placeholder="e.g. 5"
-                  highlight
-                />
-                <div className="pt-4 flex flex-col gap-3">
-                  <button
-                    onClick={() => {
-                      setTrigger((t) => t + 1);
-                      setShowResults(true);
-                    }}
-                    className="w-full py-3 bg-primary text-primary-foreground rounded-md font-bold text-sm shadow-lg flex items-center justify-center gap-2 transition-all hover:opacity-90"
-                  >
-                    Solve Triangle <CheckCircle2 size={16} />
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSideA("");
-                      setSideB("");
-                      setSideC("");
-                      setShowResults(false);
-                      setTrigger(0);
-                    }}
-                    className="w-full py-2 bg-secondary text-muted-foreground rounded-md font-bold text-xs flex items-center justify-center gap-2"
-                  >
-                    <RotateCcw size={14} /> Reset
-                  </button>
-                </div>
+                <InputField label="Side a (Height)" value={sideA} onChange={setSideA} />
+                <InputField label="Side b (Base)" value={sideB} onChange={setSideB} />
+                <InputField label="Side c (Hypotenuse)" value={sideC} onChange={setSideC} isHypotenuse />
+              </div>
+
+              <div className="pt-4 flex flex-col gap-3">
+                <button onClick={handleSolve} className="w-full py-4 bg-blue-600 text-white rounded-2xl font-black uppercase text-xs tracking-widest shadow-xl shadow-blue-500/20 hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                  Calculate Result <CheckCircle2 size={18} />
+                </button>
+                <button 
+                  onClick={() => { setSideA(""); setSideB(""); setSideC(""); setShowResults(false); setTrigger(0); }} 
+                  className="w-full py-3 bg-secondary text-muted-foreground rounded-2xl font-bold text-[10px] uppercase tracking-widest hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                >
+                  <RotateCcw size={14} /> Reset
+                </button>
               </div>
             </div>
           </div>
 
-          {/* RIGHT PANEL: RESULTS & QUICK STATS */}
+          {/* OUTPUTS */}
           <div className="lg:col-span-8 space-y-6">
             {showResults && results && !("error" in results) ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-500">
-                <div className="bg-card border rounded-xl p-6 flex flex-col justify-center text-center">
-                  <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest">
-                    {results.solvingFor}
-                  </p>
-                  <h2 className="text-5xl lg:text-7xl font-black text-primary my-4 tracking-tighter italic">
-                    {results.solvingFor.includes("A")
-                      ? results.a
-                      : results.solvingFor.includes("B")
-                        ? results.b
-                        : results.c}
-                  </h2>
-                </div>
-                <div className="bg-card border rounded-xl p-6">
-                  <h3 className="text-xs font-bold text-muted-foreground uppercase mb-4 tracking-widest flex items-center gap-2">
-                    <Ruler size={14} className="text-primary" /> Steps
-                  </h3>
-                  <div className="space-y-2">
-                    {results.steps.map((step, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between p-2.5 bg-secondary/50 rounded-lg border border-border/50 font-mono text-xs font-bold"
-                      >
-                        <span className="text-primary">{i + 1}.</span>
-                        <span>{step}</span>
-                      </div>
-                    ))}
+              <div className="animate-in fade-in slide-in-from-right-8 duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div className="bg-blue-600 rounded-[2.5rem] p-10 text-white relative overflow-hidden flex flex-col justify-center">
+                    <TriangleIcon className="absolute -bottom-10 -right-10 opacity-10 rotate-12" size={240} />
+                    <p className="text-[10px] font-black uppercase tracking-widest opacity-70 mb-2">Solved For: {results.solvingFor}</p>
+                    <h2 className="text-7xl font-black tracking-tighter italic">
+                      {results.solvingFor === "Side A" ? results.a : results.solvingFor === "Side B" ? results.b : results.c}
+                    </h2>
                   </div>
+
+                  <div className="bg-card border rounded-[2.5rem] p-10 flex flex-col justify-center">
+                    <div className="flex items-center gap-2 text-blue-600 mb-4">
+                        <BarChart3 size={20} />
+                        <span className="text-xs font-black uppercase tracking-widest">Properties</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-6">
+                        <div>
+                            <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Area</p>
+                            <p className="text-3xl font-black">{results.area} <small className="text-sm font-normal text-muted-foreground italic">u²</small></p>
+                        </div>
+                        <div>
+                            <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest">Type</p>
+                            <p className="text-xl font-black text-green-600">RIGHT-ANGLED</p>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-card border rounded-3xl p-8">
+                    <h3 className="text-xs font-black text-muted-foreground uppercase mb-6 tracking-widest flex items-center gap-2">
+                        <Ruler size={16} className="text-blue-600" /> Mathematical Breakdown
+                    </h3>
+                    <div className="grid gap-3">
+                        {results.steps.map((step, i) => (
+                            <div key={i} className="flex justify-between items-center p-5 bg-secondary/30 rounded-2xl border border-border/50 font-mono">
+                                <span className="text-[10px] font-black uppercase text-blue-600/50">Step {i + 1}</span>
+                                <span className="text-lg font-bold tracking-tight">{step}</span>
+                            </div>
+                        ))}
+                    </div>
                 </div>
               </div>
             ) : (
-              <div className="bg-secondary/20 border-2 border-dashed border-border rounded-xl p-12 text-center flex flex-col items-center justify-center min-h-[280px]">
+              <div className="h-full min-h-[400px] bg-secondary/10 border-2 border-dashed border-border rounded-[3rem] p-12 text-center flex flex-col items-center justify-center">
                 {results && "error" in results ? (
-                  <div className="text-rose-500 space-y-2">
-                    <Info size={40} className="mx-auto" />
-                    <p className="text-sm font-bold uppercase tracking-widest">
-                      {results.error}
-                    </p>
+                  <div className="text-red-500 animate-pulse flex flex-col items-center">
+                    <Info size={48} className="mb-4" />
+                    <p className="font-black uppercase tracking-widest text-sm">{results.error}</p>
                   </div>
                 ) : (
                   <>
-                    <TriangleIcon
-                      size={48}
-                      className="opacity-10 mb-4 text-primary"
-                    />
-                    <p className="text-sm font-bold text-muted-foreground uppercase tracking-widest italic">
-                      Awaiting Triangle Data
-                    </p>
+                    <TriangleIcon size={80} className="text-blue-600 opacity-10 mb-6" />
+                    <h3 className="text-lg font-black uppercase tracking-[0.2em] italic text-muted-foreground">Waiting for Geometry</h3>
+                    <p className="text-sm text-muted-foreground/60 mt-2 max-w-xs leading-relaxed">Enter any two side lengths to solve for the remaining side and triangle area.</p>
                   </>
                 )}
               </div>
             )}
-
-            {/* --- THE ADDED QUICK STAT BOXES --- */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-secondary/30 p-5 rounded-xl border flex flex-col justify-center">
-                <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest mb-1">
-                  Calculated Area
-                </p>
-                <p className="text-2xl font-black text-primary">
-                  {results && !("error" in results)
-                    ? `${results.area} u²`
-                    : "0.00"}
-                </p>
-              </div>
-              <div className="bg-secondary/30 p-5 rounded-xl border flex flex-col justify-center">
-                <p className="text-[10px] text-muted-foreground uppercase font-black tracking-widest mb-1">
-                  Triangle Status
-                </p>
-                <p className="text-2xl font-black text-green-600 tracking-tighter italic">
-                  RIGHT-ANGLED
-                </p>
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* --- THE ADDED EDUCATIONAL SECTION --- */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="bg-card border rounded-2xl p-8 shadow-sm">
-            <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-              <BarChart3 size={20} className="text-primary" /> How it works
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              The Pythagorean Theorem is a fundamental principle in geometry. It
-              allows you to find the missing side of a{" "}
-              <strong>right triangle</strong> as long as you know the other two
-              lengths.
-            </p>
-            <div className="p-4 bg-primary/5 border border-primary/20 rounded-xl flex items-center justify-center">
-              <code className="text-primary font-black text-xl italic tracking-widest">
-                a² + b² = c²
-              </code>
-            </div>
-          </div>
-
-          <div className="bg-card border rounded-2xl p-8 shadow-sm">
-            <h3 className="font-bold text-xl mb-4">Quick Tips</h3>
-            <div className="space-y-4">
-              {[
-                "Always leave the field you want to calculate empty.",
-                "The Hypotenuse (Side C) is always the longest side.",
-                "Ensure both units of measurement are the same for accuracy.",
-              ].map((tip, i) => (
-                <div
-                  key={i}
-                  className="flex gap-3 text-sm text-muted-foreground items-start group"
-                >
-                  <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <ChevronRight size={12} className="text-primary" />
-                  </div>
-                  <p>{tip}</p>
+        {/* CONCEPT SECTION */}
+        <div className="mt-16 bg-card border rounded-[3rem] p-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 className="text-3xl font-black italic mb-6">The Geometric Concept</h3>
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                        Proposed by the Greek philosopher Pythagoras, the theorem is a fundamental relation in Euclidean geometry among the three sides of a right triangle. It states that the area of the square whose side is the hypotenuse is equal to the sum of the areas of the squares on the other two sides.
+                    </p>
+                    <div className="inline-block p-6 bg-blue-600 text-white rounded-3xl font-black text-3xl italic tracking-widest shadow-xl shadow-blue-500/20">
+                        a² + b² = c²
+                    </div>
                 </div>
-              ))}
+                <div className="relative aspect-square max-w-[300px] mx-auto">
+                    
+                </div>
             </div>
-          </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 border-t pt-12">
+                <TipItem text="Side C (Hypotenuse) is always opposite the 90° angle." />
+                <TipItem text="This formula only applies to right-angled triangles." />
+                <TipItem text="Calculated values are rounded to 2 decimal places." />
+            </div>
         </div>
 
         <RelatedCalculators calculators={relatedCalculators} />
@@ -320,19 +278,32 @@ export default function PythagoreanCalculator() {
   );
 }
 
-function InputGroup({ label, value, onChange, placeholder, highlight }: any) {
+function InputField({ label, value, onChange, isHypotenuse }: any) {
   return (
     <div className="group">
-      <label className="text-[11px] font-black uppercase tracking-wider text-muted-foreground mb-1 block group-focus-within:text-primary transition-colors">
+      <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2 block group-focus-within:text-blue-600 transition-colors">
         {label}
       </label>
       <input
         type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className={`w-full px-4 py-3 bg-secondary rounded-lg border-2 focus:ring-4 outline-none transition-all font-bold text-lg ${highlight ? "ring-primary/10 border-primary/20 focus:border-primary" : "border-transparent focus:border-primary/40 focus:ring-primary/5"}`}
-        placeholder={placeholder}
+        placeholder="Enter length..."
+        className={`w-full px-6 py-4 bg-secondary/50 rounded-2xl border-2 outline-none transition-all font-black text-xl ${
+          isHypotenuse 
+            ? "border-blue-600/20 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10" 
+            : "border-transparent focus:border-blue-600/40 focus:bg-background"
+        }`}
       />
     </div>
   );
+}
+
+function TipItem({ text }: { text: string }) {
+    return (
+        <div className="flex gap-4 items-start">
+            <div className="mt-1 bg-blue-600 rounded-full p-1"><ChevronRight size={12} className="text-white" /></div>
+            <p className="text-xs font-bold text-muted-foreground leading-relaxed">{text}</p>
+        </div>
+    );
 }

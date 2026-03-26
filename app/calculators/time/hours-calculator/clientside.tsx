@@ -6,21 +6,23 @@ import {
   RotateCcw,
   Zap,
   ListFilter,
-  BarChart3,
   CheckCircle2,
+  Heart,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
-  getConsentPreference,
-} from "@/lib/cookies";
+  getSavedCalculators,
+  toggleSavedCalculator,
+} from "@/lib/storage";
 
 type Period = "AM" | "PM";
 
 export default function HoursCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   // Default values
   const [startHour, setStartHour] = useState("08");
@@ -30,6 +32,13 @@ export default function HoursCalculator() {
   const [endMin, setEndMin] = useState("30");
   const [endPeriod, setEndPeriod] = useState<Period>("PM");
 
+  // Calculator Metadata for Saving
+  const calculatorInfo = {
+    name: "Hours Calculator",
+    href: "/calculators/time/hours-calculator", // Ensure this matches your actual route
+    category: "Time",
+  };
+
   const relatedCalculators = [
     {
       name: "Date Calculator",
@@ -37,17 +46,15 @@ export default function HoursCalculator() {
       href: "/calculators/time/date-calculator",
       icon: Clock,
     },
-    
   ];
 
-  // --- Cookie Persistence ---
+  // --- Initialize & Load History/Saved Status ---
   useEffect(() => {
     setIsMounted(true);
-    const consent = getConsentPreference();
+    
+    // Load inputs from history
     const history = getCalculatorHistory();
-
-    // Restore state from cookie if consent allows
-    if (consent?.functional && history["hours-calc"]?.data) {
+    if (history["hours-calc"]?.data) {
       const d = history["hours-calc"].data;
       setStartHour(d.startHour);
       setStartMin(d.startMin);
@@ -55,32 +62,41 @@ export default function HoursCalculator() {
       setEndHour(d.endHour);
       setEndMin(d.endMin);
       setEndPeriod(d.endPeriod);
-      setShowResults(true); // Show results immediately if history exists
+      setShowResults(true);
     }
+
+    // Check if tool is favorited
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
   }, []);
 
+  // --- Auto-Save Inputs to LocalStorage ---
   useEffect(() => {
     if (!isMounted) return;
-    const consent = getConsentPreference();
-    if (consent?.functional) {
-      saveCalculatorHistory("hours-calc", {
-        startHour,
-        startMin,
-        startPeriod,
-        endHour,
-        endMin,
-        endPeriod,
-      });
-    }
+    saveCalculatorHistory("hours-calc", {
+      startHour,
+      startMin,
+      startPeriod,
+      endHour,
+      endMin,
+      endPeriod,
+    });
   }, [startHour, startMin, startPeriod, endHour, endMin, endPeriod, isMounted]);
+
+  // --- Toggle Save Logic ---
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
 
   // --- Logic ---
   const results = useMemo(() => {
     const get24Hours = (h: string, m: string, p: Period) => {
       let hour = parseInt(h);
+      if (isNaN(hour)) return 0;
       if (p === "PM" && hour !== 12) hour += 12;
       if (p === "AM" && hour === 12) hour = 0;
-      return hour * 60 + parseInt(m);
+      return hour * 60 + (parseInt(m) || 0);
     };
     const startTotal = get24Hours(startHour, startMin, startPeriod);
     let endTotal = get24Hours(endHour, endMin, endPeriod);
@@ -130,10 +146,25 @@ export default function HoursCalculator() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inputs */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-card rounded-xl border p-6 shadow-sm">
+            <div className="bg-card rounded-xl border p-6 shadow-sm relative overflow-hidden">
+              
+              {/* SAVE CALCULATOR BUTTON */}
+              <button 
+                onClick={handleToggleSave}
+                title={isSaved ? "Remove from saved" : "Save calculator"}
+                className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
+                  isSaved 
+                    ? "bg-red-50 border-red-100 text-red-500 shadow-sm" 
+                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <ListFilter className="text-blue-500" size={20} /> Parameters
               </h2>
+
               <div className="space-y-6">
                 {["start", "end"].map((type) => (
                   <div key={type} className="space-y-2">
@@ -179,12 +210,13 @@ export default function HoursCalculator() {
                         }
                         className="w-14 p-2 bg-secondary rounded border font-bold text-xs"
                       >
-                        <option>AM</option>
-                        <option>PM</option>
+                        <option value="AM">AM</option>
+                        <option value="PM">PM</option>
                       </select>
                     </div>
                   </div>
                 ))}
+
                 <div className="flex gap-2">
                   <button
                     onClick={() => setShowResults(true)}
@@ -206,7 +238,7 @@ export default function HoursCalculator() {
           {/* Results */}
           <div className="lg:col-span-8 space-y-6">
             {showResults ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-4 duration-300">
                 <div className="bg-card border rounded-xl p-8 flex flex-col items-center justify-center">
                   <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest">
                     Total Duration
@@ -231,8 +263,8 @@ export default function HoursCalculator() {
                 </div>
               </div>
             ) : (
-              <div className="bg-secondary/20 border-2 border-dashed rounded-xl p-12 text-center text-muted-foreground">
-                <Clock size={48} className="mx-auto opacity-20 mb-4" />
+              <div className="bg-secondary/20 border-2 border-dashed rounded-xl p-12 text-center text-muted-foreground flex flex-col items-center justify-center min-h-[300px]">
+                <Clock size={48} className="opacity-20 mb-4" />
                 <p className="text-sm font-bold uppercase tracking-widest">
                   Configure times and click Calculate
                 </p>

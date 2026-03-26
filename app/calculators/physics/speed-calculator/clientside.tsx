@@ -10,13 +10,15 @@ import {
   RotateCcw,
   BarChart3,
   Layers,
+  Heart,
 } from "lucide-react";
 
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
-  getConsentPreference,
-} from "@/lib/cookies";
+  getSavedCalculators,
+  toggleSavedCalculator,
+} from "@/lib/storage";
 import RelatedCalculators from "@/components/RelatedCalculators";
 
 // ─────────────────────────────────────────────
@@ -26,7 +28,7 @@ import RelatedCalculators from "@/components/RelatedCalculators";
 interface UnitOption {
   label: string;
   value: string;
-  factor: number; // Factor to normalize to Meters or Seconds
+  factor: number; 
 }
 
 const UNITS = {
@@ -45,6 +47,7 @@ const UNITS = {
 };
 
 export default function SpeedCalculator() {
+  // --- State ---
   const [distance, setDistance] = useState<string>("10");
   const [distUnit, setDistUnit] = useState<string>("km");
   const [time, setTime] = useState<string>("1");
@@ -53,6 +56,7 @@ export default function SpeedCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
+  const [isSaved, setIsSaved] = useState(false);
 
   const relatedCalculators = [
     {
@@ -69,34 +73,47 @@ export default function SpeedCalculator() {
     },
   ];
 
-  // --- Cookie Hydration ---
+  const calculatorInfo = {
+    name: "Speed Calculator",
+    href: "/calculators/physics/speed-calculator",
+    category: "Physics",
+  };
+
+  // --- Initialize & Load ---
   useEffect(() => {
     setIsMounted(true);
-    const consent = getConsentPreference();
+    
+    // Load inputs from history
     const history = getCalculatorHistory();
-
-    if (consent?.functional && history["speed-adv-calc"]?.data) {
+    if (history["speed-adv-calc"]?.data) {
       const data = history["speed-adv-calc"].data;
       setDistance(data.distance || "10");
       setDistUnit(data.distUnit || "km");
       setTime(data.time || "1");
       setTimeUnit(data.timeUnit || "hr");
     }
+
+    // Check if tool is favorited
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
   }, []);
 
-  // --- Cookie Persistence ---
+  // --- Auto-Save History ---
   useEffect(() => {
     if (!isMounted) return;
-    const consent = getConsentPreference();
-    if (consent?.functional) {
-      saveCalculatorHistory("speed-adv-calc", {
-        distance,
-        distUnit,
-        time,
-        timeUnit,
-      });
-    }
+    saveCalculatorHistory("speed-adv-calc", {
+      distance,
+      distUnit,
+      time,
+      timeUnit,
+    });
   }, [distance, distUnit, time, timeUnit, isMounted]);
+
+  // --- Toggle Save Logic ---
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
 
   const results = useMemo(() => {
     if (trigger === 0) return null;
@@ -110,7 +127,6 @@ export default function SpeedCalculator() {
     const dFactor = UNITS.distance.find((u) => u.value === distUnit)?.factor || 1;
     const tFactor = UNITS.time.find((u) => u.value === timeUnit)?.factor || 1;
 
-    // Normalize to Meters per Second (m/s)
     const distMeters = dVal * dFactor;
     const timeSeconds = tVal * tFactor;
     const speedMPS = distMeters / timeSeconds;
@@ -128,13 +144,25 @@ export default function SpeedCalculator() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <section className="py-8 px-4 max-w-7xl mx-auto space-y-10">
-        
-       
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* INPUT PANEL */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-card rounded-3xl border p-6 md:p-8 shadow-sm">
+            <div className="bg-card rounded-3xl border p-6 md:p-8 shadow-sm relative overflow-hidden">
+              
+              {/* SAVE BUTTON */}
+              <button 
+                onClick={handleToggleSave}
+                title={isSaved ? "Remove from saved" : "Save calculator"}
+                className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
+                  isSaved 
+                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm" 
+                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
               <h2 className="text-xl font-black mb-8 flex items-center gap-2 uppercase tracking-tight">
                 <Move className="text-blue-600" size={24} />
                 Parameters
@@ -189,8 +217,6 @@ export default function SpeedCalculator() {
           <div className="lg:col-span-7">
             {showResults && results && !("error" in results) ? (
               <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
-                
-                {/* Primary Result */}
                 <div className="bg-card border-2 border-blue-600 rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-blue-600/5 relative overflow-hidden">
                    <div className="absolute top-0 right-0 p-8 opacity-5">
                       <Zap size={120} />
@@ -206,7 +232,6 @@ export default function SpeedCalculator() {
                    </div>
                 </div>
 
-                {/* Secondary Stats */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <StatCard label="Miles Per Hour" value={`${results.mph} mph`} />
                   <StatCard label="Meters Per Sec" value={`${results.mps} m/s`} />
@@ -238,7 +263,7 @@ export default function SpeedCalculator() {
               Speed is a scalar quantity that refers to "how fast an object is moving." It is the rate at which an object covers distance. 
             </p>
             <div className="p-4 bg-secondary/50 rounded-xl font-mono text-xs font-bold border">
-               Average Speed = Total Distance / Total Time
+                Average Speed = Total Distance / Total Time
             </div>
           </div>
           <div className="p-8 bg-card border rounded-3xl space-y-4 text-sm">

@@ -1,9 +1,25 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { Calendar as CalendarIcon, RotateCcw, Info, ListFilter, BarChart3, Plus, Minus, CheckCircle2, Clock } from 'lucide-react'
+import { 
+  Calendar as CalendarIcon, 
+  RotateCcw, 
+  Info, 
+  ListFilter, 
+  BarChart3, 
+  Plus, 
+  Minus, 
+  CheckCircle2, 
+  Clock,
+  Heart 
+} from 'lucide-react'
 import RelatedCalculators from '@/components/RelatedCalculators'
-import { getCalculatorHistory, saveCalculatorHistory, getConsentPreference } from '@/lib/cookies'
+import { 
+  getCalculatorHistory, 
+  saveCalculatorHistory, 
+  getSavedCalculators, 
+  toggleSavedCalculator 
+} from '@/lib/storage'
 
 type CalcMode = 'difference' | 'add-subtract'
 
@@ -12,6 +28,13 @@ export default function DateCalculator() {
     { name: 'Age Calculator', description: 'Find exact age in days', href: '/calculators/time/age-calculator', icon: Clock },
     { name: 'Hours Calculator', description: 'Convert hours to minutes', href: '/calculators/time/hours-calculator', icon: Clock },
   ]
+
+  // --- Calculator Metadata for Saving ---
+  const calculatorInfo = {
+    name: "Date Calculator",
+    href: "/calculators/time/date-calculator", // Ensure this matches your actual route
+    category: "Time",
+  };
 
   // --- States ---
   const [mode, setMode] = useState<CalcMode>('difference')
@@ -28,27 +51,43 @@ export default function DateCalculator() {
   const [isMounted, setIsMounted] = useState(false)
   const [showResults, setShowResults] = useState(false)
   const [trigger, setTrigger] = useState(0)
+  const [isSaved, setIsSaved] = useState(false)
 
-  // --- Cookie Logic ---
+  // --- Initialization & Load History ---
   useEffect(() => {
     setIsMounted(true)
-    const consent = getConsentPreference()
-    const history = getCalculatorHistory()
     
-    if (consent?.functional && history['date-calc']?.data) {
+    // Load inputs from history
+    const history = getCalculatorHistory()
+    if (history['date-calc']?.data) {
       const data = history['date-calc'].data
       setStartDate(data.startDate || new Date().toISOString().split('T')[0])
+      setEndDate(data.endDate || new Date().toISOString().split('T')[0])
       setMode(data.mode || 'difference')
+      setIncludeEndDay(data.includeEndDay || false)
     }
+
+    // Check if tool is favorited
+    const savedTools = getSavedCalculators()
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href))
   }, [])
 
+  // --- Auto-Save Inputs to LocalStorage ---
   useEffect(() => {
     if (!isMounted) return
-    const consent = getConsentPreference()
-    if (consent?.functional) {
-      saveCalculatorHistory('date-calc', { startDate, mode })
-    }
-  }, [startDate, mode, isMounted])
+    saveCalculatorHistory('date-calc', { 
+      startDate, 
+      endDate, 
+      mode, 
+      includeEndDay 
+    })
+  }, [startDate, endDate, mode, includeEndDay, isMounted])
+
+  // --- Toggle Save Logic ---
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo)
+    setIsSaved(nowSaved)
+  }
 
   // --- Calculation Engine ---
   const results = useMemo(() => {
@@ -78,7 +117,7 @@ export default function DateCalculator() {
 
       return { resultDate: resultDate.toDateString() }
     }
-  }, [trigger, isMounted])
+  }, [trigger, isMounted, mode, startDate, endDate, includeEndDay, yearsVal, monthsVal, weeksVal, daysVal, operation])
 
   const handleCalculate = () => {
     setTrigger(prev => prev + 1)
@@ -111,7 +150,21 @@ export default function DateCalculator() {
           
           {/* LEFT PANEL: INPUTS */}
           <div className="lg:col-span-4 space-y-6">
-            <div className="bg-card rounded-xl border p-6 shadow-sm">
+            <div className="bg-card rounded-xl border p-6 shadow-sm relative overflow-hidden">
+              
+              {/* SAVE CALCULATOR HEART BUTTON */}
+              <button 
+                onClick={handleToggleSave}
+                title={isSaved ? "Remove from saved" : "Save calculator"}
+                className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
+                  isSaved 
+                    ? "bg-red-50 border-red-100 text-red-500 shadow-sm" 
+                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
                 <ListFilter className="text-blue-500" size={20} /> Parameters
               </h2>
@@ -191,17 +244,17 @@ export default function DateCalculator() {
                     <div className="bg-card border rounded-xl p-8 flex flex-col justify-center items-center">
                       <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest mb-2">Total Difference</p>
                       <h2 className="text-5xl md:text-6xl font-black text-blue-600 tracking-tighter">
-                        {results.totalDays} <span className="text-2xl text-muted-foreground font-bold">days</span>
+                        {'totalDays' in results && results.totalDays} <span className="text-2xl text-muted-foreground font-bold">days</span>
                       </h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="bg-secondary/30 p-6 rounded-xl border flex flex-col items-center">
                         <p className="text-[10px] font-black uppercase text-muted-foreground mb-2">Years & Months</p>
-                        <p className="text-2xl font-bold">{results.years}y {results.months}m</p>
+                        <p className="text-2xl font-bold">{'years' in results && results.years}y {'months' in results && results.months}m</p>
                       </div>
                       <div className="bg-secondary/30 p-6 rounded-xl border flex flex-col items-center">
                         <p className="text-[10px] font-black uppercase text-muted-foreground mb-2">Weeks & Days</p>
-                        <p className="text-2xl font-bold">{results.weeks}w {results.remainingDays}d</p>
+                        <p className="text-2xl font-bold">{'weeks' in results && results.weeks}w {'remainingDays' in results && results.remainingDays}d</p>
                       </div>
                     </div>
                   </>
@@ -210,7 +263,7 @@ export default function DateCalculator() {
                     <CalendarIcon size={48} className="text-blue-500 mb-4 opacity-20" />
                     <p className="text-muted-foreground text-xs font-bold uppercase tracking-widest mb-2">Resulting Date</p>
                     <h2 className="text-3xl md:text-5xl font-black text-blue-600 tracking-tighter">
-                      {results.resultDate}
+                      {'resultDate' in results && results.resultDate}
                     </h2>
                   </div>
                 )}

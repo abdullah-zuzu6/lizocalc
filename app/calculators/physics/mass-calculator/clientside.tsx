@@ -9,16 +9,18 @@ import {
   BarChart3,
   Scale,
   Zap,
+  Heart,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
-  getConsentPreference,
-} from "@/lib/cookies";
+  getSavedCalculators,
+  toggleSavedCalculator,
+} from "@/lib/storage";
 
 // ─────────────────────────────────────────────
-// Comprehensive Unit Constants (From Your Set)
+// Types & Professional Unit Constants
 // ─────────────────────────────────────────────
 
 interface UnitOption {
@@ -79,6 +81,7 @@ export default function MassCalculator() {
     },
   ];
 
+  // --- State ---
   const [volume, setVolume] = useState<string>("1");
   const [volumeUnit, setVolumeUnit] = useState<string>("m3");
   const [density, setDensity] = useState<string>("1000");
@@ -88,12 +91,22 @@ export default function MassCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
+  const [isSaved, setIsSaved] = useState(false);
 
+  // --- Calculator Metadata ---
+  const calculatorInfo = {
+    name: "Mass Calculator",
+    href: "/calculators/physics/mass-calculator",
+    category: "Physics",
+  };
+
+  // --- Initialize & Load ---
   useEffect(() => {
     setIsMounted(true);
-    const consent = getConsentPreference();
+    
+    // Load inputs from history
     const history = getCalculatorHistory();
-    if (consent?.functional && history["mass-vol-calc"]?.data) {
+    if (history["mass-vol-calc"]?.data) {
       const data = history["mass-vol-calc"].data;
       setVolume(data.volume || "1");
       setVolumeUnit(data.volumeUnit || "m3");
@@ -101,21 +114,29 @@ export default function MassCalculator() {
       setDensityUnit(data.densityUnit || "kg_m3");
       setTargetMassUnit(data.targetMassUnit || "kg");
     }
+
+    // Check if tool is favorited
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
   }, []);
 
+  // --- Auto-Save History ---
   useEffect(() => {
     if (!isMounted) return;
-    const consent = getConsentPreference();
-    if (consent?.functional) {
-      saveCalculatorHistory("mass-vol-calc", {
-        volume,
-        volumeUnit,
-        density,
-        densityUnit,
-        targetMassUnit,
-      });
-    }
+    saveCalculatorHistory("mass-vol-calc", {
+      volume,
+      volumeUnit,
+      density,
+      densityUnit,
+      targetMassUnit,
+    });
   }, [volume, volumeUnit, density, densityUnit, targetMassUnit, isMounted]);
+
+  // --- Toggle Save Logic ---
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
 
   const results = useMemo(() => {
     if (trigger === 0) return null;
@@ -129,7 +150,7 @@ export default function MassCalculator() {
     const dFactor = UNITS.density.find((u) => u.value === densityUnit)?.factor || 1;
     const mFactor = UNITS.mass.find((u) => u.value === targetMassUnit)?.factor || 1;
 
-    // Normalizing to SI units for calculation: Mass = Density * Volume
+    // Mass = Density * Volume
     const massSI = (dVal * dFactor) * (vVal * vFactor);
 
     return {
@@ -146,8 +167,23 @@ export default function MassCalculator() {
       <section className="py-4 md:py-8 px-4 max-w-7xl mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
           
+          {/* Inputs Section */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm">
+            <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm relative overflow-hidden">
+              
+              {/* SAVE BUTTON */}
+              <button 
+                onClick={handleToggleSave}
+                title={isSaved ? "Remove from saved" : "Save calculator"}
+                className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
+                  isSaved 
+                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm" 
+                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
               <h2 className="text-xl font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
                 <ListFilter className="text-blue-600" size={22} />
                 Parameters
@@ -214,6 +250,7 @@ export default function MassCalculator() {
             </div>
           </div>
 
+          {/* Results Section */}
           <div className="lg:col-span-7">
             {showResults && results && !("error" in results) ? (
               <div className="bg-card border-2 border-blue-600/20 rounded-3xl p-6 md:p-12 shadow-sm animate-in fade-in zoom-in-95 duration-300">
@@ -243,19 +280,43 @@ export default function MassCalculator() {
                 </div>
               </div>
             ) : showResults && results && "error" in results ? (
-              <div className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-600 font-bold">
+              <div className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-600 font-bold flex items-center gap-3">
+                <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
                 {results.error}
               </div>
             ) : (
-              <div className="h-full min-h-[400px] bg-secondary/10 border-4 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center">
+              <div className="h-full min-h-[400px] bg-secondary/10 border-4 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center transition-all">
                 <Layers size={64} className="opacity-10 mb-6" />
-                <p className="text-sm font-black uppercase text-muted-foreground tracking-widest">
+                <p className="text-sm font-black uppercase text-muted-foreground tracking-widest max-w-[200px]">
                   Ready to calculate mass
                 </p>
               </div>
             )}
           </div>
         </div>
+
+        {/* Informational Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 bg-card border rounded-2xl space-y-3">
+            <h3 className="font-black uppercase text-sm flex items-center gap-2">
+              <BarChart3 size={18} className="text-blue-600" /> Theory
+            </h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              The mass ($m$) of an object is the product of its density ($\rho$) and its volume ($V$). 
+              The fundamental physics formula is $m = \rho \times V$. This is essential for determining 
+              the amount of matter in a specific space.
+            </p>
+          </div>
+          <div className="p-6 bg-card border rounded-2xl space-y-3 text-sm">
+            <h3 className="font-black uppercase text-sm">Pro Tip</h3>
+            <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+              <li>Ensure your density and volume units match your application requirements.</li>
+              <li>SI standard mass is measured in kilograms (kg).</li>
+            </ul>
+          </div>
+        </div>
+
+        <RelatedCalculators calculators={relatedCalculators} />
       </section>
     </main>
   );
@@ -286,12 +347,13 @@ function UnitInput({
           type="number"
           value={value}
           onChange={(e) => onValueChange(e.target.value)}
+          placeholder="0.00"
           className="flex-[2] px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-lg transition-all"
         />
         <select
           value={unit}
           onChange={(e) => onUnitChange(e.target.value)}
-          className="flex-1 px-3 py-4 bg-secondary/50 rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xs cursor-pointer"
+          className="flex-1 px-3 py-4 bg-secondary/50 rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xs cursor-pointer transition-all"
         >
           {options.map((u) => (
             <option key={u.value} value={u.value}>

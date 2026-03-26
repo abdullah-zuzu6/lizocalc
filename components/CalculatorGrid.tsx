@@ -1,78 +1,50 @@
-import { type LucideIcon,  } from 'lucide-react'
+import { type LucideIcon } from 'lucide-react'
 import NoPrefetchLink from './NoPrefetchLink'
 
-interface CalculatorCard {
+interface CalculatorLink {
   name: string
-  description: string
-  icon: LucideIcon
   href: string
-  category: 'financial' | 'fitness' | 'math' | 'other'
 }
 
 interface CalculatorGridProps {
   title: string
-  calculators: CalculatorCard[]
-  showViewAll?: boolean
+  calculators: CalculatorLink[]
+  Icon: LucideIcon
+  variant: 'blue' | 'red' | 'purple' | 'emerald'
 }
 
-const categoryColors = {
-  financial: 'from-blue-600/10 to-blue-400/10 border-blue-600/20 hover:border-blue-600/50',
-  fitness: 'from-red-600/10 to-pink-400/10 border-red-600/20 hover:border-red-600/50',
-  math: 'from-purple-600/10 to-purple-400/10 border-purple-600/20 hover:border-purple-600/50',
-  other: 'from-green-600/10 to-emerald-400/10 border-green-600/20 hover:border-green-600/50',
+const variants = {
+  blue: 'from-blue-600/5 to-blue-400/5 border-blue-600/20 text-blue-600',
+  red: 'from-red-600/5 to-pink-400/5 border-red-600/20 text-red-500',
+  purple: 'from-purple-600/5 to-purple-400/5 border-purple-600/20 text-purple-500',
+  emerald: 'from-green-600/5 to-emerald-400/5 border-green-600/20 text-emerald-500',
 }
 
-const categoryIconColors = {
-  financial: 'text-blue-500',
-  fitness: 'text-red-500',
-  math: 'text-purple-500',
-  other: 'text-green-500',
-}
-
-export default function CalculatorGrid({ title, calculators, showViewAll }: CalculatorGridProps) {
+export default function CalculatorGrid({ title, calculators, Icon, variant }: CalculatorGridProps) {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
-        <div className="h-1 w-20 bg-gradient-to-r from-primary to-accent rounded-full" />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {calculators.map((calc) => {
-          const Icon = calc.icon
-          return (
-            <NoPrefetchLink key={calc.href} href={calc.href}>
-              <div
-                className={`p-6 rounded-xl border transition-all duration-300 cursor-pointer group bg-gradient-to-br ${
-                  categoryColors[calc.category]
-                } hover:shadow-lg hover:shadow-primary/20`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <Icon className={`w-8 h-8 ${categoryIconColors[calc.category]}`} />
-                  <div className="w-2 h-2 rounded-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity" />
-                </div>
-                <h3 className="font-semibold text-lg mb-2 group-hover:text-primary transition-colors">
-                  {calc.name}
-                </h3>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {calc.description}
-                </p>
-              </div>
-            </NoPrefetchLink>
-          )
-        })}
-      </div>
-
-      {showViewAll && (
-        <div className="text-center">
-          <NoPrefetchLink
-            href="/calculators"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all"
-          >
-            View All Calculators
-          </NoPrefetchLink>
+    <section className={`p-6 rounded-2xl border bg-gradient-to-br ${variants[variant]} shadow-sm`}>
+      <div className="flex items-center gap-3 mb-6">
+        <div className="p-2 rounded-lg bg-background/80 border border-current/10">
+          <Icon className="w-6 h-6" />
         </div>
-      )}
+        <h2 className="text-xl font-bold text-foreground">
+          {title}
+        </h2>
+      </div>
+
+      {/* Tight list with very small gap (Calculator.net style) */}
+      <ul className="flex flex-col space-y-0.5">
+        {calculators.map((calc) => (
+          <li key={calc.href}>
+            <NoPrefetchLink 
+              href={calc.href}
+              className="text-[#b7b4ae] hover:underline text-[15px] block py-0.5 transition-colors"
+            >
+              {calc.name}
+            </NoPrefetchLink>
+          </li>
+        ))}
+      </ul>
     </section>
   )
 }

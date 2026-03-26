@@ -9,13 +9,15 @@ import {
   BarChart3,
   Box,
   Weight,
+  Heart,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
-  getConsentPreference,
-} from "@/lib/cookies";
+  getSavedCalculators,
+  toggleSavedCalculator,
+} from "@/lib/storage";
 
 // ─────────────────────────────────────────────
 // Types & Professional Unit Constants
@@ -83,6 +85,7 @@ export default function DensityCalculator() {
     },
   ];
 
+  // --- State ---
   const [mass, setMass] = useState<string>("100");
   const [massUnit, setMassUnit] = useState<string>("kg");
   const [volume, setVolume] = useState<string>("1");
@@ -92,34 +95,52 @@ export default function DensityCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
+  const [isSaved, setIsSaved] = useState(false);
 
+  // --- Calculator Metadata ---
+  const calculatorInfo = {
+    name: "Density Calculator",
+    href: "/calculators/physics/density-calculator",
+    category: "Physics",
+  };
+
+  // --- Initialize & Load ---
   useEffect(() => {
     setIsMounted(true);
-    const consent = getConsentPreference();
+    
+    // Load inputs from history
     const history = getCalculatorHistory();
-    if (consent?.functional && history["density-calc"]?.data) {
+    if (history["density-calc"]?.data) {
       const data = history["density-calc"].data;
-      setMass(data.mass || "8900");
+      setMass(data.mass || "100");
       setMassUnit(data.massUnit || "kg");
       setVolume(data.volume || "1");
       setVolumeUnit(data.volumeUnit || "m3");
       setDensityUnit(data.densityUnit || "kg_m3");
     }
+
+    // Check if tool is favorited
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
   }, []);
 
+  // --- Auto-Save History ---
   useEffect(() => {
     if (!isMounted) return;
-    const consent = getConsentPreference();
-    if (consent?.functional) {
-      saveCalculatorHistory("density-calc", {
-        mass,
-        massUnit,
-        volume,
-        volumeUnit,
-        densityUnit,
-      });
-    }
+    saveCalculatorHistory("density-calc", {
+      mass,
+      massUnit,
+      volume,
+      volumeUnit,
+      densityUnit,
+    });
   }, [mass, massUnit, volume, volumeUnit, densityUnit, isMounted]);
+
+  // --- Toggle Save Logic ---
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
 
   const results = useMemo(() => {
     if (trigger === 0) return null;
@@ -153,9 +174,24 @@ export default function DensityCalculator() {
     <main className="min-h-screen bg-background text-foreground">
       <section className="py-4 md:py-8 px-4 max-w-7xl mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
+          
           {/* Inputs Section */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm">
+            <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm relative overflow-hidden">
+              
+              {/* SAVE CALCULATOR BUTTON */}
+              <button 
+                onClick={handleToggleSave}
+                title={isSaved ? "Remove from saved" : "Save calculator"}
+                className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
+                  isSaved 
+                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm" 
+                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
               <h2 className="text-xl font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
                 <ListFilter className="text-blue-600" size={22} />
                 Parameters

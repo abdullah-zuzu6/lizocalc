@@ -1,13 +1,15 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { Clock, RotateCcw, CheckCircle2, FlaskConical } from "lucide-react";
+import { useState, useEffect, useMemo, useRef } from "react";
+import { Clock, RotateCcw, CheckCircle2, FlaskConical, Heart, ChevronRight, Activity } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
   getCalculatorHistory,
   saveCalculatorHistory,
+  getSavedCalculators,
+  toggleSavedCalculator,
   getConsentPreference,
-} from "@/lib/cookies";
+} from "@/lib/storage";
 
 type HalfLifeResult = {
   remainingAmount: string;
@@ -23,65 +25,68 @@ type TableRow = {
 
 export default function HalfLifeCalculator() {
   const [isMounted, setIsMounted] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const hasLoadedHistory = useRef(false);
 
+  // Input States
   const [initialAmount, setInitialAmount] = useState("100");
   const [halfLifeTime, setHalfLifeTime] = useState("5");
   const [totalTime, setTotalTime] = useState("15");
   const [unit, setUnit] = useState("years");
-// Load Data on Mount
-useEffect(() => {
-  setIsMounted(true);
-  const consent = getConsentPreference();
-  const history = getCalculatorHistory();
 
-  // Ensure we check for functional consent and that the data exists
-  if (consent?.functional && history["half-life-calc"]?.data) {
-    const d = history["half-life-calc"].data;
-    setInitialAmount(d.initial || "100");
-    setHalfLifeTime(d.hl || "5");
-    setTotalTime(d.total || "15");
-    setUnit(d.unit || "years"); // Added unit persistence
-  }
-}, []);
+  const calculatorInfo = {
+    name: "Half-Life Calculator",
+    href: "/calculators/science/half-life-calculator",
+    category: "Science",
+  };
 
-// Save Data on Change
-useEffect(() => {
-  if (!isMounted) return;
-
-  const consent = getConsentPreference();
-  if (consent?.functional) {
-    saveCalculatorHistory("half-life-calc", {
-      initial: initialAmount,
-      hl: halfLifeTime,
-      total: totalTime,
-      unit: unit, // Added unit persistence
-    });
-  }
-}, [initialAmount, halfLifeTime, totalTime, unit, isMounted]);
-
+  // --- 1. HYDRATION & DATA LOADING ---
   useEffect(() => {
-    if (!isMounted) return;
+    setIsMounted(true);
+    const consent = getConsentPreference();
+    const history = getCalculatorHistory();
+
+    if (consent?.functional && history["half-life-calc"]?.data) {
+      const d = history["half-life-calc"].data;
+      setInitialAmount(d.initial || "100");
+      setHalfLifeTime(d.hl || "5");
+      setTotalTime(d.total || "15");
+      setUnit(d.unit || "years");
+    }
+
+    const savedTools = getSavedCalculators();
+    setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+    hasLoadedHistory.current = true;
+  }, []);
+
+  const handleToggleSave = () => {
+    const nowSaved = toggleSavedCalculator(calculatorInfo);
+    setIsSaved(nowSaved);
+  };
+
+  // --- 2. AUTO-SAVE TO COOKIES ---
+  useEffect(() => {
+    if (!isMounted || !hasLoadedHistory.current) return;
 
     const consent = getConsentPreference();
-
     if (consent?.functional) {
       saveCalculatorHistory("half-life-calc", {
         initial: initialAmount,
         hl: halfLifeTime,
         total: totalTime,
+        unit: unit,
       });
     }
-  }, [initialAmount, halfLifeTime, totalTime, isMounted]);
+  }, [initialAmount, halfLifeTime, totalTime, unit, isMounted]);
 
+  // --- 3. CALCULATION LOGIC ---
   const results = useMemo((): HalfLifeResult | null => {
     const N0 = parseFloat(initialAmount);
     const t12 = parseFloat(halfLifeTime);
     const t = parseFloat(totalTime);
 
-    if (isNaN(N0) || isNaN(t12) || isNaN(t) || N0 <= 0 || t12 <= 0 || t < 0) {
-      return null;
-    }
+    if (isNaN(N0) || isNaN(t12) || isNaN(t) || N0 <= 0 || t12 <= 0 || t < 0) return null;
 
     const n = t / t12;
     const Nt = N0 * Math.pow(0.5, n);
@@ -98,7 +103,6 @@ useEffect(() => {
 
   const decayTable: TableRow[] = useMemo(() => {
     const rows: TableRow[] = [];
-
     const N0 = parseFloat(initialAmount);
     const t12 = parseFloat(halfLifeTime);
     const t = parseFloat(totalTime);
@@ -106,14 +110,8 @@ useEffect(() => {
     if (isNaN(N0) || isNaN(t12) || isNaN(t)) return rows;
 
     for (let i = 0; i <= t; i += t12) {
-      const value = N0 * Math.pow(0.5, i / t12);
-
-      rows.push({
-        time: i,
-        value: value,
-      });
+      rows.push({ time: i, value: N0 * Math.pow(0.5, i / t12) });
     }
-
     return rows;
   }, [initialAmount, halfLifeTime, totalTime]);
 
@@ -121,72 +119,59 @@ useEffect(() => {
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-     
-
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-12 space-y-12">
         <div className="grid lg:grid-cols-12 gap-8">
+          
           {/* INPUT PANEL */}
           <div className="lg:col-span-4">
-            <div className="bg-card border rounded-xl p-6">
-              <h2 className="font-bold text-lg mb-6 flex items-center gap-2">
-                <Clock size={18} /> Parameters
+            <div className="bg-card border rounded-[2.5rem] p-8 shadow-sm relative overflow-hidden">
+              <button
+                onClick={handleToggleSave}
+                className={`absolute top-6 right-6 p-2.5 rounded-xl transition-all border ${
+                  isSaved ? "bg-red-500/10 border-red-500/20 text-red-500" : "bg-secondary border-transparent text-muted-foreground"
+                }`}
+              >
+                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+              </button>
+
+              <h2 className="text-xl font-bold mb-8 flex items-center gap-2">
+                <Clock className="text-blue-600" size={22} /> Decay Specs
               </h2>
 
-              <div className="space-y-4">
-                <InputField
-                  label="Initial Amount"
-                  value={initialAmount}
-                  onChange={setInitialAmount}
-                />
-
-                <InputField
-                  label="Half Life"
-                  value={halfLifeTime}
-                  onChange={setHalfLifeTime}
-                />
-
-                <InputField
-                  label="Total Time"
-                  value={totalTime}
-                  onChange={setTotalTime}
-                />
+              <div className="space-y-6">
+                <InputField label="Initial Quantity (N₀)" value={initialAmount} onChange={setInitialAmount} />
+                <InputField label="Half Life (t½)" value={halfLifeTime} onChange={setHalfLifeTime} />
+                <InputField label="Observation Time (t)" value={totalTime} onChange={setTotalTime} />
 
                 <div>
-                  <label className="text-xs font-bold uppercase text-muted-foreground">
-                    Time Unit
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1 mb-2 block">
+                    Timeline Unit
                   </label>
-
                   <select
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)}
-                    className="w-full mt-1 p-3 rounded-md bg-secondary border"
+                    className="w-full p-4 bg-secondary rounded-2xl border-none font-bold outline-none focus:ring-2 ring-blue-500/20 appearance-none"
                   >
-                    <option>seconds</option>
-                    <option>minutes</option>
-                    <option>hours</option>
-                    <option>days</option>
-                    <option>years</option>
+                    {["seconds", "minutes", "hours", "days", "years"].map((u) => (
+                      <option key={u} value={u}>{u}</option>
+                    ))}
                   </select>
                 </div>
 
-                <button
-                  onClick={() => setShowResults(true)}
-                  className="w-full py-3 bg-primary text-primary-foreground rounded-md font-bold flex items-center justify-center gap-2"
-                >
-                  Calculate <CheckCircle2 size={16} />
-                </button>
-
-                <button
-                  onClick={() => {
-                    setInitialAmount("100");
-                    setHalfLifeTime("5");
-                    setTotalTime("15");
-                    setShowResults(false);
-                  }}
-                  className="w-full py-2 bg-secondary rounded-md text-xs flex items-center justify-center gap-2"
-                >
-                  <RotateCcw size={14} /> Reset
-                </button>
+                <div className="pt-4 space-y-3">
+                  <button
+                    onClick={() => setShowResults(true)}
+                    className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold flex items-center justify-center gap-2 transition-all shadow-xl shadow-blue-500/10"
+                  >
+                    Analyze Decay <CheckCircle2 size={18} />
+                  </button>
+                  <button
+                    onClick={() => { setInitialAmount("100"); setHalfLifeTime("5"); setTotalTime("15"); setShowResults(false); }}
+                    className="w-full py-2.5 bg-secondary text-muted-foreground rounded-xl font-bold text-xs flex items-center justify-center gap-2 hover:bg-secondary/80 transition-colors"
+                  >
+                    <RotateCcw size={14} /> Reset Data
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -194,126 +179,99 @@ useEffect(() => {
           {/* RESULTS PANEL */}
           <div className="lg:col-span-8 space-y-6">
             {showResults && results ? (
-              <>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-card border rounded-xl p-6 text-center">
-                    <p className="text-xs uppercase text-muted-foreground">
-                      Remaining Amount
-                    </p>
+              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="bg-blue-600 text-white rounded-[3rem] p-10 shadow-xl relative overflow-hidden group">
+                  <FlaskConical className="absolute -right-4 -bottom-4 w-48 h-48 opacity-10 group-hover:scale-110 transition-transform duration-700" />
+                  <p className="text-[10px] font-black uppercase opacity-70 tracking-[0.4em]">Final Remaining Amount</p>
+                  <h2 className="text-6xl font-black mt-4 tracking-tighter leading-none">
+                    {results.remainingAmount} <span className="text-2xl opacity-50 font-medium tracking-normal ml-2">units</span>
+                  </h2>
+                </div>
 
-                    <h2 className="text-4xl font-black text-primary mt-2">
-                      {results.remainingAmount}
-                    </h2>
-                  </div>
-
-                  <div className="bg-card border rounded-xl p-6">
-                    <div className="space-y-3">
-                      <StatRow
-                        label="Half Lives Elapsed"
-                        value={results.halfLivesElapsed}
-                      />
-
-                      <StatRow
-                        label="Decay Constant"
-                        value={results.decayConstant}
-                      />
-
-                      <StatRow
-                        label="Total Decay"
-                        value={results.decayPercentage + "%"}
-                      />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {[
+                    { label: "Cycles Elapsed", value: results.halfLivesElapsed, color: "text-amber-500" },
+                    { label: "Decay Constant", value: results.decayConstant, color: "text-emerald-500" },
+                    { label: "Percentage Lost", value: `${results.decayPercentage}%`, color: "text-rose-500" }
+                  ].map((item) => (
+                    <div key={item.label} className="bg-card border rounded-[2rem] p-6 text-center shadow-sm">
+                      <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest mb-2">{item.label}</p>
+                      <h3 className={`text-2xl font-black ${item.color}`}>{item.value}</h3>
                     </div>
-                  </div>
+                  ))}
                 </div>
 
                 {/* DECAY TABLE */}
-                <div className="bg-card border rounded-xl p-6">
-                  <h3 className="font-bold mb-4">Decay Table</h3>
-
-                  <table className="w-full text-sm">
-                    <thead>
-                      <tr className="border-b">
-                        <th className="text-left py-2">Time ({unit})</th>
-                        <th className="text-left py-2">Remaining</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      {decayTable.map((row, i) => (
-                        <tr key={i} className="border-b">
-                          <td className="py-2">{row.time}</td>
-                          <td>{row.value.toFixed(6)}</td>
+                <div className="bg-card border rounded-[2.5rem] p-8 shadow-sm">
+                  <h3 className="font-bold text-lg mb-6 flex items-center gap-2">
+                    <Activity size={20} className="text-blue-600" /> Decay Progression
+                  </h3>
+                  <div className="overflow-hidden rounded-2xl border">
+                    <table className="w-full text-sm">
+                      <thead className="bg-secondary/50">
+                        <tr>
+                          <th className="px-6 py-4 text-left font-black uppercase text-[10px] tracking-widest text-muted-foreground">Interval ({unit})</th>
+                          <th className="px-6 py-4 text-right font-black uppercase text-[10px] tracking-widest text-muted-foreground">Remaining Mass</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y">
+                        {decayTable.map((row, i) => (
+                          <tr key={i} className="hover:bg-secondary/20 transition-colors">
+                            <td className="px-6 py-4 font-bold flex items-center gap-2">
+                               <ChevronRight size={12} className="text-blue-500" /> {row.time}
+                            </td>
+                            <td className="px-6 py-4 text-right font-mono text-blue-600 font-bold">{row.value.toFixed(6)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
-              </>
+              </div>
             ) : (
-              <div className="border-2 border-dashed rounded-xl p-12 text-center">
-                <FlaskConical size={48} className="mx-auto opacity-20 mb-4" />
-
-                <p className="text-sm uppercase text-muted-foreground">
-                  Enter values and click calculate
+              <div className="h-full min-h-[500px] bg-secondary/10 border-4 border-dashed rounded-[3rem] p-12 text-center flex flex-col items-center justify-center transition-all">
+                <FlaskConical size={60} className="opacity-5 mb-6" />
+                <p className="text-sm font-black uppercase text-muted-foreground tracking-[0.2em] max-w-xs leading-loose">
+                   Configure isotopes parameters to simulate radioactive decay
                 </p>
               </div>
             )}
           </div>
         </div>
 
-        {/* RELATED CALCULATORS */}
-        <div className="mt-12">
-          <RelatedCalculators
-  calculators={[
-    {
-      name: "Age Calculator",
-      href: "/calculators/time/age-calculator",
-      description: "Calculate the age of an object based on its decay.",
-      icon: FlaskConical,
-    },
-    
-  ]}
-/>
-
-
-        </div>
+        <RelatedCalculators
+          calculators={[
+            {
+              name: "Carbon Dating Calculator",
+              href: "/calculators/science/carbon-dating",
+              description: "Estimate organic age via C-14 decay.",
+              icon: Activity,
+            },
+            {
+              name: "Log Calculator",
+              href: "/calculators/math/log-calculator",
+              description: "Calculate natural and base-10 logs.",
+              icon: FlaskConical,
+            },
+          ]}
+        />
       </div>
-
     </main>
   );
 }
 
-function InputField({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-}) {
+function InputField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void; }) {
   return (
     <div>
-      <label className="text-xs font-bold uppercase text-muted-foreground">
+      <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground ml-1 mb-2 block">
         {label}
       </label>
-
       <input
         type="number"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full mt-1 p-3 bg-secondary border rounded-md"
+        className="w-full p-4 bg-secondary rounded-2xl border-none font-black text-xl outline-none focus:ring-2 ring-blue-500/20"
       />
-    </div>
-  );
-}
-
-function StatRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between bg-secondary/50 p-2 rounded">
-      <span className="text-xs uppercase text-muted-foreground">{label}</span>
-
-      <span className="font-bold text-primary">{value}</span>
     </div>
   );
 }
