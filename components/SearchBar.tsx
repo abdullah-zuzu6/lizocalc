@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { Search, Calculator as CalcIcon, X, ArrowRight, SearchXIcon } from 'lucide-react'
 import NoPrefetchLink from './NoPrefetchLink'
 
@@ -61,7 +61,13 @@ const allCalculators = [
 export default function SearchBar() {
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
   const searchRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -73,18 +79,22 @@ export default function SearchBar() {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  const filteredResults = query === '' 
-    ? [] 
-    : allCalculators.filter((calc) =>
-        calc.name.toLowerCase().includes(query.toLowerCase()) ||
-        calc.category.toLowerCase().includes(query.toLowerCase())
-      ).slice(0, 6)
+  const filteredResults = useMemo(() => {
+    if (query === '') return []
+    return allCalculators.filter((calc) =>
+      calc.name.toLowerCase().includes(query.toLowerCase()) ||
+      calc.category.toLowerCase().includes(query.toLowerCase())
+    ).slice(0, 6)
+  }, [query])
+
+  if (!mounted) return null
 
   return (
     <div className="relative w-full max-w-[280px] xs:max-w-xs sm:max-w-sm md:max-w-md" ref={searchRef}>
       <div className="relative group">
-<Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white transition-colors duration-300" />        <input
-       
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white transition-colors duration-300" />
+
+        <input
           type="text"
           placeholder="Search Math,health,fitness and other calculators "
           value={query}
@@ -95,8 +105,9 @@ export default function SearchBar() {
           onFocus={() => setIsOpen(true)}
           className="w-full bg-secondary/30 backdrop-blur-sm border border-border rounded-lg py-1.5 pl-9 pr-8 text-xs focus:outline-none focus:ring-1 focus:ring-primary/40 focus:bg-card focus:border-primary/40 transition-all duration-300 text-foreground placeholder:text-muted-foreground/70"
         />
+
         {query && (
-          <button 
+          <button
             onClick={() => { setQuery(''); setIsOpen(false); }}
             className="absolute right-2 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-secondary/80 text-muted-foreground transition-all"
           >
@@ -105,8 +116,7 @@ export default function SearchBar() {
         )}
       </div>
 
-      {/* Results Dropdown */}
-      {isOpen && query.length > 0 && (
+      {mounted && isOpen && query.length > 0 && (
         <div className="absolute top-full mt-1.5 w-full bg-card/95 backdrop-blur-md border border-border rounded-lg shadow-xl overflow-hidden z-[100] animate-in fade-in slide-in-from-top-1 duration-200">
           <div className="max-h-[320px] overflow-y-auto p-1.5 custom-scrollbar">
             {filteredResults.length > 0 ? (

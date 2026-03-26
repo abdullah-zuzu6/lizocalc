@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react"
+import Link from "next/link"
 import { Menu, X, Calculator } from "lucide-react"
-import NoPrefetchLink from "./NoPrefetchLink"
 import SearchBar from "./SearchBar"
 
 const NAV_ITEMS = [
@@ -23,9 +23,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-2 sm:gap-4">
           
-          {/* Logo Section - Scaled down on mobile */}
-          <NoPrefetchLink
+          {/* Logo */}
+          <Link
             href="/"
+            prefetch={false}
             className="flex-shrink-0 flex items-center gap-1.5 font-bold text-lg sm:text-2xl group"
           >
             <div className="bg-primary p-1 sm:p-1.5 rounded-lg shadow-sm group-hover:scale-105 transition-transform">
@@ -38,54 +39,61 @@ export default function Navbar() {
                 calc
               </span>
             </div>
-          </NoPrefetchLink>
+          </Link>
 
-          {/* Search Bar - ALWAYS visible (removed hidden md:flex) */}
+          {/* Search Bar */}
           <div className="flex-1 flex justify-center max-w-[180px] xs:max-w-xs sm:max-w-md lg:max-w-lg">
             <SearchBar />
           </div>
 
-          {/* Desktop Navigation Links - Hidden on mobile/tablet */}
+          {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-1">
             {NAV_ITEMS.map((item) => (
-              <NoPrefetchLink
+              <Link
                 key={item.href}
                 href={item.href}
+                prefetch={false} // you can remove this if you want faster UX
                 className="px-3 py-2 rounded-md text-sm font-medium text-muted-foreground hover:text-primary hover:bg-secondary transition-all"
               >
                 {item.name}
-              </NoPrefetchLink>
+              </Link>
             ))}
           </div>
 
-          {/* Mobile Menu Toggle - Always visible below LG breakpoint */}
+          {/* Mobile Toggle */}
           <div className="flex items-center lg:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="inline-flex items-center justify-center p-2 rounded-lg hover:bg-secondary text-foreground transition-colors"
               aria-label="Toggle Menu"
             >
-              {isOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+              {isOpen ? (
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+              )}
             </button>
           </div>
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu */}
         {isOpen && (
           <div className="lg:hidden border-t border-border bg-card animate-in slide-in-from-top duration-300">
             <div className="px-2 pt-2 pb-6 space-y-1">
               <div className="px-3 py-2 text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                 Categories
               </div>
+
               {NAV_ITEMS.map((item) => (
-                <NoPrefetchLink
+                <Link
                   key={item.href}
                   href={item.href}
-                  className="block px-3 py-3 rounded-lg text-base font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors border-l-4 border-transparent hover:border-primary"
+                  prefetch={false}
                   onClick={() => setIsOpen(false)}
+                  className="block px-3 py-3 rounded-lg text-base font-medium text-foreground hover:bg-secondary hover:text-primary transition-colors border-l-4 border-transparent hover:border-primary"
                 >
                   {item.name}
-                </NoPrefetchLink>
+                </Link>
               ))}
             </div>
           </div>
