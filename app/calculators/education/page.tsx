@@ -5,6 +5,7 @@ import NoPrefetchLink from '@/components/NoPrefetchLink'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Search, ArrowLeft, Clock } from 'lucide-react'
+import Link from 'next/link'
 
 const calculators = [
   {
@@ -44,13 +45,13 @@ export default function OtherCalculators() {
           <div className="flex items-center gap-4 mb-6">
 
             {/* Back Button */}
-            <NoPrefetchLink
+            <Link
               href="/"
               className="p-2 rounded-lg hover:bg-secondary transition-colors"
               aria-label="Go back"
             >
               <ArrowLeft className="w-6 h-6" />
-            </NoPrefetchLink>
+            </Link>
 
             <Clock className="w-8 h-8 text-green-500" />
             <h1 className="text-4xl font-bold">Education Calculators</h1>

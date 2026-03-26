@@ -7,6 +7,7 @@ import NoPrefetchLink from '@/components/NoPrefetchLink'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Search, ArrowLeft, BarChart3, Heart, Sigma, Clock } from 'lucide-react'
+import Link from 'next/link'
 
 // 👇 KEEP your calculators array SAME (no change)
 
@@ -366,13 +367,13 @@ export default function AllCalculators() {
           <div className="flex items-center gap-4 mb-6">
 
             {/* ❗ FIXED */}
-            <NoPrefetchLink
+            <Link
               href="/"
               className="p-2 rounded-lg hover:bg-secondary transition-colors"
               aria-label="Go back"
             >
               <ArrowLeft className="w-6 h-6" />
-            </NoPrefetchLink>
+            </Link>
 
             <h1 className="text-4xl font-bold">All Calculators</h1>
           </div>
