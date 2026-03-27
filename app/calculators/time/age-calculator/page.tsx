@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
 import NoPrefetchLink from "@/components/NoPrefetchLink";
+import AgeCalculator from "./clientside";
 
-const AgeCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {

@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import NoPrefetchLink from './NoPrefetchLink'
+import Link from 'next/link'
 
 interface RelatedCalculator {
   name: string
@@ -28,7 +28,7 @@ export default function RelatedCalculators({ calculators }: RelatedCalculatorsPr
           {calculators.map((calc, index) => {
             const Icon = calc.icon
             return (
-              <NoPrefetchLink
+              <Link
                 key={index}
                 href={calc.href}
                 className="group relative flex flex-col justify-between p-5 sm:p-6 rounded-xl bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10"
@@ -57,7 +57,7 @@ export default function RelatedCalculators({ calculators }: RelatedCalculatorsPr
                   Use Calculator
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
-              </NoPrefetchLink>
+              </Link>
             )
           })}
         </div>

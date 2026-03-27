@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-
+import { Suspense } from "react";
 const BinaryCalculator = dynamic(() => import("./clientside"), { ssr: false });
 
 export const faqData = [
@@ -187,8 +187,10 @@ export default function BinaryCalculatorPage() {
 
       {/* Calculator Tool */}
       <section className="px-4 py-8">
-        <BinaryCalculator /> {/* dynamically imported, client-side only */}
-      </section>
+  <Suspense fallback={<div className="text-center">Loading tool...</div>}>
+    <BinaryCalculator />
+  </Suspense>
+</section>
 
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-4">

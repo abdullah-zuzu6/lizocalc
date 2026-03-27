@@ -105,7 +105,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning={true} >
       <head>
         {/* ✅ Favicon (browser friendly) */}
         <link rel="icon" href="/favicon.ico" />
@@ -130,7 +130,7 @@ export default function RootLayout({
 
       <body
         className={`${inter.className} bg-background text-foreground antialiased`}
-      >
+       >
         {children}
         <Analytics />
       </body>

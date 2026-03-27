@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import NoPrefetchLink from '@/components/NoPrefetchLink'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Search, ArrowLeft, Clock } from 'lucide-react'
@@ -92,7 +91,7 @@ export default function OtherCalculators() {
         {filteredCalculators.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredCalculators.map((calc) => (
-              <NoPrefetchLink key={calc.href} href={calc.href}>
+              <Link prefetch={false}  key={calc.href} href={calc.href}>
                 <div className="p-6 rounded-xl border border-border bg-card hover:border-primary/50 hover:shadow-lg hover:shadow-primary/20 transition-all group cursor-pointer">
                   <div className="flex items-start justify-between mb-4">
                     <div className="p-2 rounded-lg bg-green-600/10">
@@ -109,7 +108,7 @@ export default function OtherCalculators() {
                     {calc.description}
                   </p>
                 </div>
-              </NoPrefetchLink>
+              </Link >
             ))}
           </div>
         ) : (

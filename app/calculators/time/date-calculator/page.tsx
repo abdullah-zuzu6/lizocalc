@@ -1,11 +1,10 @@
-import { Metadata } from "next";
-import { Calendar } from "lucide-react";
+import next, { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
 
 const DateCalculatorClient= dynamic(() => import("./clientside"), {
   ssr: false,
@@ -210,12 +209,12 @@ export default function DateCalculatorPage() {
           <br />• Add/subtract days, weeks, months or years from any date
           <br />• Beautiful mobile-friendly interface with calendar pickers
           <br />The tool is fully offline-capable after first load, remembers recent dates (with consent), handles leap years perfectly, uses Gregorian calendar logic, and contains zero ads. Ideal for students in Punjab, professionals, lawyers, accountants, event planners and everyday users. Try it now on our{" "}
-          <NoPrefetchLink
+          <Link 
             href="/calculators/time/date-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Date Calculator page
-          </NoPrefetchLink>.
+          </Link >.
         </p>
 
         <section className="mt-16">
@@ -481,14 +480,14 @@ export default function DateCalculatorPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
                 Time Calculator
-              </NoPrefetchLink> — hours ↔ minutes ↔ seconds conversions
+              </Link > — hours ↔ minutes ↔ seconds conversions
             </li>
             <li>
-              <NoPrefetchLink href="/calculators/age-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/age-calculator" className="text-blue-400 hover:underline">
                 Age Calculator
-              </NoPrefetchLink> — exact age + life stats
+              </Link > — exact age + life stats
             </li>
            
           </ul>
