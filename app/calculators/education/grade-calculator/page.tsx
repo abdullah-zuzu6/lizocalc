@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link  from "next/link";
+import AdvancedGradeCalculator from "./clientside";
 
-const AdvancedGradeCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 const faqData = [
   {
     question: "How do I calculate my weighted grade?",
@@ -205,12 +202,12 @@ Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1
           <br />• Handle both points-based and percentage-based grading
           <br />• Support complex syllabi with multiple categories
           <br />The tool is mobile-optimized, works offline after first load, saves your course data locally via functional cookies (with your consent), updates in real-time, and contains zero ads. Perfect for intermediate students in Sahiwal, university undergraduates, tuition-going kids, and parents tracking progress. Try it now on our{" "}
-          <NoPrefetchLink
-            href="/calculators/academic/grade-calculator"
+          <Link
+            href="/calculators/education/grade-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Grade Calculator page
-          </NoPrefetchLink>.
+          </Link>.
         </p>
 
         <section className="mt-16">
@@ -427,14 +424,14 @@ Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink href="/calculators/education/gpa-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/education/gpa-calculator" className="text-blue-400 hover:underline">
                 GPA Calculator
-              </NoPrefetchLink> — convert grades to 4.0 scale & track CGPA
+              </Link> — convert grades to 4.0 scale & track CGPA
             </li>
             <li>
-              <NoPrefetchLink href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
                 Time Calculator
-              </NoPrefetchLink> — convert study hours to decimal for productivity logs
+              </Link> — convert study hours to decimal for productivity logs
             </li>
            
           </ul>

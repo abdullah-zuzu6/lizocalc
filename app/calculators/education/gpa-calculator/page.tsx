@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import GPACalculator from "./clientside";
 
-const GPACalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+
 const faqData = [
   {
     question: "How do I calculate my GPA on a 4.0 scale?",
@@ -197,7 +195,7 @@ export default function GPAPage() {
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>GPA Calculator</strong> (Grade Point Average calculator on a 4.0 scale) is one of the most essential academic tools for high school and university students in Pakistan — whether you're in Sahiwal preparing for FSc, A-Levels, or university admissions, a parent helping your child track intermediate results, or a college student monitoring semester performance for scholarships and job applications. Your GPA is not just a number — it's the key to university admissions (especially for engineering, medical, and top public/private universities in Punjab), merit-based scholarships, HEC equivalence certificates, and even first-job shortlisting.
+          The <strong>GPA Calculator</strong> (Grade Point Average calculator on a 4.0 scale) is one of the most essential academic tools for high school and university students in Pakistan — whether you're in preparing for FSc, A-Levels, or university admissions, a parent helping your child track intermediate results, or a college student monitoring semester performance for scholarships and job applications. Your GPA is not just a number — it's the key to university admissions (especially for engineering, medical, and top public/private universities in Punjab), merit-based scholarships, HEC equivalence certificates, and even first-job shortlisting.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
@@ -206,13 +204,13 @@ export default function GPAPage() {
           <br />• Calculate semester GPA and cumulative CGPA across multiple semesters
           <br />• Handle both unweighted (standard 4.0) and weighted scales (AP, honors, advanced classes)
           <br />• Get real-time updates as you enter courses and credits
-          <br />The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your grades across sessions (with your consent via functional cookies), supports Pakistani intermediate/university grading systems, and never shows ads. Perfect for students in Sahiwal, Multan, Lahore, Faisalabad — anyone aiming for top merit lists or international applications. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <br />The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your grades across sessions (with your consent via functional cookies), supports Pakistani intermediate/university grading systems, and never shows ads. Perfect for students in every from the world  — anyone aiming for top merit lists or international applications. Jump right in and try it now on our{" "}
+          <Link
             href="/calculators/education/gpa-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             GPA Calculator page
-          </NoPrefetchLink>.
+          </Link>.
         </p>
 
         <section className="mt-16">
@@ -345,7 +343,7 @@ export default function GPAPage() {
             Clean, Ad-Free Interface for Fast Academic Planning
           </h3>
           <p className="text-gray-200 text-base">
-            No distractions — just grades, credits, and your GPA. Mobile-optimized for checking on the bus ride home from college in Sahiwal.
+            No distractions — just grades, credits, and your GPA. 
           </p>
         </section>
 
@@ -426,20 +424,20 @@ export default function GPAPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">
                 Percentage Calculator 
-              </NoPrefetchLink> — for boards using % marks
+              </Link> — for boards using % marks
             </li>
             <li>
-              <NoPrefetchLink href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
                 Time Calculator
-              </NoPrefetchLink> — track study hours in decimal format
+              </Link> — track study hours in decimal format
             </li>
             
           </ul>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Your GPA shapes your academic future — from merit lists in Sahiwal colleges to NUST/UET entry tests to international scholarships. LizoCalc GPA Calculator gives you accurate, real-time insight so you can plan smarter, study better, and achieve higher. Bookmark it today and stay ahead of your academic goals!
+            Your GPA shapes your academic future . LizoCalc GPA Calculator gives you accurate, real-time insight so you can plan smarter, study better, and achieve higher. Bookmark it today and stay ahead of your academic goals!
           </p>
         </section>
       </article>

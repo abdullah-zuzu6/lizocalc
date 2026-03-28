@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import SpeedCalculator from "./clientside";
 
-const SpeedCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -206,7 +203,7 @@ export default function SpeedCalculatorPage() {
           Distance-Speed-Time Calculator or Average Speed Calculator — is one of
           the most important and frequently used concepts in elementary, middle
           school, and even high school mathematics and physics. Whether you're
-          a student in Sahiwal working on your class 7 or 8 physics homework, a
+          a student working on your class 7 or 8 physics homework, a
           parent helping your child with road-trip problems, a teacher preparing
           examples for the blackboard, a driver calculating fuel-efficient
           speeds, or just someone who needs to quickly figure out travel time or
@@ -229,12 +226,12 @@ export default function SpeedCalculatorPage() {
           shows any ads. Perfect for quick homework checks, exam preparation,
           road trips, sports training, or everyday practical calculations. Jump
           right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/physics/speed-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Speed Calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -521,12 +518,12 @@ export default function SpeedCalculatorPage() {
           <p className="text-gray-200 text-base">
             Planning a trip from Sahiwal to Lahore (250 km) at 80 km/h average
             speed? Time = 250 / 80 = 3.125 hours (3 hours 7.5 minutes). Our{" "}
-            <NoPrefetchLink
+            <Link
               href="/calculators/time/time-calculator"
               className="text-blue-400 hover:underline"
             >
               Time Calculator
-            </NoPrefetchLink>{" "}
+            </Link>{" "}
             does this automatically.
           </p>
 
@@ -651,31 +648,31 @@ export default function SpeedCalculatorPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/time/time-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Time Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — solve for journey duration instantly
             </li>
            
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/math/conversion-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Conversion Converter
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — km/h to mph, m/s, knots and more
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/math/scientific-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Scientific Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — exponents, roots, trigonometry and motion formulas
             </li>
           </ul>

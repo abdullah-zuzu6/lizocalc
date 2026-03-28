@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const TimeCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import TimeCalculator from "./clientside";
 
 const faqData = [
   {
@@ -147,7 +143,7 @@ export default function TimePage() {
       {/* SEO Content */}
      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Time Calculator</strong> — also known as hours to minutes converter, decimal time calculator, or total seconds tool — is an essential utility for students, professionals, freelancers, video editors, researchers, and anyone who needs to convert, add up, or break down time durations quickly and accurately. Whether you're a student in Sahiwal calculating total study hours for board exam preparation, a freelancer billing clients by the hour, a YouTuber summing video lengths, or a lab technician converting experiment run-times into seconds, precise time conversion saves hours of manual math.
+          The <strong>Time Calculator</strong> — also known as hours to minutes converter, decimal time calculator, or total seconds tool — is an essential utility for students, professionals, freelancers, video editors, researchers, and anyone who needs to convert, add up, or break down time durations quickly and accurately. Whether you're a student calculating total study hours for board exam preparation, a freelancer billing clients by the hour, a YouTuber summing video lengths, or a lab technician converting experiment run-times into seconds, precise time conversion saves hours of manual math.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
@@ -156,12 +152,12 @@ export default function TimePage() {
           <br />• Decimal hours (e.g. 2.75 h) ↔ hh:mm:ss format
           <br />• Total seconds for long durations
           <br />It features real-time sliders, high-precision manual entry, clean mobile-first design, offline capability after first load, remembers your last inputs (with consent), and never shows ads. Perfect for students in Punjab, content creators, payroll staff, science students, and daily productivity tracking. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link 
             href="/calculators/time/time-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Time Calculator page
-          </NoPrefetchLink>.
+          </Link >.
         </p>
 
         <section className="mt-16">
@@ -317,7 +313,7 @@ export default function TimePage() {
             Mobile-Optimized Interface for Fast Field Calculations
           </h3>
           <p className="text-gray-200 text-base">
-            Large touch-friendly sliders and number inputs work perfectly on low-end Android phones common in Sahiwal, Multan, and rural Punjab.
+            Large touch-friendly sliders and number inputs work perfectly on low-end Android phones common world .
           </p>
 
           <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
@@ -351,7 +347,7 @@ export default function TimePage() {
             Academic Science: Converting Experimental Data into Seconds
           </h3>
           <p className="text-gray-200 text-base">
-            Physics / Chemistry students in Sahiwal colleges: convert reaction times, pendulum periods, or titration durations into total seconds for graphing and calculations.
+            Physics / Chemistry students in  colleges: convert reaction times, pendulum periods, or titration durations into total seconds for graphing and calculations.
           </p>
 
           <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
@@ -403,14 +399,14 @@ export default function TimePage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink href="/calculators/time/date-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/time/date-calculator" className="text-blue-400 hover:underline">
                 Date Calculator
-              </NoPrefetchLink> — days / weeks / months between dates
+              </Link > — days / weeks / months between dates
             </li>
             <li>
-              <NoPrefetchLink href="/calculators/age-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/age-calculator" className="text-blue-400 hover:underline">
                 Age Calculator
-              </NoPrefetchLink> — exact age + lifetime days/hours/minutes
+              </Link > — exact age + lifetime days/hours/minutes
             </li>
            
           </ul>

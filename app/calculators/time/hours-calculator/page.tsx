@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import HoursCalculator from "./clientside";
 
-const HoursCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 
 const faqData = [
@@ -206,7 +203,7 @@ export default function HoursPage() {
       {/* SEO Content */}
      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Hours Calculator</strong> (also called elapsed time calculator, work hours calculator, or decimal time converter) is one of the most practical time-tracking tools — especially for freelancers in Sahiwal, office employees preparing monthly timesheets, students logging study hours for board exams or university assignments, project managers tracking task durations, and small business owners calculating employee wages or billable client time. Whether you're figuring out how many hours you worked from 9:15 AM to 5:40 PM or converting 7 hours 45 minutes into decimal format for payroll, getting the math right every time prevents underbilling, overworking, or disputes.
+          The <strong>Hours Calculator</strong> (also called elapsed time calculator, work hours calculator, or decimal time converter) is one of the most practical time-tracking tools — especially for freelancers, office employees preparing monthly timesheets, students logging study hours for board exams or university assignments, project managers tracking task durations, and small business owners calculating employee wages or billable client time. Whether you're figuring out how many hours you worked from 9:15 AM to 5:40 PM or converting 7 hours 45 minutes into decimal format for payroll, getting the math right every time prevents underbilling, overworking, or disputes.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
@@ -218,12 +215,12 @@ export default function HoursPage() {
           <br />• Overnight shift & multi-day calculation handling
           <br />• One-click "Set to Now" button for real-time tracking
           The tool is fully mobile-friendly, works offline after first load (progressive web app), remembers your recent time entries (with your consent), and never shows ads. Ideal for freelancers in Punjab, government employees, tuition teachers, content creators, and students preparing for Matric/FSc exams. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link 
             href="/calculators/time/hours-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Hours Calculator page
-          </NoPrefetchLink>.
+          </Link >.
         </p>
 
         <section className="mt-16">
@@ -390,7 +387,7 @@ export default function HoursPage() {
             Mobile-First Design for Quick Calculations on the Go
           </h3>
           <p className="text-gray-200 text-base">
-            Large touch targets, clear AM/PM toggle, and instant feedback — perfect for field workers, tuition teachers, and students using budget Android phones in Sahiwal.
+            Large touch targets, clear AM/PM toggle, and instant feedback — perfect for field workers, tuition teachers, and students using budget Android phones .
           </p>
 
           <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
@@ -468,24 +465,24 @@ export default function HoursPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
                 Time Calculator
-              </NoPrefetchLink> — hours ↔ minutes ↔ seconds conversions
+              </Link > — hours ↔ minutes ↔ seconds conversions
             </li>
             <li>
-              <NoPrefetchLink href="/calculators/time/date-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/time/date-calculator" className="text-blue-400 hover:underline">
                 Date Calculator
-              </NoPrefetchLink> — days between dates & add/subtract time
+              </Link > — days between dates & add/subtract time
             </li>
             <li>
-              <NoPrefetchLink href="/calculators/time/age-calculator" className="text-blue-400 hover:underline">
+              <Link  href="/calculators/time/age-calculator" className="text-blue-400 hover:underline">
                 Age Calculator
-              </NoPrefetchLink> — exact age in years + total days/hours lived
+              </Link > — exact age in years + total days/hours lived
             </li>
           </ul>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Accurate time tracking is the foundation of productivity, fair billing, and effective study habits. Whether you're freelancing from Sahiwal, managing projects, or preparing for board exams — LizoCalc Hours Calculator gives you precise, decimal-ready results every single time. Bookmark it today and take control of every hour!
+            Accurate time tracking is the foundation of productivity, fair billing, and effective study habits. Whether you're doing freelancing , managing projects, or preparing for board exams — LizoCalc Hours Calculator gives you precise, decimal-ready results every single time. Bookmark it today and take control of every hour!
           </p>
         </section>
       </article>

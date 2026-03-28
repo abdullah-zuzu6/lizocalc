@@ -142,7 +142,7 @@ export default function AgeCalculatorPage() {
       {/* SEO Content */}
      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>accurate age calculator</strong> — also widely known as the chronological age tool, life timer, or days-lived counter — is one of the most practical and frequently used tools in everyday life. Whether you're a student in Sahiwal filling out school or college admission forms, a parent calculating your child's exact age for vaccinations and CNIC applications, a professional planning retirement milestones, or simply someone who wants to know exactly how many days, hours, and minutes you've been on this planet, precise age calculation removes all guesswork. Our completely free LizoCalc Age Tool makes it instant, accurate down to the day (and even the second), and beautifully simple.
+          The <strong>accurate age calculator</strong> — also widely known as the chronological age tool, life timer, or days-lived counter — is one of the most practical and frequently used tools in everyday life. Whether you're a student from every wheer can  filling out school or college admission forms, a parent calculating your child's exact age for vaccinations and CNIC applications, a professional planning retirement milestones, or simply someone who wants to know exactly how many days, hours, and minutes you've been on this planet, precise age calculation removes all guesswork. Our completely free LizoCalc Age Tool makes it instant, accurate down to the day (and even the second), and beautifully simple.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
@@ -171,7 +171,7 @@ export default function AgeCalculatorPage() {
                 Our LizoCalc Age Tool instantly tells you your exact chronological age — not just "32 years old," but "32 years, 4 months, and 12 days." This precision matters in Pakistan where official documents, school admissions, driving licenses, and even job applications often require age in completed years and days. Just pick your birth date and the tool does the rest.
               </p>
               <p className="text-gray-200 leading-relaxed text-base">
-                Pro tip: You can also calculate your age "as of" any future or past date — perfect for students in Sahiwal preparing age certificates or parents checking eligibility for government schemes.
+                Pro tip: You can also calculate your age "as of" any future or past date — perfect for students  preparing age certificates or parents checking eligibility for government schemes.
               </p>
             </div>
           </div>
@@ -346,7 +346,7 @@ export default function AgeCalculatorPage() {
             Interactive Calendar Picker for Seamless Date Entry
           </h3>
           <p className="text-gray-200 text-base leading-relaxed">
-            No typing required. Click the calendar icon, pick your birth date visually, and the tool auto-fills. Works beautifully on mobile phones — perfect for students and parents in Sahiwal using their smartphones on the go.
+            No typing required. Click the calendar icon, pick your birth date visually, and the tool auto-fills. Works beautifully on mobile phones — perfect for students and parents in  using their smartphones on the go.
           </p>
         </section>
 

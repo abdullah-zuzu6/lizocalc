@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const WeightCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import WeightCalculator from "./clientside";
+
 
 const faqData = [
   {
@@ -230,12 +228,12 @@ export default function WeightPage() {
           major planets plus the Moon, and never shows any ads. Perfect for quick homework checks,
           board exam preparation (Punjab Board, CBSE, Matric/FSc), science fair projects, or everyday
           space curiosity. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/physics/weight-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Planetary Weight Calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -554,21 +552,21 @@ export default function WeightPage() {
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             
             <li>
-              <NoPrefetchLink
-                href="/calculators/conversion/conversion-converter"
+              <Link
+                href="/calculators/math/conversion-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Conversion Converter
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — N to lbs, kg to lbs, and more
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/math/scientific-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Scientific Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — exponents, roots, trigonometry, and motion formulas
             </li>
           </ul>

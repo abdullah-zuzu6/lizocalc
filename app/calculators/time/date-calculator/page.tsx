@@ -1,14 +1,11 @@
-import next, { Metadata } from "next";
+import  { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-
-const DateCalculatorClient= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import DateCalculatorClient from "./clientside";
+ 
 
 
 const faqData = [
@@ -198,7 +195,7 @@ export default function DateCalculatorPage() {
       {/* SEO Content */}
    <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Date Calculator</strong> (also called Date Difference Calculator or Days Between Dates tool) is one of the most practical everyday utilities — whether you're a student in Sahiwal calculating how many days are left until board exams, a government employee determining exact service duration for pension papers, a business owner counting days for project deadlines, or someone simply planning a family wedding or Umrah trip. Knowing the precise number of days, weeks, months or years between two dates eliminates guesswork and prevents costly mistakes.
+          The <strong>Date Calculator</strong> (also called Date Difference Calculator or Days Between Dates tool) is one of the most practical everyday utilities — whether you're a student calculating how many days are left until board exams, a government employee determining exact service duration for pension papers, a business owner counting days for project deadlines, or someone simply planning a family wedding or Umrah trip. Knowing the precise number of days, weeks, months or years between two dates eliminates guesswork and prevents costly mistakes.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
@@ -371,7 +368,7 @@ export default function DateCalculatorPage() {
             Mobile-Friendly Date Pickers for Quick Entry
           </h3>
           <p className="text-gray-200 text-base">
-            Native calendar popups on mobile + dropdowns for month/day/year — works perfectly on low-end Android phones common in Sahiwal and rural Punjab.
+            Native calendar popups on mobile + dropdowns for month/day/year — works perfectly on low-end Android phones .
           </p>
         </section>
 

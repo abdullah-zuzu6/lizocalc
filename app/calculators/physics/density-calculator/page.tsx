@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import DensityCalculator from "./clientside";
 
-const DensityCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -197,17 +194,17 @@ export default function DensityPage() {
       {/* SEO Content */}
      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
   <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-    The <strong>Density Calculator</strong> is one of the most essential tools in physics and everyday science. Density tells us exactly how much mass is packed into a given volume — the reason a tiny piece of gold feels heavier than a large block of wood, why ships float, and how engineers choose materials for bridges, aircraft, and buildings. Whether you’re a student in Sahiwal preparing for your Class 9 or 10 Punjab Board physics exam, a Matric/FSc student tackling numericals, a teacher explaining buoyancy and Archimedes’ principle, an engineer checking material specifications, or simply someone who wants to understand why ice floats on water, our free online density calculator makes every calculation instant, accurate, and crystal clear.
+    The <strong>Density Calculator</strong> is one of the most essential tools in physics and everyday science. Density tells us exactly how much mass is packed into a given volume — the reason a tiny piece of gold feels heavier than a large block of wood, why ships float, and how engineers choose materials for bridges, aircraft, and buildings. Whether you’re a student  preparing for your Class 9 or 10 Punjab Board physics exam, a Matric/FSc student tackling numericals, a teacher explaining buoyancy and Archimedes’ principle, an engineer checking material specifications, or simply someone who wants to understand why ice floats on water, our free online density calculator makes every calculation instant, accurate, and crystal clear.
   </p>
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required <strong>density calculator</strong> does all the heavy lifting. Just enter the mass and volume, pick your units (g, kg, lb, cm³, m³, ft³, etc.), and get the density instantly — complete with automatic unit conversion, step-by-step working, highlighted formula, and a full calculation history that saves your last 10 results (with your consent). The tool is fully mobile-friendly, works offline after first load, handles irregular objects via volume displacement, converts between SI and Imperial systems automatically, and never shows ads. Perfect for board exam practice, engineering projects, or quick lab checks. Jump right in and try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/physics/density-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       Density Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -446,21 +443,21 @@ export default function DensityPage() {
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/physics/weight-calculator"
           className="text-blue-400 hover:underline"
         >
           Weight Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — calculate weight based on mass and gravity
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/physics/speed-calculator"
           className="text-blue-400 hover:underline"
         >
           Speed Calculator
-        </NoPrefetchLink>
+        </Link>
         -Find speed and  distance with ease
       </li>
     </ul>

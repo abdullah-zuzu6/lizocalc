@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const MassCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import MassCalculator from "./clientside";
 
 const faqData = [
   {
@@ -205,17 +201,17 @@ export default function MassCalculatorPage() {
       {/* SEO Content */}
     <article className="max-w-6xl mx-auto px-6 py-16 text-white">
   <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-    The <strong>Mass Calculator</strong> — powered by the fundamental relationship between mass, density, and volume — is an indispensable tool for physics students, engineers, and anyone dealing with material properties. Mass tells us how much matter is present in an object, and when combined with density and volume, it becomes the key to solving countless problems in mechanics, buoyancy, material selection, and everyday science. Whether you're a student in Sahiwal preparing for your Matric or FSc physics board exams (Punjab Textbook Board), a parent helping with homework, a teacher demonstrating Archimedes’ principle, or an engineer calculating material requirements, our free online mass calculator makes these calculations effortless and precise.
+    The <strong>Mass Calculator</strong> — powered by the fundamental relationship between mass, density, and volume — is an indispensable tool for physics students, engineers, and anyone dealing with material properties. Mass tells us how much matter is present in an object, and when combined with density and volume, it becomes the key to solving countless problems in mechanics, buoyancy, material selection, and everyday science.
   </p>
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required <strong>mass calculator</strong> handles everything instantly. Simply enter density and volume (or mass and density to find volume), select your units (kg/m³, g/cm³, lb/ft³, lb/gal, and many more), and get the mass in your chosen unit — complete with automatic unit conversion, step-by-step working, formula highlighting, and a calculation history that saves your last 10 results (with consent). Fully mobile-friendly, works offline after first load, supports irregular objects via displacement, and zero ads. Ideal for exam prep, lab reports, or quick checks. Try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/physics/mass-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       Mass Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -486,21 +482,21 @@ export default function MassCalculatorPage() {
 
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/physics/density-calculator"
           className="text-blue-400 hover:underline"
         >
           Density Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — find density from mass and volume
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/physics/volume-calculator"
           className="text-blue-400 hover:underline"
         >
          Speed Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — Calculate Speed instantly 
       </li>
       
