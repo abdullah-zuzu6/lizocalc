@@ -322,7 +322,7 @@ export default function BinaryCalculator() {
 
         <RelatedCalculators 
           calculators={[
-            { name: "Hex Calculator", description: "Base-16 operations", href: "/calculators/math/hex-calculator", icon: Code },
+            { name: "Hex Calculator", description: "Base-16 operations", href: "/calculators/math/hexadecimal-calculator", icon: Code },
             { name: "LCM Calculator", description: "Least common multiple", href: "/calculators/math/lcm-calculator", icon: Hash },
           ]} 
         />

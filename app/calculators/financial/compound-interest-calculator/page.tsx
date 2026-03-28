@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const CompoundInterestCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import CompoundInterestCalculator from "./clientside";
 
 const faqData = [
   {
@@ -211,12 +207,12 @@ export default function CompoundInterestPage() {
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no sign-up needed{" "}
           <strong>compound interest calculator</strong> makes everything simple and clear. Just enter your interest rate, pick how often it's compounded, choose the frequency you want to compare it to, and instantly see the real yearly return (EAR/APY), equivalent rates, and how your money could grow over time. The tool is mobile-friendly, works offline after the first load, remembers your recent calculations (if you allow it), gives super-accurate results to 5 decimal places, and has zero ads. Perfect for homework, exam prep, comparing savings accounts, or planning long-term goals. Try it right now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/financial/compound-interest-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             compound interest calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -504,40 +500,24 @@ export default function CompoundInterestPage() {
           </p>
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
+            
+           
             <li>
-              <NoPrefetchLink
-                href="/calculators/finance/savings-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Savings Goal Calculator
-              </NoPrefetchLink>{" "}
-              — plan how much to save each month to reach your target
-            </li>
-            <li>
-              <NoPrefetchLink
-                href="/calculators/finance/loan-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Loan Calculator
-              </NoPrefetchLink>{" "}
-              — see monthly payments and total interest on loans
-            </li>
-            <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/roi-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Investment Return Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — project growth of stocks, mutual funds, etc.
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Simple Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — quick comparison with compound interest
             </li>
           </ul>

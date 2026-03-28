@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import PermutationCombinationCalculator from "./clientside";
 
-const PermutationCombinationCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -229,12 +226,12 @@ export default function PermutationCombinationPage() {
     <p>
       Simply enter the values for <code>n</code> (total items) and <code>r</code> (items selected) into the input fields, then choose whether you want a 
       <strong>permutation</strong> or a <strong>combination</strong>. Click “Calculate” to get your result instantly. For advanced calculations, consider using our 
-      <NoPrefetchLink
+      <Link
         href="/calculators/math/scientific-calculator"
         className="text-blue-400 hover:underline font-semibold"
       >
         Scientific Calculator
-      </NoPrefetchLink>{" "}
+      </Link>{" "}
       to handle large numbers.
     </p>
 
@@ -301,12 +298,12 @@ export default function PermutationCombinationPage() {
     </h3>
     <p>
       In probability, even a small miscalculation can drastically change the outcome. Using our online calculator ensures precision and saves time, especially for large datasets or exams. For related tools, check our 
-      <NoPrefetchLink
+      <Link
         href="/calculators/math/z-score-calculator"
         className="text-blue-400 hover:underline font-semibold"
       >
         Z-Score Calculator
-      </NoPrefetchLink>.
+      </Link>.
     </p>
 
     <h3 className="text-2xl font-semibold text-blue-400 mt-6">

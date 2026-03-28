@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import AdvancedBMICalculator from './clientside'
 
-const AdvancedBMICalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+
 
 const faqData = [
   {
@@ -195,7 +193,7 @@ export default function BMIPage() {
 
       {/* Calculator Tool */}
       <section className="px-4 py-8">
-        <AdvancedBMICalculator />
+        <AdvancedBMICalculator/>
         
       </section>
 
@@ -207,12 +205,12 @@ export default function BMIPage() {
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required <strong>BMI calculator</strong> takes all the hard work out of the process. Enter your weight and height in either Metric (kg/cm) or Imperial (lbs/ft &amp; in) units, optionally add your age and gender for personalised healthy-weight ranges, click the large &ldquo;Calculate BMI&rdquo; button, and receive your score instantly — complete with clear health categories, Ponderal Index, suggested weight range, and easy-to-read explanations. The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last measurements (with your consent), handles every unit combination flawlessly, and never shows any ads. Perfect for quick daily checks, exam preparation in Pakistani schools, doctor visit prep, or long-term fitness tracking. Jump right in and try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/health/bmi-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       BMI calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -409,19 +407,19 @@ export default function BMIPage() {
     </h3>
     <p className="text-gray-200 text-base">
       BMI is the perfect first checkpoint before starting any diet or gym programme. Set a realistic target (e.g., move from 28.5 to 23.0 in 6 months), then pair it with our free{" "}
-      <NoPrefetchLink
+      <Link
         href="/calculators/health/calorie-calculator"
         className="text-blue-400 hover:underline"
       >
         Calorie Calculator
-      </NoPrefetchLink>{" "}
+      </Link>{" "}
       and{" "}
-      <NoPrefetchLink
+      <Link
         href="/calculators/health/bmr-calculator"
         className="text-blue-400 hover:underline"
       >
         BMR Calculator
-      </NoPrefetchLink>{" "}
+      </Link>{" "}
       for a complete roadmap.
     </p>
 
@@ -483,39 +481,31 @@ export default function BMIPage() {
 
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/calorie-calculator"
           className="text-blue-400 hover:underline"
         >
           Calorie Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — daily calorie needs for weight loss or gain
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/bmr-calculator"
           className="text-blue-400 hover:underline"
         >
           BMR &amp; TDEE Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — basal metabolic rate and total daily energy
       </li>
+      
       <li>
-        <NoPrefetchLink
-          href="/calculators/health/ideal-weight-calculator"
-          className="text-blue-400 hover:underline"
-        >
-          Ideal Weight Calculator
-        </NoPrefetchLink>{" "}
-        — multiple formulas including Devine and Hamwi
-      </li>
-      <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/body-fat-calculator"
           className="text-blue-400 hover:underline"
         >
           Body Fat Percentage Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — Navy method and tape-measure formula
       </li>
     </ul>

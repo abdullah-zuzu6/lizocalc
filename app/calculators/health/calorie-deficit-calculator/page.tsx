@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const AdvancedCalorieDeficitCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AdvancedCalorieDeficitCalculator from './clientside'
 
 const faqData = [
   {
@@ -207,12 +204,12 @@ Calorie Deficit & Macro Calculator: Reach Your Goal Weight Faster            </h
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required <strong>calorie deficit calculator</strong> does all the heavy lifting for you. Input your stats once, choose your goal and diet preference, and instantly receive your custom calorie target plus a full macro split (protein, carbs, and fats in grams). The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last inputs (with your consent), supports every popular diet from balanced to keto, and never shows any ads. Perfect for daily meal planning, weekly progress tracking, or long-term body recomposition. Jump right in and try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/health/calorie-deficit-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       calorie deficit calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -472,39 +469,31 @@ Calorie Deficit & Macro Calculator: Reach Your Goal Weight Faster            </h
 
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/bmr-calculator"
           className="text-blue-400 hover:underline"
         >
           BMR &amp; TDEE Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — calculate your exact daily calorie burn
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/bmi-calculator"
           className="text-blue-400 hover:underline"
         >
           BMI Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — understand your current body composition
       </li>
+      
       <li>
-        <NoPrefetchLink
-          href="/calculators/health/ideal-weight-calculator"
-          className="text-blue-400 hover:underline"
-        >
-          Ideal Weight Calculator
-        </NoPrefetchLink>{" "}
-        — discover your healthy target weight
-      </li>
-      <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/body-fat-calculator"
           className="text-blue-400 hover:underline"
         >
           Body Fat Percentage Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — track your fat-loss progress accurately
       </li>
     </ul>

@@ -1,12 +1,11 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic"; // <-- import dynamic
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import { Suspense } from "react";
-const BinaryCalculator = dynamic(() => import("./clientside"), { ssr: false });
-
+import BinaryCalculator from "./clientside";
+import Link from "next/link";
 export const faqData = [
   {
     question: "How do you add two binary numbers?",
@@ -339,18 +338,18 @@ export default function BinaryCalculatorPage() {
           <div className="mt-8 p-6 bg-gray-800/40 rounded-xl border border-gray-700">
             <p className="text-gray-200 mb-4">Need more number system tools?</p>
             <div className="flex flex-wrap gap-4">
-              <a
+              <Link
                 href="/calculators/math/hexadecimal-calculator"
                 className="inline-flex items-center px-4 py-2 bg-blue-600/30 hover:bg-blue-600/50 rounded-lg text-blue-300 hover:text-blue-200 transition-colors"
               >
                 → Try Hex Calculator
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/calculators/math/lcm-calculator"
                 className="inline-flex items-center px-4 py-2 bg-purple-600/30 hover:bg-purple-600/50 rounded-lg text-purple-300 hover:text-purple-200 transition-colors"
               >
                 → LCM Calculator (Least Common Multiple)
-              </a>
+              </Link>
             </div>
           </div>
         </section>

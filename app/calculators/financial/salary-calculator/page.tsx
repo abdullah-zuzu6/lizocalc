@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const AdvancedSalaryCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import AdvancedSalaryCalculator from './clientside'
+import Link from "next/link";
 
 const faqData = [
   {
@@ -211,12 +207,12 @@ export default function SalaryPage() {
           Our completely free, no-registration-required{" "}
           <strong>salary calculator</strong> takes all the guesswork out of the
           process. Simply enter your base pay, choose your pay period, set your weekly hours, add paid time off, and instantly see unadjusted vs. adjusted figures, true hourly rates, and projections for every pay frequency. The tool shows clean results with highlighted breakdowns, interactive charts, and (when you expand it) step-by-step explanations using real math. It is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last calculations (with your consent), supports any amount up to millions, and never shows any ads. Perfect for homework checks, exam preparation, comparing job offers worldwide, or planning your financial future. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/financial/salary-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             salary calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -439,31 +435,31 @@ export default function SalaryPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/loan-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Loan Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — see monthly payments and total interest on loans
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/compound-interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Compound Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — watch your savings grow with different compounding
             </li>
             
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/roi-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Investment Return Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — project growth of stocks and funds
             </li>
           </ul>

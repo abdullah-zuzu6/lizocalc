@@ -203,7 +203,7 @@ export default function InflationCalculator() {
               </div>
             )}
             
-            <section className="bg-card border rounded-xl p-8 shadow-sm">
+            {/* <section className="bg-card border rounded-xl p-8 shadow-sm">
               <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
                 <Info className="text-blue-600" size={20}/> How it works
               </h3>
@@ -212,11 +212,13 @@ export default function InflationCalculator() {
                 The result represents the amount of money needed today to equal the purchasing power of a specific amount in the past.
               </p>
             
-            </section>
-          </div>
+            </section> */}
+            
+       
         </div>
 
-        <RelatedCalculators calculators={[
+          </div>
+           <RelatedCalculators calculators={[
           { name: 'Loan Calculator', description: 'Personal loan payments', href: '/calculators/financial/loan-calculator', icon: DollarSign },
           { name: 'Mortgage Calculator', description: 'Home financing breakdown', href: '/calculators/financial/mortgage-calculator', icon: Calendar }
         ]} />

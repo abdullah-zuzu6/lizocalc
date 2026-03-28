@@ -267,7 +267,7 @@ export default function TriangleCalculator() {
         <RelatedCalculators
           calculators={[
             { name: "Pythagorean", description: "Solve right triangles", href: "/calculators/math/pythagorean-theorem-calculator", icon: Ruler },
-            { name: "Percentage", description: "Calculate percentage", href: "/calculators/math/percentage", icon: Hash },
+            { name: "Percentage", description: "Calculate percentage", href: "/calculators/math/percentage-calculator", icon: Hash },
           ]}
         />
       </section>

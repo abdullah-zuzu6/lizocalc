@@ -1,5 +1,5 @@
 import { type LucideIcon } from 'lucide-react'
-import NoPrefetchLink from './NoPrefetchLink'
+import Link from 'next/link'
 
 interface CalculatorLink {
   name: string
@@ -36,12 +36,12 @@ export default function CalculatorGrid({ title, calculators, Icon, variant }: Ca
       <ul className="flex flex-col space-y-0.5">
         {calculators.map((calc) => (
           <li key={calc.href}>
-            <NoPrefetchLink 
+            <Link 
               href={calc.href}
               className="text-[#b7b4ae] hover:underline text-[15px] block py-0.5 transition-colors"
             >
               {calc.name}
-            </NoPrefetchLink>
+            </Link>
           </li>
         ))}
       </ul>

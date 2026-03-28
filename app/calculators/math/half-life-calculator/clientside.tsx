@@ -242,17 +242,12 @@ export default function HalfLifeCalculator() {
         <RelatedCalculators
           calculators={[
             {
-              name: "Carbon Dating Calculator",
-              href: "/calculators/science/carbon-dating",
-              description: "Estimate organic age via C-14 decay.",
+              name: "Age Calculator ",
+              href: "/calculators/time/age-calculator",
+              description: "Estimate your Age  .",
               icon: Activity,
             },
-            {
-              name: "Log Calculator",
-              href: "/calculators/math/log-calculator",
-              description: "Calculate natural and base-10 logs.",
-              icon: FlaskConical,
-            },
+           
           ]}
         />
       </div>

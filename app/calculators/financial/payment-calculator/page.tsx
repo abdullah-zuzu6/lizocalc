@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import AdvancedPaymentCalculator from './clientside'
 
-const AdvancedPaymentCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -207,13 +204,13 @@ export default function PaymentPage() {
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
-          <strong>LizoCalc Payment Calculator</strong> instantly computes your monthly installment, total interest, and full amortization schedule. Just enter loan amount, interest rate, and term — and get precise results with beautiful visuals. The tool is fully mobile-friendly, works offline after first load, remembers your last calculations (with consent), supports multiple currencies, and never shows ads. Perfect for Sahiwal residents comparing bike loans at local banks, Pakistani families planning house financing, or global users evaluating mortgages. Jump right in and calculate your payments instantly on our{" "}
-          <NoPrefetchLink
+          <strong>LizoCalc Payment Calculator</strong> instantly computes your monthly installment, total interest, and full amortization schedule. Just enter loan amount, interest rate, and term — and get precise results with beautiful visuals. The tool is fully mobile-friendly, works offline after first load, remembers your last calculations (with consent), supports multiple currencies, and never shows ads. Perfect for residents comparing bike loans at local banks, Pakistani families planning house financing, or global users evaluating mortgages. Jump right in and calculate your payments instantly on our{" "}
+          <Link
             href="/calculators/financial/payment-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Payment Calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -234,7 +231,7 @@ export default function PaymentPage() {
                 M = P × [r(1 + r)<sup>n</sup>] / [(1 + r)<sup>n</sup> − 1]
               </p>
               <p className="text-gray-200 text-base mb-6">
-                Where <strong>M</strong> = monthly payment, <strong>P</strong> = loan principal (e.g., Rs. 500,000 for a bike in Sahiwal), <strong>r</strong> = monthly interest rate (annual rate ÷ 12 ÷ 100), <strong>n</strong> = total number of payments (years × 12).
+                Where <strong>M</strong> = monthly payment, <strong>P</strong> = loan principal (e.g., Rs. 500,000 for a bike ), <strong>r</strong> = monthly interest rate (annual rate ÷ 12 ÷ 100), <strong>n</strong> = total number of payments (years × 12).
               </p>
               <p className="text-gray-200 text-base">
                 Example: Rs. 1,200,000 home loan at 9% for 5 years = Rs. 24,890 monthly payment. Total paid = Rs. 1,493,400 (Rs. 293,400 interest). LizoCalc shows this breakdown instantly so you never overpay.
@@ -295,7 +292,7 @@ export default function PaymentPage() {
                 Longer loan terms lower your monthly payment but increase total interest paid. Shorter terms raise monthly EMI but save lakhs in interest. LizoCalc lets you switch between years and months effortlessly.
               </p>
               <p className="text-gray-200 text-base">
-                Example: Rs. 2,500,000 car loan at 10% — 3 years = Rs. 80,650/month (total interest Rs. 407,400). Same loan for 7 years = Rs. 41,900/month but total interest jumps to Rs. 1,009,600. The tool’s real-time calculator shows exactly how changing from 60 to 84 months affects your Sahiwal household budget.
+                Example: Rs. 2,500,000 car loan at 10% — 3 years = Rs. 80,650/month (total interest Rs. 407,400). Same loan for 7 years = Rs. 41,900/month but total interest jumps to Rs. 1,009,600. The tool’s real-time calculator shows exactly how changing from 60 to 84 months affects your household budget.
               </p>
             </div>
           </div>
@@ -312,7 +309,7 @@ export default function PaymentPage() {
                 Multi-Currency Support for Global Financial Planning
               </h3>
               <p className="text-gray-200 text-base">
-                Whether you borrow in Pakistani Rupees, US Dollars, Euros, or British Pounds, LizoCalc supports 15+ major currencies with live conversion. Perfect for overseas Pakistanis financing property back home or international students in Sahiwal planning education loans. Switch currencies with one tap — rates and payments update automatically.
+                Whether you borrow in Pakistani Rupees, US Dollars, Euros, or British Pounds, LizoCalc supports 15+ major currencies with live conversion. Perfect for overseas Pakistanis financing property back home or international students  planning education loans. Switch currencies with one tap — rates and payments update automatically.
               </p>
             </div>
 

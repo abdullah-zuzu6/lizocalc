@@ -211,17 +211,12 @@ export default function ZScoreCalculator() {
         <RelatedCalculators
           calculators={[
             {
-              name: "Standard Deviation",
-              description: "Measure data spread",
-              href: "/calculator/standard-deviation",
+              name: "Density Calculator ",
+              description: "Measure Density perfectly",
+              href: "/calculators/physics/density-calculator",
               icon: BarChart3,
             },
-            {
-              name: "Probability",
-              description: "Event likelihood solver",
-              href: "/calculator/probability",
-              icon: TrendingUp,
-            },
+           
           ]}
         />
       </div>

@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import AdvancedSleepCalculator from './clientside'
 
-const AdvancedSleepCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -209,12 +206,12 @@ export default function SleepPage() {
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>sleep calculator</strong> makes it effortless. Choose between “Wake Up” or “Bed Time” mode, enter your target time with AM/PM, and get instant recommendations for the best sleep windows — complete with cycle count, total sleep hours, and a clear quality rating (Excellent, Good, or Fair). The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last times (with consent), and never shows ads. Perfect for daily planning, shift workers, or anyone worldwide who wants to wake up refreshed instead of groggy. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/health/sleep-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             sleep calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -251,7 +248,7 @@ export default function SleepPage() {
                 <li>Tap any suggested time to copy it to your clipboard or set a reminder.</li>
               </ol>
               <p className="text-gray-300 italic mt-6 text-base leading-relaxed">
-                Pro tip: The tool auto-detects your local time zone and converts everything seamlessly, whether you’re planning from Sahiwal or Sydney.
+                Pro tip: The tool auto-detects your local time zone and converts everything seamlessly.
               </p>
             </div>
 
@@ -420,12 +417,12 @@ export default function SleepPage() {
           </h3>
           <p className="text-gray-200 text-base">
             Great sleep pairs perfectly with great body composition. Use our{" "}
-            <NoPrefetchLink
+            <Link
               href="/calculators/health/bmi-calculator"
               className="text-blue-400 hover:underline"
             >
               BMI Calculator
-            </NoPrefetchLink>{" "}
+            </Link>{" "}
             with the same height and weight data to see how better rest supports healthy weight management and overall wellness.
           </p>
 
@@ -437,7 +434,7 @@ export default function SleepPage() {
           </p>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Whether you’re planning your week from a quiet corner in Sahiwal or a bustling city anywhere on the planet, our sleep calculator is fast, accurate, completely free, and always ready. Bookmark it today, follow the cycles, and start waking up truly refreshed every single morning!
+            Whether you’re planning your week from a quiet corner or a bustling city anywhere on the planet, our sleep calculator is fast, accurate, completely free, and always ready. Bookmark it today, follow the cycles, and start waking up truly refreshed every single morning!
           </p>
         </section>
       </article>

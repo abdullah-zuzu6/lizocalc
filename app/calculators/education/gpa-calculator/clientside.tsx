@@ -77,14 +77,15 @@ export default function GPACalculator() {
   };
 
   const addRow = () => {
-    const newRow = {
-      id: Math.random().toString(36).substr(2, 9),
-      name: "",
-      grade: "A",
-      credits: "1",
-    };
-    setCourses((prev) => [...prev, newRow]);
-  };
+  const newCourses = Array.from({ length: 3 }).map(() => ({
+    id: Math.random().toString(36).substr(2, 9),
+    name: "",
+    grade: "A",
+    credits: "3", // Set a default credit value of 3
+  }));
+  
+  setCourses((prev) => [...prev, ...newCourses]);
+};
 
   const removeCourse = (id: string) => {
     if (courses.length > 1) {
@@ -189,59 +190,53 @@ export default function GPACalculator() {
                 <div className="col-span-3 text-center">Grade</div>
               </div>
 
-              <div className="space-y-3">
-                {courses.map((course, index) => (
-                 <div
-  key={course.id}
-  className="grid grid-cols-12 gap-2 items-center group"
->
-  {/* COURSE NAME (smaller) */}
-  <input
-    type="text"
-    placeholder={`Course ${index + 1}`}
-    value={course.name}
-    onChange={(e) =>
-      updateCourse(course.id, "name", e.target.value)
-    }
-    className="col-span-5 min-w-0 w-full p-2 bg-background border rounded-lg text-sm outline-none"
-  />
-
-  {/* CREDITS (same) */}
-  <input
-    type="number"
-    value={course.credits}
-    onChange={(e) =>
-      updateCourse(course.id, "credits", e.target.value)
-    }
-    className="col-span-3 min-w-0 w-full p-2 bg-background border rounded-lg text-sm text-center outline-none"
-  />
-
-  {/* GRADE + DELETE (wider grade dropdown) */}
-  <div className="col-span-4 flex items-center gap-1 min-w-0">
-    <select
-      value={course.grade}
-      onChange={(e) =>
-        updateCourse(course.id, "grade", e.target.value)
-      }
-      className="flex-[1.2] min-w-0 p-2 bg-background border rounded-lg text-sm outline-none cursor-pointer"
+           <div className="space-y-3">
+  {courses.map((course, index) => (
+    <div
+      key={course.id}
+      className="grid grid-cols-12 gap-2 items-center group"
     >
-      {Object.keys(GRADE_SCALE).map((g) => (
-        <option key={g} value={g}>
-          {g}
-        </option>
-      ))}
-    </select>
+      {/* COURSE NAME - Reduced to col-span-4 on mobile for more space elsewhere */}
+      <input
+        type="text"
+        placeholder={`Course ${index + 1}`}
+        value={course.name}
+        onChange={(e) => updateCourse(course.id, "name", e.target.value)}
+        className="col-span-4 md:col-span-5 min-w-0 w-full p-2 bg-background border rounded-lg text-sm outline-none"
+      />
 
-    <button
-      onClick={() => removeCourse(course.id)}
-      className="p-2 text-muted-foreground hover:text-red-500"
-    >
-      <Trash2 size={16} />
-    </button>
-  </div>
+      {/* CREDITS - Narrower on mobile to save space */}
+      <input
+        type="number"
+        value={course.credits}
+        onChange={(e) => updateCourse(course.id, "credits", e.target.value)}
+        className="col-span-3 md:col-span-3 min-w-0 w-full p-2 bg-background border rounded-lg text-sm text-center outline-none"
+      />
+
+      {/* GRADE + DELETE - Increased to col-span-5 on mobile */}
+      <div className="col-span-5 md:col-span-4 flex items-center gap-1 min-w-0">
+        <select
+          value={course.grade}
+          onChange={(e) => updateCourse(course.id, "grade", e.target.value)}
+          className="flex-1 min-w-0 p-2 pr-8 bg-background border rounded-lg text-sm outline-none cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem] bg-[right_0.3rem_center] bg-no-repeat"
+        >
+          {Object.keys(GRADE_SCALE).map((g) => (
+            <option key={g} value={g}>
+              {g}
+            </option>
+          ))}
+        </select>
+
+        <button
+          onClick={() => removeCourse(course.id)}
+          className="p-2 text-muted-foreground hover:text-red-500 shrink-0"
+        >
+          <Trash2 size={16} />
+        </button>
+      </div>
+    </div>
+  ))}
 </div>
-                ))}
-              </div>
 
               {/* ADD BUTTON */}
               <button

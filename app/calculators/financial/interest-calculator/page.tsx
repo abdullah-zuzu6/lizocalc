@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import AdvancedInterestCalculator from './clientside'
 
-const AdvancedInterestCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -206,13 +203,13 @@ export default function InterestPage() {
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
-          <strong>LizoCalc Interest Calculator</strong> removes all the guesswork. Simply enter your initial principal, monthly contributions, expected annual rate, compounding frequency, inflation rate, and tax percentage — then watch accurate projections appear instantly. The tool is fully mobile-friendly, works offline after first load, remembers your last inputs (with consent), handles large numbers without crashing, and includes stunning visualizations — all with zero ads. Perfect for Sahiwal residents planning bank savings accounts, Pakistani investors comparing mutual funds, or global users forecasting retirement. Jump right in and see your money grow on our{" "}
-          <NoPrefetchLink
+          <strong>LizoCalc Interest Calculator</strong> removes all the guesswork. Simply enter your initial principal, monthly contributions, expected annual rate, compounding frequency, inflation rate, and tax percentage — then watch accurate projections appear instantly. The tool is fully mobile-friendly, works offline after first load, remembers your last inputs (with consent), handles large numbers without crashing, and includes stunning visualizations — all with zero ads. Perfect for  residents planning bank savings accounts, Pakistani investors comparing mutual funds, or global users forecasting retirement. Jump right in and see your money grow on our{" "}
+          <Link
             href="/calculators/financial/interest-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Interest Calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -265,7 +262,7 @@ export default function InterestPage() {
                     <tr>
                       <td className="p-4">Best For</td>
                       <td className="p-4">Short-term loans</td>
-                      <td className="p-4">Long-term investments (Sahiwal bank FDs, mutual funds)</td>
+                      <td className="p-4">Long-term investments </td>
                     </tr>
                   </tbody>
                 </table>
@@ -306,7 +303,7 @@ export default function InterestPage() {
               <p className="font-mono text-green-300 text-center my-6 bg-gray-900/70 p-6 rounded-2xl border border-gray-700 text-lg">
                 FV = P(1 + r/n)<sup>(n×t)</sup> + PMT × [((1 + r/n)<sup>(n×t)</sup> − 1) / (r/n)]
               </p>
-              <p className="text-gray-200 text-base">Even small monthly deposits of Rs. 5,000 from a Sahiwal salary can add lakhs over 15–20 years — LizoCalc shows you exactly how much.</p>
+              <p className="text-gray-200 text-base">Even small monthly deposits of Rs. 5,000  salary can add lakhs over 15–20 years — LizoCalc shows you exactly how much.</p>
             </div>
           </div>
         </section>
@@ -325,7 +322,7 @@ export default function InterestPage() {
                 Inflation in Pakistan (often 8–15% in recent years) quietly erodes purchasing power. LizoCalc lets you input current inflation and instantly shows your <strong>real</strong> future value.
               </p>
               <p className="text-gray-200 text-base">
-                Tax on interest income (withholding tax in Pakistan typically 15% for most citizens) is also adjustable in real-time. The tool automatically deducts tax only from the interest portion, giving you a true after-tax projection — essential for accurate planning whether you live in Sahiwal or anywhere else.
+                Tax on interest income (withholding tax in Pakistan typically 15% for most citizens) is also adjustable in real-time. The tool automatically deducts tax only from the interest portion, giving you a true after-tax projection — essential for accurate planning whether you live in  anywhere else.
               </p>
             </div>
 
@@ -369,7 +366,7 @@ export default function InterestPage() {
                 Tracking Your Accumulation Path via Interactive Bar Graphs
               </h3>
               <p className="text-gray-200 text-base">
-                Year-by-year stacked bar graphs show how your balance grows over time. Hover or tap any bar to see the split between principal, contributions, and interest earned that year. Perfect for comparing scenarios — “What if I increase monthly deposits by Rs. 2,000?” — and for presenting clear plans to your family or financial advisor in Sahiwal.
+                Year-by-year stacked bar graphs show how your balance grows over time. Hover or tap any bar to see the split between principal, contributions, and interest earned that year. Perfect for comparing scenarios — “What if I increase monthly deposits by Rs. 2,000?” — and for presenting clear plans to your family or financial advisor.
               </p>
             </div>
           </div>
@@ -408,7 +405,7 @@ export default function InterestPage() {
               </p>
               <p className="font-mono text-green-300 text-center">Real Value = Nominal Amount / (1 + inflation rate)<sup>t</sup></p>
               <p className="text-gray-200 text-base">
-                Enter Pakistan’s average inflation (or your local rate) and instantly discover whether your Rs. 5 million retirement target in 15 years will actually buy a house in Sahiwal or only half of one. Adjust your savings rate accordingly and stay ahead of rising costs.
+                Enter Pakistan’s average inflation (or your local rate) and instantly discover whether your Rs. 5 million retirement target in 15 years will actually buy a house  or only half of one. Adjust your savings rate accordingly and stay ahead of rising costs.
               </p>
             </div>
           </div>
@@ -423,7 +420,7 @@ export default function InterestPage() {
             <ol className="list-decimal list-inside text-gray-200 space-y-8 text-base leading-relaxed">
               <li>
                 <strong>Step 1: Setting Your Initial Principal and Monthly Deposits</strong><br />
-                Enter your starting amount (e.g., Rs. 50,000 from your Sahiwal savings account) and monthly contribution (even Rs. 1,000 makes a difference). LizoCalc automatically calculates the future value of both the lump sum and the recurring deposits.
+                Enter your starting amount  and monthly contribution (even Rs. 1,000 makes a difference). LizoCalc automatically calculates the future value of both the lump sum and the recurring deposits.
               </li>
               <li>
                 <strong>Step 2: Choosing an Expected Annual Interest Rate</strong><br />
@@ -441,7 +438,7 @@ export default function InterestPage() {
         </section>
 
         <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-          Whether you are just starting your first savings journey in Sahiwal or managing a portfolio worth crores, LizoCalc’s free Interest Calculator gives you world-class accuracy, beautiful visuals, and complete control — all in one place. Start calculating today and watch your money work harder for you!
+          Whether you are just starting your first savings journey  or managing a portfolio worth crores, LizoCalc’s free Interest Calculator gives you world-class accuracy, beautiful visuals, and complete control — all in one place. Start calculating today and watch your money work harder for you!
         </p>
       </article>
       <FAQ items={faqData} />

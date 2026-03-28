@@ -4,12 +4,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-import dynamic from "next/dynamic";
+import Link from "next/link";
+import HexCalculator from "./clientside";
 
-const HexCalculator = dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -211,15 +208,8 @@ export default function HexadecimalPage() {
   </p>
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-    Whether you are a beginner learning number systems or a developer handling low-level data, this tool helps you perform operations instantly. You can also explore tools like{" "}
-    <NoPrefetchLink href="/calculators/math/binary-calculator" className="text-blue-400 hover:underline font-semibold">
-      Binary Calculator
-    </NoPrefetchLink>{" "}
-    for binary operations or{" "}
-    <NoPrefetchLink href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline font-semibold">
-      Scientific Calculator
-    </NoPrefetchLink>{" "}
-    for advanced mathematical calculations.
+    Whether you are a beginner learning number systems or a developer handling low-level data, this tool helps you perform operations instantly.
+   
   </p>
 
   {/* SECTION */}
@@ -230,13 +220,13 @@ export default function HexadecimalPage() {
 
     <p className="text-gray-200 mb-8">
       Using the calculator is simple. Enter your hexadecimal values, select an operation, and get results instantly. You can verify outputs by comparing them with tools like the{" "}
-      <NoPrefetchLink href="/calculators/math/binary-calculator" className="text-blue-400 hover:underline">
+      <Link href="/calculators/math/binary-calculator" className="text-blue-400 hover:underline">
         Binary Calculator
-      </NoPrefetchLink>{" "}
+      </Link>{" "}
       or perform advanced checks using the{" "}
-      <NoPrefetchLink href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">
+      <Link href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">
         Scientific Calculator
-      </NoPrefetchLink>.
+      </Link>.
     </p>
 
     <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-10">
@@ -274,9 +264,9 @@ export default function HexadecimalPage() {
 
       <p className="text-gray-200 mb-4">
         Converting hex to decimal is based on positional values using powers of 16. For exponent calculations, you can also use the{" "}
-        <NoPrefetchLink href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">
+        <Link href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">
           Scientific Calculator
-        </NoPrefetchLink>.
+        </Link>.
       </p>
 
       <p className="text-gray-200 font-mono bg-gray-900 p-4 rounded-xl">
@@ -424,9 +414,9 @@ export default function HexadecimalPage() {
 
     <p className="text-gray-200 mb-4">
       Each hex digit converts into 4 binary bits. You can verify results using the{" "}
-      <NoPrefetchLink href="/calculators/math/binary-calculator" className="text-blue-400 hover:underline">
+      <Link href="/calculators/math/binary-calculator" className="text-blue-400 hover:underline">
         Binary Calculator
-      </NoPrefetchLink>.
+      </Link>.
     </p>
   </section>
 

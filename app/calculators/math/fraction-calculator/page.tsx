@@ -1,14 +1,12 @@
 // app/calculators/math/fraction-calculator/page.tsx
 
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-const FractionCalculator = dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import FractionCalculator from "./clientside";
 
 // ────────────────────────────────────────────────
 //  FAQ Content
@@ -432,9 +430,9 @@ export default function FractionCalculatorPage() {
     </h3>
     <p className="text-gray-200">
       Essential for adding/subtracting fractions with large denominators. Try our{" "}
-      <a href="/calculators/math/lcm-calculator" className="text-blue-400 hover:underline">
+      <Link href="/calculators/math/lcm-calculator" className="text-blue-400 hover:underline">
         LCM calculator
-      </a>{" "}
+      </Link>{" "}
       for instant results — great for problems like 7/12 + 5/18.
     </p>
 
@@ -443,9 +441,9 @@ export default function FractionCalculatorPage() {
     </h3>
     <p className="text-gray-200">
       Key to manual simplification. Use our{" "}
-      <a href="/calculators/math/gcf-calculator" className="text-blue-400 hover:underline">
+      <Link href="/calculators/math/gcf-calculator" className="text-blue-400 hover:underline">
         GCF calculator
-      </a>{" "}
+      </Link>{" "}
       to verify or practice reducing fractions by hand.
     </p>
 

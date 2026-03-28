@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import PercentageCalculator from "./clientside";
 
-const PercentageCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 const faqData = [
   {
     question: "What is the simplest formula to calculate a percentage of a number?",
@@ -215,19 +212,19 @@ export default function PercentagePage() {
       </li>
       <li>
         <strong>Integration with Other Math Tools:</strong> If your calculation involves fractions, decimals, or advanced math, try our{" "}
-        <NoPrefetchLink
+        <Link
           href="/calculators/math/fraction-calculator"
           className="text-blue-400 hover:underline font-semibold"
         >
           Fraction Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         or{" "}
-        <NoPrefetchLink
+        <Link
           href="/calculators/math/scientific-calculator"
           className="text-blue-400 hover:underline font-semibold"
         >
           Scientific Calculator
-        </NoPrefetchLink>
+        </Link>
         .
       </li>
     </ul>
@@ -299,12 +296,12 @@ export default function PercentagePage() {
       Using Percentages in Real Life: Discounts and Tips
     </h3>
     <p>
-      Percentages are everywhere: sales discounts, taxes, and restaurant tips. For example, a 15% discount on a $200 item = $30 off. You can calculate tips using our <NoPrefetchLink
+      Percentages are everywhere: sales discounts, taxes, and restaurant tips. For example, a 15% discount on a $200 item = $30 off. You can calculate tips using our <Link
           href="/calculators/math/percentage-calculator"
           className="text-blue-400 hover:underline font-semibold"
         >
           Percentage Calculator
-        </NoPrefetchLink> instantly.
+        </Link> instantly.
     </p>
 
     <h3 className="text-2xl font-semibold text-blue-400 mt-8">

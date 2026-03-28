@@ -4,12 +4,9 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-import dynamic from "next/dynamic";
+import GCFCalculator from "./clientside";
+import Link from "next/link";
 
-const GCFCalculator = dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 const faqData = [
   {
     question: "What is the Greatest Common Factor (GCF) and is it the same as GCD or HCF?",
@@ -193,7 +190,7 @@ export default function GCFPage() {
           as the Greatest Common Divisor (GCD) or Highest Common Factor (HCF) —
           is one of the most important and frequently used concepts in
           elementary, middle school, and even high school mathematics. Whether
-          you're a student in Sahiwal working on your class 6 or 7 math
+          you're a student  working on your class 6 or 7 math
           homework, a parent helping your child understand factors, a teacher
           preparing examples for the blackboard, or just someone who needs to
           quickly divide things equally in real life, knowing how to find the
@@ -213,12 +210,12 @@ export default function GCFPage() {
           consent), handles reasonably large inputs, and never shows any ads.
           Perfect for quick homework checks, exam preparation, or everyday
           practical math. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/math/gcf-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             GCF calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -521,12 +518,12 @@ export default function GCFPage() {
           <p className="text-gray-200 text-base">
             Example: LCM(12, 18) = (12 × 18) / 6 = 216 / 6 = 36 You can check
             this quickly using our sister tool:{" "}
-            <NoPrefetchLink
+            <Link
               href="/calculators/math/lcm-calculator"
               className="text-blue-400 hover:underline"
             >
               LCM Calculator
-            </NoPrefetchLink>
+            </Link>
             .
           </p>
         </section>
@@ -542,12 +539,12 @@ export default function GCFPage() {
           <p className="text-gray-200 text-base">
             Divide both the numerator and denominator by their GCF. Example:
             24/36 → divide by GCF(24,36) = 12 → 2/3 Our{" "}
-            <NoPrefetchLink
+            <Link
               href="/calculators/math/fraction-calculator"
               className="text-blue-400 hover:underline"
             >
               Fraction Calculator
-            </NoPrefetchLink>{" "}
+            </Link>{" "}
             does this automatically every time.
           </p>
 
@@ -685,40 +682,24 @@ export default function GCFPage() {
           </p>
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
+            
+           
             <li>
-              <NoPrefetchLink
-                href="/calculators/math/lcm-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                LCM Calculator
-              </NoPrefetchLink>{" "}
-              — find the least common multiple instantly
-            </li>
-            <li>
-              <NoPrefetchLink
-                href="/calculators/math/fraction-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Fraction Calculator
-              </NoPrefetchLink>{" "}
-              — adds, subtracts, multiplies, divides + auto-simplifies using GCF
-            </li>
-            <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/math/percentage-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Percentage Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — discounts, increases, ratios, percentage change
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/math/scientific-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Scientific Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — exponents, roots, trigonometry, logarithms, and more
             </li>
           </ul>

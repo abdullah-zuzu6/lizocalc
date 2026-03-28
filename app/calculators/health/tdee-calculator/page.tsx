@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const AdvancedTDEECalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AdvancedTDEECalculator from './clientside'
+
 
 const faqData = [
   {
@@ -208,12 +206,12 @@ Tdee calculator: discover your daily maintenance calories and macro needs       
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required{" "}
     <strong>TDEE calculator and macro tool</strong> uses the industry-standard Mifflin-St Jeor formula to calculate your Basal Metabolic Rate (BMR) and then applies the correct activity multiplier to reveal your true daily calorie burn. Enter your details once and instantly receive personalized maintenance calories, deficit targets for fat loss, surplus targets for muscle gain, plus a smart macro split — all with real-time updates and zero ads. The tool is fully mobile-friendly, works offline after first load (progressive web app style), automatically saves your history (with your functional cookie consent), and is perfect for daily tracking anywhere in the world. Jump right in and try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/health/tdee-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       TDEE Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -462,39 +460,39 @@ Tdee calculator: discover your daily maintenance calories and macro needs       
 
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/bmi-calculator"
           className="text-blue-400 hover:underline"
         >
           BMI Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — instant body-mass index and health category
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/body-fat-calculator"
           className="text-blue-400 hover:underline"
         >
           Body Fat Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — estimate your body-fat percentage from measurements
       </li>
       <li>
-        <NoPrefetchLink
-          href="/calculators/health/macro-calculator"
+        <Link
+          href="/calculators/health/macros-calculator"
           className="text-blue-400 hover:underline"
         >
           Macro Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — fine-tune protein, carbs, and fats after your TDEE
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/calorie-calculator"
           className="text-blue-400 hover:underline"
         >
           Calorie Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — cross-check your daily intake against TDEE goals
       </li>
     </ul>

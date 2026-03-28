@@ -4,12 +4,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import CasioCalculatorAdvanced from "./clientside";
 
-const CasioCalculatorAdvanced= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 
 const faqData = [
@@ -39,7 +36,7 @@ const faqData = [
   },
 ];
 export const metadata: Metadata = {
-  title: "Scientific Calculator Online | Fast & Precise Engineering Solver",
+  title: "Scientific Calculator Online | Fast & Precise Calculations Solver",
   description:
     "Free advanced scientific calculator for trigonometry, logarithms, and roots. Features DEG/RAD modes, memory functions, and step-by-step history tracking.",
 
@@ -199,7 +196,7 @@ export default function ScientificPage() {
            
 
             <h1 className="text-3xl md:text-4xl font-bold">
-             Scientific Calculator Online | Fast & Precise Engineering Solver
+             Scientific Calculator Online | Fast & Precise Calculations Solver
             </h1>
           </div>
         </div>
@@ -213,17 +210,17 @@ export default function ScientificPage() {
       {/* SEO CONTENT */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
   <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-    The <strong>advanced scientific calculator</strong> — packed with trigonometric functions, logarithmic functions, exponential functions, memory operations, inverse trig, factorial, scientific notation, and precise order of operations — is essential for students, engineers, physicists, and professionals. Whether you're a student in Sahiwal preparing for Matric, FSc, ECAT, or board exams, a teacher demonstrating formulas, or someone solving real-world calculations, this free online scientific calculator delivers fast, accurate results every time.
+    The <strong>advanced scientific calculator</strong> — packed with trigonometric functions, logarithmic functions, exponential functions, memory operations, inverse trig, factorial, scientific notation, and precise order of operations — is essential for students, engineers, physicists, and professionals. Whether you're a student preparing for Matric, FSc, ECAT, or board exams, a teacher demonstrating formulas, or someone solving real-world calculations, this free online scientific calculator delivers fast, accurate results every time.
   </p>
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required <strong>scientific calculator</strong> handles basic arithmetic operations (addition, subtraction, multiplication, division), parentheses, exponents (x², e^x, 10^x), roots (√x), reciprocals (1/x), logarithms (log, ln natural log), trigonometric functions (sin, cos, tan, sinh, cosh, tanh), inverse trig (asin, acos, atan), factorial (n!, fact), percent (%), sign change (±), absolute value (abs), scientific notation, degrees/radians toggle, real-time preview, Ans key, memory keys (M+, M-, MR), calculation history feature, and keyboard shortcuts. Fully mobile-friendly, works offline after first load, no ads, remembers preferences (with consent). Perfect for homework, exam prep, physics problems, engineering formulas, and daily math. Jump right in and try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/math/scientific-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       scientific calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -474,25 +471,21 @@ export default function ScientificPage() {
     </p>
 
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
+
       <li>
-        <NoPrefetchLink href="/calculators/math/gcf-calculator" className="text-blue-400 hover:underline">
-          GCF Calculator
-        </NoPrefetchLink> — greatest common factor & prime factorization
-      </li>
-      <li>
-        <NoPrefetchLink href="/calculators/math/lcm-calculator" className="text-blue-400 hover:underline">
+        <Link href="/calculators/math/lcm-calculator" className="text-blue-400 hover:underline">
           LCM Calculator
-        </NoPrefetchLink> — least common multiple
+        </Link> — least common multiple
       </li>
       <li>
-        <NoPrefetchLink href="/calculators/math/fraction-calculator" className="text-blue-400 hover:underline">
+        <Link href="/calculators/math/fraction-calculator" className="text-blue-400 hover:underline">
           Fraction Calculator
-        </NoPrefetchLink> — operations + automatic simplification
+        </Link> — operations + automatic simplification
       </li>
       <li>
-        <NoPrefetchLink href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">
+        <Link href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">
           Percentage Calculator
-        </NoPrefetchLink> — increases, decreases, discounts, ratios
+        </Link> — increases, decreases, discounts, ratios
       </li>
     </ul>
 

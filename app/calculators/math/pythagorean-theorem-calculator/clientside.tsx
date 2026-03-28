@@ -140,8 +140,8 @@ export default function PythagoreanCalculator() {
         {/* HEADER */}
         <div className="flex justify-between items-start mb-10">
           <div>
-            <h1 className="text-4xl font-black italic flex items-center gap-3">
-              <Calculator className="text-blue-600" size={36} /> Pythagorean Solver
+            <h1 className="text-4xl font-black  flex items-center gap-3">
+              <Calculator className="text-blue-600" size={30} /> Pythagorean Solver
             </h1>
             <p className="text-muted-foreground mt-2">Calculate sides, area, and steps for right-angled triangles.</p>
           </div>

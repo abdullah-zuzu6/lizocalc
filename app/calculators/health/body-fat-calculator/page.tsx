@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
 
-const AdvancedBodyFatCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+
+import AdvancedBodyFatCalculator from './clientside'
 
 const faqData = [
   {
@@ -193,12 +191,12 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>body fat calculator</strong> takes all the guesswork out of the process. Simply select your gender, enter your height, weight, neck, waist (and hip for women), choose inches or centimeters, and click calculate. You’ll get instant results — body fat percentage, fat weight, lean mass, and clear explanations — all displayed in a clean, mobile-friendly interface that works offline after first load (progressive web app style). No ads, no data collection, and it remembers your last measurements with your consent. Perfect for daily tracking, exam prep for fitness certifications, or real-life health goals in Sahiwal or across the globe. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/fitness/body-fat-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             body fat calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -222,7 +220,7 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
                 <li><strong>Height &amp; Weight:</strong> Use your most recent accurate height (in inches or cm) and current weight (kg or lbs).</li>
               </ul>
               <p className="text-gray-300 italic mt-6 text-base leading-relaxed">
-                Pro tip: Take each measurement three times and use the average. Measure first thing in the morning after using the bathroom for the most consistent results — ideal for users in Sahiwal tracking weekly progress.
+                Pro tip: Take each measurement three times and use the average. Measure first thing in the morning after using the bathroom for the most consistent results .
               </p>
             </div>
 
@@ -241,7 +239,7 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
                 <li>Finished? Hit the <strong>Reset</strong> button to clear everything instantly — perfect when testing different “what-if” scenarios or logging weekly results.</li>
               </ol>
               <p className="text-gray-300 italic mt-6 text-base leading-relaxed">
-                Pro tip: The tool automatically validates entries, warns if measurements seem unrealistic (e.g., neck larger than waist), and works perfectly on mobile so you can measure and calculate right in your Sahiwal gym or bedroom.
+                Pro tip: The tool automatically validates entries, warns if measurements seem unrealistic (e.g., neck larger than waist), and works perfectly on mobile so you can measure and calculate right in your gym or bedroom.
               </p>
             </div>
 
@@ -279,7 +277,7 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
             % Body Fat = (495 / Body Density) − 450
           </p>
           <p className="text-gray-200 text-base leading-relaxed">
-            The direct circumference equations (used in our calculator) were derived through multiple regression analysis on hundreds of Navy personnel. They correlate extremely well (r = 0.90) with lab results and have a standard error of only ±3.5%. This makes it one of the most reliable non-invasive methods available worldwide — from Sahiwal fitness centers to U.S. military bases.
+            The direct circumference equations (used in our calculator) were derived through multiple regression analysis on hundreds of Navy personnel. They correlate extremely well (r = 0.90) with lab results and have a standard error of only ±3.5%. This makes it one of the most reliable non-invasive methods available worldwide — from  fitness centers to U.S. military bases.
           </p>
 
           <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
@@ -373,7 +371,7 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
             How Age and Weight Influence Your Body Density Calculations
           </h3>
           <p className="text-gray-200 text-base leading-relaxed">
-            Although the U.S. Navy formula itself does not include age as a direct input, healthy body fat ranges increase slightly with age because natural muscle loss (sarcopenia) and hormonal changes affect body density. Heavier individuals also tend to have higher absolute fat mass even at the same percentage. The calculator shows both % and absolute kg/lbs so you can see the full picture and adjust your goals realistically whether you’re 25 or 55, living in Sahiwal or anywhere else.
+            Although the U.S. Navy formula itself does not include age as a direct input, healthy body fat ranges increase slightly with age because natural muscle loss (sarcopenia) and hormonal changes affect body density. Heavier individuals also tend to have higher absolute fat mass even at the same percentage. The calculator shows both % and absolute kg/lbs so you can see the full picture and adjust your goals realistically whether you’re 25 or 55.
           </p>
         </section>
 
@@ -387,12 +385,12 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
           </h3>
           <p className="text-gray-200 text-base">
             Body fat percentage is more accurate than BMI alone, but combining both gives the complete story. Our{" "}
-            <NoPrefetchLink
-              href="/calculators/fitness/bmi-calculator"
+            <Link
+              href="/calculators/health/bmi-calculator"
               className="text-blue-400 hover:underline"
             >
               BMI Calculator
-            </NoPrefetchLink>{" "}
+            </Link>{" "}
             uses the same height and weight inputs so you can cross-check results instantly and understand whether your weight is healthy relative to your height.
           </p>
 
@@ -401,17 +399,17 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
           </h3>
           <p className="text-gray-200 text-base">
             Once you know your lean mass and body fat, plug those numbers into our{" "}
-            <NoPrefetchLink
-              href="/calculators/fitness/calorie-calculator"
+            <Link
+              href="/calculators/health/calorie-calculator"
               className="text-blue-400 hover:underline"
             >
               Calorie Calculator
-            </NoPrefetchLink>{" "}
+            </Link>{" "}
             to get a personalized daily calorie target for fat loss while protecting muscle. Example: A person with 65 kg lean mass and moderate activity may need 2,400 calories to maintain weight but only 1,900–2,100 to lose 0.5 kg of pure fat per week. Track weekly with the body fat calculator and watch your lean mass stay stable or rise while fat drops — the ultimate sign of sustainable progress.
           </p>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Whether you’re in Sahiwal, Punjab, or anywhere else on the planet, our body fat calculator is fast, accurate, completely free, and always ready. Bookmark it today, measure once a week, and turn your fitness goals into measurable success!
+            Our body fat calculator is fast, accurate, completely free, and always ready. Bookmark it today, measure once a week, and turn your fitness goals into measurable success!
           </p>
         </section>
       </article>

@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const PythagoreanCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import PythagoreanCalculator from "./clientside";
+import Link from "next/link";
 const faqData = [
   {
     question: "What is the formula used in a Pythagorean theorem calculator?",
@@ -203,18 +200,18 @@ export default function PythagoreanPage() {
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Pythagorean Theorem</strong> — also known as the Pythagoras theorem — is one of the most powerful and widely used principles in geometry. Whether you're a student in Sahiwal preparing for your Class 8–10 board exams, a parent helping with right-triangle homework, a carpenter checking corners on a construction site in Punjab, or an engineer verifying squareness on a real-world project, this simple formula <span className="font-mono text-green-300">a² + b² = c²</span> saves hours of manual calculation.
+          The <strong>Pythagorean Theorem</strong> — also known as the Pythagoras theorem — is one of the most powerful and widely used principles in geometry. Whether you're a student  preparing for your Class 8–10 board exams, a parent helping with right-triangle homework, a carpenter checking corners on a construction site in Punjab, or an engineer verifying squareness on a real-world project, this simple formula <span className="font-mono text-green-300">a² + b² = c²</span> saves hours of manual calculation.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>Pythagorean Theorem Calculator</strong> (also called the hypotenuse calculator or right-triangle solver) instantly finds the missing side and the area of any right-angled triangle. Just enter any two sides (or leave one field empty), click Calculate, and get the exact result with step-by-step working, highlighted formulas, and the triangle area — all displayed in big, clean numbers. The tool is fully mobile-friendly, works offline after first load, remembers your last inputs (with consent), handles decimal values perfectly, and never shows ads. Perfect for homework checks, exam revision, carpentry, construction, or quick field measurements. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/math/pythagorean-theorem-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             Pythagorean Theorem Calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -483,30 +480,20 @@ export default function PythagoreanPage() {
           </p>
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            <li>
-              <NoPrefetchLink
-                href="/calculators/math/square-root-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Square Root Calculator
-              </NoPrefetchLink>{" "}
-              — perfect for the √ steps in Pythagoras
-            </li>
             
-           
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/math/percentage-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Percentage Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — useful when scaling construction measurements
             </li>
           </ul>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Master the Pythagorean theorem with our fast, accurate, completely free calculator — always ready for homework, exams, or your next construction project in Sahiwal or anywhere else. Bookmark it today and make geometry calculations effortless!
+            Master the Pythagorean theorem with our fast, accurate, completely free calculator — always ready for homework, exams, or your next construction project  or anywhere else. Bookmark it today and make geometry calculations effortless!
           </p>
         </section>
       </article>

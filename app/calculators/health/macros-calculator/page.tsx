@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const AdvancedMacrosCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AdvancedMacrosCalculator from './clientside'
+
 
 const faqData = [
   {
@@ -203,18 +201,18 @@ export default function MacrosPage() {
       {/* SEO Content */}
    <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Macros Calculator</strong> — your personal guide to turning daily calories into the perfect balance of protein, carbohydrates, and fats — is one of the most powerful tools for anyone serious about fitness, fat loss, muscle gain, or simply feeling their best every day. Whether you’re a student in Sahiwal hitting the gym between classes, a professional balancing work and weekend training, a parent managing family meals, or an athlete chasing new personal records, knowing your ideal macronutrient ratio takes the guesswork out of nutrition and turns every meal into strategic fuel.
+          The <strong>Macros Calculator</strong> — your personal guide to turning daily calories into the perfect balance of protein, carbohydrates, and fats — is one of the most powerful tools for anyone serious about fitness, fat loss, muscle gain, or simply feeling their best every day. Whether you’re a student in hitting the gym between classes, a professional balancing work and weekend training, a parent managing family meals, or an athlete chasing new personal records, knowing your ideal macronutrient ratio takes the guesswork out of nutrition and turns every meal into strategic fuel.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>macros calculator</strong> does all the heavy lifting. Enter your daily calorie goal (TDEE), pick your goal (lose, maintain, or gain), choose your preferred diet style, and instantly receive precise gram targets for protein, carbs, and fats — complete with live updates, visual pie charts, and clear explanations. The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last inputs (with your consent), uses metric-friendly defaults, and never shows any ads. Perfect for daily meal planning, contest prep, or teaching nutrition basics anywhere in the world. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/health/macros-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             macros calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -430,12 +428,12 @@ export default function MacrosPage() {
               <p className="text-gray-200 text-base mb-4">
                 Calculate your exact Total Daily Energy Expenditure using the Mifflin-St Jeor equation and five activity levels — the essential first step before using any macros plan.
               </p>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/health/tdee-calculator"
                 className="text-blue-400 hover:underline font-semibold inline-flex items-center"
               >
                 Open TDEE Calculator →
-              </NoPrefetchLink>
+              </Link>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
@@ -443,17 +441,17 @@ export default function MacrosPage() {
               <p className="text-gray-200 text-base mb-4">
                 Quickly check your current body composition category and set realistic macro targets based on your starting point.
               </p>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/health/bmi-calculator"
                 className="text-blue-400 hover:underline font-semibold inline-flex items-center"
               >
                 Open BMI Calculator →
-              </NoPrefetchLink>
+              </Link>
             </div>
           </div>
 
           <p className="text-gray-300 italic text-center mt-16 text-lg font-medium leading-relaxed">
-            Your macros are the blueprint for real results. Our free macros calculator is fast, accurate, science-backed, and built for anyone in Sahiwal, across the globe, or anywhere in between who wants to stop guessing and start achieving. Bookmark it today, pair it with your TDEE and BMI tools, and watch your body transform — one perfectly balanced meal at a time!
+            Your macros are the blueprint for real results. Our free macros calculator is fast, accurate, science-backed, and built for anyone , across the globe, or anywhere in between who wants to stop guessing and start achieving. Bookmark it today, pair it with your TDEE and BMI tools, and watch your body transform — one perfectly balanced meal at a time!
           </p>
         </section>
       </article>

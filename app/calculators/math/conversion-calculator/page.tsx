@@ -1,23 +1,10 @@
 import { Metadata } from "next";
-// import ConversionCalculator from "./clientside";
+ import ConversionCalculator from "./clientside";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-
-const ConversionCalculator = dynamic(
-  () => import("./clientside"), // ← your interactive client part
-  {
-    ssr: false,
-    // Very good for perceived performance
-    loading: () => (
-      <div className="min-h-[500px] flex items-center justify-center">
-        <div className="animate-spin h-8 w-8 border-4 border-primary rounded-full border-t-transparent" />
-      </div>
-    ),
-  }
-);
+import Link from "next/link";
 
 export const faqData = [
   {
@@ -623,24 +610,24 @@ export default function ConversionCalculatorPage() {
               Exploring more measurement or math tools?
             </p>
             <div className="flex flex-wrap gap-4">
-              <a
+              <Link
                 href="/calculators/physics/density-calculator"
                 className="inline-flex items-center px-4 py-2 bg-emerald-600/30 hover:bg-emerald-600/50 rounded-lg text-emerald-300 hover:text-emerald-200 transition-colors"
               >
                 → Density Calculator (mass/volume)
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/calculators/math/scientific-calculator"
                 className="inline-flex items-center px-4 py-2 bg-blue-600/30 hover:bg-blue-600/50 rounded-lg text-blue-300 hover:text-blue-200 transition-colors"
               >
                 → Scientific Calculator
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/calculators/math/percentage-calculator"
                 className="inline-flex items-center px-4 py-2 bg-purple-600/30 hover:bg-purple-600/50 rounded-lg text-purple-300 hover:text-purple-200 transition-colors"
               >
                 → Percentage Calculator
-              </a>
+              </Link>
             </div>
           </div>
         </section>

@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const AdvancedBMRCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AdvancedBMRCalculator from './clientside'
+
 
 const faqData = [
   {
@@ -199,18 +197,18 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Basal Metabolic Rate (BMR)</strong> — also known as your body’s resting calorie burn — is one of the most important numbers for anyone serious about health, fitness, or weight management. Whether you’re a student in Sahiwal, Punjab, Pakistan, hitting the gym after college classes at Government College Sahiwal, a busy professional in Lahore or Karachi trying to lose those extra kilos before Eid, a homemaker planning nutritious family meals with roti and sabzi, or an athlete training for the next cricket season, knowing your exact BMR helps you understand how many calories your body needs just to stay alive and function at complete rest — no exercise, no digestion, no movement.
+          The <strong>Basal Metabolic Rate (BMR)</strong> — also known as your body’s resting calorie burn — is one of the most important numbers for anyone serious about health, fitness, or weight management. BMR helps you understand how many calories your body needs just to stay alive and function at complete rest — no exercise, no digestion, no movement.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>BMR calculator</strong> takes all the guesswork out of the process. Simply select your gender, adjust the intuitive sliders for age, weight (in kg), and height (in cm), and get your precise BMR instantly — complete with daily, monthly, and yearly estimates, live result updates, and easy-to-understand science. The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last inputs (with your consent), uses metric units perfect for Pakistan standards, handles every age and body size, and never shows any ads. Perfect for quick diet planning, fat-loss tracking, or even nutrition lessons in Pakistani schools and universities. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/health/bmr-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             BMR calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -264,7 +262,7 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
             Adjusting Age, Weight, and Height Sliders
           </h3>
           <p className="text-gray-200 leading-relaxed mb-4 text-base">
-            The sliders are designed for instant feedback. Age affects BMR because metabolism naturally slows after 20 (roughly 1–2 % per decade due to gradual muscle loss). Weight and height directly scale with body size — every extra kilogram of muscle burns more calories even at rest. Use your most recent measurements: weigh yourself in the morning after waking (empty stomach), measure height without shoes against a wall. For students in Sahiwal or anywhere in Punjab, these sliders make it easy to recalculate after Ramadan fasting, wedding season weight changes, or consistent gym training.
+            The sliders are designed for instant feedback. Age affects BMR because metabolism naturally slows after 20 (roughly 1–2 % per decade due to gradual muscle loss). Weight and height directly scale with body size — every extra kilogram of muscle burns more calories even at rest. Use your most recent measurements: weigh yourself in the morning after waking (empty stomach), measure height without shoes against a wall. For students , these sliders make it easy to recalculate after Ramadan fasting, wedding season weight changes, or consistent gym training.
           </p>
         </section>
 
@@ -277,7 +275,7 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
             What Your Daily BMR (cal/day) Says About Your Resting State
           </h3>
           <p className="text-gray-200 leading-relaxed mb-4 text-base">
-            Your daily BMR number (displayed in bold, large font) tells you exactly how many calories your body burns in 24 hours while lying completely still — heart beating, lungs breathing, organs functioning, but zero physical activity or food digestion. Example: A 30-year-old male, 75 kg, 175 cm tall from Sahiwal gets approximately 1,700 cal/day. That is his true “idle” burn. Anything you eat above this (plus activity) either fuels movement or gets stored as fat.
+            Your daily BMR number (displayed in bold, large font) tells you exactly how many calories your body burns in 24 hours while lying completely still — heart beating, lungs breathing, organs functioning, but zero physical activity or food digestion. Example: A 30-year-old male, 75 kg, 175 cm tall  gets approximately 1,700 cal/day. That is his true “idle” burn. Anything you eat above this (plus activity) either fuels movement or gets stored as fat.
           </p>
 
           <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
@@ -401,7 +399,7 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
             <li>Extra active (athlete or labour job) → ×1.9</li>
           </ul>
           <p className="text-gray-200 text-base mt-4">
-            Link directly to our <NoPrefetchLink href="/calculators/health/tdee-calculator" className="text-blue-400 hover:underline">activity-based calorie needs calculator</NoPrefetchLink> for the full picture.
+            Link directly to our <Link href="/calculators/health/tdee-calculator" className="text-blue-400 hover:underline">activity-based calorie needs calculator</Link> for the full picture.
           </p>
         </section>
 
@@ -416,12 +414,12 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
               <p className="text-gray-200 text-base mb-4">
                 Instantly see if you fall in the underweight, normal, overweight, or obese category according to WHO and Pakistani health guidelines.
               </p>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/health/bmi-calculator"
                 className="text-blue-400 hover:underline font-semibold inline-flex items-center"
               >
                 Open BMI Calculator →
-              </NoPrefetchLink>
+              </Link>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
@@ -429,12 +427,12 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
               <p className="text-gray-200 text-base mb-4">
                 Using Navy method or tape measurements — far more useful than BMI alone for real body composition tracking.
               </p>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/health/body-fat-calculator"
                 className="text-blue-400 hover:underline font-semibold inline-flex items-center"
               >
                 Open Body Fat Calculator →
-              </NoPrefetchLink>
+              </Link>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
@@ -442,12 +440,12 @@ BMR Calculator: Find Your Basal Metabolic Rate and Daily Calorie Needs          
               <p className="text-gray-200 text-base mb-4">
                 Turn your BMR into real-world TDEE with five activity levels tailored for desk jobs, gym-goers, and athletes across Pakistan.
               </p>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/health/tdee-calculator"
                 className="text-blue-400 hover:underline font-semibold inline-flex items-center"
               >
                 Open TDEE Calculator →
-              </NoPrefetchLink>
+              </Link>
             </div>
           </div>
 

@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const AutoLoanCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AutoLoanCalculator from "./clientside";
+
 const faqData = [
   {
     question: "How do I calculate my monthly car payment including sales tax?",
@@ -207,12 +205,12 @@ The Auto Loan Calculator — also known as a car payment calculator or vehicle f
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required{" "}
-  LizoCalc Auto Loan Calculator removes all the guesswork from car financing. Just enter the vehicle price, adjust your down payment, pick a loan term from 1 to 10 years, and move the interest rate slider — everything updates instantly in real time. It handles any currency, works great on phones or computers, saves your last inputs if you allow it, runs offline after the first load, and has no ads. Ideal for quick checks before heading to a dealership, comparing lender offers, or figuring out what fits your budget. Try it right now on our{" "}    <NoPrefetchLink
+  LizoCalc Auto Loan Calculator removes all the guesswork from car financing. Just enter the vehicle price, adjust your down payment, pick a loan term from 1 to 10 years, and move the interest rate slider — everything updates instantly in real time. It handles any currency, works great on phones or computers, saves your last inputs if you allow it, runs offline after the first load, and has no ads. Ideal for quick checks before heading to a dealership, comparing lender offers, or figuring out what fits your budget. Try it right now on our{" "}    <Link
       href="/calculators/financial/auto-loan-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
        Auto Loan Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -276,7 +274,7 @@ The Auto Loan Calculator — also known as a car payment calculator or vehicle f
       Real-Time Payment Adjustments with Interactive Sliders
     </h3>
     <p className="text-gray-200 text-base leading-relaxed mb-4">
-      Unlike static bank calculators, LizoCalc uses smooth, responsive sliders for vehicle price, down payment percentage (0–50%), annual interest rate (0–30%), and loan term. As you drag any slider, the monthly payment, total interest, and grand total update instantly — no page reloads, no waiting. Perfect for comparing “what if” scenarios while sitting at a dealership in Sahiwal or browsing online listings at midnight.
+      Unlike static bank calculators, LizoCalc uses smooth, responsive sliders for vehicle price, down payment percentage (0–50%), annual interest rate (0–30%), and loan term. As you drag any slider, the monthly payment, total interest, and grand total update instantly — no page reloads, no waiting. Perfect for comparing “what if” scenarios while sitting at a dealership or browsing online listings at midnight.
     </p>
 
     <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
@@ -448,21 +446,21 @@ The Auto Loan Calculator — also known as a car payment calculator or vehicle f
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/financial/mortgage-calculator"
           className="text-blue-400 hover:underline"
         >
           Mortgage Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — long-term home financing in Pakistan
       </li>
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/math/percentage-calculator"
           className="text-blue-400 hover:underline"
         >
           Percentage Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — down payment percentages and savings goals
       </li>
       

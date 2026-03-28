@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
+import LCMCalculator from "./clientside";
 
-const LCMCalculator = dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 const faqData = [
   {
     question: "What is the easiest way to find the Least Common Multiple (LCM)?",
@@ -184,12 +181,12 @@ export default function LCMPage() {
     <strong>prime factorization</strong>, <strong>division method</strong>, and
     more. If you also want to understand related concepts like{" "}
     <strong>gcf</strong> (greatest common factor), you can explore our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/math/gcf-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       GCF calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -224,12 +221,12 @@ export default function LCMPage() {
 
     <p className="text-gray-200 mt-6">
       This method works well for small numbers, but for larger values, using a{" "}
-      <NoPrefetchLink
+      <Link
         href="/calculators/math/lcm-calculator"
         className="text-blue-400 hover:underline"
       >
         LCM calculator
-      </NoPrefetchLink>{" "}
+      </Link>{" "}
       is much faster and more accurate.
     </p>
   </section>
@@ -285,12 +282,12 @@ export default function LCMPage() {
       This formula is very useful for large numbers. You can calculate the{" "}
       <strong>greatest common factor</strong> first and then apply this formula.
       Try it using our{" "}
-      <NoPrefetchLink
+      <Link
         href="/calculators/math/scientific-calculator"
         className="text-blue-400 hover:underline"
       >
         Scientific Calculator
-      </NoPrefetchLink>
+      </Link>
       .
     </p>
   </section>
@@ -325,31 +322,22 @@ export default function LCMPage() {
     </h2>
 
     <ul className="list-disc list-inside text-gray-200 space-y-3">
-      <li>
-        Finding <strong>least common denominator</strong> in{" "}
-        <NoPrefetchLink
-          href="/calculators/math/fraction-calculator"
-          className="text-blue-400 hover:underline"
-        >
-          Fraction Calculator
-        </NoPrefetchLink>
-      </li>
-      <li>Solving time interval problems</li>
+      
       <li>Comparing ratios and percentages using{" "}
-        <NoPrefetchLink
+        <Link
           href="/calculators/math/percentage-calculator"
           className="text-blue-400 hover:underline"
         >
           Percentage Calculator
-        </NoPrefetchLink>
+        </Link>
       </li>
       <li>Geometry problems using{" "}
-        <NoPrefetchLink
+        <Link
           href="/calculators/math/triangle-calculator"
           className="text-blue-400 hover:underline"
         >
           Triangle Calculator
-        </NoPrefetchLink>
+        </Link>
       </li>
     </ul>
   </section>

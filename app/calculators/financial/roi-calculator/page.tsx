@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const ROICalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import ROICalculator from "./clientside";
 
 const faqData = [
   {
@@ -202,18 +198,18 @@ export default function ROIPage() {
       {/* SEO Content */}
    <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>ROI Calculator</strong> — also widely known as the Return on Investment calculator or investment performance tool — is one of the most powerful financial tools for measuring exactly how much money your investments are truly making. Whether you're a student in Sahiwal learning about personal finance for your class 12 exams, a young professional in Pakistan tracking your first stock portfolio, a business owner measuring marketing campaign success, a real estate investor in Punjab comparing rental properties, or a global investor analyzing crypto gains, this calculator turns complex numbers into clear, actionable insights.
+          The <strong>ROI Calculator</strong> — also widely known as the Return on Investment calculator or investment performance tool — is one of the most powerful financial tools for measuring exactly how much money your investments are truly making. Whether you're a student learning about personal finance for your class 12 exams, a young professional in Pakistan tracking your first stock portfolio, a business owner measuring marketing campaign success, a real estate investor in Punjab comparing rental properties, or a global investor analyzing crypto gains, this calculator turns complex numbers into clear, actionable insights.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>ROI calculator</strong> instantly computes both simple ROI and annualized returns (CAGR) using official math formulas. Enter your initial investment, final value, and timeframe — and get instant results with beautiful charts, year-by-year breakdowns, and currency support for PKR, USD, EUR, and more. The tool is fully mobile-friendly, works offline after first load, remembers your last calculations (with your consent), handles large amounts smoothly, and never shows any ads. Perfect for students, families, business owners, and serious investors worldwide. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/financial/roi-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             ROI calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -258,7 +254,7 @@ export default function ROIPage() {
             Step 2: Choose Your Timeframe: Date Range vs. Duration
           </h3>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            You have two easy options: pick exact calendar dates (From and To) for precise real-world tracking, or simply enter the number of months or years your money was invested. This flexibility makes the tool perfect for both short-term traders in Sahiwal and long-term global investors.
+            You have two easy options: pick exact calendar dates (From and To) for precise real-world tracking, or simply enter the number of months or years your money was invested. This flexibility makes the tool perfect for both short-term traders  and long-term global investors.
           </p>
 
           <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
@@ -455,37 +451,37 @@ export default function ROIPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/finance/compound-interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Compound Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — project future growth of your investments
             </li>
            
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/inflation-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Inflation Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — see real purchasing power after inflation
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/mortgage-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Mortgage Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — calculate home investment returns
             </li>
           </ul>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Smart investing starts with knowing your numbers. Our free, accurate, and easy-to-use ROI calculator helps you measure success, compare opportunities, and make better decisions — whether you’re in Sahiwal, Lahore, Karachi, or anywhere in the world. Bookmark it today and start tracking every rupee you invest!
+            Smart investing starts with knowing your numbers. Our free, accurate, and easy-to-use ROI calculator helps you measure success, compare opportunities, and make better decisions — whether you’re from anywhere in the world. Bookmark it today and start tracking every rupee you invest!
           </p>
         </section>
       </article>

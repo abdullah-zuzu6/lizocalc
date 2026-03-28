@@ -11,75 +11,114 @@ export default function Terms() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="mb-12">
           <h1 className="text-5xl font-bold mb-6">Terms of Use</h1>
-          <p className="text-muted-foreground">Last updated: January 2025</p>
+          <p className="text-muted-foreground">Last updated: March 2026</p>
         </div>
 
         <div className="prose prose-invert max-w-none space-y-8">
+
+          {/* Acceptance */}
           <section>
             <h2 className="text-2xl font-bold mb-4">1. Acceptance of Terms</h2>
-            <p className="text-muted-foreground">By accessing and using LizoCalculator, you accept and agree to be bound by the terms and provision of this agreement.</p>
+            <p className="text-muted-foreground">
+              By accessing and using LizoCalc, you agree to comply with and be bound by these Terms of Use.
+            </p>
           </section>
 
+          {/* Use */}
           <section>
-            <h2 className="text-2xl font-bold mb-4">2. Use License</h2>
-            <p className="text-muted-foreground">Permission is granted to temporarily download one copy of the materials (information or software) on LizoCalculator for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:</p>
-            <ul className="text-muted-foreground list-disc list-inside space-y-2 mt-3">
-              <li>Modify or copy the materials</li>
-              <li>Use the materials for any commercial purpose or for any public display</li>
-              <li>Attempt to decompile or reverse engineer any software contained on LizoCalculator</li>
-              <li>Remove any copyright or other proprietary notations from the materials</li>
-              <li>Transfer the materials to another person or "mirror" the materials on any other server</li>
-            </ul>
+            <h2 className="text-2xl font-bold mb-4">2. Use of Website</h2>
+            <p className="text-muted-foreground">
+              You may use this website for personal and informational purposes only. You agree not to misuse 
+              the website or its tools in any way that may harm the platform or other users.
+            </p>
           </section>
 
+          {/* Intellectual Property (VERY IMPORTANT) */}
           <section>
-            <h2 className="text-2xl font-bold mb-4">3. Disclaimer</h2>
-            <p className="text-muted-foreground">The materials on LizoCalculator are provided on an 'as is' basis. LizoCalculator makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-4">4. Limitations</h2>
-            <p className="text-muted-foreground">In no event shall LizoCalculator or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on LizoCalculator.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-4">5. Accuracy of Materials</h2>
-            <p className="text-muted-foreground">The materials appearing on LizoCalculator could include technical, typographical, or photographic errors. LizoCalculator does not warrant that any of the materials on its website are accurate, complete, or current.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-4">6. Links</h2>
-            <p className="text-muted-foreground">LizoCalculator has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by LizoCalculator of the site. Use of any such linked website is at the user's own risk.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-4">7. Modifications</h2>
-            <p className="text-muted-foreground">LizoCalculator may revise these terms of service for its website at any time without notice. By using this website, you are agreeing to be bound by the then current version of these terms of service.</p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-bold mb-4">8. Cookies and Local Storage</h2>
+            <h2 className="text-2xl font-bold mb-4">3. Intellectual Property Rights</h2>
             <div className="space-y-4 text-muted-foreground">
-              <p>LizoCalculator uses cookies and browser local storage to enhance your experience. By using this website, you consent to our use of cookies as described in our Privacy Policy. Specifically:</p>
+              <p>
+                All content on LizoCalc, including but not limited to design, layout, code, calculators, 
+                text, graphics, and images, is the property of LizoCalc and is protected by copyright 
+                and intellectual property laws.
+              </p>
+
               <ul className="list-disc list-inside space-y-2 ml-2">
-                <li>You agree to the storage of cookie consent preferences on your device</li>
-                <li>You understand that calculator history and user preferences may be stored locally</li>
-                <li>You acknowledge that you can disable cookies at any time through your browser settings</li>
-                <li>You accept that disabling cookies may limit certain website features</li>
+                <li>You are not allowed to copy, reproduce, or redistribute any part of the website</li>
+                <li>You may not copy the design, UI, or structure of the website</li>
+                <li>You may not use our code, calculators, or content for commercial purposes</li>
+                <li>You may not reverse engineer or replicate this website</li>
               </ul>
-              <p>All cookies are stored exclusively on your local device. We do not transmit or store sensitive calculator data on external servers. For detailed information about cookies, please refer to our Privacy Policy.</p>
+
+              <p>
+                You may only use the website for personal and lawful purposes. Any unauthorized use may 
+                result in legal action.
+              </p>
             </div>
           </section>
 
+          {/* Disclaimer */}
           <section>
-            <h2 className="text-2xl font-bold mb-4">9. Limitation of Liability</h2>
-            <p className="text-muted-foreground">LizoCalculator shall not be liable for any loss, damage, or inconvenience caused by the loss or inaccessibility of cookies due to browser updates, device changes, or user actions.</p>
+            <h2 className="text-2xl font-bold mb-4">4. Disclaimer</h2>
+            <p className="text-muted-foreground">
+              All calculators and information provided on LizoCalc are for general informational purposes only. 
+              We do not guarantee the accuracy or completeness of results. You should verify important calculations 
+              before making financial, medical, or professional decisions.
+            </p>
           </section>
 
+          {/* Limitation */}
+          <section>
+            <h2 className="text-2xl font-bold mb-4">5. Limitation of Liability</h2>
+            <p className="text-muted-foreground">
+              LizoCalc is not responsible for any losses, damages, or decisions made based on the use of this website. 
+              Use of the calculators is at your own risk.
+            </p>
+          </section>
+
+          {/* Accuracy */}
+          <section>
+            <h2 className="text-2xl font-bold mb-4">6. Accuracy of Content</h2>
+            <p className="text-muted-foreground">
+              While we aim to provide accurate and updated tools, errors may occur. We reserve the right to 
+              update or modify content at any time without notice.
+            </p>
+          </section>
+
+          {/* Third Party */}
+          <section>
+            <h2 className="text-2xl font-bold mb-4">7. Third-Party Links & Services</h2>
+            <p className="text-muted-foreground">
+              Our website may include links to third-party websites or services. We are not responsible for 
+              the content or practices of those websites.
+            </p>
+          </section>
+
+          {/* Cookies */}
+          <section>
+            <h2 className="text-2xl font-bold mb-4">8. Cookies and Local Storage</h2>
+            <p className="text-muted-foreground">
+              By using LizoCalc, you agree to the use of cookies and local storage as described in our Privacy Policy. 
+              These are used to improve functionality and user experience.
+            </p>
+          </section>
+
+          {/* Updates */}
+          <section>
+            <h2 className="text-2xl font-bold mb-4">9. Changes to Terms</h2>
+            <p className="text-muted-foreground">
+              We may update these Terms at any time. Continued use of the website means you accept the updated Terms.
+            </p>
+          </section>
+
+          {/* Law */}
           <section>
             <h2 className="text-2xl font-bold mb-4">10. Governing Law</h2>
-            <p className="text-muted-foreground">These terms and conditions are governed by and construed in accordance with the laws of the jurisdiction in which LizoCalculator operates, and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
+            <p className="text-muted-foreground">
+              These Terms are governed by applicable laws. Any disputes will be handled under the relevant jurisdiction.
+            </p>
           </section>
+
         </div>
       </div>
 

@@ -3,12 +3,9 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import TriangleCalculator from "./clientside";
+import Link from "next/link";
 
-const TriangleCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
 
 const faqData = [
   {
@@ -205,13 +202,13 @@ export default function TrianglePage() {
   </p>
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-    Perfect for students in Sahiwal studying <strong>triangle formulas</strong> for board exams, engineers calculating rafter lengths, surveyors using triangulation, or anyone needing quick <strong>area of triangle</strong> results. Our <strong>triangle solver</strong> supports SSS, SAS, ASA, AAS, SSA (including the ambiguous case), computes <strong>Heron's formula</strong> using the <strong>semi-perimeter</strong>, and displays <strong>triangle area</strong>, <strong>incircle</strong>, <strong>circumcircle</strong> radius and more. No registration, mobile-friendly, offline-capable after first load, and completely ad-free. Start solving now on our{" "}
-    <NoPrefetchLink
-      href="/calculators/math/triangle-solver-calculator"
+    Perfect for students  studying <strong>triangle formulas</strong> for board exams, engineers calculating rafter lengths, surveyors using triangulation, or anyone needing quick <strong>area of triangle</strong> results. Our <strong>triangle solver</strong> supports SSS, SAS, ASA, AAS, SSA (including the ambiguous case), computes <strong>Heron's formula</strong> using the <strong>semi-perimeter</strong>, and displays <strong>triangle area</strong>, <strong>incircle</strong>, <strong>circumcircle</strong> radius and more. No registration, mobile-friendly, offline-capable after first load, and completely ad-free. Start solving now on our{" "}
+    <Link
+      href="/calculators/math/triangle-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       Triangle Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -398,8 +395,8 @@ export default function TrianglePage() {
     </h2>
 
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-      <li><NoPrefetchLink href="/calculators/math/pythagorean-theorem-calculator" className="text-blue-400 hover:underline">Pythagorean Theorem Calculator</NoPrefetchLink></li>
-      <li><NoPrefetchLink href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">Scientific Calculator</NoPrefetchLink></li>
+      <li><Link href="/calculators/math/pythagorean-theorem-calculator" className="text-blue-400 hover:underline">Pythagorean Theorem Calculator</Link></li>
+      <li><Link href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">Scientific Calculator</Link></li>
     </ul>
 
     <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">

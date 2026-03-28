@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const AdvancedLoanCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import AdvancedLoanCalculator from "./clientside";
+import Link from "next/link";
 
 const faqData = [
   {
@@ -211,12 +207,12 @@ export default function LoanPage() {
           Our completely free, no-registration-required{" "}
           <strong>loan calculator</strong> takes all the hard work out of the
           process. Simply choose your loan type, enter the amount and rate, set your term, and customize frequencies — and get instant monthly payments, full amortization schedules, total interest, and payoff timelines. The tool shows clean results with highlighted breakdowns, interactive charts, and (when you expand it) step-by-step math explanations. It is fully mobile-friendly, works offline after first load (progressive web app style), remembers your last calculations (with your consent), supports any amount up to millions, and never shows any ads. Perfect for homework checks, exam preparation, comparing bank offers, or planning real-life goals. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/financial/loan-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             loan calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -444,22 +440,22 @@ export default function LoanPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/finance/compound-interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Compound Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — see how savings grow with different compounding
             </li>
             
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Simple Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — quick contrast with compound loans
             </li>
           </ul>

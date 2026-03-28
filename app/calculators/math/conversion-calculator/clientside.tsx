@@ -64,7 +64,7 @@ export default function ConversionCalculator() {
     {
       name: "Density Calc",
       description: "Mass/Volume solver",
-      href: "/calculator/physics/density-calculator",
+      href: "/calculators/physics/density-calculator",
       icon: Weight,
     },
   ];

@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const AdvancedMortgageCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AdvancedMortgageCalculator from "./clientside";
 const faqData = [
   {
     question: "How do I calculate my monthly mortgage payment manually?",
@@ -210,12 +206,12 @@ export default function MortgagePage() {
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our completely free, no-registration-required{" "}
           <strong>mortgage calculator</strong> instantly shows your total monthly payment, full amortization schedule, and exact savings from extra payments. Just enter the home price, down payment, interest rate, loan term, and optional costs like taxes and insurance — and get crystal-clear results with interactive charts and year-by-year breakdowns. The tool is fully mobile-friendly, works offline after first load, remembers your last numbers (with your consent), handles large loan amounts smoothly, and never shows any ads. Perfect for quick home shopping, refinancing decisions, or long-term planning. Jump right in and try it now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/financial/mortgage-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             mortgage calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -464,21 +460,21 @@ export default function MortgagePage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/compound-interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Compound Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — see how your down payment or extra payments can grow
             </li>
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/payment-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Payment Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — Calculate your payments 
             </li>
             

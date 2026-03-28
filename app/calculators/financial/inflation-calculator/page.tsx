@@ -3,12 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-
-const AdvancedInflationCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import Link from "next/link";
+import AdvancedInflationCalculator from './clientside'
 
 const faqData = [
   {
@@ -208,12 +204,12 @@ export default function InflationPage() {
 
         <p className="text-gray-200 leading-relaxed mb-8 text-lg">
           Our free, no-sign-up inflation calculator makes it simple and fast. Pick your currency symbol, type in any amount and two dates, and instantly see the real value adjusted for inflation. You get the updated amount, the total percentage change, and a clear breakdown — all in seconds. The tool works great on phones and tablets, loads offline after the first visit, saves your recent calculations if you allow it, handles big numbers easily, and has zero ads. Ideal for school projects, family budgeting, retirement planning, or just satisfying your curiosity about money over time. Try it right now on our{" "}
-          <NoPrefetchLink
+          <Link
             href="/calculators/financial/inflation-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             inflation calculator page
-          </NoPrefetchLink>
+          </Link>
           .
         </p>
 
@@ -421,12 +417,12 @@ export default function InflationPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <NoPrefetchLink
+              <Link
                 href="/calculators/financial/compound-interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Compound Interest Calculator
-              </NoPrefetchLink>{" "}
+              </Link>{" "}
               — watch real growth after inflation
             </li>
             

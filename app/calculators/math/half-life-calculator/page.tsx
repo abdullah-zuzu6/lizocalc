@@ -4,12 +4,8 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 
-import NoPrefetchLink from "@/components/NoPrefetchLink";
-import dynamic from "next/dynamic";
-
-const HalfLifeCalculator = dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import HalfLifeCalculator from "./clientside";
+import Link from "next/link";
 const faqData = [
   {
     question: "What is half-life and how is it calculated?",
@@ -230,7 +226,7 @@ export default function HalfLifePage() {
         <li>Years / Centuries / Millennia — radioactive dating and nuclear waste</li>
       </ul>
       <p className="text-gray-200 mt-4">
-        Need quick unit conversion? Check our <NoPrefetchLink href="/calculators/time/time-calculator" className="text-blue-400 hover:underline font-semibold">Time Calculator</NoPrefetchLink> or <NoPrefetchLink href="/calculators/time/date-calculator" className="text-blue-400 hover:underline font-semibold">Date Calculator</NoPrefetchLink>.
+        Need quick unit conversion? Check our <Link href="/calculators/time/time-calculator" className="text-blue-400 hover:underline font-semibold">Time Calculator</Link> or <Link href="/calculators/time/date-calculator" className="text-blue-400 hover:underline font-semibold">Date Calculator</Link>.
       </p>
     </div>
 
@@ -294,7 +290,7 @@ export default function HalfLifePage() {
       Half-lives elapsed = t / t_{1/2}
     </p>
     <p className="text-gray-200 mt-4">
-      For percentage help, try our <NoPrefetchLink href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">Percentage Calculator</NoPrefetchLink>.
+      For percentage help, try our <Link href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">Percentage Calculator</Link>.
     </p>
   </section>
 
@@ -380,7 +376,7 @@ export default function HalfLifePage() {
     <p className="text-gray-200">
       Use conversion: 1 year ≈ 525,600 minutes.<br />
       For drug half-life of 120 minutes → in years: 120 / 525600 ≈ 0.000228 years.<br />
-      Our <NoPrefetchLink href="/calculators/conversion-calculator" className="text-blue-400 hover:underline">Conversion Calculator</NoPrefetchLink> or time tools handle this instantly.
+      Our <Link href="/calculators/conversion-calculator" className="text-blue-400 hover:underline">Conversion Calculator</Link> or time tools handle this instantly.
     </p>
 
     <div className="overflow-x-auto mt-10">
@@ -412,10 +408,8 @@ export default function HalfLifePage() {
       Enhance your decay calculations with these free LizoCalc tools:
     </p>
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-      <li><NoPrefetchLink href="/calculators/math/scientific-calculator" className="text-blue-400 hover:underline">Scientific Calculator</NoPrefetchLink> — logarithms, exponents for advanced decay math</li>
-      <li><NoPrefetchLink href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">Percentage Calculator</NoPrefetchLink> — quick decay %</li>
-      <li><NoPrefetchLink href="/calculators/physics/density-calculator" className="text-blue-400 hover:underline">Density Calculator</NoPrefetchLink> — related physics concepts</li>
-      <li><NoPrefetchLink href="/calculators/math/conversion-calculator" className="text-blue-400 hover:underline">Unit Conversion Calculator</NoPrefetchLink> — time & mass units</li>
+      <li><Link href="/calculators/physics/density-calculator" className="text-blue-400 hover:underline">Density Calculator</Link> — related physics concepts</li>
+      <li><Link href="/calculators/math/conversion-calculator" className="text-blue-400 hover:underline">Unit Conversion Calculator</Link> — time & mass units</li>
     </ul>
 
     <p className="text-gray-300 italic text-center mt-16 text-lg font-medium leading-relaxed">

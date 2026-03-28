@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
+import Link from "next/link";
 
-const AdvancedCalorieCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import AdvancedCalorieCalculator from './clientside'
+
 
 const faqData = [
   {
@@ -187,18 +185,18 @@ Calorie calculator: find your bmr and daily energy expenditure            </h1>
       {/* SEO Content */}
    <article className="max-w-6xl mx-auto px-6 py-16 text-white">
   <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-    The <strong>Calorie and TDEE Calculator</strong> — your complete daily calorie needs tool — is one of the most powerful and practical resources for fitness, weight management, and healthy living. Whether you're a student in Sahiwal, Punjab, Pakistan juggling studies and gym goals, a busy professional in Lahore or Karachi trying to lose stubborn belly fat, a homemaker in Islamabad planning family meals, or anyone across Pakistan and the world who wants science-backed control over their body composition, this free calculator removes all the guesswork.
+    The <strong>Calorie and TDEE Calculator</strong> — your complete daily calorie needs tool — is one of the most powerful and practical resources for fitness, weight management, and healthy living. Whether you're a student in juggling studies and gym goals, a busy professional in Lahore or Karachi trying to lose stubborn belly fat, a homemaker in Islamabad planning family meals, or anyone across Pakistan and the world who wants science-backed control over their body composition, this free calculator removes all the guesswork.
   </p>
 
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required{" "}
-    <strong>calorie calculator and TDEE calculator</strong> instantly computes your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) using the proven Harris-Benedict formula. Just enter a few details, choose your activity level, and get personalized calorie targets for weight loss, maintenance, or muscle gain — complete with real-time updates, clean results, and zero ads. The tool is fully mobile-friendly, works offline after first load (progressive web app style), automatically saves your last inputs (with your cookie consent), supports both metric and imperial units, and is perfect for quick daily tracking. Whether you're in Sahiwal planning your next meal or traveling abroad, jump right in and try it now on our{" "}
-    <NoPrefetchLink
-      href="/calculators/nutrition/calorie-calculator"
+    <strong>calorie calculator and TDEE calculator</strong> instantly computes your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE) using the proven Harris-Benedict formula. Just enter a few details, choose your activity level, and get personalized calorie targets for weight loss, maintenance, or muscle gain — complete with real-time updates, clean results, and zero ads. The tool is fully mobile-friendly, works offline after first load (progressive web app style), automatically saves your last inputs (with your cookie consent), supports both metric and imperial units, and is perfect for quick daily tracking. Whether you're in planning your next meal or traveling abroad, jump right in and try it now on our{" "}
+    <Link
+      href="/calculators/health/calorie-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       Calorie &amp; TDEE Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -381,7 +379,7 @@ Calorie calculator: find your bmr and daily energy expenditure            </h1>
       Automatic data saving with functional cookie preferences
     </h3>
     <p className="text-gray-200 leading-relaxed text-base">
-      With your consent, the calculator stores your last age, weight, height, gender, and activity level using secure, functional cookies. Next time you visit — whether from your phone in Sahiwal or laptop in Karachi — your numbers load instantly so you can track progress week after week without re-entering data. You can clear or manage cookies anytime from the settings panel.
+      With your consent, the calculator stores your last age, weight, height, gender, and activity level using secure, functional cookies. Next time you visit  your numbers load instantly so you can track progress week after week without re-entering data. You can clear or manage cookies anytime from the settings panel.
     </p>
 
     <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
@@ -395,7 +393,7 @@ Calorie calculator: find your bmr and daily energy expenditure            </h1>
       Mobile-friendly interface for quick tracking
     </h3>
     <p className="text-gray-200 text-base mb-6">
-      Built with a clean, touch-first design that works beautifully on every smartphone, tablet, or desktop. Large buttons, readable numbers, and dark-mode friendly colours make daily logging effortless whether you’re at the gym in Sahiwal or meal-prepping at home.
+      Built with a clean, touch-first design that works beautifully on every smartphone, tablet, or desktop. Large buttons, readable numbers, and dark-mode friendly colours make daily logging effortless whether you’re at the gym or meal-prepping at home.
     </p>
 
     <h4 className="text-xl font-bold text-blue-300 mt-6 mb-3">
@@ -462,30 +460,30 @@ Calorie calculator: find your bmr and daily energy expenditure            </h1>
     </p>
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base mt-6">
       <li>
-        <NoPrefetchLink
+        <Link
           href="/calculators/health/bmi-calculator"
           className="text-blue-400 hover:underline"
         >
           BMI Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — see where your weight fits on the healthy scale
       </li>
       <li>
-        <NoPrefetchLink
-          href="/calculators/nutrition/macro-calculator"
+        <Link
+          href="/calculators/health/macros-calculator"
           className="text-blue-400 hover:underline"
         >
           Macro Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — split your calories into protein, carbs, and fats
       </li>
       <li>
-        <NoPrefetchLink
-          href="/calculators/nutrition/body-fat-calculator"
+        <Link
+          href="/calculators/health/body-fat-calculator"
           className="text-blue-400 hover:underline"
         >
           Body Fat Calculator
-        </NoPrefetchLink>{" "}
+        </Link>{" "}
         — track visible progress beyond the scale
       </li>
     </ul>
@@ -518,7 +516,7 @@ Calorie calculator: find your bmr and daily energy expenditure            </h1>
   </section>
 
   <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-    Master your calories, master your results. Our free Calorie and TDEE Calculator is fast, accurate, completely private, and always ready — whether you’re in Sahiwal, Pakistan or anywhere else in the world. Bookmark it today and take the guesswork out of your fitness journey forever!
+    Master your calories, master your results. Our free Calorie and TDEE Calculator is fast, accurate, completely private, and always ready — whether you’re in anyplace or anywhere else in the world. Bookmark it today and take the guesswork out of your fitness journey forever!
   </p>
 </article>
 

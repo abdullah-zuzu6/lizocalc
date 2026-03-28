@@ -3,12 +3,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
-import dynamic from "next/dynamic";
-import NoPrefetchLink from "@/components/NoPrefetchLink";
 
-const ZScoreCalculator= dynamic(() => import("./clientside"), {
-  ssr: false,
-});
+import ZScoreCalculator from "./clientside";
+import Link from "next/link";
+
 const faqData = [
   {
     question: "What is the Z-score formula and how does it work?",
@@ -208,12 +206,12 @@ export default function ZScorePage() {
   <p className="text-gray-200 leading-relaxed mb-8 text-lg">
     Our completely free, no-registration-required{" "}
     <strong>Z-Score calculator</strong> instantly computes the z-score, shows you the corresponding percentile rank, probability (area under the curve), and whether the value is above/below average or an outlier. Just enter your raw score (x), population mean (μ), and standard deviation (σ), click Calculate, and get clean results with step-by-step explanation. The tool is mobile-friendly, works offline after first load, remembers your last inputs (with consent), handles decimals perfectly, and never shows ads. Perfect for board exams, university assignments, research papers, or quick data analysis. Try it now on our{" "}
-    <NoPrefetchLink
+    <Link
       href="/calculators/math/z-score-calculator"
       className="text-blue-400 hover:underline font-semibold"
     >
       Z-Score Calculator page
-    </NoPrefetchLink>
+    </Link>
     .
   </p>
 
@@ -438,14 +436,14 @@ export default function ZScorePage() {
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       
       <li>
-        <NoPrefetchLink href="/calculators/math/half-life-calculator" className="text-blue-400 hover:underline">
+        <Link href="/calculators/math/half-life-calculator" className="text-blue-400 hover:underline">
           Half-Life Calculator
-        </NoPrefetchLink>
+        </Link>
       </li>
       <li>
-        <NoPrefetchLink href="/calculators/math/hex-calculator" className="text-blue-400 hover:underline">
+        <Link href="/calculators/math/hex-calculator" className="text-blue-400 hover:underline">
           Hex Calculator
-        </NoPrefetchLink>
+        </Link>
       </li>
     </ul>
 
