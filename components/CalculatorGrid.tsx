@@ -36,7 +36,7 @@ export default function CalculatorGrid({ title, calculators, Icon, variant }: Ca
       <ul className="flex flex-col space-y-0.5">
         {calculators.map((calc) => (
           <li key={calc.href}>
-            <Link 
+            <Link prefetch={false}
               href={calc.href}
               className="text-[#b7b4ae] hover:underline text-[15px] block py-0.5 transition-colors"
             >
