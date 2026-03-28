@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/math/half-life-calculator",
+    canonical: "https://www.lizocalc.com/math/half-life-calculator",
   },
 
   robots: {
@@ -74,11 +74,11 @@ export const metadata: Metadata = {
     title: "Half-Life Calculator | Track Exponential Decay | LizoCalc",
     description:
       "Struggling with physics or chemistry? Calculate half-life, decay constants, and visualize the process with our interactive decay table.",
-    url: "https://lizocalc.com/math/half-life-calculator",
+    url: "https://www.lizocalc.com/math/half-life-calculator",
     siteName: "LizoCalc",
     images: [
       {
-        url: "https://lizocalc.com/og-half-life-calculator.png", // Recommended: 1200x630px
+        url: "https://www.lizocalc.com/og-half-life-calculator.png", // Recommended: 1200x630px
         width: 1200,
         height: 630,
         alt: "LizoCalc Half-Life and Decay Calculator",
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
     title: "Half-Life Calculator: Find Remaining Amount & Decay Rate",
     description:
       "Get instant, accurate results for radioactive decay or pharmacology calculations with the LizoCalc Half-Life tool.",
-    images: ["https://lizocalc.com/og-half-life-calculator.png"],
+    images: ["https://www.lizocalc.com/og-half-life-calculator.png"],
   },
 };
 export default function HalfLifePage() {
@@ -111,28 +111,28 @@ export default function HalfLifePage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
-                "@id": "https://lizocalc.com/calculators/math/half-life-calculator#breadcrumb",
+                "@id": "https://www.lizocalc.com/calculators/math/half-life-calculator#breadcrumb",
                 itemListElement: [
-                  { "@type": "ListItem", position: 1, name: "Home", item: "https://lizocalc.com" },
-                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://lizocalc.com/calculators" },
-                  { "@type": "ListItem", position: 3, name: "Math ", item: "https://lizocalc.com/calculators/math" },
-                  { "@type": "ListItem", position: 4, name: "Half-Life Calculator", item: "https://lizocalc.com/calculators/math/half-life-calculator" },
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+                  { "@type": "ListItem", position: 3, name: "Math ", item: "https://www.lizocalc.com/calculators/math" },
+                  { "@type": "ListItem", position: 4, name: "Half-Life Calculator", item: "https://www.lizocalc.com/calculators/math/half-life-calculator" },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/math/half-life-calculator",
-                url: "https://lizocalc.com/calculators/math/half-life-calculator",
+                "@id": "https://www.lizocalc.com/calculators/math/half-life-calculator",
+                url: "https://www.lizocalc.com/calculators/math/half-life-calculator",
                 name: "Advanced Half-Life Calculator",
                 description: "Use our advanced half-life calculator to compute remaining quantity, decay constants, and half-lives elapsed.",
                 inLanguage: "en",
-                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://lizocalc.com" },
+                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://www.lizocalc.com" },
               },
               {
                 "@type": "SoftwareApplication",
-                "@id": "https://lizocalc.com/calculators/math/half-life-calculator#app",
+                "@id": "https://www.lizocalc.com/calculators/math/half-life-calculator#app",
                 name: "Advanced Half-Life Calculator",
-                url: "https://lizocalc.com/calculators/math/half-life-calculator",
+                url: "https://www.lizocalc.com/calculators/math/half-life-calculator",
                 description: "Advanced half-life calculator to compute remaining quantity, decay constants, and total decay.",
                 applicationCategory: "ScienceApplication",
                 applicationSubCategory: "Half-Life Calculator",
@@ -147,7 +147,7 @@ export default function HalfLifePage() {
                   "Reset and recalculate instantly",
                 ],
                 offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-                creator: { "@type": "Organization", name: "LizoCalc", url: "https://lizocalc.com" },
+                creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
               },
               {
                 "@type": "FAQPage",

@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     "online hex solver",
   ],
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/hexadecimal-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/hexadecimal-calculator",
   },
   robots: {
     index: true,
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: "Hex Calculator: Arithmetic & Base-16 Converter | LizoCalc",
     description:
       "Perform complex hexadecimal math or instant base conversions. Get precise results in hex, decimal, and binary for developers and students.",
-    url: "https://lizocalc.com/calculators/math/hexadecimal-calculator",
+    url: "https://www.lizocalc.com/calculators/math/hexadecimal-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -94,39 +94,39 @@ export default function HexadecimalPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/hexadecimal-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/hexadecimal-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Hexadecimal Calculator",
-                    item: "https://lizocalc.com/calculators/math/hexadecimal-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/hexadecimal-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
                 "@id":
-                  "https://lizocalc.com/calculators/math/hexadecimal-calculator",
-                url: "https://lizocalc.com/calculators/math/hexadecimal-calculator",
+                  "https://www.lizocalc.com/calculators/math/hexadecimal-calculator",
+                url: "https://www.lizocalc.com/calculators/math/hexadecimal-calculator",
                 name: "Hexadecimal Calculator",
                 description:
                   "Use our hexadecimal calculator to convert decimal numbers to hexadecimal and back instantly.",
@@ -134,15 +134,15 @@ export default function HexadecimalPage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/hexadecimal-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/hexadecimal-calculator#app",
                 name: "Hexadecimal Calculator",
-                url: "https://lizocalc.com/calculators/math/hexadecimal-calculator",
+                url: "https://www.lizocalc.com/calculators/math/hexadecimal-calculator",
                 description:
                   "Hexadecimal calculator to convert decimal numbers to hexadecimal and vice versa.",
                 applicationCategory: "FinanceApplication",
@@ -165,7 +165,7 @@ export default function HexadecimalPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/physics/weight-calculator",
+    canonical: "https://www.lizocalc.com/calculators/physics/weight-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Weight Calculator | LizoCalc",
     description:
       "Free physics weight calculator to calculate weight using mass and gravity with professional formulas and instant unit conversions.",
-    url: "https://lizocalc.com/calculators/physics/weight-calculator",
+    url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,54 +91,54 @@ export default function WeightPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/physics/weight-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/physics/weight-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Physics ",
-                    item: "https://lizocalc.com/calculators/physics",
+                    item: "https://www.lizocalc.com/calculators/physics",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Weight Calculator",
-                    item: "https://lizocalc.com/calculators/physics/weight-calculator",
+                    item: "https://www.lizocalc.com/calculators/physics/weight-calculator",
                   },
                 ],
               },
               {
   "@type": "WebPage",
-  "@id": "https://lizocalc.com/calculators/physics/weight-calculator",
-  url: "https://lizocalc.com/calculators/physics/weight-calculator",
+  "@id": "https://www.lizocalc.com/calculators/physics/weight-calculator",
+  url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
   name: "Weight Calculator",
   description: "Use our weight calculator to determine the weight of an object using mass and gravity instantly.",
   "inLanguage": "en",
   "isPartOf": {
     "@type": "WebSite",
     "name": "LizoCalc",
-    "url": "https://lizocalc.com"
+    "url": "https://www.lizocalc.com"
   }
 },
 
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/physics/weight-calculator#app",
+                  "https://www.lizocalc.com/calculators/physics/weight-calculator#app",
                 name: "Weight Calculator",
-                url: "https://lizocalc.com/calculators/physics/weight-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
                 description:
                   "Physics weight calculator to calculate the weight of an object using mass and gravitational acceleration.",
                 applicationCategory: "EducationalApplication",
@@ -162,7 +162,7 @@ export default function WeightPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

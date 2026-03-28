@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/physics/speed-calculator",
+    canonical: "https://www.lizocalc.com/calculators/physics/speed-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Speed Calculator | LizoCalc",
     description:
       "Free physics speed calculator to calculate speed, distance, and time using professional formulas and instant unit conversions.",
-    url: "https://lizocalc.com/calculators/physics/speed-calculator",
+    url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,39 +92,39 @@ export default function SpeedCalculatorPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "http://lizocalc.com/calculators/physics/speed-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/physics/speed-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "http://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "http://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Physics ",
-                    item: "http://lizocalc.com/calculators/physics",
+                    item: "https://www.lizocalc.com/calculators/physics",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Speed Calculator",
-                    item: "http://lizocalc.com/calculators/physics/speed-calculator",
+                    item: "https://www.lizocalc.com/calculators/physics/speed-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
                 "@id":
-                  "http://lizocalc.com/calculators/physics/speed-calculator",
-                url: "http://lizocalc.com/calculators/physics/speed-calculator",
+                  "https://www.lizocalc.com/calculators/physics/speed-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
                 name: "Speed Calculator",
                 description:
                   "Use our physics speed calculator to calculate speed, distance, and time instantly.",
@@ -132,16 +132,16 @@ export default function SpeedCalculatorPage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "http://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
 
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "http://lizocalc.com/calculators/physics/speed-calculator#app",
+                  "https://www.lizocalc.com/calculators/physics/speed-calculator#app",
                 name: "Speed Calculator",
-                url: "http://lizocalc.com/calculators/physics/speed-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
                 description:
                   "Physics speed calculator to estimate speed, distance, or time using the formula Speed = Distance ÷ Time.",
                 applicationCategory: "EducationalApplication",
@@ -165,7 +165,7 @@ export default function SpeedCalculatorPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "http://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

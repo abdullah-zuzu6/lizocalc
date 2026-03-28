@@ -60,13 +60,13 @@ export const metadata: Metadata = {
     "math fraction solver",
   ],
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/fraction-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/fraction-calculator",
   },
   openGraph: {
     title: "Fraction Calculator – Add, Subtract, Multiply & Simplify Instantly",
     description:
       "Fast, accurate online tool for all fraction operations + automatic simplification and decimal conversion.",
-    url: "https://lizocalc.com/calculators/math/fraction-calculator",
+    url: "https://www.lizocalc.com/calculators/math/fraction-calculator",
     type: "website",
   },
 };
@@ -95,31 +95,31 @@ export default function FractionCalculatorPage() {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Fraction Calculator",
-                    item: "https://lizocalc.com/calculators/math/fraction-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/fraction-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                url: "https://lizocalc.com/calculators/math/fraction-calculator",
+                url: "https://www.lizocalc.com/calculators/math/fraction-calculator",
                 name: "Fraction Calculator",
                 description:
                   "Free tool to add, subtract, multiply, divide and simplify fractions with instant results and decimal conversion.",

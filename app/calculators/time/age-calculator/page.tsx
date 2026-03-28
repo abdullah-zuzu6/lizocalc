@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/time/age-calculator",
+    canonical: "https://www.lizocalc.com/calculators/time/age-calculator",
   },
 
   robots: {
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     title: "Exact Age Calculator | LizoCalc",
     description:
       "Find out exactly how many years, months, and days you have been alive with our free advanced age tool.",
-    url: "https://lizocalc.com/calculators/time/age-calculator",
+    url: "https://www.lizocalc.com/calculators/time/age-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,25 +91,25 @@ export default function AgeCalculatorPage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
-                "@id": "https://lizocalc.com/calculators/time/age-calculator#breadcrumb",
+                "@id": "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb",
                 itemListElement: [
-                  { "@type": "ListItem", position: 1, name: "Home", item: "https://lizocalc.com" },
-                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://lizocalc.com/calculators" },
-                  { "@type": "ListItem", position: 3, name: "Time ", item: "https://lizocalc.com/calculators/time" },
-                  { "@type": "ListItem", position: 4, name: "Age Calculator", item: "https://lizocalc.com/calculators/time/age-calculator" },
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+                  { "@type": "ListItem", position: 3, name: "Time ", item: "https://www.lizocalc.com/calculators/time" },
+                  { "@type": "ListItem", position: 4, name: "Age Calculator", item: "https://www.lizocalc.com/calculators/time/age-calculator" },
                 ],
               },
               {
                 "@type": "SoftwareApplication",
-                "@id": "https://lizocalc.com/calculators/time/age-calculator#app",
+                "@id": "https://www.lizocalc.com/calculators/time/age-calculator#app",
                 name: "Advanced Age Calculator",
-                url: "https://lizocalc.com/calculators/time/age-calculator",
+                url: "https://www.lizocalc.com/calculators/time/age-calculator",
                 description: "Calculate exact age, total days lived, and countdown to next birthday.",
                 applicationCategory: "UtilitiesApplication",
                 operatingSystem: "Any",
                 inLanguage: "en",
                 offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-                creator: { "@type": "Organization", name: "LizoCalc", url: "https://lizocalc.com" },
+                creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
               },
               {
                 "@type": "FAQPage",

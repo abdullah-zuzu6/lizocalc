@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/math/gcf-calculator",
+    canonical: "https://www.lizocalc.com/math/gcf-calculator",
   },
 
   robots: {
@@ -75,11 +75,11 @@ export const metadata: Metadata = {
     title: "GCF Calculator | Find Greatest Common Factor Instantly",
     description:
       "Struggling with big numbers? Use LizoCalc to find the GCF/HCF with clear, step-by-step prime factorization. Free and easy to use.",
-    url: "https://lizocalc.com/math/gcf-calculator",
+    url: "https://www.lizocalc.com/math/gcf-calculator",
     siteName: "LizoCalc",
     images: [
       {
-        url: "https://lizocalc.com/og-gcf-calculator.png", // Recommended: 1200x630px
+        url: "https://www.lizocalc.com/og-gcf-calculator.png", // Recommended: 1200x630px
         width: 1200,
         height: 630,
         alt: "LizoCalc GCF Calculator Tool",
@@ -93,7 +93,7 @@ export const metadata: Metadata = {
     title: "GCF Calculator | Step-by-Step Common Factors",
     description:
       "Quickly find the GCF of any set of numbers. Perfect for simplifying fractions and solving math homework.",
-    images: ["https://lizocalc.com/og-gcf-calculator.png"],
+    images: ["https://www.lizocalc.com/og-gcf-calculator.png"],
   },
 };
 
@@ -114,31 +114,31 @@ export default function GCFPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/gcf-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/gcf-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "GCF Calculator",
-                    item: "https://lizocalc.com/calculators/math/gcf-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/gcf-calculator",
                   },
                 ],
               },

@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/inflation-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/inflation-calculator",
   },
 
   robots: {
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: "Advanced Inflation Calculator | Historical Price Tool",
     description:
       "Understand the impact of inflation on your savings. Our advanced tool calculates price changes and historical purchasing power with precision.",
-    url: "https://lizocalc.com/calculators/financial/inflation-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/inflation-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,53 +90,53 @@ export default function InflationPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/inflation-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/inflation-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Inflation Calculator",
-                    item: "https://lizocalc.com/calculators/financial/inflation-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/inflation-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/inflation-calculator",
-                url: "https://lizocalc.com/calculators/financial/inflation-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/inflation-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/inflation-calculator",
                 name: "Advanced Inflation Calculator",
                 description: "Use our advanced inflation calculator to estimate the change in purchasing power, historical inflation rates, and future value of money instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/inflation-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/inflation-calculator#app",
                 name: "Advanced Inflation Calculator",
-                url: "https://lizocalc.com/calculators/financial/inflation-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/inflation-calculator",
                 description:
                   "Advanced inflation calculator to estimate changes in purchasing power and historical price trends.",
                 applicationCategory: "FinanceApplication",
@@ -160,7 +160,7 @@ export default function InflationPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

@@ -48,7 +48,7 @@ description: "Calculate interest on savings and investments with LizoCalc. Estim
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/interest-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/interest-calculator",
   },
 
   robots: {
@@ -60,7 +60,7 @@ description: "Calculate interest on savings and investments with LizoCalc. Estim
     title: "Advanced Interest Calculator | Accurate Financial Growth",
     description:
       "Planning your savings? Use our advanced interest calculator to compare simple vs. compound growth and see exactly how your money earns over time.",
-    url: "https://lizocalc.com/calculators/financial/interest-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/interest-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -89,53 +89,53 @@ export default function InterestPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/interest-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/interest-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Interest Calculator",
-                    item: "https://lizocalc.com/calculators/financial/interest-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/interest-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/interest-calculator",
-                url: "https://lizocalc.com/calculators/financial/interest-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/interest-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/interest-calculator",
                 name: "Advanced Interest Calculator",
                 description: "Use our advanced interest calculator to estimate simple and compound interest, total growth, and investment earnings instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/interest-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/interest-calculator#app",
                 name: "Advanced Interest Calculator",
-                url: "https://lizocalc.com/calculators/financial/interest-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/interest-calculator",
                 description:
                   "Advanced interest calculator to estimate simple and compound interest, growth over time, and total returns.",
                 applicationCategory: "FinanceApplication",
@@ -159,7 +159,7 @@ export default function InterestPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

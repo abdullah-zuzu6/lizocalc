@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     "high school grade tool",
   ],
   alternates: {
-    canonical: "https://lizocalc.com/calculators/education/grade-calculator",
+    canonical: "https://www.lizocalc.com/calculators/education/grade-calculator",
   },
   robots: {
     index: true,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Advanced Grade Calculator | Track & Project Your Grades | LizoCalc",
     description: "Take control of your academic success. Use our advanced tool to calculate weighted averages and find out exactly what you need on your final exam.",
-    url: "https://lizocalc.com/calculators/education/grade-calculator",
+    url: "https://www.lizocalc.com/calculators/education/grade-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -84,53 +84,53 @@ export default function GradePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/education/grade-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Education Calculators",
-                    item: "https://lizocalc.com/calculators/education",
+                    item: "https://www.lizocalc.com/calculators/education",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Grade Calculator",
-                    item: "https://lizocalc.com/calculators/education/grade-calculator",
+                    item: "https://www.lizocalc.com/calculators/education/grade-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/education/grade-calculator",
-                url: "https://lizocalc.com/calculators/education/grade-calculator",
+                "@id": "https://www.lizocalc.com/calculators/education/grade-calculator",
+                url: "https://www.lizocalc.com/calculators/education/grade-calculator",
                 name: "Advanced Grade Calculator",
                 description: "Use our advanced grade calculator to estimate your semester GPA, track academic performance, and project final grades instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/education/grade-calculator#app",
+                  "https://www.lizocalc.com/calculators/education/grade-calculator#app",
                 name: "Advanced Grade Calculator",
-                url: "https://lizocalc.com/calculators/education/grade-calculator",
+                url: "https://www.lizocalc.com/calculators/education/grade-calculator",
                 description:
                   "Advanced grade calculator to estimate semester GPA, weighted grades, and track academic progress.",
                 applicationCategory: "EducationalApplication",
@@ -153,7 +153,7 @@ export default function GradePage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

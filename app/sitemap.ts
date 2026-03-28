@@ -1,14 +1,15 @@
-// app/sitemap.ts
 import { MetadataRoute } from 'next';
-import { calculators } from '@/lib/calculators'; // Assuming this is where your data lives
+import { calculators } from '@/lib/calculators';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-//   const BASE_URL = 'https://lizocalc.com';
 
-const BASE_URL = 'http://localhost:3000';
-  // 1. Static Pages
+   const BASE_URL = 'https://www.lizocalc.com';
+
+
+  const now = new Date();
+
   const staticPages = [
-    { url: '/', priority: 1.0 },
+    { url: '', priority: 1.0 },
     { url: '/about', priority: 0.8 },
     { url: '/contact', priority: 0.8 },
     { url: '/privacy', priority: 0.8 },
@@ -19,21 +20,19 @@ const BASE_URL = 'http://localhost:3000';
     { url: '/calculators/math', priority: 0.9 },
     { url: '/calculators/physics', priority: 0.9 },
     { url: '/calculators/time', priority: 0.9 },
-
   ];
 
   const sitemapEntries: MetadataRoute.Sitemap = staticPages.map((page) => ({
     url: `${BASE_URL}${page.url}`,
-    lastModified: new Date(),
+    lastModified: now,
     changeFrequency: 'weekly',
     priority: page.priority,
   }));
 
-  // 2. Dynamic Calculator Pages
   calculators.forEach((calc) => {
     sitemapEntries.push({
       url: `${BASE_URL}/calculators/${calc.category}/${calc.slug}`,
-      lastModified: new Date(),
+      lastModified: now,
       changeFrequency: 'daily',
       priority: 0.9,
     });

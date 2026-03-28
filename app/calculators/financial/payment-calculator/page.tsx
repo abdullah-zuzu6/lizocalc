@@ -48,7 +48,7 @@ description: "Calculate your monthly loan payments and view a complete amortizat
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/payment-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/payment-calculator",
   },
 
   robots: {
@@ -60,7 +60,7 @@ description: "Calculate your monthly loan payments and view a complete amortizat
     title: "Advanced Payment Calculator | Accurate Repayment Tool",
     description:
       "Planning a purchase? Use our advanced payment calculator to determine your monthly budget, interest costs, and total loan value with precision.",
-    url: "https://lizocalc.com/calculators/financial/payment-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/payment-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,53 +90,53 @@ export default function PaymentPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/payment-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/payment-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Payment Calculator",
-                    item: "https://lizocalc.com/calculators/financial/payment-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/payment-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/payment-calculator",
-                url: "https://lizocalc.com/calculators/financial/payment-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/payment-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/payment-calculator",
                 name: "Advanced Payment Calculator",
                 description: "Use our advanced payment calculator to estimate monthly loan payments, interest costs, and repayment schedules instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/payment-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/payment-calculator#app",
                 name: "Advanced Payment Calculator",
-                url: "https://lizocalc.com/calculators/financial/payment-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/payment-calculator",
                 description:
                   "Advanced payment calculator to estimate monthly payments, interest, and complete amortization schedule.",
                 applicationCategory: "FinanceApplication",
@@ -160,7 +160,7 @@ export default function PaymentPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

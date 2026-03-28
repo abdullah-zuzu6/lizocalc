@@ -46,7 +46,7 @@ description: "Estimate your total home cost with our advanced mortgage calculato
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/mortgage-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/mortgage-calculator",
   },
 
   robots: {
@@ -58,7 +58,7 @@ description: "Estimate your total home cost with our advanced mortgage calculato
     title: "Advanced Mortgage Calculator | Precise Home Financing",
     description:
       "Planning to buy a home? Use our advanced mortgage calculator to break down your monthly costs, including interest and taxes, with a complete repayment plan.",
-    url: "https://lizocalc.com/calculators/financial/mortgage-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/mortgage-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -88,54 +88,54 @@ export default function MortgagePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/mortgage-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/mortgage-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Mortgage Calculator",
-                    item: "https://lizocalc.com/calculators/financial/mortgage-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/mortgage-calculator",
                   },
                 ],
               },
               {
   "@type": "WebPage",
-  "@id": "https://lizocalc.com/calculators/financial/mortgage-calculator",
-  url: "https://lizocalc.com/calculators/financial/mortgage-calculator",
+  "@id": "https://www.lizocalc.com/calculators/financial/mortgage-calculator",
+  url: "https://www.lizocalc.com/calculators/financial/mortgage-calculator",
   name: "Advanced Mortgage Calculator",
   description: "Use our advanced mortgage calculator to estimate monthly mortgage payments, interest, taxes, and insurance instantly.",
   "inLanguage": "en",  
   "isPartOf": {
     "@type": "WebSite",
     "name": "LizoCalc",
-    "url": "https://lizocalc.com"
+    "url": "https://www.lizocalc.com"
   }
 },
 
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/mortgage-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/mortgage-calculator#app",
                 name: "Advanced Mortgage Calculator",
-                url: "https://lizocalc.com/calculators/financial/mortgage-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/mortgage-calculator",
                 description:
                   "Advanced mortgage calculator to estimate monthly payments, interest, taxes, and amortization schedule.",
                 applicationCategory: "FinanceApplication",
@@ -159,7 +159,7 @@ export default function MortgagePage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

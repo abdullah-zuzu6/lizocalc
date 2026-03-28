@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/physics/mass-calculator",
+    canonical: "https://www.lizocalc.com/calculators/physics/mass-calculator",
   },
 
   robots: {
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     title: "Mass Calculator | LizoCalc",
     description:
       "Free physics mass calculator to calculate mass, weight, and gravity using professional formulas and instant unit conversions.",
-    url: "https://lizocalc.com/calculators/physics/mass-calculator",
+    url: "https://www.lizocalc.com/calculators/physics/mass-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,38 +91,38 @@ export default function MassCalculatorPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/physics/mass-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/physics/mass-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Physics ",
-                    item: "https://lizocalc.com/calculators/physics",
+                    item: "https://www.lizocalc.com/calculators/physics",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Mass Calculator",
-                    item: "https://lizocalc.com/calculators/physics/mass-calculator",
+                    item: "https://www.lizocalc.com/calculators/physics/mass-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/physics/mass-calculator",
-                url: "https://lizocalc.com/calculators/physics/mass-calculator",
+                "@id": "https://www.lizocalc.com/calculators/physics/mass-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/mass-calculator",
                 name: "Mass Calculator",
                 description:
                   "Use our physics mass calculator to calculate mass, weight, and gravity instantly.",
@@ -130,15 +130,15 @@ export default function MassCalculatorPage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/physics/mass-calculator#app",
+                  "https://www.lizocalc.com/calculators/physics/mass-calculator#app",
                 name: "Mass Calculator",
-                url: "https://lizocalc.com/calculators/physics/mass-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/mass-calculator",
                 description:
                   "Physics mass calculator to calculate mass, weight, or gravitational force using the formula m = W ÷ g.",
                 applicationCategory: "EducationalApplication",
@@ -162,7 +162,7 @@ export default function MassCalculatorPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

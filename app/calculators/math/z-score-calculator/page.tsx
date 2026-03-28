@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/statistics/z-score-calculator",
+    canonical: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Z-Score Calculator | LizoCalc",
     description:
       "Standardize your data points instantly. Calculate Z-scores and find their position on the normal distribution curve.",
-    url: "https://lizocalc.com/calculators/statistics/z-score-calculator",
+    url: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,53 +92,53 @@ export default function ZScorePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/statistics/z-score-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/statistics/z-score-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Statistics",
-                    item: "https://lizocalc.com/calculators/statistics",
+                    item: "https://www.lizocalc.com/calculators/statistics",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Z-Score Calculator",
-                    item: "https://lizocalc.com/calculators/statistics/z-score-calculator",
+                    item: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/statistics/z-score-calculator",
-                url: "https://lizocalc.com/calculators/statistics/z-score-calculator",
+                "@id": "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
+                url: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
                 name: "Z-Score Calculator",
                 description: "Use our advanced Z-score calculator to standardize data points and determine relative standing.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/statistics/z-score-calculator#app",
+                  "https://www.lizocalc.com/calculators/statistics/z-score-calculator#app",
                 name: "Z-Score Calculator",
-                url: "https://lizocalc.com/calculators/statistics/z-score-calculator",
+                url: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
                 description:
                   "Advanced Z-score calculator to determine how many standard deviations a value is from the mean.",
                 applicationCategory: "EducationApplication",
@@ -161,7 +161,7 @@ export default function ZScorePage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

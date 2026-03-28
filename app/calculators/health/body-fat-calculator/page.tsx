@@ -35,7 +35,7 @@ description: "calculate your body fat percentage, lean body mass, and total fat 
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/body-fat-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/body-fat-calculator",
   },
 
   robots: {
@@ -47,7 +47,7 @@ description: "calculate your body fat percentage, lean body mass, and total fat 
     title: "Advanced Body Fat Calculator | Accurate Composition Tool",
     description:
       "Track your fitness journey by calculating your body fat percentage. Our advanced tool uses professional formulas for precise body composition results.",
-    url: "https://lizocalc.com/calculators/health/body-fat-calculator",
+    url: "https://www.lizocalc.com/calculators/health/body-fat-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -77,53 +77,53 @@ export default function BodyFatPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/body-fat-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/body-fat-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Body Fat Calculator",
-                    item: "https://lizocalc.com/calculators/health/body-fat-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/body-fat-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/body-fat-calculator",
-                url: "https://lizocalc.com/calculators/health/body-fat-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/body-fat-calculator",
+                url: "https://www.lizocalc.com/calculators/health/body-fat-calculator",
                 name: "Advanced Body Fat Calculator",
                 description: "Use our advanced body fat calculator to estimate your body composition and track your fitness progress based on body measurements.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/body-fat-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/body-fat-calculator#app",
                 name: "Advanced Body Fat Calculator",
-                url: "https://lizocalc.com/calculators/health/body-fat-calculator",
+                url: "https://www.lizocalc.com/calculators/health/body-fat-calculator",
                 description:
                   "Advanced body fat calculator to estimate body fat percentage and body composition.",
                 applicationCategory: "HealthApplication",
@@ -147,7 +147,7 @@ export default function BodyFatPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

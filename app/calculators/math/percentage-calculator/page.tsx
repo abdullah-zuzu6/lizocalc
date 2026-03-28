@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/percentage-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/percentage-calculator",
   },
 
   robots: {
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "Percentage Calculator | LizoCalc",
     description:
       "Easily calculate percentages for math, business, and daily tasks with our all-in-one percentage tool.",
-    url: "https://lizocalc.com/calculators/math/percentage-calculator",
+    url: "https://www.lizocalc.com/calculators/math/percentage-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -96,39 +96,39 @@ export default function PercentagePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/percentage-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/percentage-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Percentage Calculator",
-                    item: "https://lizocalc.com/calculators/math/percentage-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/percentage-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
                 "@id":
-                  "https://lizocalc.com/calculators/math/percentage-calculator",
-                url: "https://lizocalc.com/calculators/math/percentage-calculator",
+                  "https://www.lizocalc.com/calculators/math/percentage-calculator",
+                url: "https://www.lizocalc.com/calculators/math/percentage-calculator",
                 name: "Percentage Calculator",
                 description:
                   "Free online percentage calculator for all your math needs.",
@@ -136,13 +136,13 @@ export default function PercentagePage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/percentage-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/percentage-calculator#app",
                 name: "Percentage Calculator",
                 applicationCategory: "EducationApplication",
                 operatingSystem: "Any",

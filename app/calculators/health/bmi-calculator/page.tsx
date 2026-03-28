@@ -49,7 +49,7 @@ description: "calculate your body mass index instantly with our free bmi calcula
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/bmi-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/bmi-calculator",
   },
 
   robots: {
@@ -61,7 +61,7 @@ description: "calculate your body mass index instantly with our free bmi calcula
     title: "Advanced BMI Calculator | Accurate Health Tool",
     description:
       "Check your Body Mass Index (BMI) instantly. Our advanced calculator provides precise weight categories and health tracking for adults.",
-    url: "https://lizocalc.com/calculators/health/bmi-calculator",
+    url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,53 +91,53 @@ export default function BMIPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "BMI Calculator",
-                    item: "https://lizocalc.com/calculators/health/bmi-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/bmi-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/bmi-calculator",
-                url: "https://lizocalc.com/calculators/health/bmi-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/bmi-calculator",
+                url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
                 name: "Advanced BMI Calculator",
                 description: "Use our advanced BMI calculator to instantly determine your Body Mass Index and understand your weight category based on height and weight.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/bmi-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/bmi-calculator#app",
                 name: "Advanced BMI Calculator",
-                url: "https://lizocalc.com/calculators/health/bmi-calculator",
+                url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
                 description:
                   "Advanced BMI calculator to estimate body mass index and provide health weight category insights.",
                 applicationCategory: "HealthApplication",
@@ -160,7 +160,7 @@ export default function BMIPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

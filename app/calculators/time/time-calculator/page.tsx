@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/time/time-calculator",
+    canonical: "https://www.lizocalc.com/calculators/time/time-calculator",
   },
 
   robots: {
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     title: "Time Duration & Conversion Calculator | LizoCalc",
     description:
       "Easily calculate total time and convert between units with our fast and accurate online time tool.",
-    url: "https://lizocalc.com/calculators/time/time-calculator",
+    url: "https://www.lizocalc.com/calculators/time/time-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,23 +92,23 @@ export default function TimePage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
-                "@id": "https://lizocalc.com/calculators/time/time-calculator#breadcrumb",
+                "@id": "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb",
                 itemListElement: [
-                  { "@type": "ListItem", position: 1, name: "Home", item: "https://lizocalc.com" },
-                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://lizocalc.com/calculators" },
-                  { "@type": "ListItem", position: 3, name: "Time ", item: "https://lizocalc.com/calculators/time" },
-                  { "@type": "ListItem", position: 4, name: "Time Calculator", item: "https://lizocalc.com/calculators/time/time-calculator" },
+                  { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+                  { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+                  { "@type": "ListItem", position: 3, name: "Time ", item: "https://www.lizocalc.com/calculators/time" },
+                  { "@type": "ListItem", position: 4, name: "Time Calculator", item: "https://www.lizocalc.com/calculators/time/time-calculator" },
 
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/time/time-calculator",
-                url: "https://lizocalc.com/calculators/time/time-calculator",
+                "@id": "https://www.lizocalc.com/calculators/time/time-calculator",
+                url: "https://www.lizocalc.com/calculators/time/time-calculator",
                 name: "Time Calculator",
                 description: "Easily convert and calculate time durations in hours, minutes, and seconds.",
                 inLanguage: "en",
-                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://lizocalc.com" }
+                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://www.lizocalc.com" }
               },
               {
                 "@type": "FAQPage",

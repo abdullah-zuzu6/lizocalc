@@ -50,7 +50,7 @@ description: "Calculate your total daily energy expenditure (tdee) using the mif
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/tdee-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/tdee-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ description: "Calculate your total daily energy expenditure (tdee) using the mif
     title: "Advanced TDEE Calculator | Accurate Maintenance Tool",
     description:
       "Find your true daily calorie burn. Our advanced TDEE calculator accounts for BMR and physical activity to help you master your weight goals.",
-    url: "https://lizocalc.com/calculators/health/tdee-calculator",
+    url: "https://www.lizocalc.com/calculators/health/tdee-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,53 +92,53 @@ export default function TDEEPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/tdee-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/tdee-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "TDEE Calculator",
-                    item: "https://lizocalc.com/calculators/health/tdee-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/tdee-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/tdee-calculator",
-                url: "https://lizocalc.com/calculators/health/tdee-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/tdee-calculator",
+                url: "https://www.lizocalc.com/calculators/health/tdee-calculator",
                 name: "Advanced TDEE Calculator",
                 description: "Use our advanced TDEE calculator to estimate your Total Daily Energy Expenditure, understand your caloric maintenance level, and reach your fitness goals.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/tdee-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/tdee-calculator#app",
                 name: "Advanced TDEE Calculator",
-                url: "https://lizocalc.com/calculators/health/tdee-calculator",
+                url: "https://www.lizocalc.com/calculators/health/tdee-calculator",
                 description:
                   "Advanced TDEE calculator to estimate daily energy expenditure and caloric maintenance levels.",
                 applicationCategory: "HealthApplication",
@@ -162,7 +162,7 @@ export default function TDEEPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

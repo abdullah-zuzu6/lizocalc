@@ -49,7 +49,7 @@ description: "calculate your ideal bedtime or wake-up time based on 90-minute sl
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/sleep-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/sleep-calculator",
   },
 
   robots: {
@@ -61,7 +61,7 @@ description: "calculate your ideal bedtime or wake-up time based on 90-minute sl
     title: "Advanced Sleep Calculator | Better Rest & Recovery",
     description:
       "Stop waking up groggy. Use our advanced calculator to time your sleep cycles perfectly and improve your daily energy levels.",
-    url: "https://lizocalc.com/calculators/health/sleep-calculator",
+    url: "https://www.lizocalc.com/calculators/health/sleep-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,53 +91,53 @@ export default function SleepPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/sleep-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/sleep-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Sleep Calculator",
-                    item: "https://lizocalc.com/calculators/health/sleep-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/sleep-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/sleep-calculator",
-                url: "https://lizocalc.com/calculators/health/sleep-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/sleep-calculator",
+                url: "https://www.lizocalc.com/calculators/health/sleep-calculator",
                 name: "Advanced Sleep Calculator",
                 description: "Use our advanced sleep calculator to find the best times to go to bed and wake up, helping you wake up feeling refreshed by timing your sleep cycles.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/sleep-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/sleep-calculator#app",
                 name: "Advanced Sleep Calculator",
-                url: "https://lizocalc.com/calculators/health/sleep-calculator",
+                url: "https://www.lizocalc.com/calculators/health/sleep-calculator",
                 description:
                   "Advanced sleep calculator to determine optimal bedtimes and wake-up times using sleep cycle logic.",
                 applicationCategory: "HealthApplication",
@@ -161,7 +161,7 @@ export default function SleepPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

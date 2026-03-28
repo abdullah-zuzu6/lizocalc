@@ -49,7 +49,7 @@ description: "calculate your daily calorie deficit and macro split instantly. ch
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/calorie-deficit-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator",
   },
 
   robots: {
@@ -61,7 +61,7 @@ description: "calculate your daily calorie deficit and macro split instantly. ch
     title: "Advanced Calorie Deficit Calculator | Sustainable Fat Loss",
     description:
       "Find your perfect calorie deficit for effective weight loss. Our advanced tool helps you reach your goals safely without crashing your metabolism.",
-    url: "https://lizocalc.com/calculators/health/calorie-deficit-calculator",
+    url: "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,53 +91,53 @@ export default function CalorieDeficitPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/calorie-deficit-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Calorie Deficit Calculator",
-                    item: "https://lizocalc.com/calculators/health/calorie-deficit-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/calorie-deficit-calculator",
-                url: "https://lizocalc.com/calculators/health/calorie-deficit-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator",
+                url: "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator",
                 name: "Advanced Calorie Deficit Calculator",
                 description: "Use our advanced calorie deficit calculator to determine the daily caloric intake needed to reach your weight loss goals sustainably.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/calorie-deficit-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator#app",
                 name: "Advanced Calorie Deficit Calculator",
-                url: "https://lizocalc.com/calculators/health/calorie-deficit-calculator",
+                url: "https://www.lizocalc.com/calculators/health/calorie-deficit-calculator",
                 description:
                   "Advanced calorie deficit calculator to determine daily intake for sustainable weight loss.",
                 applicationCategory: "HealthApplication",
@@ -161,7 +161,7 @@ export default function CalorieDeficitPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

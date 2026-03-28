@@ -1,6 +1,6 @@
 'use client'
 
-import { Mail, Github, Linkedin } from 'lucide-react'
+import { Mail,  } from 'lucide-react'
 import NoPrefetchLink from './NoPrefetchLink'
 
 export default function Footer() {
@@ -102,17 +102,7 @@ export default function Footer() {
             <p className="text-muted-foreground text-sm">
               © {currentYear} LizoCalculator. All rights reserved.
             </p>
-            {/* <div className="flex gap-4 mt-4 md:mt-0">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Github className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Mail className="w-5 h-5" />
-              </a>
-            </div> */}
+           
           </div>
         </div>
       </div>

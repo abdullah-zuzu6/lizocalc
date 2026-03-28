@@ -49,7 +49,7 @@ keywords: [
 ],
 
 alternates: {
-canonical: "https://lizocalc.com/calculators/physics/density-calculator",
+canonical: "https://www.lizocalc.com/calculators/physics/density-calculator",
 },
 
 robots: {
@@ -61,7 +61,7 @@ openGraph: {
 title: "Density Calculator | LizoCalc",
 description:
 "Calculate density, mass, or volume instantly with our free online physics calculator.",
-url: "https://lizocalc.com/calculators/physics/density-calculator",
+url: "https://www.lizocalc.com/calculators/physics/density-calculator",
 siteName: "LizoCalc",
 type: "website",
 },
@@ -90,52 +90,52 @@ export default function DensityPage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
-                "@id": "https://lizocalc.com/calculators/physics/density-calculator#breadcrumb",
+                "@id": "https://www.lizocalc.com/calculators/physics/density-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Physics ",
-                    item: "https://lizocalc.com/calculators/physics",
+                    item: "https://www.lizocalc.com/calculators/physics",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Density Calculator",
-                    item: "https://lizocalc.com/calculators/physics/density-calculator",
+                    item: "https://www.lizocalc.com/calculators/physics/density-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/physics/density-calculator",
-                url: "https://lizocalc.com/calculators/physics/density-calculator",
+                "@id": "https://www.lizocalc.com/calculators/physics/density-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/density-calculator",
                 name: "Density Calculator",
                 description: "Use our density calculator to estimate mass, volume, and material density instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
-                "@id": "https://lizocalc.com/calculators/physics/density-calculator#app",
+                "@id": "https://www.lizocalc.com/calculators/physics/density-calculator#app",
                 name: "Density Calculator",
-                url: "https://lizocalc.com/calculators/physics/density-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/density-calculator",
                 description: "Calculate density, mass, or volume using our advanced physics utility.",
                 applicationCategory: "PhysicsApplication",
                 operatingSystem: "Any",
@@ -155,7 +155,7 @@ export default function DensityPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

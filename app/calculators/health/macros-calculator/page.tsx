@@ -50,7 +50,7 @@ description: "easily calculate your daily macros for weight loss, maintenance, o
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/macros-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/macros-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ description: "easily calculate your daily macros for weight loss, maintenance, o
     title: "Advanced Macros Calculator | Precise Nutrient Tracking",
     description:
       "Take control of your nutrition. Our advanced macros calculator provides the exact gram targets you need for protein, carbohydrates, and healthy fats.",
-    url: "https://lizocalc.com/calculators/health/macros-calculator",
+    url: "https://www.lizocalc.com/calculators/health/macros-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,53 +92,53 @@ export default function MacrosPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/macros-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/macros-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Macros Calculator",
-                    item: "https://lizocalc.com/calculators/health/macros-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/macros-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/macros-calculator",
-                url: "https://lizocalc.com/calculators/health/macros-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/macros-calculator",
+                url: "https://www.lizocalc.com/calculators/health/macros-calculator",
                 name: "Advanced Macros Calculator",
                 description: "Use our advanced macros calculator to determine your optimal protein, fat, and carbohydrate intake to help you reach your fitness goals.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/macros-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/macros-calculator#app",
                 name: "Advanced Macros Calculator",
-                url: "https://lizocalc.com/calculators/health/macros-calculator",
+                url: "https://www.lizocalc.com/calculators/health/macros-calculator",
                 description:
                   "Advanced macros calculator to estimate daily protein, fat, and carbohydrate requirements.",
                 applicationCategory: "HealthApplication",
@@ -162,7 +162,7 @@ export default function MacrosPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

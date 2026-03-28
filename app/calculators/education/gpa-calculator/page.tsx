@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     "weighted GPA calculator",
   ],
   alternates: {
-    canonical: "https://lizocalc.com/calculators/education/gpa-calculator",
+    canonical: "https://www.lizocalc.com/calculators/education/gpa-calculator",
   },
   robots: {
     index: true,
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "GPA Calculator | Accurate Academic Tracking | LizoCalc",
     description: "Plan your academic success with our free GPA calculator. Easily compute your semester or cumulative GPA for high school or college.",
-    url: "https://lizocalc.com/calculators/education/gpa-calculator",
+    url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -83,54 +83,54 @@ export default function GPAPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/education/gpa-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/education/gpa-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Education Calculators",
-                    item: "https://lizocalc.com/calculators/education",
+                    item: "https://www.lizocalc.com/calculators/education",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "GPA Calculator",
-                    item: "https://lizocalc.com/calculators/education/gpa-calculator",
+                    item: "https://www.lizocalc.com/calculators/education/gpa-calculator",
                   },
                 ],
               },
               {
   "@type": "WebPage",
-  "@id": "https://lizocalc.com/calculators/education/gpa-calculator",
-  url: "https://lizocalc.com/calculators/education/gpa-calculator",
+  "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator",
+  url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
   name: "GPA Calculator",
   description: "Use our GPA calculator to instantly compute your Grade Point Average for single or multiple semesters.",
   "inLanguage": "en",
   "isPartOf": {
     "@type": "WebSite",
     "name": "LizoCalc",
-    "url": "https://lizocalc.com"
+    "url": "https://www.lizocalc.com"
   }
 },
 
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/education/gpa-calculator#app",
+                  "https://www.lizocalc.com/calculators/education/gpa-calculator#app",
                 name: "GPA Calculator",
-                url: "https://lizocalc.com/calculators/education/gpa-calculator",
+                url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
                 description:
                   "Educational GPA calculator to compute semester and cumulative GPA accurately.",
                 applicationCategory: "EducationalApplication",
@@ -154,7 +154,7 @@ export default function GPAPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

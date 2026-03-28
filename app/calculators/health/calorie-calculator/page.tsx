@@ -35,7 +35,7 @@ description: "calculate your daily calorie needs with our bmr and tdee tool. inp
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/calorie-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/calorie-calculator",
   },
 
   robots: {
@@ -47,7 +47,7 @@ description: "calculate your daily calorie needs with our bmr and tdee tool. inp
     title: "Advanced Calorie Calculator | Accurate Energy Tool",
     description:
       "Find exactly how many calories you need to reach your fitness goals. Our advanced calculator provides precise targets for maintenance, loss, or gain.",
-    url: "https://lizocalc.com/calculators/health/calorie-calculator",
+    url: "https://www.lizocalc.com/calculators/health/calorie-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -77,53 +77,53 @@ export default function CaloriePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/calorie-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/calorie-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Calorie Calculator",
-                    item: "https://lizocalc.com/calculators/health/calorie-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/calorie-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/calorie-calculator",
-                url: "https://lizocalc.com/calculators/health/calorie-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/calorie-calculator",
+                url: "https://www.lizocalc.com/calculators/health/calorie-calculator",
                 name: "Advanced Calorie Calculator",
                 description: "Use our advanced calorie calculator to estimate your daily energy needs, track macros, and reach your fitness goals instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/calorie-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/calorie-calculator#app",
                 name: "Advanced Calorie Calculator",
-                url: "https://lizocalc.com/calculators/health/calorie-calculator",
+                url: "https://www.lizocalc.com/calculators/health/calorie-calculator",
                 description:
                   "Advanced calorie calculator to estimate daily energy expenditure, macro requirements, and fitness goals.",
                 applicationCategory: "HealthApplication",
@@ -147,7 +147,7 @@ export default function CaloriePage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

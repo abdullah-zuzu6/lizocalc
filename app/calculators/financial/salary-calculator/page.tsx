@@ -48,7 +48,7 @@ description: "Easily convert your pay between hourly, monthly, and annual rates.
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/salary-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/salary-calculator",
   },
 
   robots: {
@@ -60,7 +60,7 @@ description: "Easily convert your pay between hourly, monthly, and annual rates.
     title: "Advanced Salary Calculator | Accurate Income Tool",
     description:
       "Find out exactly how much you'll take home. Our advanced salary calculator provides a clear breakdown of taxes and deductions for better financial planning.",
-    url: "https://lizocalc.com/calculators/financial/salary-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/salary-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,53 +90,53 @@ export default function SalaryPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/salary-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/salary-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial Calculators",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Salary Calculator",
-                    item: "https://lizocalc.com/calculators/financial/salary-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/salary-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/salary-calculator",
-                url: "https://lizocalc.com/calculators/financial/salary-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/salary-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/salary-calculator",
                 name: "Advanced Salary Calculator",
                 description: "Use our advanced salary calculator to estimate your net take-home pay after taxes, deductions, and bonuses instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/salary-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/salary-calculator#app",
                 name: "Advanced Salary Calculator",
-                url: "https://lizocalc.com/calculators/financial/salary-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/salary-calculator",
                 description:
                   "Advanced salary calculator to estimate net pay, tax impact, and annual take-home income.",
                 applicationCategory: "FinanceApplication",
@@ -160,7 +160,7 @@ export default function SalaryPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

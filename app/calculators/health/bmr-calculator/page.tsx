@@ -49,7 +49,7 @@ description: "use our free bmr calculator to determine your basal metabolic rate
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/health/bmr-calculator",
+    canonical: "https://www.lizocalc.com/calculators/health/bmr-calculator",
   },
 
   robots: {
@@ -61,7 +61,7 @@ description: "use our free bmr calculator to determine your basal metabolic rate
     title: "Advanced BMR Calculator | Accurate Metabolism Tool",
     description:
       "Find out how many calories your body burns at rest. Our advanced BMR calculator provides precise results for personalized diet and fitness planning.",
-    url: "https://lizocalc.com/calculators/health/bmr-calculator",
+    url: "https://www.lizocalc.com/calculators/health/bmr-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,53 +90,53 @@ export default function BMRPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Health ",
-                    item: "https://lizocalc.com/calculators/health",
+                    item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "BMR Calculator",
-                    item: "https://lizocalc.com/calculators/health/bmr-calculator",
+                    item: "https://www.lizocalc.com/calculators/health/bmr-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/health/bmr-calculator",
-                url: "https://lizocalc.com/calculators/health/bmr-calculator",
+                "@id": "https://www.lizocalc.com/calculators/health/bmr-calculator",
+                url: "https://www.lizocalc.com/calculators/health/bmr-calculator",
                 name: "Advanced BMR Calculator",
                 description: "Use our advanced BMR calculator to estimate your Basal Metabolic Rate and understand how many calories your body burns at rest.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/health/bmr-calculator#app",
+                  "https://www.lizocalc.com/calculators/health/bmr-calculator#app",
                 name: "Advanced BMR Calculator",
-                url: "https://lizocalc.com/calculators/health/bmr-calculator",
+                url: "https://www.lizocalc.com/calculators/health/bmr-calculator",
                 description:
                   "Advanced BMR calculator to determine resting metabolic rate and daily baseline energy needs.",
                 applicationCategory: "HealthApplication",
@@ -159,7 +159,7 @@ export default function BMRPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

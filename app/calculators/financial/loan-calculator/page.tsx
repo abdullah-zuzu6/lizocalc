@@ -48,7 +48,7 @@ description: "Calculate monthly payments and full amortization schedules for amo
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/loan-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/loan-calculator",
   },
 
   robots: {
@@ -60,7 +60,7 @@ description: "Calculate monthly payments and full amortization schedules for amo
     title: "Advanced Loan Calculator | Accurate Amortization Tool",
     description:
       "Planning a loan? Use our advanced calculator to breakdown your monthly payments, interest rates, and total cost of borrowing with precision.",
-    url: "https://lizocalc.com/calculators/financial/loan-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/loan-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,53 +90,53 @@ export default function LoanPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/loan-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/loan-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Loan Calculator",
-                    item: "https://lizocalc.com/calculators/financial/loan-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/loan-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/loan-calculator",
-                url: "https://lizocalc.com/calculators/financial/loan-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/loan-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/loan-calculator",
                 name: "Advanced Loan Calculator",
                 description: "Use our advanced loan calculator to estimate monthly loan payments, interest, and total repayment costs instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/loan-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/loan-calculator#app",
                 name: "Advanced Loan Calculator",
-                url: "https://lizocalc.com/calculators/financial/loan-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/loan-calculator",
                 description:
                   "Advanced loan calculator to estimate monthly payments, interest, and amortization schedule for various loan types.",
                 applicationCategory: "FinanceApplication",
@@ -160,7 +160,7 @@ export default function LoanPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

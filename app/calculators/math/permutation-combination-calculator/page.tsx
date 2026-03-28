@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/permutation-combination-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/permutation-combination-calculator",
   },
 
   robots: {
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     title: "Permutation & Combination Calculator | LizoCalc",
     description:
       "Solve complex probability problems with our free permutation and combination tool. Get instant results for nPr and nCr calculations.",
-    url: "https://lizocalc.com/calculators/math/permutation-combination-calculator",
+    url: "https://www.lizocalc.com/calculators/math/permutation-combination-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -103,53 +103,53 @@ export default function PermutationCombinationPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/permutation-combination-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/permutation-combination-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Permutation & Combination Calculator",
-                    item: "https://lizocalc.com/calculators/math/permutation-combination-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/permutation-combination-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/math/permutation-combination-calculator",
-                url: "https://lizocalc.com/calculators/math/permutation-combination-calculator",
+                "@id": "https://www.lizocalc.com/calculators/math/permutation-combination-calculator",
+                url: "https://www.lizocalc.com/calculators/math/permutation-combination-calculator",
                 name: "Permutation & Combination Calculator",
                 description: "Use our advanced calculator to estimate permutations and combinations for any set of items.",
                 inLanguage: "en",
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com"
+                  url: "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/permutation-combination-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/permutation-combination-calculator#app",
                 name: "Permutation & Combination Calculator",
-                url: "https://lizocalc.com/calculators/math/permutation-combination-calculator",
+                url: "https://www.lizocalc.com/calculators/math/permutation-combination-calculator",
                 description:
                   "Advanced math calculator to solve arrangements and selections with high-precision logic.",
                 applicationCategory: "EducationApplication",
@@ -172,7 +172,7 @@ export default function PermutationCombinationPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

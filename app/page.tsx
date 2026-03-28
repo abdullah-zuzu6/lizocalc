@@ -86,15 +86,43 @@ const physics = [
 
         </div>
       </div>
-
-      <FAQ 
-        title="Common Questions"
-        items={[
-          { question: 'Are these tools free?', answer: 'Yes, 100% free with no registration.' },
-          { question: 'Is my data safe?', answer: 'We never store your calculations.' }
-        ]} 
-      />
-
+<FAQ 
+  title="About Lizocalc"
+  items={[
+    { 
+      question: 'What is Lizocalc?', 
+      answer: 'Lizocalc is an online platform that provides multiple calculators for math, finance, health, physics, and daily life use in one place.' 
+    },
+    { 
+      question: 'Why should I use Lizocalc instead of other calculators?', 
+      answer: 'Because it combines many tools in a single clean interface, so you don’t need to visit different websites for different calculations.' 
+    },
+    { 
+      question: 'Does Lizocalc work on all devices?', 
+      answer: 'Yes, it is fully responsive and works smoothly on mobile, tablet, and desktop.' 
+    },
+    { 
+      question: 'Do I need an account to use Lizocalc?', 
+      answer: 'No, you can use all calculators without signing up or logging in.' 
+    },
+    { 
+      question: 'Is Lizocalc updated regularly?', 
+      answer: 'Yes, new calculators and improvements are added over time to improve accuracy and user experience.' 
+    },
+    { 
+      question: 'Can Lizocalc replace manual calculations?', 
+      answer: 'It helps speed up calculations, but users should still understand the logic behind formulas for learning and verification.' 
+    },
+    { 
+      question: 'Is Lizocalc safe to use?', 
+      answer: 'Yes, it runs in your browser and does not store personal data or calculation history.' 
+    },
+    { 
+      question: 'What kind of calculators are available on Lizocalc?', 
+      answer: 'It includes finance, health, math, physics, and everyday utility calculators in one system.' 
+    }
+  ]} 
+/>
       <Footer />
     </main>
   )

@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     "kg to lbs converter",
   ],
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/conversion-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/conversion-calculator",
   },
   robots: {
     index: true,
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     title: "Conversion Calculator – Free Unit Converter | LizoCalc",
     description:
       "Instantly convert length, weight, temperature & more with our free, accurate online conversion calculator. Metric and imperial supported.",
-    url: "https://lizocalc.com/calculators/math/conversion-calculator",
+    url: "https://www.lizocalc.com/calculators/math/conversion-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -97,39 +97,39 @@ export default function ConversionCalculatorPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/conversion-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/conversion-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Conversion Calculator",
-                    item: "https://lizocalc.com/calculators/math/conversion-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/conversion-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
                 "@id":
-                  "https://lizocalc.com/calculators/math/conversion-calculator",
-                url: "https://lizocalc.com/calculators/math/conversion-calculator",
+                  "https://www.lizocalc.com/calculators/math/conversion-calculator",
+                url: "https://www.lizocalc.com/calculators/math/conversion-calculator",
                 name: "Conversion Calculator",
                 description:
                   "Free online unit converter for length, weight, and temperature with metric and imperial support.",
@@ -138,7 +138,7 @@ export default function ConversionCalculatorPage() {
               {
                 "@type": "SoftwareApplication",
                 name: "Conversion Calculator",
-                url: "https://lizocalc.com/calculators/math/conversion-calculator",
+                url: "https://www.lizocalc.com/calculators/math/conversion-calculator",
                 description:
                   "Free conversion calculator for instant length, weight, and temperature conversions.",
                 applicationCategory: "UtilitiesApplication",

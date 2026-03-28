@@ -53,14 +53,14 @@ export const metadata: Metadata = {
     "binary number system calculator",
   ],
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/binary-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/binary-calculator",
   },
   robots: { index: true, follow: true },
   openGraph: {
     title: "Binary Calculator – Fast & Accurate Converter",
     description:
       "Easily convert binary to decimal and perform binary calculations online with this fast and accurate tool.",
-    url: "https://lizocalc.com/calculators/math/binary-calculator",
+    url: "https://www.lizocalc.com/calculators/math/binary-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -89,39 +89,39 @@ export default function BinaryCalculatorPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/binary-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/binary-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Binary Calculator",
-                    item: "https://lizocalc.com/calculators/math/binary-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/binary-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
                 "@id":
-                  "https://lizocalc.com/calculators/math/binary-calculator",
-                url: "https://lizocalc.com/calculators/math/binary-calculator",
+                  "https://www.lizocalc.com/calculators/math/binary-calculator",
+                url: "https://www.lizocalc.com/calculators/math/binary-calculator",
                 name: "Binary Calculator",
                 description:
                   "Use our binary calculator to perform binary arithmetic and convert binary numbers to decimal and decimal numbers to binary.",
@@ -129,15 +129,15 @@ export default function BinaryCalculatorPage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/binary-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/binary-calculator#app",
                 name: "Binary Calculator",
-                url: "https://lizocalc.com/calculators/math/binary-calculator",
+                url: "https://www.lizocalc.com/calculators/math/binary-calculator",
                 description:
                   "Free binary calculator for performing binary arithmetic and converting binary to decimal or decimal to binary.",
                 applicationCategory: "UtilitiesApplication",
@@ -158,7 +158,7 @@ export default function BinaryCalculatorPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

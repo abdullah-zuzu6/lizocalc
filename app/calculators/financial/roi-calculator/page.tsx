@@ -47,7 +47,7 @@ description: "Measure your investment performance with our free ROI calculator. 
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/roi-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/roi-calculator",
   },
 
   robots: {
@@ -59,7 +59,7 @@ description: "Measure your investment performance with our free ROI calculator. 
     title: "Advanced ROI Calculator | Accurate Profitability Tool",
     description:
       "Measure your investment success. Our advanced ROI calculator provides precise results for net profit and total returns to help you make smarter financial decisions.",
-    url: "https://lizocalc.com/calculators/financial/roi-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/roi-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -89,53 +89,53 @@ export default function ROIPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/roi-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/roi-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "ROI Calculator",
-                    item: "https://lizocalc.com/calculators/financial/roi-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/roi-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/roi-calculator",
-                url: "https://lizocalc.com/calculators/financial/roi-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/roi-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/roi-calculator",
                 name: "Advanced ROI Calculator",
                 description: "Use our advanced ROI calculator to estimate the return on investment, net profit, and investment efficiency instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/roi-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/roi-calculator#app",
                 name: "Advanced ROI Calculator",
-                url: "https://lizocalc.com/calculators/financial/roi-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/roi-calculator",
                 description:
                   "Advanced ROI calculator to estimate return on investment, total gain, and profitability percentage.",
                 applicationCategory: "FinanceApplication",
@@ -159,7 +159,7 @@ export default function ROIPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

@@ -6,7 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const BASE_URL = "https://lizocalc.com";
+const BASE_URL = "https://www.lizocalc.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),

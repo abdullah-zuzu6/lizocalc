@@ -48,7 +48,7 @@ description: "Easily convert interest rates between different compounding period
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+    canonical: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
   },
 
   robots: {
@@ -60,7 +60,7 @@ description: "Easily convert interest rates between different compounding period
     title: "Advanced Compound Interest Calculator | Wealth Growth Tool",
     description:
       "Visualize your financial future. Our advanced compound interest calculator provides precise estimates for long-term investments and savings goals.",
-    url: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+    url: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,53 +90,53 @@ export default function CompoundInterestPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/compound-interest-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Financial ",
-                    item: "https://lizocalc.com/calculators/financial",
+                    item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Compound Interest Calculator",
-                    item: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                    item: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/financial/compound-interest-calculator",
-                url: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                "@id": "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
                 name: "Advanced Compound Interest Calculator",
                 description: "Use our advanced compound interest calculator to estimate investment growth, total interest, and future value instantly.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/financial/compound-interest-calculator#app",
+                  "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#app",
                 name: "Advanced Compound Interest Calculator",
-                url: "https://lizocalc.com/calculators/financial/compound-interest-calculator",
+                url: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
                 description:
                   "Advanced compound interest calculator to estimate future value, total interest, and investment growth over time.",
                 applicationCategory: "FinanceApplication",
@@ -160,7 +160,7 @@ export default function CompoundInterestPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

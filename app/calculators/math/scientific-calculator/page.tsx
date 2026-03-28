@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/scientific-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/scientific-calculator",
   },
 
   robots: {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: "Scientific Calculator | LizoCalc",
     description:
       "Perform complex calculations including trig, logs, and exponents with our professional-grade scientific calculator.",
-    url: "https://lizocalc.com/calculators/math/scientific-calculator",
+    url: "https://www.lizocalc.com/calculators/math/scientific-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -94,31 +94,31 @@ export default function ScientificPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/scientific-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/scientific-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Scientific Calculator",
-                    item: "https://lizocalc.com/calculators/math/scientific-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/scientific-calculator",
                   },
                 ],
               },
@@ -126,8 +126,8 @@ export default function ScientificPage() {
               {
                 "@type": "WebPage",
                 "@id":
-                  "https://lizocalc.com/calculators/math/scientific-calculator",
-                url: "https://lizocalc.com/calculators/math/scientific-calculator",
+                  "https://www.lizocalc.com/calculators/math/scientific-calculator",
+                url: "https://www.lizocalc.com/calculators/math/scientific-calculator",
                 name: "Scientific Calculator",
                 description:
                   "Free scientific calculator for advanced math operations including trigonometry, logarithms, and square roots.",
@@ -135,16 +135,16 @@ export default function ScientificPage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
 
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/scientific-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/scientific-calculator#app",
                 name: "Scientific Calculator",
-                url: "https://lizocalc.com/calculators/math/scientific-calculator",
+                url: "https://www.lizocalc.com/calculators/math/scientific-calculator",
                 description:
                   "Online scientific calculator that supports trigonometry, logarithms, square roots, and advanced mathematical calculations.",
                 applicationCategory: "EducationalApplication",
@@ -169,7 +169,7 @@ export default function ScientificPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
 

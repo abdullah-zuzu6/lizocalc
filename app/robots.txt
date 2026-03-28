@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lizocalc.com/sitemap.xml
+Sitemap: https://www.lizocalc.com/sitemap.xml

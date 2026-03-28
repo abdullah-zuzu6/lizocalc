@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/time/hours-calculator",
+    canonical: "https://www.lizocalc.com/calculators/time/hours-calculator",
   },
 
   robots: {
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     title: "Hours & Time Duration Calculator | LizoCalc",
     description:
       "Find the exact time difference between two points. Perfect for shift tracking, project management, and daily duration calculations.",
-    url: "https://lizocalc.com/calculators/time/hours-calculator",
+    url: "https://www.lizocalc.com/calculators/time/hours-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -95,53 +95,53 @@ export default function HoursPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/time/hours-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Time ",
-                    item: "https://lizocalc.com/calculators/time",
+                    item: "https://www.lizocalc.com/calculators/time",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Hours Calculator",
-                    item: "https://lizocalc.com/calculators/time/hours-calculator",
+                    item: "https://www.lizocalc.com/calculators/time/hours-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/time/hours-calculator",
-                url: "https://lizocalc.com/calculators/time/hours-calculator",
+                "@id": "https://www.lizocalc.com/calculators/time/hours-calculator",
+                url: "https://www.lizocalc.com/calculators/time/hours-calculator",
                 name: "Hours Calculator",
                 description: "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/time/hours-calculator#app",
+                  "https://www.lizocalc.com/calculators/time/hours-calculator#app",
                 name: "Hours Calculator",
-                url: "https://lizocalc.com/calculators/time/hours-calculator",
+                url: "https://www.lizocalc.com/calculators/time/hours-calculator",
                 description:
                   "Free hours calculator to determine the exact time duration between two times, supporting overnight calculations.",
                 applicationCategory: "UtilityApplication",
@@ -164,7 +164,7 @@ export default function HoursPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

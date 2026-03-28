@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/time/date-calculator",
+    canonical: "https://www.lizocalc.com/calculators/time/date-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Date Calculator | LizoCalc",
     description:
       "Calculate the exact number of days between dates or perform date arithmetic with our free, professional tool.",
-    url: "https://lizocalc.com/calculators/time/date-calculator",
+    url: "https://www.lizocalc.com/calculators/time/date-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -90,52 +90,52 @@ export default function DateCalculatorPage() {
             "@graph": [
               {
                 "@type": "BreadcrumbList",
-                "@id": "https://lizocalc.com/calculators/time/date-calculator#breadcrumb",
+                "@id": "https://www.lizocalc.com/calculators/time/date-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Time ",
-                    item: "https://lizocalc.com/calculators/time",
+                    item: "https://www.lizocalc.com/calculators/time",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Date Calculator",
-                    item: "https://lizocalc.com/calculators/time/date-calculator",
+                    item: "https://www.lizocalc.com/calculators/time/date-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/time/date-calculator",
-                url: "https://lizocalc.com/calculators/time/date-calculator",
+                "@id": "https://www.lizocalc.com/calculators/time/date-calculator",
+                url: "https://www.lizocalc.com/calculators/time/date-calculator",
                 name: "Date Calculator",
                 description: "Use our free date calculator to find the exact number of days between two dates or add/subtract time from a specific date easily.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
-                "@id": "https://lizocalc.com/calculators/time/date-calculator#app",
+                "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app",
                 name: "Date Calculator",
-                url: "https://lizocalc.com/calculators/time/date-calculator",
+                url: "https://www.lizocalc.com/calculators/time/date-calculator",
                 description: "Calculate duration between dates and add or subtract time accurately using the Gregorian calendar.",
                 applicationCategory: "UtilityApplication",
                 applicationSubCategory: "Date Calculator",
@@ -156,7 +156,7 @@ export default function DateCalculatorPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

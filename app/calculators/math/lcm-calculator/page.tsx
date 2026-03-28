@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/lcm-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/lcm-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "LCM Calculator | LizoCalc",
     description:
       "Find the Least Common Multiple (LCM) of numbers instantly using our free calculator with prime factorization steps.",
-    url: "https://lizocalc.com/calculators/math/lcm-calculator",
+    url: "https://www.lizocalc.com/calculators/math/lcm-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,31 +92,31 @@ export default function LCMPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/lcm-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/lcm-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "LCM Calculator",
-                    item: "https://lizocalc.com/calculators/math/lcm-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/lcm-calculator",
                   },
                 ],
               },

@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/triangle-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/triangle-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Triangle Calculator | LizoCalc",
     description:
       "A complete geometry tool to find the area, perimeter, and missing dimensions of any triangle type.",
-    url: "https://lizocalc.com/calculators/math/triangle-calculator",
+    url: "https://www.lizocalc.com/calculators/math/triangle-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,38 +91,38 @@ export default function TrianglePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/triangle-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/triangle-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Triangle Calculator",
-                    item: "https://lizocalc.com/calculators/math/triangle-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/triangle-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/math/triangle-calculator",
-                url: "https://lizocalc.com/calculators/math/triangle-calculator",
+                "@id": "https://www.lizocalc.com/calculators/math/triangle-calculator",
+                url: "https://www.lizocalc.com/calculators/math/triangle-calculator",
                 name: "Triangle Calculator",
                 description:
                   "Use our triangle calculator to compute area, perimeter, sides, height, and angles instantly.",
@@ -130,15 +130,15 @@ export default function TrianglePage() {
                 isPartOf: {
                   "@type": "WebSite",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/triangle-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/triangle-calculator#app",
                 name: "Triangle Calculator",
-                url: "https://lizocalc.com/calculators/math/triangle-calculator",
+                url: "https://www.lizocalc.com/calculators/math/triangle-calculator",
                 description:
                   "Advanced triangle calculator to compute area, perimeter, height, angles, and sides.",
                 applicationCategory: "MathApplication",
@@ -161,7 +161,7 @@ export default function TrianglePage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {

@@ -49,7 +49,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
   },
 
   robots: {
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     title: "Pythagorean Theorem Calculator | LizoCalc",
     description:
       "Free Pythagorean calculator to solve triangle sides with an easy-to-use interface and formulas.",
-    url: "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+    url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -91,53 +91,53 @@ export default function PythagoreanPage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
                     position: 1,
                     name: "Home",
-                    item: "https://lizocalc.com",
+                    item: "https://www.lizocalc.com",
                   },
                   {
                     "@type": "ListItem",
                     position: 2,
                     name: "Calculators",
-                    item: "https://lizocalc.com/calculators",
+                    item: "https://www.lizocalc.com/calculators",
                   },
                   {
                     "@type": "ListItem",
                     position: 3,
                     name: "Math ",
-                    item: "https://lizocalc.com/calculators/math",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Pythagorean Theorem Calculator",
-                    item: "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
                   },
                 ],
               },
               {
                 "@type": "WebPage",
-                "@id": "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator",
-                url: "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+                "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+                url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
                 name: "Pythagorean Theorem Calculator",
                 description: "Estimate the missing sides of a right triangle instantly with our Pythagorean Theorem calculator.",
                 "inLanguage": "en",
                 "isPartOf": {
                   "@type": "WebSite",
                   "name": "LizoCalc",
-                  "url": "https://lizocalc.com"
+                  "url": "https://www.lizocalc.com"
                 }
               },
               {
                 "@type": "SoftwareApplication",
                 "@id":
-                  "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator#app",
+                  "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#app",
                 name: "Pythagorean Theorem Calculator",
-                url: "https://lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+                url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
                 description:
                   "Online math tool to solve for the hypotenuse, base, or perpendicular using the Pythagorean Theorem.",
                 applicationCategory: "MathApplication",
@@ -161,7 +161,7 @@ export default function PythagoreanPage() {
                 creator: {
                   "@type": "Organization",
                   name: "LizoCalc",
-                  url: "https://lizocalc.com",
+                  url: "https://www.lizocalc.com",
                 },
               },
               {
