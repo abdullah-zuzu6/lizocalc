@@ -49,7 +49,7 @@ export default function Navbar() {
             <div className="flex items-center tracking-tight">
               <span className="text-foreground">Lizo</span>
               <span className="text-primary group-hover:text-primary/80 transition-colors">
-                calc
+                Calc
               </span>
             </div>
           </Link>

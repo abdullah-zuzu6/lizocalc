@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* About */}
           <div>
-            <h3 className="font-bold text-lg mb-4 text-primary">LizoCalculator</h3>
+            <h3 className="font-bold text-lg mb-4 text-primary">LizoCalc</h3>
             <p className="text-muted-foreground text-sm">
               Professional online calculators for all your calculation needs. Fast, accurate, and easy to use.
             </p>
@@ -100,7 +100,7 @@ export default function Footer() {
         <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm">
-              © {currentYear} LizoCalculator. All rights reserved.
+              © {currentYear} LizoCalc. All rights reserved.
             </p>
            
           </div>

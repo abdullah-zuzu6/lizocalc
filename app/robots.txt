@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Block common bot targets to save requests
+Disallow: /*.php$
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /api/
+
 Sitemap: https://www.lizocalc.com/sitemap.xml

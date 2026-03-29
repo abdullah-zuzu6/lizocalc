@@ -12,29 +12,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
   title: {
-    default:
-      "LizoCalc - Free Calculators for Financial, Fitness & Math and More ",
+    default: "LizoCalc - Free Calculators for Financial, Fitness & Math and More",
     template: "%s | LizoCalc",
   },
 
-  description:"LizoCalc offers free online calculators for finance, fitness, math, education,physics, and more. Simple, accurate, and fast tools designed to solve everyday calculations.",
+  description:
+    "LizoCalc offers free online calculators for finance, fitness, math, education, physics, and more. Simple, accurate, and fast tools designed to solve everyday calculations.",
+  
   keywords: [
-  "LizoCalc",
-  "online calculator",
-  "free calculator",
-  "financial calculator",
-  "loan calculator",
-  "mortgage calculator",
-  "BMI calculator",
-  "fitness calculator",
-  "math calculator",
-  "conversion calculator",
-  "scientific calculator",
-  "easy online calculator",
-  "fast calculator",
-  "calculator for finance",
-  "calculator for health",
-],
+    "LizoCalc", "online calculator", "free calculator", "financial calculator",
+    "loan calculator", "mortgage calculator", "BMI calculator", "fitness calculator",
+    "math calculator", "conversion calculator", "scientific calculator"
+  ],
 
   authors: [{ name: "LizoCalc" }],
 
@@ -42,13 +31,14 @@ export const metadata: Metadata = {
     canonical: BASE_URL,
   },
 
-  // ✅ FIXED ICONS (PNG for browser, WEBP avoided here)
+  // ✅ OPTIMIZED ICONS: Added 96x96 for Google Search results
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-96x96.png", sizes: "96x96", type: "image/png" },
       { url: "/logo.png", sizes: "512x512", type: "image/png" },
     ],
-    shortcut: ["/favicon.ico"],
+    shortcut: "/favicon.ico",
     apple: [
       { url: "/logo.png", sizes: "180x180", type: "image/png" },
     ],
@@ -60,10 +50,7 @@ export const metadata: Metadata = {
     url: BASE_URL,
     siteName: "LizoCalc",
     title: "LizoCalc - Free Online Calculators",
-    description:
-      "Professional online calculators for all your calculation needs",
-
-    // ✅ WEBP for SEO (fast loading)
+    description: "Professional online calculators for all your calculation needs",
     images: [
       {
         url: "/logo.webp",
@@ -89,15 +76,14 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "LizoCalc",
     url: BASE_URL,
-
-    // ✅ WEBP ok for structured data
-    logo: `${BASE_URL}/logo.webp`,
-
+    // Using PNG here is safer for some legacy schema crawlers
+    logo: `${BASE_URL}/logo.png`,
     sameAs: [
       "https://www.facebook.com/lizocalc",
       "https://twitter.com/lizocalc",
@@ -105,18 +91,14 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en" suppressHydrationWarning={true} >
+    <html lang="en" suppressHydrationWarning={true}>
       <head>
-        {/* ✅ Favicon (browser friendly) */}
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-
-        {/* ✅ Apple devices */}
-        <link rel="apple-touch-icon" href="/logo.png" />
-
-        <meta name="theme-color" content="#0d111f" />
-
-        {/* ✅ PWA */}
+        {/* Note: Next.js automatically injects favicon, apple-touch-icon, 
+          canonical, and meta theme-color from the metadata/viewport 
+          objects above. No need to repeat them manually. 
+        */}
+        
+        {/* ✅ PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
         {/* ✅ Structured Data */}
@@ -128,9 +110,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body
-        className={`${inter.className} bg-background text-foreground antialiased`}
-       >
+      <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
         <Analytics />
       </body>
