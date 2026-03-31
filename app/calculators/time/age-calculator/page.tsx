@@ -34,7 +34,7 @@ const faqData = [
   }
 ];
 export const metadata: Metadata = {
-  title: "Free Age Calculator – Days Lived, Next Birthday Countdown",
+  title: "Age Calculator – Days Lived, Next Birthday Countdown",
   description:
     "Calculate your exact age, total days lived, and countdown to your next birthday. A fast, free, and precise tool for chronological age calculation.",
 

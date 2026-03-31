@@ -86,7 +86,7 @@ export default function RootLayout({
     logo: `${BASE_URL}/logo.png`,
     sameAs: [
       "https://www.facebook.com/lizocalc",
-      "https://twitter.com/lizocalc",
+      "https://x.com/lizocalc",
     ],
   };
 

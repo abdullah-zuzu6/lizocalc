@@ -94,7 +94,7 @@ export default function CaloriePage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Health ",
+                    name: "Health",
                     item: "https://www.lizocalc.com/calculators/health",
                   },
                   {

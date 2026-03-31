@@ -25,7 +25,7 @@ export const calculators: Calculator[] = [
   { slug: 'bmr-calculator', category: 'health' },
   { slug: 'tdee-calculator', category: 'health' },
   { slug: 'calorie-deficit-calculator', category: 'health' },
-  { slug: 'macro-calculator', category: 'health' },
+  { slug: 'macros-calculator', category: 'health' },
   {slug: 'sleep-calculator', category: 'health' },
   
   
