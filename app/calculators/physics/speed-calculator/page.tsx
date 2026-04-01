@@ -109,7 +109,7 @@ export default function SpeedCalculatorPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Physics ",
+                    name: "Physics",
                     item: "https://www.lizocalc.com/calculators/physics",
                   },
                   {
@@ -134,6 +134,10 @@ export default function SpeedCalculatorPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/physics/speed-calculator#app"
+}
               },
 
               {
@@ -167,6 +171,10 @@ export default function SpeedCalculatorPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/physics/speed-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

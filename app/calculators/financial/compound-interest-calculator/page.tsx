@@ -107,7 +107,7 @@ export default function CompoundInterestPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Financial ",
+                    name: "Financial",
                     item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
@@ -129,7 +129,11 @@ export default function CompoundInterestPage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -162,6 +166,10 @@ export default function CompoundInterestPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/financial/compound-interest-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

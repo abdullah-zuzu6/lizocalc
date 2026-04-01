@@ -100,7 +100,7 @@ export default function GPAPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Education Calculators",
+                    name: "Education",
                     item: "https://www.lizocalc.com/calculators/education",
                   },
                   {
@@ -122,7 +122,11 @@ export default function GPAPage() {
     "@type": "WebSite",
     "name": "LizoCalc",
     "url": "https://www.lizocalc.com"
-  }
+  },
+  "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator#app"
+}
 },
 
               {
@@ -156,6 +160,10 @@ export default function GPAPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/education/gpa-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

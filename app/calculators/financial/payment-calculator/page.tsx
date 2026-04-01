@@ -107,7 +107,7 @@ export default function PaymentPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Financial ",
+                    name: "Financial",
                     item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
@@ -129,7 +129,11 @@ export default function PaymentPage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/financial/payment-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -162,6 +166,10 @@ export default function PaymentPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/financial/payment-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

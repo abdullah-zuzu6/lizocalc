@@ -96,7 +96,7 @@ export default function TimePage() {
                 itemListElement: [
                   { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
                   { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-                  { "@type": "ListItem", position: 3, name: "Time ", item: "https://www.lizocalc.com/calculators/time" },
+                  { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
                   { "@type": "ListItem", position: 4, name: "Time Calculator", item: "https://www.lizocalc.com/calculators/time/time-calculator" },
 
                 ],
@@ -108,7 +108,37 @@ export default function TimePage() {
                 name: "Time Calculator",
                 description: "Easily convert and calculate time durations in hours, minutes, and seconds.",
                 inLanguage: "en",
-                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://www.lizocalc.com" }
+                isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://www.lizocalc.com" },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/time/time-calculator#app"
+}
+              },
+              {
+                "@type": "SoftwareApplication",
+                "@id": "https://www.lizocalc.com/calculators/time/time-calculator#app",
+                "name": "Advanced Time Calculator",
+                "url": "https://www.lizocalc.com/calculators/time/time-calculator",
+                "description": "Calculate duration between times, add or subtract time, and convert between various time units.",
+                "applicationCategory": "UtilitiesApplication",
+                "applicationSubCategory": "Time Calculator",
+                "operatingSystem": "Any",
+                "inLanguage": "en",
+                "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+                "offers": { 
+                  "@type": "Offer", 
+                  "price": "0", 
+                  "priceCurrency": "USD" 
+                },
+                "creator": { 
+                  "@type": "Organization", 
+                  "name": "LizoCalc", 
+                  "url": "https://www.lizocalc.com" 
+                },
+                "potentialAction": {
+                  "@type": "UseAction",
+                  "target": ["https://www.lizocalc.com/calculators/time/time-calculator"]
+                }
               },
               {
                 "@type": "FAQPage",

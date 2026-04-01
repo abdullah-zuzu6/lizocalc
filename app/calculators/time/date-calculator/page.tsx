@@ -107,7 +107,7 @@ export default function DateCalculatorPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Time ",
+                    name: "Time",
                     item: "https://www.lizocalc.com/calculators/time",
                   },
                   {
@@ -129,7 +129,10 @@ export default function DateCalculatorPage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },"mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -158,6 +161,10 @@ export default function DateCalculatorPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/time/date-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

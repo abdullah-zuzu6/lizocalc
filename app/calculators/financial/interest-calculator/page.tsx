@@ -106,7 +106,7 @@ export default function InterestPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Financial ",
+                    name: "Financial",
                     item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
@@ -128,7 +128,11 @@ export default function InterestPage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/financial/interest-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -161,6 +165,10 @@ export default function InterestPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/financial/interest-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

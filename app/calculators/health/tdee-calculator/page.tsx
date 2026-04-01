@@ -109,7 +109,7 @@ export default function TDEEPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Health ",
+                    name: "Health",
                     item: "https://www.lizocalc.com/calculators/health",
                   },
                   {
@@ -131,7 +131,10 @@ export default function TDEEPage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },"mainEntityOfPage": {
+    "@type": "SoftwareApplication",
+    "@id": "https://www.lizocalc.com/calculators/health/tdee-calculator#app"
+  }
               },
               {
                 "@type": "SoftwareApplication",
@@ -164,6 +167,10 @@ export default function TDEEPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/health/tdee-calculator"]
+  }
               },
               {
                 "@type": "FAQPage",

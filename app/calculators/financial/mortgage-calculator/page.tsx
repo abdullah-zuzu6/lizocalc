@@ -105,7 +105,7 @@ export default function MortgagePage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Financial ",
+                    name: "Financial",
                     item: "https://www.lizocalc.com/calculators/financial",
                   },
                   {
@@ -127,7 +127,10 @@ export default function MortgagePage() {
     "@type": "WebSite",
     "name": "LizoCalc",
     "url": "https://www.lizocalc.com"
-  }
+  },"mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/financial/mortgage-calculator#app"
+}
 },
 
               {
@@ -160,7 +163,10 @@ export default function MortgagePage() {
                   "@type": "Organization",
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
-                },
+                },"potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/financial/mortgage-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

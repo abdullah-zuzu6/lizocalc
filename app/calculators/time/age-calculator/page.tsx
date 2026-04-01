@@ -95,9 +95,26 @@ export default function AgeCalculatorPage() {
                 itemListElement: [
                   { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
                   { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-                  { "@type": "ListItem", position: 3, name: "Time ", item: "https://www.lizocalc.com/calculators/time" },
+                  { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
                   { "@type": "ListItem", position: 4, name: "Age Calculator", item: "https://www.lizocalc.com/calculators/time/age-calculator" },
                 ],
+              },
+              {
+                "@type": "WebPage",
+                "@id": "https://www.lizocalc.com/calculators/time/age-calculator",
+                "url": "https://www.lizocalc.com/calculators/time/age-calculator",
+                "name": "Advanced Age Calculator",
+                "description": "Calculate your exact age in years, months, days, and even seconds. Find out the day of the week you were born and your next birthday countdown.",
+                "inLanguage": "en",
+                "isPartOf": {
+                  "@type": "WebSite",
+                  "name": "LizoCalc",
+                  "url": "https://www.lizocalc.com"
+                },
+                "mainEntityOfPage": {
+                  "@type": "SoftwareApplication",
+                  "@id": "https://www.lizocalc.com/calculators/time/age-calculator#app"
+                }
               },
               {
                 "@type": "SoftwareApplication",
@@ -110,6 +127,10 @@ export default function AgeCalculatorPage() {
                 inLanguage: "en",
                 offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
                 creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/time/age-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

@@ -108,7 +108,7 @@ export default function WeightPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Physics ",
+                    name: "Physics",
                     item: "https://www.lizocalc.com/calculators/physics",
                   },
                   {
@@ -164,6 +164,10 @@ export default function WeightPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/physics/weight-calculator#app"
+}
               },
               {
                 "@type": "FAQPage",

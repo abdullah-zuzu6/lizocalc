@@ -112,7 +112,7 @@ export default function HoursPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Time ",
+                    name: "Time",
                     item: "https://www.lizocalc.com/calculators/time",
                   },
                   {
@@ -134,7 +134,11 @@ export default function HoursPage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -166,6 +170,10 @@ export default function HoursPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/time/hours-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

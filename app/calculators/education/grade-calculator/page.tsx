@@ -101,7 +101,7 @@ export default function GradePage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Education Calculators",
+                    name: "Education",
                     item: "https://www.lizocalc.com/calculators/education",
                   },
                   {
@@ -123,7 +123,11 @@ export default function GradePage() {
                   "@type": "WebSite",
                   "name": "LizoCalc",
                   "url": "https://www.lizocalc.com"
-                }
+                },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -155,6 +159,10 @@ export default function GradePage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/education/grade-calculator"]
+}
               },
               {
                 "@type": "FAQPage",
