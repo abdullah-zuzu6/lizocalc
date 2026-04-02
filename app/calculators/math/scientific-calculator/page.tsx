@@ -111,7 +111,7 @@ export default function ScientificPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Math ",
+                    name: "Math",
                     item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
@@ -137,6 +137,10 @@ export default function ScientificPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/scientific-calculator#app"
+}
               },
 
               {
@@ -170,7 +174,10 @@ export default function ScientificPage() {
                   "@type": "Organization",
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
-                },
+                },"potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/math/scientific-calculator"]
+}
               },
 
               {

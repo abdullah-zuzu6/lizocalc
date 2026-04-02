@@ -121,16 +121,39 @@ export default function LCMPage() {
                 ],
               },
               {
-                "@type": "SoftwareApplication",
-                name: "LCM Calculator",
-                applicationCategory: "EducationalApplication",
-                operatingSystem: "Any",
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-              },
+  "@type": "WebPage",
+  "@id": "https://www.lizocalc.com/calculators/math/lcm-calculator",
+  "url": "https://www.lizocalc.com/calculators/math/lcm-calculator",
+  "name": "LCM (Least Common Multiple) Calculator",
+  "description": "Find the least common multiple for any set of numbers using the listing multiples or prime factorization method.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/lcm-calculator#app" }
+},
+{
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/lcm-calculator#app",
+  "name": "LCM Calculator",
+  "url": "https://www.lizocalc.com/calculators/math/lcm-calculator",
+  "description": "Fast tool to find the smallest common multiple of two or more numbers.",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Math Calculator",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+  "featureList": [
+    "Find LCM of multiple numbers",
+    "Prime Factorization method support",
+    "Instant results",
+    "Helpful for fraction addition"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/lcm-calculator"]
+  }
+},
               {
                 "@type": "FAQPage",
                 mainEntity: faqData.map((item) => ({

@@ -121,49 +121,39 @@ export default function ZScorePage() {
                 ],
               },
               {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
-                url: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
-                name: "Z-Score Calculator",
-                description: "Use our advanced Z-score calculator to standardize data points and determine relative standing.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                }
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/statistics/z-score-calculator#app",
-                name: "Z-Score Calculator",
-                url: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
-                description:
-                  "Advanced Z-score calculator to determine how many standard deviations a value is from the mean.",
-                applicationCategory: "EducationApplication",
-                applicationSubCategory: "Statistics Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate Z-score",
-                  "Determine percentile rank",
-                  "Calculate P-Value",
-                  "Visualize data standing",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-              },
+  "@type": "WebPage",
+  "@id": "https://www.lizocalc.com/calculators/math/z-score-calculator",
+  "url": "https://www.lizocalc.com/calculators/math/z-score-calculator",
+  "name": "Advanced Z-Score Calculator",
+  "description": "Calculate Z-scores from raw scores, population means, and standard deviations with our easy statistics tool.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/z-score-calculator#app" }
+},
+{
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/z-score-calculator#app",
+  "name": "Advanced Z-Score Calculator",
+  "url": "https://www.lizocalc.com/calculators/math/z-score-calculator",
+  "description": "Statistic tool to calculate standard scores and probability distribution.",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Statistics Calculator",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+  "featureList": [
+    "Calculate Z-score from raw data",
+    "Calculate probability area (P-value)",
+    "Supports population and sample data",
+    "Clear step-by-step breakdown"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/z-score-calculator"]
+  }
+},
               {
                 "@type": "FAQPage",
                 mainEntity: faqData.map((item) => ({

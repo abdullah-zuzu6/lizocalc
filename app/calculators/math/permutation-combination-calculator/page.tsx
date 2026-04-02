@@ -120,7 +120,7 @@ export default function PermutationCombinationPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Math ",
+                    name: "Math",
                     item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
@@ -142,7 +142,8 @@ export default function PermutationCombinationPage() {
                   "@type": "WebSite",
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com"
-                }
+                },
+                "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/permutation-combination-calculator#app" }
               },
               {
                 "@type": "SoftwareApplication",
@@ -174,6 +175,10 @@ export default function PermutationCombinationPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/permutation-combination-calculator"]
+  }
               },
               {
                 "@type": "FAQPage",

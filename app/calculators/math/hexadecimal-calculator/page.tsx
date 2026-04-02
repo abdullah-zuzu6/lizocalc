@@ -111,7 +111,7 @@ export default function HexadecimalPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Math ",
+                    name: "Math",
                     item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
@@ -136,6 +136,7 @@ export default function HexadecimalPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/hexadecimal-calculator#app" }
               },
               {
                 "@type": "SoftwareApplication",
@@ -167,6 +168,10 @@ export default function HexadecimalPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
+                "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/hexadecimal-calculator"]
+  }
               },
               {
                 "@type": "FAQPage",

@@ -117,19 +117,40 @@ export default function FractionCalculatorPage() {
                   },
                 ],
               },
-              {
-                "@type": "WebPage",
-                url: "https://www.lizocalc.com/calculators/math/fraction-calculator",
-                name: "Fraction Calculator",
-                description:
-                  "Free tool to add, subtract, multiply, divide and simplify fractions with instant results and decimal conversion.",
-              },
-              {
-                "@type": "SoftwareApplication",
-                name: "Fraction Calculator",
-                applicationCategory: "EducationalApplication",
-                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-              },
+             {
+  "@type": "WebPage",
+  "@id": "https://www.lizocalc.com/calculators/math/fraction-calculator",
+  "url": "https://www.lizocalc.com/calculators/math/fraction-calculator",
+  "name": "Advanced Fraction Calculator",
+  "description": "Add, subtract, multiply, and divide fractions easily. Convert fractions to decimals and simplify complex fractions instantly.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/fraction-calculator#app" }
+},
+{
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/fraction-calculator#app",
+  "name": "Advanced Fraction Calculator",
+  "url": "https://www.lizocalc.com/calculators/math/fraction-calculator",
+  "description": "Comprehensive tool for fraction arithmetic and mixed number calculations.",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Math Calculator",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+  "featureList": [
+    "Addition, Subtraction, Multiplication, Division",
+    "Simplifying fractions to lowest terms",
+    "Mixed number support",
+    "Fraction to Decimal conversion"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/fraction-calculator"]
+  }
+},
               {
                 "@type": "FAQPage",
                 mainEntity: faqData.map((item) => ({

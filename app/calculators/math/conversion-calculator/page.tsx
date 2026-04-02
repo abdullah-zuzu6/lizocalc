@@ -125,32 +125,41 @@ export default function ConversionCalculatorPage() {
                   },
                 ],
               },
+              
               {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/conversion-calculator",
-                url: "https://www.lizocalc.com/calculators/math/conversion-calculator",
-                name: "Conversion Calculator",
-                description:
-                  "Free online unit converter for length, weight, and temperature with metric and imperial support.",
-                inLanguage: "en",
-              },
-              {
-                "@type": "SoftwareApplication",
-                name: "Conversion Calculator",
-                url: "https://www.lizocalc.com/calculators/math/conversion-calculator",
-                description:
-                  "Free conversion calculator for instant length, weight, and temperature conversions.",
-                applicationCategory: "UtilitiesApplication",
-                featureList: [
-                  "Length converter (meters to feet)",
-                  "Weight converter (kg to lbs)",
-                  "Temperature converter (°C to °F)",
-                  "Metric to imperial converter",
-                  "Instant results with 6 decimal precision",
-                ],
-                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-              },
+  "@type": "WebPage",
+  "@id": "https://www.lizocalc.com/calculators/math/conversion-calculator",
+  "url": "https://www.lizocalc.com/calculators/math/conversion-calculator",
+  "name": "All-in-One Unit Conversion Calculator",
+  "description": "Convert units of length, weight, volume, temperature, and more with our fast and accurate unit converter.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/conversion-calculator#app" }
+},
+{
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/conversion-calculator#app",
+  "name": "All-in-One Unit Conversion Calculator",
+  "url": "https://www.lizocalc.com/calculators/math/conversion-calculator",
+  "description": "Versatile utility for converting between thousands of unit combinations.",
+  "applicationCategory": "UtilitiesApplication",
+  "applicationSubCategory": "Unit Converter",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+  "featureList": [
+    "Length (cm, m, km, miles, feet)",
+    "Weight (kg, lbs, oz, grams)",
+    "Temperature (Celsius, Fahrenheit, Kelvin)",
+    "Volume and Area conversion"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/conversion-calculator"]
+  }
+},
               {
                 "@type": "FAQPage",
                 mainEntity: faqData.map((item) => ({

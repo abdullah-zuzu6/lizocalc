@@ -131,7 +131,7 @@ export default function GCFPage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Math ",
+                    name: "Math",
                     item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
@@ -143,16 +143,39 @@ export default function GCFPage() {
                 ],
               },
               {
-                "@type": "SoftwareApplication",
-                name: "GCF Calculator",
-                applicationCategory: "EducationalApplication",
-                operatingSystem: "Any",
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-              },
+  "@type": "WebPage",
+  "@id": "https://www.lizocalc.com/calculators/math/gcf-calculator",
+  "url": "https://www.lizocalc.com/calculators/math/gcf-calculator",
+  "name": "GCF (Greatest Common Factor) Calculator",
+  "description": "Find the greatest common factor (GCF) or greatest common divisor (GCD) for a set of numbers instantly.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/gcf-calculator#app" }
+},
+{
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/gcf-calculator#app",
+  "name": "GCF Calculator",
+  "url": "https://www.lizocalc.com/calculators/math/gcf-calculator",
+  "description": "Quickly find the GCF/GCD of multiple numbers with step-by-step logic.",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Math Calculator",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+  "featureList": [
+    "Supports multiple numbers",
+    "Finds Greatest Common Factor (GCF)",
+    "Finds Greatest Common Divisor (GCD)",
+    "Instant calculation"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/gcf-calculator"]
+  }
+},
               {
                 "@type": "FAQPage",
                 mainEntity: faqData.map((item) => ({

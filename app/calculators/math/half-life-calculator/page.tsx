@@ -115,7 +115,7 @@ export default function HalfLifePage() {
                 itemListElement: [
                   { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
                   { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-                  { "@type": "ListItem", position: 3, name: "Math ", item: "https://www.lizocalc.com/calculators/math" },
+                  { "@type": "ListItem", position: 3, name: "Math", item: "https://www.lizocalc.com/calculators/math" },
                   { "@type": "ListItem", position: 4, name: "Half-Life Calculator", item: "https://www.lizocalc.com/calculators/math/half-life-calculator" },
                 ],
               },
@@ -127,6 +127,10 @@ export default function HalfLifePage() {
                 description: "Use our advanced half-life calculator to compute remaining quantity, decay constants, and half-lives elapsed.",
                 inLanguage: "en",
                 isPartOf: { "@type": "WebSite", name: "LizoCalc", url: "https://www.lizocalc.com" },
+                "mainEntityOfPage": {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/half-life-calculator#app"
+}
               },
               {
                 "@type": "SoftwareApplication",
@@ -148,6 +152,10 @@ export default function HalfLifePage() {
                 ],
                 offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
                 creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+                "potentialAction": {
+  "@type": "UseAction",
+  "target": ["https://www.lizocalc.com/calculators/math/half-life-calculator"]
+}
               },
               {
                 "@type": "FAQPage",

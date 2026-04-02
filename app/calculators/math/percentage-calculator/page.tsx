@@ -113,7 +113,7 @@ export default function PercentagePage() {
                   {
                     "@type": "ListItem",
                     position: 3,
-                    name: "Math ",
+                    name: "Math",
                     item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
@@ -124,35 +124,40 @@ export default function PercentagePage() {
                   },
                 ],
               },
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/percentage-calculator",
-                url: "https://www.lizocalc.com/calculators/math/percentage-calculator",
-                name: "Percentage Calculator",
-                description:
-                  "Free online percentage calculator for all your math needs.",
-                inLanguage: "en",
-                isPartOf: {
-                  "@type": "WebSite",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/percentage-calculator#app",
-                name: "Percentage Calculator",
-                applicationCategory: "EducationApplication",
-                operatingSystem: "Any",
-                featureList: [
-                  "Percentage of number",
-                  "Percentage change",
-                  "Percentage difference",
-                ],
-                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-              },
+             {
+  "@type": "WebPage",
+  "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator",
+  "url": "https://www.lizocalc.com/calculators/math/percentage-calculator",
+  "name": "Advanced Percentage Calculator",
+  "description": "Calculate percentage increases, decreases, differences, and basic percentage values with our fast and accurate math tool.",
+  "inLanguage": "en",
+  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#app" }
+},
+{
+  "@type": "SoftwareApplication",
+  "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#app",
+  "name": "Advanced Percentage Calculator",
+  "url": "https://www.lizocalc.com/calculators/math/percentage-calculator",
+  "description": "Comprehensive percentage tool to calculate change, value, and ratios.",
+  "applicationCategory": "EducationalApplication",
+  "applicationSubCategory": "Math Calculator",
+  "operatingSystem": "Any",
+  "inLanguage": "en",
+  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
+  "featureList": [
+    "Calculate percentage of a number",
+    "Find percentage increase or decrease",
+    "Calculate percentage difference",
+    "Instant results as you type"
+  ],
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
+  "potentialAction": {
+    "@type": "UseAction",
+    "target": ["https://www.lizocalc.com/calculators/math/percentage-calculator"]
+  }
+},
               {
                 "@type": "FAQPage",
                 mainEntity: faqData.map((item) => ({
