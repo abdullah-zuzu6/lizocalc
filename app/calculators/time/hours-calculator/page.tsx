@@ -36,7 +36,7 @@ const faqData = [
 ];
 
 export const metadata: Metadata = {
-  title: "Hours Calculator: Find the Exact Time Duration Between Two Times",
+  title: "Hours Calculator: Find the Exact Time Between Two Times",
   description:
     "Calculate the exact hours and minutes between two times. Features AM/PM support, midnight crossover, and total decimal hours for easy payroll tracking.",
 

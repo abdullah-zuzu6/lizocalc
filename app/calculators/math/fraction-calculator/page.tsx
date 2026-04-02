@@ -43,9 +43,9 @@ const faqData = [
 // ────────────────────────────────────────────────
 export const metadata: Metadata = {
   title:
-    "Fraction Calculator Online – Add, Subtract, Multiply, Divide & Simplify Fractions",
+    "Fraction Calculator Online – Add, Subtract, Multiply, Divide  Fractions",
   description:
-    "Free online fraction calculator: instantly add, subtract, multiply, divide fractions, simplify to lowest terms, and convert to decimal. Perfect for students, teachers, and everyday math.",
+    "Free online fraction calculator: instantly add, subtract, multiply, divide fractions, simplify to lowest terms, and convert to decimal.",
   keywords: [
     "fraction calculator",
     "online fraction calculator",
