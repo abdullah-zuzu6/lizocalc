@@ -80,110 +80,357 @@ export default function WeightPage() {
       <Navbar />
 
       {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/physics/weight-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Physics",
-                    item: "https://www.lizocalc.com/calculators/physics",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Weight Calculator",
-                    item: "https://www.lizocalc.com/calculators/physics/weight-calculator",
-                  },
-                ],
-              },
-              {
-  "@type": "WebPage",
-  "@id": "https://www.lizocalc.com/calculators/physics/weight-calculator",
-  url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
-  name: "Weight Calculator",
-  description: "Use our weight calculator to determine the weight of an object using mass and gravity instantly.",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "LizoCalc",
-    "url": "https://www.lizocalc.com"
-  }
-},
+     <Script
+  id="structured-data"
+  type="application/ld+json"
+  strategy="beforeInteractive"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
 
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/physics/weight-calculator#app",
-                name: "Weight Calculator",
-                url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
-                description:
-                  "Physics weight calculator to calculate the weight of an object using mass and gravitational acceleration.",
-                applicationCategory: "EducationalApplication",
-                applicationSubCategory: "Physics Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate weight using mass and gravity",
-                  "Instant physics calculation",
-                  "Supports different gravity values",
-                  "Accurate scientific calculation",
-                  "Simple and fast tool",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/physics/weight-calculator#app"
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
+        // ── 1. BREADCRUMB ──────────────────────────────────────
+        {
+          "@type": "BreadcrumbList",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator#breadcrumb",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://www.lizocalc.com",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Calculators",
+              item: "https://www.lizocalc.com/calculators",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "Physics",
+              item: "https://www.lizocalc.com/calculators/physics",
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: "Weight Calculator",
+              item: "https://www.lizocalc.com/calculators/physics/weight-calculator",
+            },
+          ],
+        },
+
+        // ── 2. WEBPAGE ─────────────────────────────────────────
+        {
+          "@type": "WebPage",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator",
+          url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
+          name: "Weight Calculator – Calculate Weight on Any Planet | LizoCalc",
+          description:
+            "Free planetary weight calculator using W = m × g. Calculate weight in Newtons and pounds on Earth, Moon, Mars, Jupiter and all planets. Step-by-step working included.",
+          inLanguage: "en",
+          datePublished: "2025-01-01",
+          dateModified: "2026-04-05",
+          isPartOf: {
+            "@type": "WebSite",
+            name: "LizoCalc",
+            url: "https://www.lizocalc.com",
+          },
+          mainEntityOfPage: {
+            "@type": "SoftwareApplication",
+            "@id":
+              "https://www.lizocalc.com/calculators/physics/weight-calculator#app",
+          },
+        },
+
+        // ── 3. SOFTWARE APPLICATION ────────────────────────────
+        {
+          "@type": "SoftwareApplication",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator#app",
+          name: "Weight Calculator",
+          url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
+          description:
+            "Free planetary weight calculator using W = m × g. Enter mass in kg, select any planet or custom gravity, and instantly get weight in Newtons and pounds with step-by-step working.",
+          applicationCategory: "EducationalApplication",
+          applicationSubCategory: "Physics Calculator",
+          operatingSystem: "Any",
+          inLanguage: "en",
+          browserRequirements:
+            "Requires JavaScript. Works on all modern browsers.",
+          audience: {
+            "@type": "Audience",
+            audienceType: "Students, Teachers, Scientists, Space Enthusiasts",
+          },
+          featureList: [
+            "Calculate weight using W = m × g formula",
+            "Supports all planets: Earth, Moon, Mars, Jupiter, Saturn, Venus, Mercury, Uranus, Neptune",
+            "Custom gravity input for hypothetical planets and exoplanets",
+            "Instant conversion from Newtons to pounds (lbs)",
+            "Step-by-step calculation breakdown",
+            "Calculation history (last 5 results)",
+            "Works offline after first load",
+            "Mobile-friendly, zero ads",
+          ],
+          offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "USD",
+          },
+          creator: {
+            "@type": "Organization",
+            name: "LizoCalc",
+            url: "https://www.lizocalc.com",
+          },
+          potentialAction: {
+            "@type": "UseAction",
+            target: [
+              "https://www.lizocalc.com/calculators/physics/weight-calculator",
             ],
-          }),
-        }}
-      />
+          },
+        },
+
+        // ── 4. HOWTO #1 — How to Use the Weight Calculator ────
+        // Targets: "how to use weight calculator",
+        //          "how to calculate weight online", "weight calculator steps"
+        {
+          "@type": "HowTo",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-use-calculator",
+          name: "How to Use the Planetary Weight Calculator",
+          description:
+            "Step-by-step guide to calculating weight on any planet using the LizoCalc free online planetary weight calculator.",
+          step: [
+            {
+              "@type": "HowToStep",
+              position: 1,
+              name: "Enter Your Mass",
+              text: "Type your mass in kilograms into the input field. Example: 70 kg. If you only know your weight in pounds, divide by 2.20462 to get kg first.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 2,
+              name: "Select a Planet",
+              text: "Choose a planet from the dropdown presets — Earth, Moon, Mars, Jupiter, Mercury, Venus, Saturn, Uranus, or Neptune. The correct gravity value (m/s²) loads automatically.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 3,
+              name: "Or Enter Custom Gravity",
+              text: "For hypothetical planets, exoplanets, or custom scenarios, manually enter your desired gravitational acceleration value in m/s².",
+            },
+            {
+              "@type": "HowToStep",
+              position: 4,
+              name: "Click Calculate Weight",
+              text: "Press the Calculate Weight button. The calculator applies W = m × g and instantly shows your weight in both Newtons (N) and pounds (lbs).",
+            },
+            {
+              "@type": "HowToStep",
+              position: 5,
+              name: "View the Result",
+              text: "See the result in large bold text with the full formula breakdown shown clearly. Example: 70 kg × 9.807 m/s² = 686.49 N = 154.3 lbs on Earth.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 6,
+              name: "Expand Step-by-Step Working",
+              text: "Click the detailed steps section to see the full W = m × g working with unit conversions and manual steps explained clearly.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 7,
+              name: "Reset for Next Calculation",
+              text: "Press the Reset button to clear all fields instantly. Compare your weight across all 8 planets by repeating the steps with a new planet selection each time.",
+            },
+          ],
+          tool: [
+            {
+              "@type": "HowToTool",
+              name: "LizoCalc Weight Calculator",
+            },
+          ],
+        },
+
+        // ── 5. HOWTO #2 — How to Calculate Weight from Mass ───
+        // Targets: "how to calculate weight from mass",
+        //          "weight formula W = mg steps", "how to find weight in Newtons",
+        //          "how to calculate gravitational force"
+        {
+          "@type": "HowTo",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-calculate-weight",
+          name: "How to Calculate Weight from Mass Using W = m × g",
+          description:
+            "Step-by-step manual method to calculate weight in Newtons using the formula W = m × g, with fully worked examples for Earth and other planets.",
+          step: [
+            {
+              "@type": "HowToStep",
+              position: 1,
+              name: "Write Down the Formula",
+              text: "Use the formula W = m × g, where W is weight in Newtons (N), m is mass in kilograms (kg), and g is gravitational acceleration in m/s². On Earth, g = 9.807 m/s².",
+            },
+            {
+              "@type": "HowToStep",
+              position: 2,
+              name: "Note the Mass",
+              text: "Record the mass of the object in kilograms. Example: a person with mass 70 kg, a bag with mass 15 kg, a steel block with mass 942 kg.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 3,
+              name: "Find the Gravitational Acceleration",
+              text: "Select the correct g value for your planet. Earth = 9.807 m/s², Moon = 1.62 m/s², Mars = 3.711 m/s², Jupiter = 24.79 m/s², Venus = 8.87 m/s², Mercury = 3.70 m/s².",
+            },
+            {
+              "@type": "HowToStep",
+              position: 4,
+              name: "Multiply Mass by Gravity",
+              text: "Multiply the mass value by the g value. Example 1: 70 kg × 9.807 = 686.49 N on Earth. Example 2: 70 kg × 1.62 = 113.4 N on the Moon. Example 3: 70 kg × 24.79 = 1,735.3 N on Jupiter.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 5,
+              name: "Convert Newtons to Pounds if Needed",
+              text: "To convert Newtons to pounds-force divide by 4.448. Example: 686.49 N ÷ 4.448 = 154.3 lbs. To convert back multiply lbs × 4.448.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 6,
+              name: "Write the Unit with Your Answer",
+              text: "Always include the unit N (Newtons) or lbs with your answer. Weight is a force — never write it in kg. For board exams, write the full working: W = 70 × 9.807 = 686.49 N.",
+            },
+          ],
+          tool: [
+            {
+              "@type": "HowToTool",
+              name: "LizoCalc Weight Calculator",
+            },
+          ],
+        },
+
+        // ── 6. HOWTO #3 — How to Calculate Weight on the Moon and Other Planets ──
+        // Targets: "how to calculate weight on the moon",
+        //          "weight on different planets calculator steps",
+        //          "how much would I weigh on Mars", "planetary weight formula"
+        {
+          "@type": "HowTo",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-weight-on-planets",
+          name: "How to Calculate Your Weight on the Moon and Other Planets",
+          description:
+            "Step-by-step method to find your weight on any planet in the solar system using gravity values and the W = m × g formula.",
+          step: [
+            {
+              "@type": "HowToStep",
+              position: 1,
+              name: "Know Your Mass in kg",
+              text: "Your mass is the same on every planet. If you know your weight in lbs on Earth, divide by 2.20462 to get kg. Example: 154 lbs ÷ 2.20462 = 69.85 kg ≈ 70 kg.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 2,
+              name: "Find the Planet's Gravity Value",
+              text: "Use these NASA-verified gravity values: Moon = 1.62 m/s² | Mars = 3.711 m/s² | Mercury = 3.70 m/s² | Venus = 8.87 m/s² | Saturn = 10.44 m/s² | Uranus = 8.87 m/s² | Neptune = 11.15 m/s² | Jupiter = 24.79 m/s².",
+            },
+            {
+              "@type": "HowToStep",
+              position: 3,
+              name: "Apply W = m × g",
+              text: "Multiply your mass by the planet's gravity. Example for 70 kg person: Moon → 70 × 1.62 = 113.4 N | Mars → 70 × 3.711 = 259.8 N | Jupiter → 70 × 24.79 = 1,735.3 N.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 4,
+              name: "Convert to Percentage of Earth Weight",
+              text: "To find what percentage of your Earth weight you would feel, divide the planet weight by Earth weight and multiply by 100. Example: Moon 113.4 N ÷ 686.5 N × 100 = 16.5% — you feel only 16.5% of your Earth weight on the Moon.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 5,
+              name: "Use LizoCalc for All Planets Instantly",
+              text: "Enter your mass once into the LizoCalc Weight Calculator and switch between planet presets to see your weight on every planet instantly — no repeated calculations needed.",
+            },
+          ],
+          tool: [
+            {
+              "@type": "HowToTool",
+              name: "LizoCalc Weight Calculator",
+            },
+          ],
+        },
+
+        // ── 7. HOWTO #4 — How to Convert Newtons to Pounds ────
+        // Targets: "how to convert Newtons to pounds",
+        //          "N to lbs conversion steps", "convert weight Newtons to lbs",
+        //          "how to convert weight units physics"
+        {
+          "@type": "HowTo",
+          "@id":
+            "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-convert-newtons-pounds",
+          name: "How to Convert Weight from Newtons to Pounds (N to lbs)",
+          description:
+            "Step-by-step guide to converting weight between Newtons and pounds-force with exact conversion factors and worked examples.",
+          step: [
+            {
+              "@type": "HowToStep",
+              position: 1,
+              name: "Understand the Units",
+              text: "Newtons (N) are the SI unit of force used in physics and science worldwide. Pounds-force (lbs) are used in the US and UK everyday contexts. Both measure the same thing — gravitational force acting on a mass.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 2,
+              name: "Use the Conversion Factor",
+              text: "The exact conversion is: 1 Newton = 0.224809 pounds-force. Conversely, 1 pound-force = 4.44822 Newtons. Memorize: roughly 4.448 N = 1 lb.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 3,
+              name: "Convert Newtons to Pounds",
+              text: "Multiply your Newton value by 0.224809 (or divide by 4.448). Example 1: 686.49 N × 0.224809 = 154.3 lbs (Earth weight of 70 kg person). Example 2: 113.4 N ÷ 4.448 = 25.5 lbs (Moon weight of 70 kg person).",
+            },
+            {
+              "@type": "HowToStep",
+              position: 4,
+              name: "Convert Pounds to Newtons",
+              text: "Multiply your pounds value by 4.44822. Example: 154.3 lbs × 4.44822 = 686.5 N. This is useful when a problem gives weight in lbs and asks for Newtons.",
+            },
+            {
+              "@type": "HowToStep",
+              position: 5,
+              name: "Use LizoCalc for Automatic Conversion",
+              text: "The LizoCalc Weight Calculator automatically shows both Newtons and pounds in every result — no manual conversion needed. Enter mass and select any planet to get both units instantly.",
+            },
+          ],
+          tool: [
+            {
+              "@type": "HowToTool",
+              name: "LizoCalc Weight Calculator",
+            },
+          ],
+        },
+
+        // ── 8. FAQ PAGE ────────────────────────────────────────
+        {
+          "@type": "FAQPage",
+          mainEntity: faqData.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: item.answer,
+            },
+          })),
+        },
+
+      ],
+    }),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
