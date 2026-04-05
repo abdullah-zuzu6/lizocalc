@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   
   keywords: [
     "LizoCalc", "online calculator", "free calculator", "financial calculator",
-    "loan calculator", "mortgage calculator", "BMI calculator", "fitness calculator",
-    "math calculator", "conversion calculator", "scientific calculator"
+    "loan calculator", "mortgage calculator for usa ", "BMI calculator for womens and kids ", "fitness calculator for gyms persons",
+    "math calculator ", "conversion calculator", "scientific calculator"
   ],
 
   authors: [{ name: "LizoCalc" }],
