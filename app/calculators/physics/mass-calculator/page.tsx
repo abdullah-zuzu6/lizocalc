@@ -12,9 +12,9 @@ const faqData = [
     answer: "To find the mass of an object, you multiply its density by its volume. The standard formula is $m = \rho \times V$, where $m$ is mass, $\rho$ (rho) is density, and $V$ is volume. For example, if you have 2 liters ($2,000 cm^3$) of water with a density of $1 g/cm^3$, the mass is exactly $2,000 grams$ or $2 kilograms$.",
   },
   {
-    question: "What is the difference between mass and weight?",
-    answer: "Mass is the amount of matter in an object and remains constant anywhere in the universe. Weight, however, is the force of gravity acting on 그 mass. The relationship is defined by $W = m \times g$. While your mass is the same on Earth and the Moon, you would weigh much less on the Moon because its gravitational acceleration ($g$) is only about $1.62 m/s^2$ compared to Earth's $9.8 m/s^2$.",
-  },
+  question: "What is the difference between mass and weight?",
+  answer: "Mass is the amount of matter in an object and remains constant anywhere in the universe. Weight, however, is the force of gravity acting on that mass. The relationship is defined by $W = m \\times g$. While your mass is the same on Earth and the Moon, you would weigh much less on the Moon because its gravitational acceleration ($g$) is only about $1.62 m/s^2$ compared to Earth's $9.8 m/s^2$."
+},
   {
     question: "How do you calculate the mass of a chemical solution?",
     answer: "In chemistry, mass is often calculated using molar mass and the number of moles. The formula is $m = n \times M$, where $n$ is the amount of substance in moles and $M$ is the molar mass (g/mol). For instance, to find the mass of 2 moles of Water ($H_2O$), you multiply 2 by its molar mass ($18.015 g/mol$) to get $36.03 grams$.",
@@ -760,17 +760,8 @@ export default function MassCalculatorPage() {
         </Link>{" "}
         — find density from mass and volume
       </li>
-      <li>
-        <Link
-          href="/calculators/physics/volume-calculator"
-          className="text-blue-400 hover:underline"
-        >
-         Speed Calculator
-        </Link>{" "}
-        — Calculate Speed instantly 
-      </li>
       
-    
+      
     </ul>
 
     <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
