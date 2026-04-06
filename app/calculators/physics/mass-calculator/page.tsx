@@ -84,7 +84,7 @@ export default function MassCalculatorPage() {
       <Navbar />
 
       {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-     <Script
+   <Script
   id="structured-data"
   type="application/ld+json"
   strategy="beforeInteractive"
@@ -136,12 +136,16 @@ export default function MassCalculatorPage() {
           description:
             "Free online mass calculator using m = ρ × V. Enter density and volume in any unit and instantly get mass in kg, g, lb, or oz with step-by-step working.",
           inLanguage: "en",
-          datePublished: "2025-01-01",
+          datePublished: "2026-04-01",
           dateModified: "2026-04-05",
           isPartOf: {
             "@type": "WebSite",
             name: "LizoCalc",
             url: "https://www.lizocalc.com",
+          },
+          // Link to the core manual calculation guide for AI snippets
+          mainEntity: {
+            "@id": "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-calculate-mass"
           },
           mainEntityOfPage: {
             "@type": "SoftwareApplication",
@@ -157,6 +161,7 @@ export default function MassCalculatorPage() {
             "https://www.lizocalc.com/calculators/physics/mass-calculator#app",
           name: "Mass Calculator",
           url: "https://www.lizocalc.com/calculators/physics/mass-calculator",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Free physics mass calculator using m = ρ × V. Calculate mass from density and volume with automatic unit conversion across kg, g, lb, oz and more.",
           applicationCategory: "EducationalApplication",
@@ -187,6 +192,7 @@ export default function MassCalculatorPage() {
             "@type": "Organization",
             name: "LizoCalc",
             url: "https://www.lizocalc.com",
+            logo: "https://www.lizocalc.com/logo.webp"
           },
           potentialAction: {
             "@type": "UseAction",
@@ -197,12 +203,12 @@ export default function MassCalculatorPage() {
         },
 
         // ── 4. HOWTO #1 — How to Use the Calculator ───────────
-        // Targets: "how to use mass calculator", "how to calculate mass online"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-use-calculator",
           name: "How to Use the Mass Calculator",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step guide to calculating mass from density and volume using the LizoCalc free online mass calculator.",
           step: [
@@ -264,14 +270,12 @@ export default function MassCalculatorPage() {
         },
 
         // ── 5. HOWTO #2 — How to Calculate Mass from Density & Volume ──
-        // Targets: "how to calculate mass from density and volume",
-        //          "how do I find mass with density and volume",
-        //          "mass formula steps", "m = rho x V explained"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-calculate-mass",
           name: "How to Calculate Mass from Density and Volume",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Learn the step-by-step manual method to find mass using the physics formula m = ρ × V, with a worked example.",
           step: [
@@ -321,14 +325,12 @@ export default function MassCalculatorPage() {
         },
 
         // ── 6. HOWTO #3 — How to Find Mass of an Irregular Object ──
-        // Targets: "how to find mass of irregular object",
-        //          "water displacement mass calculation",
-        //          "Archimedes principle mass", "irregular shape mass"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-irregular-object",
           name: "How to Find the Mass of an Irregular Object",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step method to calculate the mass of any irregular-shaped object using water displacement (Archimedes' principle) and density.",
           step: [
@@ -384,13 +386,12 @@ export default function MassCalculatorPage() {
         },
 
         // ── 7. HOWTO #4 — How to Convert Mass Units ───────────
-        // Targets: "how to convert kg to pounds", "kg to lb conversion steps",
-        //          "how to convert grams to ounces", "mass unit conversion"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-convert-units",
           name: "How to Convert Mass Units (kg, g, lb, oz, tonne)",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step guide to converting mass between metric and imperial units with key conversion factors and worked examples.",
           step: [

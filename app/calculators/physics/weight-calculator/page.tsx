@@ -132,12 +132,16 @@ export default function WeightPage() {
           description:
             "Free planetary weight calculator using W = m × g. Calculate weight in Newtons and pounds on Earth, Moon, Mars, Jupiter and all planets. Step-by-step working included.",
           inLanguage: "en",
-          datePublished: "2025-01-01",
+          datePublished: "2025-04-01",
           dateModified: "2026-04-05",
           isPartOf: {
             "@type": "WebSite",
             name: "LizoCalc",
             url: "https://www.lizocalc.com",
+          },
+          // Connects the page to the core "How to Calculate" logic for Search
+          mainEntity: {
+            "@id": "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-calculate-weight"
           },
           mainEntityOfPage: {
             "@type": "SoftwareApplication",
@@ -153,6 +157,7 @@ export default function WeightPage() {
             "https://www.lizocalc.com/calculators/physics/weight-calculator#app",
           name: "Weight Calculator",
           url: "https://www.lizocalc.com/calculators/physics/weight-calculator",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Free planetary weight calculator using W = m × g. Enter mass in kg, select any planet or custom gravity, and instantly get weight in Newtons and pounds with step-by-step working.",
           applicationCategory: "EducationalApplication",
@@ -184,6 +189,7 @@ export default function WeightPage() {
             "@type": "Organization",
             name: "LizoCalc",
             url: "https://www.lizocalc.com",
+            logo: "https://www.lizocalc.com/logo.webp"
           },
           potentialAction: {
             "@type": "UseAction",
@@ -194,13 +200,12 @@ export default function WeightPage() {
         },
 
         // ── 4. HOWTO #1 — How to Use the Weight Calculator ────
-        // Targets: "how to use weight calculator",
-        //          "how to calculate weight online", "weight calculator steps"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-use-calculator",
           name: "How to Use the Planetary Weight Calculator",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step guide to calculating weight on any planet using the LizoCalc free online planetary weight calculator.",
           step: [
@@ -256,14 +261,12 @@ export default function WeightPage() {
         },
 
         // ── 5. HOWTO #2 — How to Calculate Weight from Mass ───
-        // Targets: "how to calculate weight from mass",
-        //          "weight formula W = mg steps", "how to find weight in Newtons",
-        //          "how to calculate gravitational force"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-calculate-weight",
           name: "How to Calculate Weight from Mass Using W = m × g",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step manual method to calculate weight in Newtons using the formula W = m × g, with fully worked examples for Earth and other planets.",
           step: [
@@ -313,14 +316,12 @@ export default function WeightPage() {
         },
 
         // ── 6. HOWTO #3 — How to Calculate Weight on the Moon and Other Planets ──
-        // Targets: "how to calculate weight on the moon",
-        //          "weight on different planets calculator steps",
-        //          "how much would I weigh on Mars", "planetary weight formula"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-weight-on-planets",
           name: "How to Calculate Your Weight on the Moon and Other Planets",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step method to find your weight on any planet in the solar system using gravity values and the W = m × g formula.",
           step: [
@@ -364,14 +365,12 @@ export default function WeightPage() {
         },
 
         // ── 7. HOWTO #4 — How to Convert Newtons to Pounds ────
-        // Targets: "how to convert Newtons to pounds",
-        //          "N to lbs conversion steps", "convert weight Newtons to lbs",
-        //          "how to convert weight units physics"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/weight-calculator#howto-convert-newtons-pounds",
           name: "How to Convert Weight from Newtons to Pounds (N to lbs)",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step guide to converting weight between Newtons and pounds-force with exact conversion factors and worked examples.",
           step: [

@@ -52,7 +52,8 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.lizocalc.com/calculators/physics/density-calculator",
+    canonical:
+      "https://www.lizocalc.com/calculators/physics/density-calculator",
   },
 
   robots: {
@@ -82,382 +83,368 @@ export default function DensityPage() {
       <Navbar />
 
       {/* === STRUCTURED JSON-LD DATA === */}
-     <Script
-  id="structured-data"
-  type="application/ld+json"
-  strategy="beforeInteractive"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
+      <Script
+        id="structured-data"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              // ── 1. BREADCRUMB ──────────────────────────────────────
+              {
+                "@type": "BreadcrumbList",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator#breadcrumb",
+                itemListElement: [
+                  {
+                    "@type": "ListItem",
+                    position: 1,
+                    name: "Home",
+                    item: "https://www.lizocalc.com",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 2,
+                    name: "Calculators",
+                    item: "https://www.lizocalc.com/calculators",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 3,
+                    name: "Physics",
+                    item: "https://www.lizocalc.com/calculators/physics",
+                  },
+                  {
+                    "@type": "ListItem",
+                    position: 4,
+                    name: "Density Calculator",
+                    item: "https://www.lizocalc.com/calculators/physics/density-calculator",
+                  },
+                ],
+              },
 
-        // ── 1. BREADCRUMB ──────────────────────────────────────
-        {
-          "@type": "BreadcrumbList",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator#breadcrumb",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: "https://www.lizocalc.com",
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Calculators",
-              item: "https://www.lizocalc.com/calculators",
-            },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Physics",
-              item: "https://www.lizocalc.com/calculators/physics",
-            },
-            {
-              "@type": "ListItem",
-              position: 4,
-              name: "Density Calculator",
-              item: "https://www.lizocalc.com/calculators/physics/density-calculator",
-            },
-          ],
-        },
+              // ── 2. WEBPAGE ─────────────────────────────────────────
+              {
+                "@type": "WebPage",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator",
+                url: "https://www.lizocalc.com/calculators/physics/density-calculator",
+                name: "Density Calculator | LizoCalc",
+                description:
+                  "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
+                  "inLanguage": "en",
+  "datePublished": "2026-04-01",
+  "dateModified": "2026-04-06",
+                // 1. Tell Google the "Answer" to show in Search Results (HowTo #2)
+                mainEntity: {
+                  "@id":
+                    "https://www.lizocalc.com/calculators/physics/density-calculator#howto-calculate-density",
+                },
 
-        // ── 2. WEBPAGE ─────────────────────────────────────────
-        {
-          "@type": "WebPage",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator",
-          url: "https://www.lizocalc.com/calculators/physics/density-calculator",
-          name: "Density Calculator – Calculate Density, Mass & Volume | LizoCalc",
-          description:
-            "Free online density calculator using ρ = m ÷ V. Instantly calculate density, mass, or volume in any unit — kg/m³, g/cm³, lb/ft³ — with step-by-step working and unit conversion.",
-          inLanguage: "en",
-          datePublished: "2025-01-01",
-          dateModified: "2026-04-05",
-          isPartOf: {
-            "@type": "WebSite",
-            name: "LizoCalc",
-            url: "https://www.lizocalc.com",
-          },
-          mainEntityOfPage: {
-            "@type": "SoftwareApplication",
-            "@id":
-              "https://www.lizocalc.com/calculators/physics/density-calculator#app",
-          },
-        },
+                // 2. Tell Google this page IS the calculator tool
+                mainEntityOfPage: {
+                  "@type": "SoftwareApplication",
+                  "@id":
+                    "https://www.lizocalc.com/calculators/physics/density-calculator#app",
+                },
 
-        // ── 3. SOFTWARE APPLICATION ────────────────────────────
-        {
-          "@type": "SoftwareApplication",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator#app",
-          name: "Density Calculator",
-          url: "https://www.lizocalc.com/calculators/physics/density-calculator",
-          description:
-            "Free online density calculator using ρ = m ÷ V. Calculate density from mass and volume, find missing mass, or solve for volume. Supports g/cm³, kg/m³, lb/ft³ and more with automatic unit conversion.",
-          applicationCategory: "EducationalApplication",
-          applicationSubCategory: "Physics Calculator",
-          operatingSystem: "Any",
-          inLanguage: "en",
-          browserRequirements:
-            "Requires JavaScript. Works on all modern browsers.",
-          audience: {
-            "@type": "Audience",
-            audienceType: "Students, Engineers, Scientists, Teachers",
-          },
-          featureList: [
-            "Calculate density from mass and volume using ρ = m ÷ V",
-            "Solve for missing mass using m = ρ × V",
-            "Solve for missing volume using V = m ÷ ρ",
-            "Supports g/cm³, kg/m³, lb/ft³, g/L density units",
-            "Auto unit conversion between metric and imperial systems",
-            "Step-by-step calculation breakdown",
-            "Calculation history (last 10 results)",
-            "Works offline after first load",
-            "Mobile-friendly, zero ads",
-          ],
-          offers: {
-            "@type": "Offer",
-            price: "0",
-            priceCurrency: "USD",
-          },
-          creator: {
-            "@type": "Organization",
-            name: "LizoCalc",
-            url: "https://www.lizocalc.com",
-          },
-          potentialAction: {
-            "@type": "UseAction",
-            target: [
-              "https://www.lizocalc.com/calculators/physics/density-calculator",
+                isPartOf: {
+                  "@type": "WebSite",
+                  name: "LizoCalc",
+                  url: "https://www.lizocalc.com",
+                },
+              },
+
+              // ── 3. SOFTWARE APPLICATION ────────────────────────────
+              {
+                "@type": "SoftwareApplication",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator#app",
+                name: "Density Calculator",
+                url: "https://www.lizocalc.com/calculators/physics/density-calculator",
+                description:
+                  "Free online density calculator using ρ = m ÷ V. Calculate density from mass and volume, find missing mass, or solve for volume. Supports g/cm³, kg/m³, lb/ft³ and more with automatic unit conversion.",
+                applicationCategory: "EducationalApplication",
+                applicationSubCategory: "Physics Calculator",
+                operatingSystem: "Any",
+                inLanguage: "en",
+                browserRequirements:
+                  "Requires JavaScript. Works on all modern browsers.",
+                audience: {
+                  "@type": "Audience",
+                  audienceType: "Students, Engineers, Scientists, Teachers",
+                },
+                featureList: [
+                  "Calculate density from mass and volume using ρ = m ÷ V",
+                  "Solve for missing mass using m = ρ × V",
+                  "Solve for missing volume using V = m ÷ ρ",
+                  "Supports g/cm³, kg/m³, lb/ft³, g/L density units",
+                  "Auto unit conversion between metric and imperial systems",
+                  "Step-by-step calculation breakdown",
+                  "Calculation history (last 10 results)",
+                  "Works offline after first load",
+                  "Mobile-friendly, zero ads",
+                ],
+                offers: {
+                  "@type": "Offer",
+                  price: "0",
+                  priceCurrency: "USD",
+                },
+                creator: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  url: "https://www.lizocalc.com",
+                },
+                potentialAction: {
+                  "@type": "UseAction",
+                  target: [
+                    "https://www.lizocalc.com/calculators/physics/density-calculator",
+                  ],
+                },
+              },
+              // ── 4. HOWTO #1 — How to Use the Density Calculator ───
+              {
+                "@type": "HowTo",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator#howto-use-calculator",
+                name: "How to Use the Density Calculator",
+                image: "https://www.lizocalc.com/logo.webp", // Required
+                description:
+                  "Step-by-step guide to calculating density from mass and volume using the LizoCalc free online density calculator.",
+                step: [
+                  {
+                    "@type": "HowToStep",
+                    position: 1,
+                    name: "Enter the Mass",
+                    text: "Type the mass value into the first field (example: 500) and select the mass unit from the dropdown — g, kg, lb, or tonne.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 2,
+                    name: "Enter the Volume",
+                    text: "Type the volume value into the second field (example: 250) and choose the volume unit — cm³, m³, L, ft³, or in³.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 3,
+                    name: "Select Output Density Unit",
+                    text: "Choose your desired output density unit from the list — g/cm³, kg/m³, lb/ft³, or g/L.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 4,
+                    name: "Click Calculate Density",
+                    text: "Press the Calculate Density button. The calculator converts all inputs to SI units, applies ρ = m ÷ V, then converts the result to your selected output unit.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 5,
+                    name: "View the Result",
+                    text: "See the density result displayed in large bold text along with the applied formula. Example: 500 g ÷ 250 cm³ = 2 g/cm³.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 6,
+                    name: "Check the Step-by-Step Explanation",
+                    text: "Scroll below the result to see a full breakdown of the calculation including all unit conversions performed.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 7,
+                    name: "Review Calculation History",
+                    text: "Open the Calculation History tab to review your last 10 results, each saved with timestamp, inputs, and units.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 8,
+                    name: "Reset for the Next Calculation",
+                    text: "Press the Reset button to clear all fields instantly and begin a fresh calculation.",
+                  },
+                ],
+                tool: [
+                  { "@type": "HowToTool", name: "LizoCalc Density Calculator" },
+                ],
+              },
+
+              // ── 5. HOWTO #2 — How to Calculate Density from Mass & Volume ──
+              {
+                "@type": "HowTo",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator#howto-calculate-density",
+                name: "How to Calculate Density from Mass and Volume",
+                image: "https://www.lizocalc.com/logo.webp", // Required
+                description:
+                  "Step-by-step manual method to find density using the formula ρ = m ÷ V, with a fully worked example.",
+                step: [
+                  {
+                    "@type": "HowToStep",
+                    position: 1,
+                    name: "Write Down the Formula",
+                    text: "Use the formula ρ = m ÷ V, where ρ (rho) is density, m is mass in kg or g, and V is volume in m³ or cm³.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 2,
+                    name: "Measure the Mass",
+                    text: "Weigh the object using a balance or scale. Record the value in grams (g) or kilograms (kg).",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 3,
+                    name: "Measure the Volume",
+                    text: "For regular shapes, calculate volume from dimensions. For irregular objects, use water displacement.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 4,
+                    name: "Make Sure Units Match",
+                    text: "Use compatible units before dividing. If mass is in grams and volume is in cm³, the result will be in g/cm³.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 5,
+                    name: "Divide Mass by Volume",
+                    text: "Divide the mass value by the volume value. Example: 193 g ÷ 10 cm³ = 19.3 g/cm³.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 6,
+                    name: "Write the Unit and Verify",
+                    text: "Always write the density unit with your answer (g/cm³ or kg/m³).",
+                  },
+                ],
+                tool: [
+                  { "@type": "HowToTool", name: "LizoCalc Density Calculator" },
+                ],
+              },
+
+              // ── 6. HOWTO #3 — How to Find Density of an Irregular Object ──
+              {
+                "@type": "HowTo",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator#howto-irregular-density",
+                name: "How to Find the Density of an Irregular Object",
+                image: "https://www.lizocalc.com/logo.webp", // Required
+                description:
+                  "Step-by-step method to calculate the density of any irregular-shaped object using water displacement and Archimedes' principle.",
+                step: [
+                  {
+                    "@type": "HowToStep",
+                    position: 1,
+                    name: "Weigh the Object",
+                    text: "Place the irregular object on a balance or scale and record its mass in grams (g) or kilograms (kg).",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 2,
+                    name: "Fill a Graduated Cylinder with Water",
+                    text: "Pour water into a graduated cylinder and record the initial water level.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 3,
+                    name: "Submerge the Object Fully",
+                    text: "Carefully lower the object into the water so it is fully submerged.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 4,
+                    name: "Read the New Water Level",
+                    text: "Read the new water level. The difference is the volume of the object.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 5,
+                    name: "Calculate Displaced Volume",
+                    text: "Subtract the initial level from the new level to get the object's volume.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 6,
+                    name: "Enter Values into LizoCalc",
+                    text: "Enter mass and volume into the LizoCalc Density Calculator for the final result.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 7,
+                    name: "Identify the Material",
+                    text: "Compare your result to standard density tables (e.g., Water = 1, Gold = 19.3) to identify the substance.",
+                  },
+                ],
+                tool: [
+                  { "@type": "HowToTool", name: "LizoCalc Density Calculator" },
+                ],
+              },
+
+              // ── 7. HOWTO #4 — How to Convert Density Units ────────
+              {
+                "@type": "HowTo",
+                "@id":
+                  "https://www.lizocalc.com/calculators/physics/density-calculator#howto-convert-density-units",
+                name: "How to Convert Density Units (g/cm³, kg/m³, lb/ft³)",
+                image: "https://www.lizocalc.com/logo.webp", // Required
+                description:
+                  "Step-by-step guide to converting density between metric and imperial units with exact conversion factors.",
+                step: [
+                  {
+                    "@type": "HowToStep",
+                    position: 1,
+                    name: "Identify Your Starting Unit",
+                    text: "Identify your current unit (e.g., g/cm³ or lb/ft³).",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 2,
+                    name: "Choose Your Target Unit",
+                    text: "Select the unit you need (e.g., kg/m³ for SI standard).",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 3,
+                    name: "Apply the Conversion Factor",
+                    text: "1 g/cm³ = 1000 kg/m³ | 1 g/cm³ = 62.428 lb/ft³.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 4,
+                    name: "Multiply by the Factor",
+                    text: "Multiply your value by the factor to get the result.",
+                  },
+                  {
+                    "@type": "HowToStep",
+                    position: 5,
+                    name: "Use LizoCalc for Instant Conversion",
+                    text: "Enter your inputs into the LizoCalc Density Calculator to convert units automatically.",
+                  },
+                ],
+                tool: [
+                  { "@type": "HowToTool", name: "LizoCalc Density Calculator" },
+                ],
+              },
+              // ── 8. FAQ PAGE ────────────────────────────────────────
+              {
+                "@type": "FAQPage",
+                mainEntity: faqData.map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
             ],
-          },
-        },
-
-        // ── 4. HOWTO #1 — How to Use the Density Calculator ───
-        // Targets: "how to use density calculator",
-        //          "how to calculate density online", "density calculator steps"
-        {
-          "@type": "HowTo",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator#howto-use-calculator",
-          name: "How to Use the Density Calculator",
-          description:
-            "Step-by-step guide to calculating density from mass and volume using the LizoCalc free online density calculator.",
-          step: [
-            {
-              "@type": "HowToStep",
-              position: 1,
-              name: "Enter the Mass",
-              text: "Type the mass value into the first field (example: 500) and select the mass unit from the dropdown — g, kg, lb, or tonne.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 2,
-              name: "Enter the Volume",
-              text: "Type the volume value into the second field (example: 250) and choose the volume unit — cm³, m³, L, ft³, or in³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 3,
-              name: "Select Output Density Unit",
-              text: "Choose your desired output density unit from the list — g/cm³, kg/m³, lb/ft³, or g/L.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 4,
-              name: "Click Calculate Density",
-              text: "Press the Calculate Density button. The calculator converts all inputs to SI units, applies ρ = m ÷ V, then converts the result to your selected output unit.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 5,
-              name: "View the Result",
-              text: "See the density result displayed in large bold text along with the applied formula. Example: 500 g ÷ 250 cm³ = 2 g/cm³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 6,
-              name: "Check the Step-by-Step Explanation",
-              text: "Scroll below the result to see a full breakdown of the calculation including all unit conversions performed.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 7,
-              name: "Review Calculation History",
-              text: "Open the Calculation History tab to review your last 10 results, each saved with timestamp, inputs, and units.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 8,
-              name: "Reset for the Next Calculation",
-              text: "Press the Reset button to clear all fields instantly and begin a fresh calculation.",
-            },
-          ],
-          tool: [
-            {
-              "@type": "HowToTool",
-              name: "LizoCalc Density Calculator",
-            },
-          ],
-        },
-
-        // ── 5. HOWTO #2 — How to Calculate Density from Mass & Volume ──
-        // Targets: "how to calculate density", "how to find density with mass and volume",
-        //          "density formula steps", "rho = m / V explained"
-        {
-          "@type": "HowTo",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator#howto-calculate-density",
-          name: "How to Calculate Density from Mass and Volume",
-          description:
-            "Step-by-step manual method to find density using the formula ρ = m ÷ V, with a fully worked example.",
-          step: [
-            {
-              "@type": "HowToStep",
-              position: 1,
-              name: "Write Down the Formula",
-              text: "Use the formula ρ = m ÷ V, where ρ (rho) is density, m is mass in kg or g, and V is volume in m³ or cm³. The SI unit of density is kg/m³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 2,
-              name: "Measure the Mass",
-              text: "Weigh the object using a balance or scale. Record the value in grams (g) or kilograms (kg). For liquids, weigh the filled container and subtract the container weight.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 3,
-              name: "Measure the Volume",
-              text: "For regular shapes, calculate volume from dimensions (length × width × height for a cuboid). For liquids, use a graduated cylinder. For irregular objects, use water displacement (Archimedes' principle).",
-            },
-            {
-              "@type": "HowToStep",
-              position: 4,
-              name: "Make Sure Units Match",
-              text: "Use compatible units before dividing. If mass is in grams and volume is in cm³, the result will be in g/cm³. Key conversions: 1 g/cm³ = 1000 kg/m³, 1 L = 1000 cm³, 1 m³ = 1,000,000 cm³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 5,
-              name: "Divide Mass by Volume",
-              text: "Divide the mass value by the volume value. Example: a gold bar with mass 193 g and volume 10 cm³ → density = 193 ÷ 10 = 19.3 g/cm³. This matches the known density of gold.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 6,
-              name: "Write the Unit and Verify",
-              text: "Always write the density unit with your answer (g/cm³ or kg/m³). Compare your result to the standard density table to verify: water = 1 g/cm³, aluminium = 2.7 g/cm³, steel = 7.85 g/cm³.",
-            },
-          ],
-          tool: [
-            {
-              "@type": "HowToTool",
-              name: "LizoCalc Density Calculator",
-            },
-          ],
-        },
-
-        // ── 6. HOWTO #3 — How to Find Density of an Irregular Object ──
-        // Targets: "how to find density of irregular object",
-        //          "Archimedes principle density", "water displacement density",
-        //          "how to measure volume of irregular shape"
-        {
-          "@type": "HowTo",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator#howto-irregular-density",
-          name: "How to Find the Density of an Irregular Object",
-          description:
-            "Step-by-step method to calculate the density of any irregular-shaped object using water displacement and Archimedes' principle.",
-          step: [
-            {
-              "@type": "HowToStep",
-              position: 1,
-              name: "Weigh the Object",
-              text: "Place the irregular object on a balance or scale and record its mass in grams (g) or kilograms (kg). Example: a small rock weighs 150 g.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 2,
-              name: "Fill a Graduated Cylinder with Water",
-              text: "Pour water into a graduated cylinder and record the initial water level. Example: water level = 100 cm³ (100 ml).",
-            },
-            {
-              "@type": "HowToStep",
-              position: 3,
-              name: "Submerge the Object Fully",
-              text: "Carefully lower the object into the water using a string or thin wire so it is fully submerged and does not touch the sides or bottom.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 4,
-              name: "Read the New Water Level",
-              text: "Read the new water level after the object is submerged. Example: water level rose from 100 cm³ to 150 cm³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 5,
-              name: "Calculate Displaced Volume",
-              text: "Subtract the initial level from the new level to get the object's volume. Example: 150 cm³ − 100 cm³ = 50 cm³. This is your object's volume.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 6,
-              name: "Enter Values into LizoCalc",
-              text: "Enter mass (150 g) and displaced volume (50 cm³) into the LizoCalc Density Calculator, select g/cm³ as the output unit, and click Calculate. Result: 150 ÷ 50 = 3 g/cm³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 7,
-              name: "Identify the Material",
-              text: "Compare your calculated density to the standard density table. Density 3 g/cm³ matches materials like corundum or some types of stone. Gold = 19.3, Silver = 10.5, Iron = 7.87, Aluminium = 2.7 g/cm³.",
-            },
-          ],
-          tool: [
-            {
-              "@type": "HowToTool",
-              name: "LizoCalc Density Calculator",
-            },
-          ],
-        },
-
-        // ── 7. HOWTO #4 — How to Convert Density Units ────────
-        // Targets: "how to convert g/cm3 to kg/m3",
-        //          "density unit conversion steps",
-        //          "convert lb/ft3 to kg/m3", "g/cm3 to kg/m3 formula"
-        {
-          "@type": "HowTo",
-          "@id":
-            "https://www.lizocalc.com/calculators/physics/density-calculator#howto-convert-density-units",
-          name: "How to Convert Density Units (g/cm³, kg/m³, lb/ft³)",
-          description:
-            "Step-by-step guide to converting density between metric and imperial units with exact conversion factors and worked examples.",
-          step: [
-            {
-              "@type": "HowToStep",
-              position: 1,
-              name: "Identify Your Starting Density Unit",
-              text: "Note which unit your density is currently expressed in. Common density units: g/cm³ (solids and liquids), kg/m³ (SI standard), lb/ft³ (US/UK imperial), g/L (gases and solutions).",
-            },
-            {
-              "@type": "HowToStep",
-              position: 2,
-              name: "Choose Your Target Unit",
-              text: "Select the unit you need. For board exams and scientific work use kg/m³ (SI). For lab chemistry use g/cm³. For US engineering contexts use lb/ft³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 3,
-              name: "Apply the Conversion Factor",
-              text: "Use these exact factors: 1 g/cm³ = 1000 kg/m³ | 1 kg/m³ = 0.001 g/cm³ | 1 g/cm³ = 62.428 lb/ft³ | 1 lb/ft³ = 16.0185 kg/m³ | 1 kg/m³ = 0.062428 lb/ft³ | 1 g/L = 1 kg/m³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 4,
-              name: "Multiply by the Factor",
-              text: "Multiply your density value by the correct factor. Example 1: water density 1 g/cm³ × 1000 = 1000 kg/m³. Example 2: steel 7.85 g/cm³ × 62.428 = 490.06 lb/ft³.",
-            },
-            {
-              "@type": "HowToStep",
-              position: 5,
-              name: "Use LizoCalc for Instant Conversion",
-              text: "Skip manual calculation entirely — enter your mass and volume into the LizoCalc Density Calculator and select any output density unit. The calculator converts all units automatically with no risk of errors.",
-            },
-          ],
-          tool: [
-            {
-              "@type": "HowToTool",
-              name: "LizoCalc Density Calculator",
-            },
-          ],
-        },
-
-        // ── 8. FAQ PAGE ────────────────────────────────────────
-        {
-          "@type": "FAQPage",
-          mainEntity: faqData.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        },
-
-      ],
-    }),
-  }}
-/>
+          }),
+        }}
+      />
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-  Density Calculator – Calculate Density, Mass & Volume
-</h1>
+              Density Calculator – Calculate Density, Mass & Volume
+            </h1>
           </div>
         </div>
       </section>

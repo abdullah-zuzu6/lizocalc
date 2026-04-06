@@ -81,7 +81,7 @@ export default function SpeedCalculatorPage() {
       {" "}
       <Navbar />
       {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
+    <Script
   id="structured-data"
   type="application/ld+json"
   strategy="beforeInteractive"
@@ -133,12 +133,16 @@ export default function SpeedCalculatorPage() {
           description:
             "Free online speed calculator using v = d ÷ t. Instantly calculate speed, distance, or time in km/h, mph, or m/s with automatic unit conversion and step-by-step working.",
           inLanguage: "en",
-          datePublished: "2025-01-01",
+          datePublished: "2026-04-01",
           dateModified: "2026-04-05",
           isPartOf: {
             "@type": "WebSite",
             name: "LizoCalc",
             url: "https://www.lizocalc.com",
+          },
+          // Added mainEntity to highlight the core HowTo for Google
+          mainEntity: {
+            "@id": "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-calculate-speed"
           },
           mainEntityOfPage: {
             "@type": "SoftwareApplication",
@@ -154,6 +158,7 @@ export default function SpeedCalculatorPage() {
             "https://www.lizocalc.com/calculators/physics/speed-calculator#app",
           name: "Speed Calculator",
           url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Free online speed calculator using v = d ÷ t. Calculate speed from distance and time, find distance using speed and time, or solve for time. Supports km/h, mph, m/s with automatic unit conversion and step-by-step results.",
           applicationCategory: "EducationalApplication",
@@ -186,6 +191,7 @@ export default function SpeedCalculatorPage() {
             "@type": "Organization",
             name: "LizoCalc",
             url: "https://www.lizocalc.com",
+            logo: "https://www.lizocalc.com/logo.webp"
           },
           potentialAction: {
             "@type": "UseAction",
@@ -196,13 +202,12 @@ export default function SpeedCalculatorPage() {
         },
 
         // ── 4. HOWTO #1 — How to Use the Speed Calculator ─────
-        // Targets: "how to use speed calculator",
-        //          "how to calculate speed online", "speed calculator steps"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-use-calculator",
           name: "How to Use the Speed Calculator",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step guide to calculating speed, distance, or time using the LizoCalc free online speed calculator.",
           step: [
@@ -258,14 +263,12 @@ export default function SpeedCalculatorPage() {
         },
 
         // ── 5. HOWTO #2 — How to Calculate Speed from Distance and Time ──
-        // Targets: "how to calculate speed", "how to find speed with distance and time",
-        //          "speed formula steps", "speed = distance / time explained",
-        //          "how do you calculate average speed"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-calculate-speed",
           name: "How to Calculate Speed from Distance and Time",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step manual method to find speed using the formula v = d ÷ t with fully worked examples.",
           step: [
@@ -315,14 +318,12 @@ export default function SpeedCalculatorPage() {
         },
 
         // ── 6. HOWTO #3 — How to Convert km/h to m/s ──────────
-        // Targets: "how to convert km/h to m/s",
-        //          "kmh to ms conversion formula", "how to convert speed units",
-        //          "km per hour to meters per second steps"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-convert-speed-units",
           name: "How to Convert Speed Units (km/h, m/s, mph)",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step guide to converting speed between km/h, m/s, and mph with exact conversion factors and worked examples.",
           step: [
@@ -366,14 +367,12 @@ export default function SpeedCalculatorPage() {
         },
 
         // ── 7. HOWTO #4 — How to Calculate Average Speed for Multi-Segment Journey ──
-        // Targets: "how to calculate average speed", "average speed formula steps",
-        //          "how to find average speed with multiple stops",
-        //          "average speed for different distances"
         {
           "@type": "HowTo",
           "@id":
             "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-average-speed",
           name: "How to Calculate Average Speed for a Multi-Segment Journey",
+          image: "https://www.lizocalc.com/logo.webp",
           description:
             "Step-by-step method to correctly calculate average speed for journeys with multiple legs, stops, or different speeds at each segment.",
           step: [
