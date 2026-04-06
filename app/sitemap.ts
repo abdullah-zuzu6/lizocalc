@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: '/privacy', priority: 0.8 },
     { url: '/terms', priority: 0.8 },
     { url: '/calculators', priority: 0.9 },
-    { url: '/calculators/saved-calculator', priority: 0.8 },
+    { url: '/calculators/saved-calculators', priority: 0.8 },
     { url: '/calculators/education', priority: 0.9 },
     { url: '/calculators/financial', priority: 0.9 },
     { url: '/calculators/health', priority: 0.9 },
