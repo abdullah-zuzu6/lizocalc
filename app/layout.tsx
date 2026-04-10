@@ -1,8 +1,10 @@
 import React from "react";
+import "/globals.css";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+
 import { Analytics } from "@vercel/analytics/next";
+import Script from "next/script"; 
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -82,7 +84,6 @@ export default function RootLayout({
     "@type": "Organization",
     name: "LizoCalc",
     url: BASE_URL,
-    // Using PNG here is safer for some legacy schema crawlers
     logo: `${BASE_URL}/logo.png`,
     sameAs: [
       "https://www.facebook.com/lizocalc",
@@ -93,11 +94,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head>
-        {/* Note: Next.js automatically injects favicon, apple-touch-icon, 
-          canonical, and meta theme-color from the metadata/viewport 
-          objects above. No need to repeat them manually. 
-        */}
-        
         {/* ✅ PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
@@ -112,6 +108,22 @@ export default function RootLayout({
 
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
+
+        {/* ✅ GOOGLE ANALYTICS */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-W122RNR3R4"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-W122RNR3R4');
+          `}
+        </Script>
+
+        {/* ✅ VERCEL ANALYTICS (keep this) */}
         <Analytics />
       </body>
     </html>
