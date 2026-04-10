@@ -273,6 +273,14 @@ const allCalculators = [
     icon: Clock,
   },
   
+  {
+    name: 'CGPA Calculator',
+    description: 'Calculate your Cumulative Grade Point Average',
+    href: '/calculators/education/cgpa-calculator',
+    category: 'Education',
+    icon: Clock,
+  },
+  
 
   // Physics
   {

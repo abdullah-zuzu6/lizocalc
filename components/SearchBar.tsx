@@ -40,6 +40,7 @@ const allCalculators = [
   { name: 'Hours Calculator', href: '/calculators/time/hours-calculator', category: 'Time' },
   { name: 'GPA Calculator', href: '/calculators/education/gpa-calculator', category: 'Education' },
   { name: 'Grade Calculator', href: '/calculators/education/grade-calculator', category: 'Education' },
+    { name: 'CGPA Calculator', href: '/calculators/education/cgpa-calculator', category: 'Education' },
   { name: 'Density Calculator', href: '/calculators/physics/density-calculator', category: 'Physics' },
   { name: 'Mass Calculator', href: '/calculators/physics/mass-calculator', category: 'Physics' },
   { name: 'Speed Calculator', href: '/calculators/physics/speed-calculator', category: 'Physics' },

@@ -19,6 +19,12 @@ const calculators = [
     href: '/calculators/education/grade-calculator',
     category: 'Education',
   },
+  {
+    name: 'CGPA Calculator ->',
+    description: 'Calculate your Cumulative Grade Point Average',
+    href: '/calculators/education/cgpa-calculator',
+    category: 'Education',
+  },
 ]
 
 export default function OtherCalculators() {
