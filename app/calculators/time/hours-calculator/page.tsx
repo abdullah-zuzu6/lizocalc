@@ -197,7 +197,7 @@ export default function HoursPage() {
           <div className="flex items-center gap-3">
            
             <h1 className="text-3xl md:text-4xl font-bold">
-             Hours Calculator: Find the Exact Time Duration Between Two Times
+             Hours Calculator: Find the Exact Duration Between Two Times
             </h1>
           </div>
         </div>
