@@ -34,7 +34,7 @@ const faqData = [
 ];
 
 export const metadata: Metadata = {
- title: "ROI Calculator: Calculate Return on Investment & Annualized Gains",
+ title: "ROI Calculator: Calculate Your ROI in Seconds ",
 description: "Measure your investment performance with our free ROI calculator. Calculate total profit, percentage return, and annualized ROI using specific dates or time duration.",
   keywords: [
     "calculate return on investment",
