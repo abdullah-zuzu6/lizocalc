@@ -202,9 +202,10 @@ export default function TimeCalculator() {
               </p>
             </div>
             
-            <RelatedCalculators calculators={relatedCalculators} />
+          
           </div>
         </div>
+          <RelatedCalculators calculators={relatedCalculators} />
       </section>
     </main>
   )

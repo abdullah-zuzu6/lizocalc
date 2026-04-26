@@ -389,32 +389,7 @@ export default function AgeCalculator() {
           </div>
         </div>
 
-        {/* EDUCATIONAL SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-6">
-          <div className="bg-card border rounded-3xl p-8 space-y-4">
-            <h3 className="font-black text-sm flex items-center gap-2 uppercase tracking-widest text-blue-600">
-              <Info size={20} /> Precision Timing
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Our algorithm accounts for the Gregorian calendar nuances, including leap years and the varying lengths of months, to provide an exact breakdown of your age.
-            </p>
-          </div>
-          <div className="bg-card border rounded-3xl p-8 space-y-4">
-            <h3 className="font-black text-sm uppercase tracking-widest text-blue-600">Pro Tips</h3>
-            <div className="space-y-3">
-              {[
-                "Calculate your age on a future date to plan for retirement or travel.",
-                "Use 'Total Days' to track personal 1,000-day milestones.",
-                "The next birthday countdown helps you prepare for celebrations early."
-              ].map((tip, i) => (
-                <div key={i} className="flex gap-3 text-sm text-muted-foreground items-start">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
-                  <p>{tip}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+      
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>

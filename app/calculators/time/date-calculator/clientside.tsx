@@ -289,38 +289,6 @@ export default function DateCalculator() {
           </div>
         </div>
 
-        {/* EDUCATIONAL SECTION */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="bg-card border rounded-xl p-8">
-            <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-              <Info size={20} className="text-blue-600"/> How it Works
-            </h3>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-              The Date Calculator finds the precise distance between two dates or allows you to shift a date into the past or future. It automatically handles leap years and different month lengths.
-            </p>
-            <div className="p-4 bg-blue-600/5 border border-blue-600/20 rounded-xl">
-              <code className="text-blue-600 font-bold text-xs">Standardized ISO-8601 Logic</code>
-            </div>
-          </div>
-
-          <div className="bg-card border rounded-xl p-8">
-            <h3 className="font-bold text-xl mb-4 flex items-center gap-2">
-               <BarChart3 size={20} className="text-blue-600"/> Time Conversions
-            </h3>
-            <div className="space-y-3">
-              {[
-                "1 average month is considered 30.44 days.",
-                "1 calendar year is 365 days (366 in leap years).",
-                "Includes precise millisecond conversion for accuracy."
-              ].map((tip, i) => (
-                <div key={i} className="flex gap-3 text-sm text-muted-foreground items-start">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
-                  <p>{tip}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>

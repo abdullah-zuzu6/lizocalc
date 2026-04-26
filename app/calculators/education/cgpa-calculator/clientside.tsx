@@ -276,7 +276,10 @@ export default function CGPACalculator() {
               </button>
             </section>
 
-            {/* Related Calculators */}
+           
+          </div>
+        </div>
+         {/* Related Calculators */}
             <div className="mt-12">
               <RelatedCalculators
                 calculators={[
@@ -295,8 +298,6 @@ export default function CGPACalculator() {
                 ]}
               />
             </div>
-          </div>
-        </div>
       </div>
     </main>
   );

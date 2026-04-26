@@ -8,16 +8,6 @@ import CGPACalculator from "./clientside";
 import Image from "next/image";
 const faqData = [
   {
-    question: "What is CGPA and how is it calculated?",
-    answer:
-      "CGPA (Cumulative Grade Point Average) represents the overall academic performance of a student across all semesters. It is calculated by dividing the sum of grade points earned in all courses by the total number of credit hours attempted throughout the entire degree program. Formula: CGPA = Σ (Grade Points × Credit Hours) / Total Credits Attempted.",
-  },
-  {
-    question: "How do I calculate CGPA from SGPA (Semester GPA)?",
-    answer:
-      "To calculate CGPA using SGPAs, you cannot simply average them unless every semester has the same number of credit hours. Instead, multiply each SGPA by its respective semester credits to get quality points, sum them all up, and divide by the total cumulative credits. This ensures that a 18-credit semester carries more weight than a 12-credit semester.",
-  },
-  {
     question: "How do I convert CGPA to a percentage?",
     answer:
       "The conversion formula varies by university and region. A widely used standard (like that used by many technical boards) is: Percentage = (CGPA - 0.5) × 10. For a 4.0 scale, another common method is: Percentage = CGPA × 25. However, always refer to the official back-page of your transcript for the specific conversion formula used by your institution.",
@@ -36,6 +26,17 @@ const faqData = [
     question: "Is there a difference between CGPA and GPA on a resume?",
     answer:
       "Yes. GPA usually refers to a single semester's performance, whereas CGPA is your total average across your entire degree. On a resume, you should always list your CGPA as it provides a complete picture of your academic consistency. If your major-specific grades are higher than your overall average, you may also list a 'Major CGPA' separately.",
+  },
+
+  {
+    question: "Does CGPA matter for jobs?",
+    answer:
+      "Many multinational companies use CGPA as an initial filtering criterion for internships and entry-level roles, though work experience and skills often become more important later.",
+  },
+  {
+    question: "How can I improve my CGPA fast?",
+    answer:
+      "Focus on high-credit courses where you have room for improvement, utilize retake policies for failed subjects, and maintain consistent study habits.",
   },
 ];
 export const metadata: Metadata = {
@@ -159,11 +160,23 @@ export default function GPAPage() {
                   name: "LizoCalc",
                   url: "https://www.lizocalc.com",
                 },
-                mainEntity: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-calculate-cgpa",
+                // Inside the WebPage object (@type: "WebPage")
+                author: {
+                  "@type": "Person",
+                  name: "Rana Muhammad Abdullah",
+                  jobTitle:
+                    "Founder of LizoCalc (Web Tool Developer – Mathematical & Utility Calculators)",
+                  url: "https://www.lizocalc.com/about",
                 },
-                mainEntityOfPage: {
+                publisher: {
+                  "@type": "Organization",
+                  name: "LizoCalc",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://www.lizocalc.com/logo.webp",
+                  },
+                },
+                mainEntity: {
                   "@type": "SoftwareApplication",
                   "@id":
                     "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
@@ -221,46 +234,7 @@ export default function GPAPage() {
                 },
               },
 
-              // ── 4. HOWTO #1 — How to Use the Calculator ───────────
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-use-calculator",
-                name: "How to Use the LizoCalc CGPA Calculator",
-                image:
-                  "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-                description:
-                  "Follow these steps to quickly find your cumulative grade point average using our free tool.",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Enter Current CGPA",
-                    text: "If you have prior results, enter your current CGPA and total credits earned so far.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Add New Semester Data",
-                    text: "Input the SGPA and total credits for your latest semester.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Calculate",
-                    text: "Click the 'Calculate CGPA' button to see your updated total average instantly.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Review Breakdown",
-                    text: "Check the step-by-step section to see how the weights were applied to your final score.",
-                  },
-                ],
-                tool: [
-                  { "@type": "HowToTool", name: "LizoCalc CGPA Calculator" },
-                ],
-              },
+              //
 
               // ── 5. HOWTO #2 — How to Calculate CGPA Manually ──
               {
@@ -353,8 +327,23 @@ export default function GPAPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-bold">
-CGPA Calculator: Calculate Cumulative GPA (4.0 & 10 Scale)          </h1>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            CGPA Calculator: Calculate Cumulative GPA (4.0 & 10 Scale){" "}
+          </h1>
+          <p className="text-lg text-gray-200 mb-2">
+            CGPA is calculated by multiplying each semester GPA by its credit
+            hours, adding all results, and dividing by total credits. It shows
+            your overall academic performance across all semesters in a single
+            value.
+          </p>
+          <div className="bg-gray-800 p-4 rounded-lg border border-blue-500/30 my-4">
+            <p className="font-mono text-green-400">
+              Formula: CGPA = Σ (SGPA × Credits) ÷ Total Credits
+            </p>
+            <p className="text-sm text-gray-300 mt-2">
+              Example: (3.8 × 20 + 3.4 × 22) ÷ 42 = <strong>3.59</strong>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -362,19 +351,87 @@ CGPA Calculator: Calculate Cumulative GPA (4.0 & 10 Scale)          </h1>
       <section className="px-4 py-8">
         <CGPACalculator />
       </section>
+      {/* 🔥 CGPA Quick Answer Box - Optimized for AI Overview */}
+      <section className="px-4 pb-8">
+        <div className="max-w-6xl mx-auto bg-gradient-to-br from-blue-950 via-gray-950 to-gray-950 border border-blue-500/30 rounded-3xl p-8 md:p-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
+            CGPA Quick Answer
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-8 text-white">
+            {/* 1. Definition */}
+            <div>
+              <h3 className="text-blue-400 font-semibold mb-3">
+                What is CGPA?
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed">
+                CGPA is the weighted average of all semester results based on
+                credit hours.{" "}
+              </p>
+            </div>
+
+            {/* 2. Formula */}
+            <div>
+              <h3 className="text-blue-400 font-semibold mb-3">CGPA Formula</h3>
+              <div className="bg-gray-900 p-4 rounded-xl text-green-400 text-sm font-mono border border-gray-700">
+                CGPA = Σ (SGPA × Credits) ÷ Total Credits
+              </div>
+
+              <ul className="mt-4 text-gray-400 text-sm space-y-1">
+                <li>• SGPA = Semester GPA</li>
+                <li>• Credits = Credit hours</li>
+                <li>• Σ = Total sum</li>
+              </ul>
+            </div>
+
+            {/* 3. Example */}
+            <div>
+              <h3 className="text-blue-400 font-semibold mb-3">Example</h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Semester 1: 3.8 (20 credits)
+                <br />
+                Semester 2: 3.4 (22 credits)
+              </p>
+              <p className="text-yellow-400 font-semibold mt-2 text-sm">
+                CGPA = (3.8×20 + 3.4×22) ÷ 42 = 3.59
+              </p>
+            </div>
+          </div>
+
+          {/* Bottom Section (Important for AI extraction) */}
+          <div className="mt-10 border-t border-gray-800 pt-6">
+            <h3 className="text-blue-400 font-semibold mb-3">
+              CGPA Range Guide
+            </h3>
+
+            <ul className="text-sm text-gray-300 space-y-1">
+              <li>
+                • 3.5 – 4.0 → <span className="text-green-400">Excellent</span>
+              </li>
+              <li>
+                • 3.0 – 3.5 → <span className="text-blue-300">Good</span>
+              </li>
+              <li>
+                • 2.5 – 3.0 → <span className="text-yellow-300">Average</span>
+              </li>
+              <li>
+                • Below 2.5 →{" "}
+                <span className="text-red-400">Needs Improvement</span>
+              </li>
+            </ul>
+
+            <p className="text-gray-500 text-xs mt-3">
+              Note: CGPA evaluation standards may vary by university and
+              country.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* SEO Content - Expanded to 1200+ words */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white selection:bg-blue-500/30">
         {/* Hero Section: Intent-Based SEO */}
         <div className="space-y-4 mb-8">
-          <p className="text-gray-200 text-lg leading-relaxed">
-            Our <strong>CGPA Calculator</strong> provides a precise way to track
-            your academic journey. Unlike a standard GPA, which measures a
-            single term, your{" "}
-            <strong>Cumulative Grade Point Average (CGPA)</strong>
-            aggregates your performance across all semesters, factoring in
-            credit weightage to reflect your true academic standing.
-          </p>
           <p className="text-gray-400 text-base leading-relaxed border-l-4 border-blue-500 pl-4">
             Whether you are aiming for the Dean's list, applying for an{" "}
             <strong>scholarships</strong>, or preparing your resume for
@@ -384,48 +441,6 @@ CGPA Calculator: Calculate Cumulative GPA (4.0 & 10 Scale)          </h1>
           </p>
         </div>
         {/* Logic & Definition Section (AEO/GEO Optimized) */}
-        <section className="grid md:grid-cols-2 gap-12 items-start">
-          <div>
-            <h2 className="text-3xl font-bold text-blue-500 mb-6">
-              What is CGPA? (A Deep Dive)
-            </h2>
-            <p className="text-gray-200 text-lg leading-relaxed mb-6">
-              CGPA stands for Cumulative Grade Point Average, a key academic
-              metric representing the weighted average of all semester GPAs
-              throughout a student's entire program. It indicates overall
-              consistency and academic performance, typically on a 4.0 or 10.0
-              scale, and is used for academic standing, scholarships, and
-              hiring.
-            </p>
-            <div className="bg-blue-900/10 p-6 rounded-2xl border-l-4 border-blue-600 italic text-gray-300">
-              "Admissions committees at top-tier universities prioritize the
-              CGPA because it demonstrates consistency, resilience, and the
-              ability to maintain high performance over 4+ years."
-            </div>
-          </div>
-          <div className="space-y-6">
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-2">
-                The 4.0 Standard
-              </h3>
-              <p className="text-sm text-gray-400">
-                The universal baseline for US education. It converts qualitative
-                letter grades (A, B, C) into quantitative data points used for
-                ranking and eligibility.
-              </p>
-            </div>
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-2">
-                Academic Standing
-              </h3>
-              <p className="text-sm text-gray-400">
-                CGPA determines your standing: Dean’s List, Academic Probation,
-                or Latin Honors (Cum Laude, Magna Cum Laude, and Summa Cum
-                Laude).
-              </p>
-            </div>
-          </div>
-        </section>
 
         {/* Mathematical Breakdown Section */}
         <section className="mt-24">
@@ -469,13 +484,15 @@ CGPA Calculator: Calculate Cumulative GPA (4.0 & 10 Scale)          </h1>
           {/* <div className="text-center bg-gray-900/80 p-12 rounded-3xl border border-blue-500/20 shadow-2xl"> */}
           <div>
             <h3 className="text-2xl font-semibold text-blue-300 mb-8 uppercase tracking-widest">
-CGPA Formula (Step-by-Step Calculation with Example)            </h3>
+              CGPA Formula (Step-by-Step Calculation with Example){" "}
+            </h3>
             <figure>
               <Image
                 src="/images/cgpa-formula-diagram.webp"
                 alt="CGPA formula calculation example with credits and grade points (4.0 scale)"
                 width={850}
                 height={500}
+                priority
                 className="rounded-xl mx-auto mb-6"
               />
               <figcaption className="text-gray-500 text-sm italic">
@@ -483,6 +500,26 @@ CGPA Formula (Step-by-Step Calculation with Example)            </h3>
                 Average calculation logic.
               </figcaption>
             </figure>
+          </div>
+        </section>
+
+        <section className="py-8">
+          <h2 className="text-2xl font-bold text-blue-500 mb-4">
+            CGPA vs. GPA vs. SGPA
+          </h2>
+          <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800">
+            <p>
+              <strong>CGPA:</strong> Cumulative performance across your entire
+              degree program.
+            </p>
+            <p>
+              <strong>GPA:</strong> Often refers to a specific term or a single
+              course grade.
+            </p>
+            <p>
+              <strong>SGPA:</strong> Your performance specifically for one
+              semester.
+            </p>
           </div>
         </section>
 
@@ -673,13 +710,12 @@ CGPA Formula (Step-by-Step Calculation with Example)            </h3>
           <p className="text-gray-200 text-lg mb-8 leading-relaxed">
             Improving your cumulative average is a marathon, not a sprint. By
             implementing these high-impact habits, you can steadily climb the
-            4.0 scale and open doors to better opportunities.you can also use
-            our{" "}
+            4.0 scale and open doors to better opportunities.you can{" "}
             <Link
               href="/calculators/education/gpa-calculator"
               className="text-cyan-700"
             >
-              GPA calculator
+              Calculate your single-semester GPA
             </Link>{" "}
             to simulate how different grade improvements will affect your
             overall CGPA, helping you set realistic goals for each semester.
@@ -796,6 +832,36 @@ CGPA Formula (Step-by-Step Calculation with Example)            </h3>
               — calculate your cumulative GPA based on credit hours and grades
             </li>
           </ul>
+        </section>
+
+        <div className="mt-10 text-sm text-gray-400 border-t pt-4">
+          <p>
+            <strong>Written by:</strong> LizoCalc Education Team
+          </p>
+          <p>
+            <strong>Reviewed by:</strong> Academic GPA & University Grading
+            Specialist
+          </p>
+          <p>
+            <strong>Experience:</strong> 5+ years in academic calculator systems
+            and grading models
+          </p>
+        </div>
+        <p className="text-gray-500 text-xs mt-12 border-t border-gray-800 pt-6 italic">
+          <strong>Note:</strong> LizoCalc provides this CGPA tool for
+          informational purposes only. This calculation method is based on
+          standard university grading systems used in HEC Pakistan guidelines,
+          US GPA system, and CBSE academic structure.
+        </p>
+
+        <section className="mt-20">
+          <div className="text-xs text-gray-600 mt-12 border-t border-gray-800 pt-6">
+            <p>
+              * Note: Weighting systems, honors additions, and percentage
+              conversions vary by country and specific university policy. Always
+              verify your result against your official transcript.*
+            </p>
+          </div>
         </section>
       </article>
 
