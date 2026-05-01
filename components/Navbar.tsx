@@ -27,6 +27,7 @@ const NAV_ITEMS = [
   { name: "Physics", href: "/calculators/physics" },
   { name: "All", href: "/calculators" },
   { name: "Saved Calculators", href: "/calculators/saved-calculators" },
+  { name: "Blogs", href: "/blogs" },
 ]
 
 export default function Navbar() {

@@ -280,7 +280,13 @@ const allCalculators = [
     category: 'Education',
     icon: Clock,
   },
-  
+  {
+    name: 'Final Grade Calculator',
+    description: 'Calculate your final grade based on component weights and scores',
+    href: '/calculators/education/final-grade-calculator',
+    category: 'Education',
+    icon: Clock,
+  },
 
   // Physics
   {

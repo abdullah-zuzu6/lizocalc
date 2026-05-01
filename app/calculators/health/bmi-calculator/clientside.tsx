@@ -317,15 +317,15 @@ export default function BMICalculator() {
         <RelatedCalculators
           calculators={[
             {
-              name: "LCM Calculator",
-              description: "Find common multiples",
-              href: "/calculators/math/lcm-calculator",
+              name: "TDEE Calculator",
+              description: "Calculate total daily energy expenditure",
+              href: "/calculators/health/tdee-calculator",
               icon: Layers,
             },
             {
-              name: "Interest Calculator",
-              description: "Calculate interest",
-              href: "/calculators/financial/interest-calculator",
+              name: "BMR Calculator",
+              description: "Calculate basal metabolic rate",
+              href: "/calculators/health/bmr-calculator",
               icon: BarChart3,
             },
           ]}

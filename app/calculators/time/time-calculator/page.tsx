@@ -219,21 +219,15 @@ export default function TimePage() {
                   "Free time calculator to convert hours to minutes, minutes to seconds, and get decimal hours for payroll and billing.",
                 inLanguage: "en",
                 datePublished: "2026-03-29",
-                dateModified: "2026-04-26",
+                dateModified: "2026-05-01",
                 about: {
                   "@id":
                     "https://www.lizocalc.com/calculators/time/time-calculator#app",
                 },
-                mainEntity: [
-                  {
-                    "@id":
-                      "https://www.lizocalc.com/calculators/time/time-calculator#app",
-                  },
-                  {
-                    "@id":
-                      "https://www.lizocalc.com/calculators/time/time-calculator#howto",
-                  },
-                ],
+               mainEntity: {
+  "@id":
+    "https://www.lizocalc.com/calculators/time/time-calculator#app",
+},
                 primaryImageOfPage: {
                   "@id":
                     "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp#image",
@@ -260,13 +254,17 @@ export default function TimePage() {
                   "@id":
                     "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp#image",
                 },
-                applicationCategory: "UtilitiesApplication",
+                mainEntityOfPage: {
+  "@id":
+    "https://www.lizocalc.com/calculators/time/time-calculator",
+},
+                applicationCategory: "UtilityApplication",
                 applicationSubCategory: "Time & Unit Conversion Calculator",
                 operatingSystem: "Any",
                 inLanguage: "en",
                 softwareVersion: "2.0",
                 datePublished: "2026-03-29",
-                dateModified: "2026-04-26",
+                dateModified: "2026-05-01",
                 browserRequirements:
                   "Requires JavaScript. Works on all modern browsers.",
                 featureList: [
@@ -286,9 +284,8 @@ export default function TimePage() {
                 creator: { "@id": "https://www.lizocalc.com/#org" },
                 potentialAction: {
                   "@type": "UseAction",
-                  target: [
-                    "https://www.lizocalc.com/calculators/time/time-calculator",
-                  ],
+                target:
+  "https://www.lizocalc.com/calculators/time/time-calculator",
                 },
               },
 
@@ -337,19 +334,23 @@ export default function TimePage() {
                 ],
               },
 
-              //* ── 8. FAQ PAGE ── */
-              {
-                "@type": "FAQPage",
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-
+            {
+  "@type": "FAQPage",
+  "@id":
+    "https://www.lizocalc.com/calculators/time/time-calculator#faq",
+  isPartOf: {
+    "@id":
+      "https://www.lizocalc.com/calculators/time/time-calculator",
+  },
+  mainEntity: (faqData || []).map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+},
               /* ── 9. IMAGE OBJECTS ── */
               {
                 "@type": "ImageObject",
@@ -1020,7 +1021,7 @@ export default function TimePage() {
             </div>
             <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
               <span>📅 Published: Mar 29, 2026</span>
-              <span>🔄 Updated: Apr 26, 2026</span>
+              <span>🔄 Updated: May 01 , 2026</span>
               <span>✅ Verified accurate</span>
             </div>
           </div>

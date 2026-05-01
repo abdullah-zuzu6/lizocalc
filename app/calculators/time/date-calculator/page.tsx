@@ -177,12 +177,12 @@ export default function DateCalculatorPage() {
                 name: "Date to Date Calculator — Days Between Dates, 90/60/30 Days From Today",
                 description: "Free date calculator: find days between two dates, calculate 90, 60, 45, 30, or 28 days from any date, or count days since a past event.",
                 inLanguage: "en",
-                datePublished: "2025-04-04",
-                dateModified: "2025-04-26",
+                datePublished: "2026-04-04",
+                dateModified: "2026-05-01",
                 about: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app" },
                 mainEntity: {
-                  "@id": "https://www.lizocalc.com/calculators/time/date-calculator#howto",
-                },
+  "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app",
+},
                 primaryImageOfPage: {
                   "@id": "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp#image",
                 },
@@ -202,13 +202,16 @@ export default function DateCalculatorPage() {
                 image: {
                   "@id": "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp#image",
                 },
+                mainEntityOfPage: {
+  "@id": "https://www.lizocalc.com/calculators/time/date-calculator",
+},
                 applicationCategory: "UtilityApplication",
                 applicationSubCategory: "Date & Calendar Calculator",
                 operatingSystem: "Any",
                 inLanguage: "en",
                 softwareVersion: "1.0",
-                datePublished: "2025-04-04",
-                dateModified: "2025-04-26",
+                datePublished: "2026-04-04",
+                dateModified: "2026-05-01",
                 browserRequirements: "Requires JavaScript. Works on modern browsers.",
                 featureList: [
                   "Calculate days between two dates",
@@ -224,7 +227,7 @@ export default function DateCalculatorPage() {
                 creator: { "@id": "https://www.lizocalc.com/#org" },
                 potentialAction: {
                   "@type": "UseAction",
-                  target: ["https://www.lizocalc.com/calculators/time/date-calculator"],
+                 target: "https://www.lizocalc.com/calculators/time/date-calculator",
                 },
               },
 
@@ -247,15 +250,21 @@ export default function DateCalculatorPage() {
                 ],
               },
 
-              /* ── 8. FAQ PAGE ── */
-              {
-                "@type": "FAQPage",
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: { "@type": "Answer", text: item.answer },
-                })),
-              },
+             {
+  "@type": "FAQPage",
+  "@id": "https://www.lizocalc.com/calculators/time/date-calculator#faq",
+  isPartOf: {
+    "@id": "https://www.lizocalc.com/calculators/time/date-calculator",
+  },
+  mainEntity: (faqData || []).map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+},
 
               /* ── 9. IMAGE OBJECT ── */
               {
@@ -827,7 +836,7 @@ export default function DateCalculatorPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
             <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: Apr 26, 2026</span>
+            <span>🔄 Updated: May 01 , 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

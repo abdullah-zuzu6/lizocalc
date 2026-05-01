@@ -1,10 +1,8 @@
 User-agent: *
 Allow: /
 
-Disallow: /wp-admin/
-Disallow: /wp-login.php
 Disallow: /api/
-Disallow: /*.php$
 
 Sitemap: https://www.lizocalc.com/sitemap.xml
 Sitemap: https://www.lizocalc.com/image-sitemap.xml
+Sitemap: https://www.lizocalc.com/blog-sitemap.xml

@@ -25,6 +25,12 @@ const calculators = [
     href: '/calculators/education/cgpa-calculator',
     category: 'Education',
   },
+  {
+    name: 'Final Grade Calculator ->',
+    description: 'Calculate your final grade based on component weights and scores',
+    href: '/calculators/education/final-grade-calculator',
+    category: 'Education',
+  },
 ]
 
 export default function OtherCalculators() {

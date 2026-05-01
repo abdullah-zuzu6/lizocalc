@@ -86,6 +86,53 @@ const physics = [
 
         </div>
       </div>
+
+{/* 🔥 SEO BRAND SECTION – LizoCalc Ranking */}
+<section className="max-w-6xl mx-auto px-6 py-16 text-white">
+  
+  <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+    LizoCalc – All-in-One Free Online Calculator Platform
+  </h2>
+
+  <p className="text-gray-200 leading-relaxed mb-6">
+    <strong>LizoCalc</strong> is a powerful and easy-to-use online calculator platform designed to solve everyday problems quickly and accurately. Whether you need to calculate finances, track your health metrics, solve mathematical equations, or manage time-based calculations, LizoCalc provides everything in one place. Unlike basic calculator tools, LizoCalc combines multiple advanced calculators with a clean interface, making it ideal for students, professionals, and daily users.
+  </p>
+
+  <p className="text-gray-200 leading-relaxed mb-6">
+    The main goal of <strong>LizoCalc</strong> is to simplify complex calculations into fast and understandable results. From loan and mortgage calculators to BMI, calorie, and scientific math tools, every calculator is built to deliver precise answers instantly. You don’t need to switch between multiple websites — LizoCalc brings all essential tools into a single, reliable platform.
+  </p>
+
+  <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+    Why LizoCalc is Different from Other Calculator Websites
+  </h3>
+
+  <ul className="list-disc list-inside text-gray-200 space-y-2 mb-8">
+    <li>All calculators available in one place</li>
+    <li>Fast, accurate, and easy-to-use tools</li>
+    <li>Clean and modern interface for better user experience</li>
+    <li>No signup required – completely free to use</li>
+    <li>Works on mobile, tablet, and desktop devices</li>
+  </ul>
+
+  <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+    What You Can Do with LizoCalc
+  </h3>
+
+  <p className="text-gray-200 leading-relaxed mb-6">
+    With <strong>LizoCalc</strong>, you can perform a wide range of calculations including financial planning, health tracking, mathematical problem-solving, and time management. Each category is carefully designed to help users get accurate results without confusion. Whether you are calculating interest, checking your BMI, solving fractions, or measuring time differences, LizoCalc makes the process simple and efficient.
+  </p>
+
+  <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+    Is LizoCalc Free to Use?
+  </h3>
+
+  <p className="text-gray-200 leading-relaxed">
+    Yes, <strong>LizoCalc</strong> is completely free to use. There are no hidden charges, subscriptions, or login requirements. All tools are available instantly, allowing users to focus on solving problems without any distractions.
+  </p>
+
+</section>
+
+
 <FAQ 
   title="About Lizocalc"
   items={[

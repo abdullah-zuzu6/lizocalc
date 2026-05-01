@@ -207,15 +207,15 @@ export default function AgeCalculatorPage() {
                   "Calculate your exact age and breakdown in years, months, and days using accurate Gregorian calendar logic.",
                 inLanguage: "en",
                 datePublished: "2025-04-01",
-                dateModified: "2026-04-26",
+                dateModified: "2026-05-01",
                 about: {
                   "@id":
                     "https://www.lizocalc.com/calculators/time/age-calculator#app",
                 },
-                mainEntity: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator#howto-chronological-age",
-                },
+               mainEntity: {
+  "@id":
+    "https://www.lizocalc.com/calculators/time/age-calculator#app",
+},
                 primaryImageOfPage: {
                   "@id":
                     "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
@@ -248,13 +248,17 @@ export default function AgeCalculatorPage() {
                   "@id":
                     "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
                 },
+                mainEntityOfPage: {
+  "@id":
+    "https://www.lizocalc.com/calculators/time/age-calculator",
+},
                 applicationCategory: "UtilitiesApplication",
                 applicationSubCategory: "Time Management Tool",
                 operatingSystem: "Any",
                 inLanguage: "en",
                 softwareVersion: "1.0",
-                datePublished: "2025-04-01",
-                dateModified: "2025-04-26",
+               datePublished: "2025-04-01",
+dateModified: "2026-05-01",
                 browserRequirements:
                   "Requires JavaScript. Works on all modern browsers.",
                 featureList: [
@@ -277,9 +281,8 @@ export default function AgeCalculatorPage() {
                 },
                 potentialAction: {
                   "@type": "UseAction",
-                  target: [
-                    "https://www.lizocalc.com/calculators/time/age-calculator",
-                  ],
+                 target:
+  "https://www.lizocalc.com/calculators/time/age-calculator",
                 },
               },
 
@@ -376,18 +379,23 @@ export default function AgeCalculatorPage() {
                 ],
               },
 
-              /* ── 9. FAQ PAGE ─────────────────────────────────────── */
-              {
-                "@type": "FAQPage",
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
+             {
+  "@type": "FAQPage",
+  "@id":
+    "https://www.lizocalc.com/calculators/time/age-calculator#faq",
+  isPartOf: {
+    "@id":
+      "https://www.lizocalc.com/calculators/time/age-calculator",
+  },
+  mainEntity: (faqData || []).map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+},
 
               /* ── 10. IMAGE OBJECTS ───────────────────────────────── */
               {
@@ -1269,7 +1277,7 @@ export default function AgeCalculatorPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
             <span>📅 Published: Apr 1, 2026</span>
-            <span>🔄 Updated: Apr 26, 2026</span>
+            <span>🔄 Updated: May 01 , 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

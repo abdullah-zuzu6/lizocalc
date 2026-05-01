@@ -103,9 +103,10 @@ export default function HoursPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-{/* === SINGLE JSON-LD SCRIPT — UPDATED SCHEMA === */}
+
+      {/* === SINGLE JSON-LD SCRIPT — UPDATED SCHEMA === */}
       <Script
-       id="structured-data-hours-calculator"
+        id="structured-data-hours-calculator"
         type="application/ld+json"
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
@@ -209,14 +210,14 @@ export default function HoursPage() {
                   "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
                 inLanguage: "en",
                 datePublished: "2026-04-01",
-                dateModified: "2026-04-26",
+                dateModified: "2026-05-01",
                 about: {
                   "@id":
                     "https://www.lizocalc.com/calculators/time/hours-calculator#app",
                 },
                 mainEntity: {
                   "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator#howto",
+                    "https://www.lizocalc.com/calculators/time/hours-calculator#app",
                 },
                 primaryImageOfPage: {
                   "@id":
@@ -246,6 +247,10 @@ export default function HoursPage() {
                 url: "https://www.lizocalc.com/calculators/time/hours-calculator",
                 description:
                   "Free hours calculator to determine the exact time duration between two times, supporting overnight calculations.",
+                mainEntityOfPage: {
+                  "@id":
+                    "https://www.lizocalc.com/calculators/time/hours-calculator",
+                },
                 image: {
                   "@id":
                     "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp#image",
@@ -256,7 +261,7 @@ export default function HoursPage() {
                 inLanguage: "en",
                 softwareVersion: "1.0",
                 datePublished: "2026-04-01",
-                dateModified: "2026-04-26",
+                dateModified: "2026-05-01",
                 browserRequirements:
                   "Requires JavaScript. Works on modern browsers.",
                 featureList: [
@@ -275,9 +280,8 @@ export default function HoursPage() {
                 },
                 potentialAction: {
                   "@type": "UseAction",
-                  target: [
+                  target:
                     "https://www.lizocalc.com/calculators/time/hours-calculator",
-                  ],
                 },
               },
 
@@ -329,6 +333,12 @@ export default function HoursPage() {
               /* ── 8. FAQ PAGE ── */
               {
                 "@type": "FAQPage",
+                "@id":
+                  "https://www.lizocalc.com/calculators/time/hours-calculator#faq",
+                isPartOf: {
+                  "@id":
+                    "https://www.lizocalc.com/calculators/time/hours-calculator",
+                },
                 mainEntity: (faqData || []).map((item) => ({
                   "@type": "Question",
                   name: item.question,
@@ -1134,7 +1144,7 @@ export default function HoursPage() {
               </tbody>
             </table>
           </div>
-            {/* ── TRUST / E-E-A-T BYLINE ── */}
+          {/* ── TRUST / E-E-A-T BYLINE ── */}
           <div className="flex items-center gap-4 mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
             <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
               RA
@@ -1158,7 +1168,7 @@ export default function HoursPage() {
             </div>
             <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
               <span>📅 Published: Apr 1, 2026</span>
-              <span>🔄 Updated: Apr 26, 2026</span>
+              <span>🔄 Updated: May 01, 2026</span>
               <span>✅ Verified accurate</span>
             </div>
           </div>
@@ -1205,8 +1215,6 @@ export default function HoursPage() {
               — exact age in years + total days/hours lived
             </li>
           </ul>
-
-        
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
             Accurate time tracking is the foundation of productivity, fair
