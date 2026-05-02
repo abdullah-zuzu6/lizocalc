@@ -7,24 +7,30 @@ export async function GET() {
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
 
+<url>
+    <loc>https://www.lizocalc.com/blogs</loc>
+    <lastmod>2026-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <!-- =========================
        CATEGORY LANDING PAGES
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/education</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.lizocalc.com/blogs/finance</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.lizocalc.com/blogs/health</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -34,7 +40,7 @@ export async function GET() {
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
@@ -56,7 +62,7 @@ export async function GET() {
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
@@ -78,7 +84,7 @@ export async function GET() {
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/health/what-is-bmi</loc>
-    <lastmod>2026-04-29</lastmod>
+    <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
