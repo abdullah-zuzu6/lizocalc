@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.lizocalc.com/math/half-life-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/half-life-calculator",
   },
 
   robots: {
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     title: "Half-Life Calculator | Track Exponential Decay | LizoCalc",
     description:
       "Struggling with physics or chemistry? Calculate half-life, decay constants, and visualize the process with our interactive decay table.",
-    url: "https://www.lizocalc.com/math/half-life-calculator",
+    url: "https://www.lizocalc.com/calculators/math/half-life-calculator",
     siteName: "LizoCalc",
     images: [
       {
@@ -384,7 +384,7 @@ export default function HalfLifePage() {
     <p className="text-gray-200">
       Use conversion: 1 year ≈ 525,600 minutes.<br />
       For drug half-life of 120 minutes → in years: 120 / 525600 ≈ 0.000228 years.<br />
-      Our <Link href="/calculators/conversion-calculator" className="text-blue-400 hover:underline">Conversion Calculator</Link> or time tools handle this instantly.
+      Our <Link href="/calculators/math/conversion-calculator" className="text-blue-400 hover:underline">Conversion Calculator</Link> or time tools handle this instantly.
     </p>
 
     <div className="overflow-x-auto mt-10">

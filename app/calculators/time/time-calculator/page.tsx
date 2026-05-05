@@ -1065,7 +1065,7 @@ export default function TimePage() {
             </li>
             <li>
               <Link
-                href="/calculators/age-calculator"
+                href="/calculators/time/age-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Age Calculator

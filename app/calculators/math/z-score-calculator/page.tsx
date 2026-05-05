@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/z-score-calculator",
   },
 
   robots: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     title: "Z-Score Calculator | LizoCalc",
     description:
       "Standardize your data points instantly. Calculate Z-scores and find their position on the normal distribution curve.",
-    url: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
+    url: "https://www.lizocalc.com/calculators/math/z-score-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -92,7 +92,7 @@ export default function ZScorePage() {
               {
                 "@type": "BreadcrumbList",
                 "@id":
-                  "https://www.lizocalc.com/calculators/statistics/z-score-calculator#breadcrumb",
+                  "https://www.lizocalc.com/calculators/math/z-score-calculator#breadcrumb",
                 itemListElement: [
                   {
                     "@type": "ListItem",
@@ -110,13 +110,13 @@ export default function ZScorePage() {
                     "@type": "ListItem",
                     position: 3,
                     name: "Statistics",
-                    item: "https://www.lizocalc.com/calculators/statistics",
+                    item: "https://www.lizocalc.com/calculators/math",
                   },
                   {
                     "@type": "ListItem",
                     position: 4,
                     name: "Z-Score Calculator",
-                    item: "https://www.lizocalc.com/calculators/statistics/z-score-calculator",
+                    item: "https://www.lizocalc.com/calculators/math/z-score-calculator",
                   },
                 ],
               },
@@ -430,11 +430,7 @@ export default function ZScorePage() {
           Half-Life Calculator
         </Link>
       </li>
-      <li>
-        <Link href="/calculators/math/hex-calculator" className="text-blue-400 hover:underline">
-          Hex Calculator
-        </Link>
-      </li>
+      
     </ul>
 
     

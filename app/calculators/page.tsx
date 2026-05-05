@@ -211,6 +211,13 @@ const allCalculators = [
     category: 'Math',
     icon: Sigma,
   },
+   {
+    name: 'Conversion Calculator',
+    description: 'Convert between different units of measurement',
+    href: '/calculators/math/conversion-calculator',
+     category: 'Math',
+    icon: Sigma,
+  },
   
   {
     name: 'Permutation & Combination Calculator',
@@ -317,13 +324,7 @@ const allCalculators = [
     category: 'Physics',
     icon: Clock,
   },
-  {
-    name: 'Conversion Calculator',
-    description: 'Convert between different units of measurement',
-    href: '/calculators/physics/conversion-calculator',
-     category: 'Math',
-    icon: Sigma,
-  },
+ 
 ]
 
 const categoryColors = {

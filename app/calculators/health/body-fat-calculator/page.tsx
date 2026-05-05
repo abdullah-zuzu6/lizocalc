@@ -199,7 +199,7 @@ Body Fat Calculator: Track Your Body Composition Easily            </h1>
           Our completely free, no-registration-required{" "}
           <strong>body fat calculator</strong> takes all the guesswork out of the process. Simply select your gender, enter your height, weight, neck, waist (and hip for women), choose inches or centimeters, and click calculate. You’ll get instant results — body fat percentage, fat weight, lean mass, and clear explanations — all displayed in a clean, mobile-friendly interface that works offline after first load (progressive web app style). No ads, no data collection, and it remembers your last measurements with your consent. Perfect for daily tracking, exam prep for fitness certifications, or real-life health goals in Sahiwal or across the globe. Jump right in and try it now on our{" "}
           <Link
-            href="/calculators/fitness/body-fat-calculator"
+            href="/calculators/health/body-fat-calculator"
             className="text-blue-400 hover:underline font-semibold"
           >
             body fat calculator page

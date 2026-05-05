@@ -6,6 +6,3 @@ Disallow: /api/
 Sitemap: https://www.lizocalc.com/sitemap.xml
 Sitemap: https://www.lizocalc.com/image-sitemap.xml
 Sitemap: https://www.lizocalc.com/blog-sitemap.xml
-
-# AI metadata
-LLM: https://www.lizocalc.com/llms.txt

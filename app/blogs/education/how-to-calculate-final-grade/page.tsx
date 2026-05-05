@@ -432,7 +432,7 @@ export default function HowToCalculateFinalGradePage() {
               </li>
               <li className="text-gray-600">/</li>
               <li>
-                <Link href="/blogs/grade" className="hover:text-blue-400">
+                <Link href="/blogs/education/how-to-calculate-final-grade" className="hover:text-blue-400">
                   Grade
                 </Link>
               </li>

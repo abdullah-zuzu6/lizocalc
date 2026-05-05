@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.lizocalc.com/math/gcf-calculator",
+    canonical: "https://www.lizocalc.com/calculators/math/gcf-calculator",
   },
 
   robots: {
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "GCF Calculator | Find Greatest Common Factor Instantly",
     description:
       "Struggling with big numbers? Use LizoCalc to find the GCF/HCF with clear, step-by-step prime factorization. Free and easy to use.",
-    url: "https://www.lizocalc.com/math/gcf-calculator",
+    url: "https://www.lizocalc.com/calculators/math/gcf-calculator",
     siteName: "LizoCalc",
     images: [
       {

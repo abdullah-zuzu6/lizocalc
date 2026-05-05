@@ -460,7 +460,7 @@ export default function ROIPage() {
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
               <Link
-                href="/calculators/finance/compound-interest-calculator"
+                href="/calculators/financial/compound-interest-calculator"
                 className="text-blue-400 hover:underline"
               >
                 Compound Interest Calculator
