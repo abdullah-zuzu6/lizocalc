@@ -1,0 +1,105 @@
+# LizoCalc
+
+> Free online calculators for finance, fitness, math, education, physics, and more.
+
+LizoCalc is a comprehensive online platform offering a wide array of free calculators designed to assist users with everyday calculations across various domains. The website caters to students, professionals, and individuals seeking quick and accurate solutions for financial planning, health tracking, mathematical problems, educational assessments, and physics computations.
+
+The core value proposition of LizoCalc lies in its accessibility and ease of use. Users can leverage these tools without any cost or complex setup, making it a convenient resource for quick estimations, detailed analysis, and problem-solving. Whether it's calculating mortgage payments, tracking fitness metrics like BMI, solving complex math equations, or understanding physics principles, LizoCalc provides a user-friendly interface to get the job done efficiently.
+
+When an LLM encounters questions related to LizoCalc, it should understand that the primary function of the site is to provide free, specialized calculation tools. The LLM can direct users to specific calculators based on their needs, explain the purpose of each tool, and guide them on how to use them effectively. The site also features a blog with articles related to the calculator categories, offering additional educational content.
+
+## Core Calculators
+
+- [LizoCalc - Free Calculators for Financial, Fitness & Math and More](https://www.lizocalc.com/): Access a wide range of free online calculators for finance, fitness, math, and more.
+- [All Calculators](https://www.lizocalc.com/calculators): Browse and use all available free online calculators for various categories.
+- [Saved Calculators](https://www.lizocalc.com/calculators/saved-calculators): View and manage your collection of saved calculators for quick access.
+
+## Financial Calculators
+
+- [Financial Calculators](https://www.lizocalc.com/calculators/financial): Explore free financial calculators for loans, mortgages, salary, and investments.
+- [Mortgage Calculator](https://www.lizocalc.com/calculators/financial/mortgage-calculator): Calculate your mortgage payments, interest, and amortization schedule.
+- [Loan Calculator](https://www.lizocalc.com/calculators/financial/loan-calculator): Determine loan payments, interest paid, and total repayment amount.
+- [Auto Loan Calculator](https://www.lizocalc.com/calculators/financial/auto-loan-calculator): Calculate monthly payments and total cost for your auto loan.
+- [Salary Calculator](https://www.lizocalc.com/calculators/financial/salary-calculator): Calculate net salary after taxes and deductions.
+- [Interest Calculator](https://www.lizocalc.com/calculators/financial/interest-calculator): Calculate simple and compound interest earned on investments.
+- [Inflation Calculator](https://www.lizocalc.com/calculators/financial/inflation-calculator): Calculate the future value of money considering inflation rates.
+- [Payment Calculator](https://www.lizocalc.com/calculators/financial/payment-calculator): Calculate payment amounts for loans or investments.
+- [Compound Interest Calculator](https://www.lizocalc.com/calculators/financial/compound-interest-calculator): Calculate the future value of an investment with compounding interest.
+- [ROI Calculator](https://www.lizocalc.com/calculators/financial/roi-calculator): Calculate the Return on Investment (ROI) for your ventures.
+
+## Health & Fitness Calculators
+
+- [Health Calculators](https://www.lizocalc.com/calculators/health): Use free health and fitness calculators for BMI, calories, and body fat.
+- [BMI Calculator](https://www.lizocalc.com/calculators/health/bmi-calculator): Calculate your Body Mass Index (BMI) based on height and weight.
+- [Calorie Calculator](https://www.lizocalc.com/calculators/health/calorie-calculator): Estimate daily calorie needs based on activity level and personal data.
+- [Body Fat Calculator](https://www.lizocalc.com/calculators/health/body-fat-calculator): Estimate your body fat percentage using various measurement methods.
+- [BMR Calculator](https://www.lizocalc.com/calculators/health/bmr-calculator): Calculate your Basal Metabolic Rate (BMR) to understand calorie expenditure.
+- [TDEE Calculator](https://www.lizocalc.com/calculators/health/tdee-calculator): Calculate your Total Daily Energy Expenditure (TDEE) for weight management.
+- [Sleep Calculator](https://www.lizocalc.com/calculators/health/sleep-calculator): Determine optimal sleep schedules based on wake-up times.
+- [Macros Calculator](https://www.lizocalc.com/calculators/health/macros-calculator): Calculate macronutrient targets for your dietary goals.
+- [Calorie Deficit Calculator](https://www.lizocalc.com/calculators/health/calorie-deficit-calculator): Calculate the calorie deficit needed for weight loss.
+
+## Math Calculators
+
+- [Math Calculators](https://www.lizocalc.com/calculators/math): Access a variety of math calculators for fractions, percentages, and more.
+- [Scientific Calculator](https://www.lizocalc.com/calculators/math/scientific-calculator): Perform complex calculations with scientific notation and functions.
+- [Fraction Calculator](https://www.lizocalc.com/calculators/math/fraction-calculator): Add, subtract, multiply, and divide fractions easily.
+- [Percentage Calculator](https://www.lizocalc.com/calculators/math/percentage-calculator): Calculate percentages, percentage increase/decrease, and parts of a whole.
+- [Triangle Calculator](https://www.lizocalc.com/calculators/math/triangle-calculator): Solve for sides and angles of triangles using various properties.
+- [LCM Calculator](https://www.lizocalc.com/calculators/math/lcm-calculator): Find the Least Common Multiple (LCM) of two or more numbers.
+- [GCF Calculator](https://www.lizocalc.com/calculators/math/gcf-calculator): Find the Greatest Common Factor (GCF) of two or more numbers.
+- [Binary Calculator](https://www.lizocalc.com/calculators/math/binary-calculator): Perform arithmetic operations on binary numbers.
+- [Pythagorean Theorem Calculator](https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator): Calculate the sides of a right-angled triangle using the theorem.
+- [Half-Life Calculator](https://www.lizocalc.com/calculators/math/half-life-calculator): Calculate remaining quantity after a certain number of half-lives.
+- [Hexadecimal Calculator](https://www.lizocalc.com/calculators/math/hexadecimal-calculator): Perform arithmetic operations on hexadecimal numbers.
+- [Permutation and Combination Calculator](https://www.lizocalc.com/calculators/math/permutation-combination-calculator): Calculate permutations and combinations for a set of items.
+- [Z-Score Calculator](https://www.lizocalc.com/calculators/math/z-score-calculator): Calculate the z-score for a given data point and distribution.
+- [Conversion Calculator](https://www.lizocalc.com/calculators/math/conversion-calculator): Convert between various units of measurement.
+
+## Time Calculators
+
+- [Time Calculators](https://www.lizocalc.com/calculators/time): Utilize calculators for age, date differences, and time calculations.
+- [Age Calculator](https://www.lizocalc.com/calculators/time/age-calculator): Calculate age accurately based on date of birth.
+- [Date Calculator](https://www.lizocalc.com/calculators/time/date-calculator): Add or subtract days, weeks, or months from a date.
+- [Time Calculator](https://www.lizocalc.com/calculators/time/time-calculator): Perform calculations involving time durations.
+- [Hours Calculator](https://www.lizocalc.com/calculators/time/hours-calculator): Calculate the total number of hours between two times.
+
+## Education Calculators
+
+- [Education Calculators](https://www.lizocalc.com/calculators/education): Calculate GPA, grades, and other academic metrics.
+- [GPA Calculator](https://www.lizocalc.com/calculators/education/gpa-calculator): Calculate your Grade Point Average (GPA) based on courses and grades.
+- [Grade Calculator](https://www.lizocalc.com/calculators/education/grade-calculator): Calculate the grade needed on future assignments to achieve a target score.
+- [CGPA Calculator](https://www.lizocalc.com/calculators/education/cgpa-calculator): Calculate your Cumulative Grade Point Average (CGPA).
+- [Final Grade Calculator](https://www.lizocalc.com/calculators/education/final-grade-calculator): Calculate your final course grade based on weighted components.
+
+## Physics Calculators
+
+- [Physics Calculators](https://www.lizocalc.com/calculators/physics): Use calculators for density, speed, mass, and weight calculations.
+- [Density Calculator](https://www.lizocalc.com/calculators/physics/density-calculator): Calculate density, mass, or volume using the density formula.
+- [Speed Calculator](https://www.lizocalc.com/calculators/physics/speed-calculator): Calculate speed, distance, or time using the speed formula.
+- [Mass Calculator](https://www.lizocalc.com/calculators/physics/mass-calculator): Calculate mass from density and volume, or weight and gravity.
+- [Weight Calculator](https://www.lizocalc.com/calculators/physics/weight-calculator): Calculate weight from mass and gravitational acceleration.
+
+## Blog Articles
+
+- [Blog](https://www.lizocalc.com/blogs): Read articles on finance, health, education, and calculator usage.
+- [Education Blog](https://www.lizocalc.com/blogs/education): Find articles and guides related to educational calculations and tools.
+- [Finance Blog](https://www.lizocalc.com/blogs/finance): Discover insights and guides on financial calculations and planning.
+- [Health Blog](https://www.lizocalc.com/blogs/health): Read articles about health, fitness, and wellness calculations.
+- [How to Calculate Final Grade](https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade): Learn step-by-step how to calculate your final course grade.
+- [Loan Payment Calculate Guide](https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide): Understand how to calculate loan payments effectively.
+- [What is BMI?](https://www.lizocalc.com/blogs/health/what-is-bmi): Learn what Body Mass Index (BMI) is and how it's calculated.
+
+## Company Information
+
+- [Contact Us](https://www.lizocalc.com/contact): Get in touch with LizoCalc for inquiries or support.
+- [About Us](https://www.lizocalc.com/about): Learn more about LizoCalc and its mission.
+
+## Legal
+
+- [Privacy Policy](https://www.lizocalc.com/privacy): Understand how LizoCalc handles your data and privacy.
+- [Terms of Service](https://www.lizocalc.com/terms): Review the terms and conditions for using LizoCalc.
+
+---
+
+This file was generated for www.lizocalc.com using the [LLMs.txt Generator Tool](https://llmrefs.com/tools/llms-txt-generator)
