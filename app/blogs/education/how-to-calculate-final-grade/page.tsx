@@ -256,7 +256,7 @@ export default function HowToCalculateFinalGradePage() {
                   {
                     "@type": "CreativeWork",
                     name: "Grading and Grade Point Averages — MIT",
-                    url: "https://registrar.mit.edu/registration-academics/academic-requirements/grading",
+                    url: "https://registrar.mit.edu/classes-grades-evaluations/grades",
                     publisher: {
                       "@type": "Organization",
                       name: "Massachusetts Institute of Technology",
@@ -265,7 +265,7 @@ export default function HowToCalculateFinalGradePage() {
                   {
                     "@type": "CreativeWork",
                     name: "Understanding Weighted Grades — Carnegie Mellon University",
-                    url: "https://www.cmu.edu/teaching/assessment/assesslearning/grading.html",
+                    url: "https://www.cmu.edu/teaching/assessment/basics/grading-assessment.html",
                     publisher: {
                       "@type": "Organization",
                       name: "Carnegie Mellon University",
@@ -1336,7 +1336,7 @@ export default function HowToCalculateFinalGradePage() {
               Massachusetts Institute of Technology, Registrar&rsquo;s Office.{" "}
               <em>Grading and Grade Point Averages.</em> Cambridge: MIT; 2024. Available at:{" "}
               <a
-                href="https://registrar.mit.edu/registration-academics/academic-requirements/grading"
+                href="https://registrar.mit.edu/classes-grades-evaluations/grades"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"
@@ -1350,7 +1350,7 @@ export default function HowToCalculateFinalGradePage() {
               <em>Grading and Assessment: Understanding Weighted Categories.</em> Pittsburgh: CMU;
               2023. Available at:{" "}
               <a
-                href="https://www.cmu.edu/teaching/assessment/assesslearning/grading.html"
+                href="https://www.cmu.edu/teaching/assessment/basics/grading-assessment.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"

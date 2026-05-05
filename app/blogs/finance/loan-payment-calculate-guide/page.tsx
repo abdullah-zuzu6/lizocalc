@@ -1458,7 +1458,7 @@ export default function LoanPaymentCalculateGuidePage() {
               <em>Debt-to-income ratio: What is it and how to calculate it.</em>{" "}
               Available at:{" "}
               <a
-                href="https://www.bankrate.com/mortgages/debt-to-income-ratio/"
+                href="https://www.bankrate.com/mortgages/why-debt-to-income-matters-in-mortgages/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"

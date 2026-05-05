@@ -268,7 +268,7 @@ export default function WhatIsBMIPage() {
             {
               "@type": "CreativeWork",
               name: "BMI in Adults — CDC",
-              url: "https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html",
+              url: "https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html",
               publisher: {
                 "@type": "Organization",
                 name: "Centers for Disease Control and Prevention",
@@ -1288,7 +1288,7 @@ export default function WhatIsBMIPage() {
               <em>Body Mass Index: Considerations for Practitioners.</em>{" "}
               Atlanta: CDC; 2011. Available at:{" "}
               <a
-                href="https://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html"
+                href="https://www.cdc.gov/bmi/adult-calculator/bmi-categories.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"
@@ -1309,7 +1309,7 @@ export default function WhatIsBMIPage() {
               Centers for Disease Control and Prevention (CDC).{" "}
               <em>BMI for Children and Teens.</em> Available at:{" "}
               <a
-                href="https://www.cdc.gov/healthyweight/assessing/bmi/childrens_bmi/about_childrens_bmi.html"
+                href="https://www.cdc.gov/bmi/child-teen-calculator/bmi-categories.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"
