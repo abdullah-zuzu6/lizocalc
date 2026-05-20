@@ -294,6 +294,13 @@ const allCalculators = [
     category: 'Education',
     icon: Clock,
   },
+  {
+    name: 'Weighted Grade Calculator',
+    description: 'Calculate your weighted grade based on component weights and scores',
+    href: '/calculators/education/weighted-grade-calculator',
+    category: 'Education',
+    icon: Clock,
+  },
 
   // Physics
   {

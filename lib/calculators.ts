@@ -60,6 +60,7 @@ export const calculators: Calculator[] = [
    { slug: 'gpa-calculator', category: 'education' },
    { slug: 'grade-calculator', category: 'education' },
    { slug: 'cgpa-calculator', category: 'education' },
-   { slug: 'final-grade-calculator', category: 'education' }
-
+   { slug: 'final-grade-calculator', category: 'education' },
+   { slug: 'weighted-grade-calculator', category: 'education' },
+   
 ]

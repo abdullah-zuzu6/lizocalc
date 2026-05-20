@@ -16,6 +16,17 @@ export async function GET() {
       <image:caption>Step-by-step CGPA calculation using credit hours and grade points</image:caption>
     </image:image>
   </url>
+<url>
+  <loc>https://www.lizocalc.com/calculators/education/weighted-grade-calculator</loc>
+  <lastmod>2026-05-21</lastmod>
+  <changefreq>monthly</changefreq>
+  <priority>0.8</priority>
+  <image:image>
+    <image:loc>https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp</image:loc>
+    <image:title>Weighted grade formula example with score and percentage calculations</image:title>
+    <image:caption>Step-by-step weighted grade calculation using scores, weights, and the formula Σ(Score × Weight) / ΣWeights</image:caption>
+  </image:image>
+</url>
 
   <url>
     <loc>https://www.lizocalc.com/calculators/time/age-calculator</loc>

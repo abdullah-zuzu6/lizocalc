@@ -31,6 +31,12 @@ const calculators = [
     href: '/calculators/education/final-grade-calculator',
     category: 'Education',
   },
+   {
+    name: 'Weighted Grade Calculator ->',
+    description: 'Calculate your weighted grade based on component weights and scores',
+    href: '/calculators/education/weighted-grade-calculator',
+    category: 'Education',
+  },
 ]
 
 export default function OtherCalculators() {
