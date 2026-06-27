@@ -8,8 +8,24 @@ import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import { Search, ArrowLeft, BarChart3, Heart, Sigma, Clock } from 'lucide-react'
 import Link from 'next/link'
+import { Metadata } from "next";
 
 // 👇 KEEP your calculators array SAME (no change)
+
+
+export const metadata: Metadata = {
+  title: "My All Calculators  LizoCalc",
+  description:
+    "Access, manage, and quickly open your calculators in one place on LizoCalc.",
+  alternates: {
+    canonical: "https://www.lizocalc.com/calculators",
+  },
+  robots: {
+   index: false,
+    follow: true,
+  },
+};
+
 
 
 const allCalculators = [

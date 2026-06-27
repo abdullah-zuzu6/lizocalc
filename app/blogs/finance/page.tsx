@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     "finance calculators",
     "lizocalc finance",
   ],
+  robots: {
+    index: true,  
+    follow: true,
+  },
   alternates: {
     canonical: "https://www.lizocalc.com/blogs/finance",
   },
@@ -37,6 +41,15 @@ const blogs = [
     date: "May 01, 2026",
     readTime: "7 min read",
   },
+   {
+  title:
+    "Debt Consolidation Loans Explained — Pros, Cons, Interest Rates & How They Work",
+  slug: "debt-consolidation-loan-guide",
+  description:
+    "Learn how debt consolidation loans work, including interest rates, monthly payments, pros, cons, repayment examples, and smart strategies to reduce debt faster.",
+  date: "May 22, 2026",
+  readTime: "14 min read",
+},
 ];
 
 export default function FinanceBlogsPage() {

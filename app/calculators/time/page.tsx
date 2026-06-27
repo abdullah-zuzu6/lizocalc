@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 
   // Other SEO
   robots: {
-    index: true,
+   index: false,
     follow: true,
   },
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     canonical: "https://www.lizocalc.com/saved-calculators",
   },
   robots: {
-    index: false,
+   index: false,
     follow: true,
   },
 };

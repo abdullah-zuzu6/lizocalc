@@ -15,6 +15,10 @@ export const metadata: Metadata = {
     "health calculators",
     "lizocalc health",
   ],
+  robots: {
+    index: true,  
+    follow: true,
+  },
   alternates: {
     canonical: "https://www.lizocalc.com/blogs/health",
   },

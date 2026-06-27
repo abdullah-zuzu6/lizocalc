@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.lizocalc.com/blogs/education",
   },
+  robots: {
+    index: true,  
+    follow: true,
+  },
   openGraph: {
     title: "Education Blogs | LizoCalc",
     description:

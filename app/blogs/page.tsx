@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blogs | LizoCalc",
+  title: "Blogs ",
   description:
     "Explore LizoCalc blogs covering education, finance, and health guides with formulas, calculators, and practical examples.",
   keywords: [
@@ -17,6 +17,10 @@ export const metadata: Metadata = {
     "final grade guide",
     "LizoCalc blogs",
   ],
+  robots: {
+    index: true,  
+    follow: true,
+  },
   alternates: {
     canonical: "https://www.lizocalc.com/blogs",
   },
