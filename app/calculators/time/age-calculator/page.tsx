@@ -8,50 +8,48 @@ import Image from "next/image";
 
 const faqData = [
   {
-    question: "How is my exact age calculated in years, months, and days?",
+    question: "Is BMI discrimination in hiring actually illegal?",
     answer:
-      "Your exact age is determined by subtracting your birth date from the current date using the 'borrowing method.' You first compare days (borrowing from the previous month if needed), then months (borrowing 12 months from the year if needed), and finally the years. LizoCalc performs these complex Gregorian calendar checks automatically for a precise result."
+      "Mostly, no — not under federal law. There's no federal statute that puts weight or BMI in the same protected category as race, sex, age, or disability. Statewide, only Michigan has an explicit ban, on the books since 1976. Washington state gets there a different way: its courts have ruled that obesity counts as a disability under state law, which gives it indirect protection. New Jersey came close in 2026 — a bill banning it passed the state Senate but was still sitting in the Assembly as of this writing, so it isn't law yet. Beyond that, protection depends entirely on your city: New York City, San Francisco, Washington D.C., Santa Cruz, Madison, Binghamton, Urbana, and Miami Beach all ban it locally. Everywhere else, it's legal under normal at-will employment rules. If you think this applies to your situation, check your specific state and city — this is general information, not legal advice, and an employment lawyer in your area can tell you where you actually stand.",
   },
   {
-    question: "How many days have I been alive?",
+    question:
+      "Which states protect employees from weight-based hiring discrimination?",
     answer:
-      "To calculate your total days lived, count every calendar day from your date of birth to today, including leap days. The basic logic is: Total Days = (Years × 365) + Leap Days + Days since your last birthday. For a 30-year-old, this is approximately 10,957 days."
+      "Just one has a law that says so directly: Michigan, since 1976. Washington state effectively has protection too, but it works through a different door — its Supreme Court ruled that obesity qualifies as a disability under the state's anti-discrimination law, so weight-based hiring decisions can be challenged that way instead of under a standalone weight law. New Jersey is the closest to becoming the second true statewide ban, with a bill that cleared the Senate in early 2026 and is awaiting an Assembly vote. Massachusetts and Vermont have both introduced similar bills over the years without getting them passed. Outside of these, weight protection in the U.S. exists almost entirely at the city level — worth checking if you live somewhere with a local human rights ordinance, since city law can protect you even when your state doesn't.",
   },
   {
-    question: "Does the age calculator account for leap years?",
+    question:
+      "Do airlines, military, and police use BMI requirements for hiring?",
     answer:
-      "Yes. A precise age calculator recognizes that February has 29 days every four years. A year is a leap year if it is divisible by 4, except for century years unless they are also divisible by 400. LizoCalc handles leap year logic to ensure your total day count is 100% accurate."
+      "Yes, but they can get away with it for a specific legal reason: courts generally allow physical standards when a role has a genuine, provable connection to the job itself — this is usually called a bona fide occupational qualification. The military sets height, weight, and body-fat limits tied directly to fitness and deployability. Police academies commonly run physical agility tests, and some still screen recruits using BMI or body-fat measurements at intake. Airlines used to enforce strict weight limits on flight attendants decades ago, most of which got struck down by lawsuits — pilots still go through medical screening that touches on weight indirectly, mainly because higher BMI raises sleep apnea risk, which matters for flight safety certification. The common thread: these employers can point to a specific, job-related reason for the standard, which is a very different legal position than an office employer screening candidates by BMI with no job-performance link at all.",
   },
   {
-    question: "What is my age if I was born on February 29th?",
+    question: "Can employers ask about my health or weight during interviews?",
     answer:
-      "For leap year birthdays, the calculator tracks the actual date. In non-leap years, your official birthday is usually recognized as February 28th or March 1st depending on your jurisdiction. Our tool counts the exact number of days elapsed to maintain accuracy regardless of the legal definition."
+      "They're not supposed to ask directly, and doing so puts them on shaky legal ground even outside states with explicit weight protections. The ADA already bars employers from asking disability-related questions before making a job offer, and if your weight connects to a medical condition, a direct weight question can bump into that rule. In cities with height/weight protections, asking about it outright is even more clearly off-limits. What employers are legally allowed to ask, and usually do instead, is whether you can perform specific physical requirements of the job — 'can you lift 50 pounds' rather than 'how much do you weigh.' If an interviewer asks about your weight or BMI directly and the role has nothing to do with physical performance, that's worth noting and, depending on where you live, may be something you can raise a concern about.",
   },
   {
-    question: "Does my birthday count as a full day when calculating age?",
+    question: "How do I know if I was rejected for being overweight?",
     answer:
-      "Yes. In most legal systems, you are considered a year older for the entire 24-hour period of your birthday. Your age increments by one full year at the exact start (12:00 AM) of your birth date."
+      "Honestly, it's hard to know for certain — almost no employer states it outright, since doing so would hand you the exact proof you'd need. What tends to show up instead: getting rejected right after an in-person or video interview when a phone-only round went fine, vague feedback about 'culture fit' or 'customer-facing image' with nothing specific behind it, or watching a clearly less-qualified candidate get the role. None of these prove weight was the reason on their own. If you suspect it, write down dates, exact wording used, the job posting, and how your qualifications compared to whoever got hired, if you can find that out. That record matters most in places where weight discrimination is actually illegal — Michigan, Washington state, or one of the cities listed above — since without legal protection in place, even strong documentation may not lead anywhere beyond confirming what happened to you.",
   },
   {
-    question: "How can I calculate the age difference between two people?",
+    question: "Can I be fired for gaining weight at work?",
     answer:
-      "To find the age gap, convert both individuals' birth dates into a total day count and subtract the smaller number from the larger one. This difference can then be converted back into years, months, and days to see exactly how much older one person is than the other."
+      "In most of the country, yes — at-will employment means an employer can let you go for almost any reason that isn't specifically protected, and weight isn't protected in most places. The exceptions line up with the same short list: Michigan, Washington state, and a handful of cities. One separate wrinkle worth knowing: if the weight gain is connected to a medical condition, pregnancy, or a disability, you may have protection — not because of the weight itself, but because of the underlying condition the ADA or pregnancy discrimination laws already cover. It's also worth watching for cases where a comment about weight is really covering for a different, illegal reason — age or disability discrimination, for example — since that's often the angle that actually holds up if it ever goes to a complaint or a lawsuit.",
   },
   {
-    question: "Can I calculate age between two specific dates (not today)?",
+    question: "Can employers track employee BMI after hiring?",
     answer:
-      "Yes. By changing the 'Current Date' field to any target date in the past or future, you can find the age between two historical events or calculate a retrospective age. This is highly useful for legal research and genealogical tracking."
+      "Yes, usually through workplace wellness programs — biometric screenings or health risk assessments, often tied to a discount on your insurance premium if you take part. These programs are supposed to follow ADA and GINA rules around being genuinely voluntary and keeping your results confidential and separate from your regular personnel file. In practice, how strictly that gets enforced varies a lot by employer. What crosses a line clearly, even in states with no weight-discrimination law at all, is an employer pulling your wellness-program BMI data to make a firing, promotion, or assignment decision — that typically overlaps with disability discrimination rules regardless of whether weight itself is protected where you live.",
   },
   {
-    question: "How do doctors calculate age for newborns and infants?",
+    question:
+      "Are there jobs that hire based on qualifications only, not appearance?",
     answer:
-      "For newborns, age is expressed in days for the first two weeks, then in weeks up to 2 months, and in months up to 2 years. For premature infants, doctors often use a 'corrected' or 'adjusted' age to account for the early birth until the child is about 2–3 years old."
+      "No hiring process is completely blind to appearance, but some come a lot closer than others. Roles filled through a structured process — take-home tests, standardized scoring rubrics, panel interviews with a fixed scorecard, or blind resume review — leave much less room for weight or looks to quietly factor in, simply because there's a defined thing being measured instead of a general impression. Remote-first roles help too, since a chunk of the process happens over text or async video before anyone's full presence is really 'in the room.' Software engineering, accounting, and many government civil-service jobs that use standardized scoring tend to lean this way. Jobs filled mostly through informal networking or a loose 'is this person a good fit' interview carry more room for appearance bias to creep in, intentionally or not.",
   },
-  {
-    question: "Why do some age calculators show different results?",
-    answer:
-      "Differences usually occur based on how a tool handles 'borrowing' (the number of days in a month) and time zone offsets. LizoCalc uses strict Gregorian calendar logic and rounds down to the nearest completed unit, following the internationally recognized legal standard for age."
-  }
 ];
 
 export const metadata: Metadata = {
@@ -97,15 +95,20 @@ export const metadata: Metadata = {
       "Instantly calculate your age in years, months, and days. Discover your total days lived and next birthday countdown.",
   },
 };
+
 export default function AgeCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-{/* === JSON-LD STRUCTURED DATA === */}
+      {/* === JSON-LD STRUCTURED DATA ===
+          Moved to afterInteractive: this JSON blob doesn't need to block
+          the page from becoming interactive, and loading it eagerly was
+          competing with real content for render time (flagged as a
+          render-blocking / legacy-JS cost in PageSpeed). */}
       <Script
         id="structured-data-age-calculator"
         type="application/ld+json"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
@@ -207,15 +210,15 @@ export default function AgeCalculatorPage() {
                   "Calculate your exact age and breakdown in years, months, and days using accurate Gregorian calendar logic.",
                 inLanguage: "en",
                 datePublished: "2025-04-01",
-                dateModified: "2026-05-01",
+                dateModified: "2026-07-02",
                 about: {
                   "@id":
                     "https://www.lizocalc.com/calculators/time/age-calculator#app",
                 },
-               mainEntity: {
-  "@id":
-    "https://www.lizocalc.com/calculators/time/age-calculator#app",
-},
+                mainEntity: {
+                  "@id":
+                    "https://www.lizocalc.com/calculators/time/age-calculator#app",
+                },
                 primaryImageOfPage: {
                   "@id":
                     "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
@@ -249,16 +252,16 @@ export default function AgeCalculatorPage() {
                     "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
                 },
                 mainEntityOfPage: {
-  "@id":
-    "https://www.lizocalc.com/calculators/time/age-calculator",
-},
+                  "@id":
+                    "https://www.lizocalc.com/calculators/time/age-calculator",
+                },
                 applicationCategory: "UtilitiesApplication",
                 applicationSubCategory: "Time Management Tool",
                 operatingSystem: "Any",
                 inLanguage: "en",
                 softwareVersion: "1.0",
-               datePublished: "2025-04-01",
-dateModified: "2026-05-01",
+                datePublished: "2025-04-01",
+                dateModified: "2026-07-02",
                 browserRequirements:
                   "Requires JavaScript. Works on all modern browsers.",
                 featureList: [
@@ -281,8 +284,8 @@ dateModified: "2026-05-01",
                 },
                 potentialAction: {
                   "@type": "UseAction",
-                 target:
-  "https://www.lizocalc.com/calculators/time/age-calculator",
+                  target:
+                    "https://www.lizocalc.com/calculators/time/age-calculator",
                 },
               },
 
@@ -379,23 +382,23 @@ dateModified: "2026-05-01",
                 ],
               },
 
-             {
-  "@type": "FAQPage",
-  "@id":
-    "https://www.lizocalc.com/calculators/time/age-calculator#faq",
-  isPartOf: {
-    "@id":
-      "https://www.lizocalc.com/calculators/time/age-calculator",
-  },
-  mainEntity: (faqData || []).map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-},
+              {
+                "@type": "FAQPage",
+                "@id":
+                  "https://www.lizocalc.com/calculators/time/age-calculator#faq",
+                isPartOf: {
+                  "@id":
+                    "https://www.lizocalc.com/calculators/time/age-calculator",
+                },
+                mainEntity: (faqData || []).map((item) => ({
+                  "@type": "Question",
+                  name: item.question,
+                  acceptedAnswer: {
+                    "@type": "Answer",
+                    text: item.answer,
+                  },
+                })),
+              },
 
               /* ── 10. IMAGE OBJECTS ───────────────────────────────── */
               {
@@ -445,10 +448,11 @@ dateModified: "2026-05-01",
           </div>
 
           <p className="mt-6 text-gray-200 text-lg leading-relaxed max-w-6xl">
-            Calculate your exact age in seconds with complete accuracy. This
-            tool follows real Gregorian calendar rules to give you a precise
-            breakdown in years, months, days, and total time lived — useful for
-            legal, medical, and personal use.
+            Enter a birth date below and get your exact age in years, months,
+            and days — not a rounded guess. The math follows real Gregorian
+            calendar rules (leap years, varying month lengths, all of it), which
+            is the same standard used on Pakistani ID documents, school
+            admission forms, and job application age limits.
           </p>
         </div>
       </section>
@@ -471,9 +475,9 @@ dateModified: "2026-05-01",
                 What is age calculation?
               </h3>
               <p className="text-gray-200 text-sm leading-relaxed">
-                Age is calculated by measuring the exact time difference between
-                date of birth and the current date using the Gregorian calendar
-                system, including month lengths and leap year rules.
+                It's the exact gap in time between your date of birth and today,
+                worked out using real Gregorian calendar rules — actual month
+                lengths and leap years — instead of a rough estimate.
               </p>
             </div>
 
@@ -509,7 +513,7 @@ dateModified: "2026-05-01",
               </ul>
 
               <p className="text-blue-300 font-semibold mt-2 text-sm">
-                Example: 25 years, 6 months, 12 days
+                Example: 30 years, 10 months, 17 days
               </p>
             </div>
           </div>
@@ -531,54 +535,93 @@ dateModified: "2026-05-01",
           </div>
         </div>
       </section>
-{/* SEO Content */}
+      {/* SEO Content */}
 
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-
         {/* ── INTRO ── */}
         <section className="mb-12">
-          {/* TARGET: "age calculator", "how does an age calculator work", "what is age calculator" */}
           <p className="text-gray-200 leading-relaxed mb-4 text-lg">
-            An <strong>age calculator</strong> determines your exact age by
-            calculating the precise difference between your date of birth and
-            today's date. It provides a detailed breakdown in{" "}
-            <strong>years, months, days, hours, and seconds</strong> while
-            correctly handling leap years, varying month lengths, and
-            international calendar rules.
+            Most people only need one number from an age calculator, but the way
+            you get to that number matters more than it seems. A rough "years
+            times 365" estimate drifts by a full day roughly every four years
+            because of leap years — harmless for casual curiosity, but a real
+            problem if you're filling out a form that checks age against a hard
+            cutoff.
           </p>
           <p className="text-gray-200 leading-relaxed mb-4 text-lg">
-            Whether you need to know{" "}
-            <strong>how old am I exactly</strong>,{" "}
-            <strong>how many days old am I</strong>, or when your{" "}
-            <strong>next birthday</strong> falls, this tool gives you an
-            accurate, instant answer based on real Gregorian calendar logic —
-            not a rough estimate.
+            This calculator does the actual calendar math: it compares your
+            birth date and today's date day-by-day, month-by-month, and
+            year-by-year, borrowing across months and years exactly the way
+            you'd do it by hand on paper — except it never makes an arithmetic
+            slip.
           </p>
           <p className="text-gray-200 leading-relaxed text-lg">
-            This guide explains everything behind age calculation: the math,
-            the calendar science, global age systems, medical use cases, and
-            common questions — so you understand exactly how your age is
-            computed.
+            Below, I've walked through the logic itself, a full worked example
+            with real numbers, where age calculation actually trips people up in
+            Pakistan specifically (NADRA records, school admission cutoffs,
+            FPSC/PPSC age limits), and the medical use of "corrected age" for
+            babies born early.
           </p>
         </section>
 
-        {/* ── H2: What Is Age? ── */}
-        {/* TARGET: "what is chronological age", "definition of age", "types of age" */}
+        {/* ── H2: Worked Example ── */}
         <section className="mt-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            A Full Worked Example
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Numbers are easier to trust than a formula on its own, so here's a
+            complete example using real dates — not a rounded, made-up one.
+          </p>
+
+          <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700 mb-6">
+            <p className="text-gray-200 leading-relaxed mb-3">
+              <strong>Birth date:</strong> August 15, 1995 &nbsp;|&nbsp;{" "}
+              <strong>Target date:</strong> July 2, 2026
+            </p>
+            <ol className="list-decimal list-inside space-y-2 text-gray-300 text-sm">
+              <li>
+                Days: the target day (2) is smaller than the birth day (15), so
+                we borrow a month. June has 30 days, so 2 + 30 = 32, and 32 − 15
+                = <strong className="text-white">17 days</strong>.
+              </li>
+              <li>
+                Months: because we borrowed a month above, the target month
+                effectively drops to June (6). 6 is smaller than the birth month
+                (8), so we borrow a year: 6 + 12 = 18, and 18 − 8 ={" "}
+                <strong className="text-white">10 months</strong>.
+              </li>
+              <li>
+                Years: Since one year was borrowed during the previous step, the
+                calculation becomes 2026 − 1 − 1995 ={" "}
+                <strong className="text-white">30 years</strong>.
+              </li>
+            </ol>
+            <p className="text-gray-200 leading-relaxed mt-4">
+              Final result: <strong>30 years, 10 months, 17 days</strong>.
+              Converted to total days lived (30 years × 365, plus 8 leap days
+              for 1996, 2000, 2004, 2008, 2012, 2016, 2020, and 2024, plus the
+              321 remaining days), that comes out to approximately{" "}
+              <strong>11,279 days</strong> — not the 11,270 you'd get from a
+              naive "years × 365" estimate, a 9-day gap purely from ignoring
+              leap years.
+            </p>
+          </div>
+        </section>
+
+        {/* ── H2: What Is Age? ── */}
+        <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             What Is Age? Definition, Types, and How It Is Measured
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-4 text-base">
-            Age is a measure of the total time that has passed since a
-            person was born. The most common form — and the one used legally and
-            medically worldwide — is <strong>chronological age</strong>, which
-            counts elapsed calendar time from birth to a reference date.
-          </p>
-
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            There are several distinct types of age recognized in medicine,
-            psychology, and law:
+            The type of "age" people usually mean — the one on your CNIC, your
+            passport, your school admission form — is{" "}
+            <strong>chronological age</strong>: elapsed calendar time from birth
+            to today, nothing more. But it isn't the only kind of "age" in use.
+            A few others show up often enough to be worth knowing:
           </p>
 
           <div className="overflow-x-auto mb-8">
@@ -592,12 +635,36 @@ dateModified: "2026-05-01",
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 {[
-                  ["Chronological Age", "Time elapsed since date of birth", "Law, passports, education, finance"],
-                  ["Biological Age", "Physical condition relative to average health", "Medicine, fitness, longevity research"],
-                  ["Mental / Cognitive Age", "Intellectual development vs. age norms", "Psychology, IQ testing"],
-                  ["Corrected Age", "Chronological age adjusted for prematurity", "Pediatrics, neonatal care"],
-                  ["Emotional Age", "Emotional maturity level", "Therapy, behavioral assessment"],
-                  ["Bone Age", "Skeletal maturity from X-ray analysis", "Pediatric endocrinology"],
+                  [
+                    "Chronological Age",
+                    "Time elapsed since date of birth",
+                    "Law, passports, education, finance",
+                  ],
+                  [
+                    "Biological Age",
+                    "Physical condition relative to average health",
+                    "Medicine, fitness, longevity research",
+                  ],
+                  [
+                    "Mental / Cognitive Age",
+                    "Intellectual development vs. age norms",
+                    "Psychology, IQ testing",
+                  ],
+                  [
+                    "Corrected Age",
+                    "Chronological age adjusted for prematurity",
+                    "Pediatrics, neonatal care",
+                  ],
+                  [
+                    "Emotional Age",
+                    "Emotional maturity level",
+                    "Therapy, behavioral assessment",
+                  ],
+                  [
+                    "Bone Age",
+                    "Skeletal maturity from X-ray analysis",
+                    "Pediatric endocrinology",
+                  ],
                 ].map(([type, def, use]) => (
                   <tr key={type}>
                     <td className="p-4 font-semibold text-blue-300">{type}</td>
@@ -610,77 +677,73 @@ dateModified: "2026-05-01",
           </div>
 
           <p className="text-gray-200 leading-relaxed text-base">
-            Our age calculator measures <strong>chronological age</strong> — the
-            internationally recognized legal standard. It is the only type of
-            age that can be objectively calculated from a birth date alone.
+            This calculator measures chronological age — the only type that can
+            be worked out from a birth date alone, without a doctor,
+            psychologist, or X-ray involved.
           </p>
         </section>
 
         {/* ── H2: Chronological Age ── */}
-        {/* TARGET: "what is chronological age", "chronological age definition", "why chronological age matters" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             What Is Chronological Age and Why Does It Matter?
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-4 text-base">
-            Chronological age is the exact time difference between a person's
-            date of birth and a specific reference date. It is the standard
-            method used globally in legal systems, education, healthcare, and
-            financial planning because it provides a consistent and measurable
-            value.
+            Chronological age is just elapsed time — it doesn't care about
+            health, maturity, or anything else about the person. That's exactly
+            why it's the number governments, schools, and banks rely on: it's
+            the one age that two different people, calculating separately, will
+            always agree on (assuming they both use the same calendar system).
           </p>
 
           <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            Unlike biological or mental age, this measurement does not depend on
-            physical condition or cognitive ability — it is purely a function of
-            elapsed calendar time.
+            Legal age is a different thing built on top of it — it's whatever a
+            specific law says you can or can't do once you cross a
+            chronological-age threshold.
           </p>
 
           <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700 mb-10">
-            {/* TARGET: "legal age vs chronological age", "what age is considered adult", "when do you become 18 legally" */}
             <h3 className="text-2xl font-semibold text-blue-300 mb-4">
               Legal Age vs Chronological Age
             </h3>
 
             <p className="text-gray-200 leading-relaxed mb-4">
-              Chronological age is based only on time passed since birth, while
-              legal age is defined by law and determines rights such as voting,
-              driving, or signing contracts. In most countries, legal adulthood
-              starts at 18, but the exact rule for becoming 18 can differ
-              depending on local laws.
-            </p>
-
-            <p className="text-gray-200 leading-relaxed">
-              In some systems, a person becomes legally 18 at midnight on their
-              birthday, while in others it depends on the exact recorded birth
-              time. Traditional systems like the old South Korean age system
-              also calculated age differently, which sometimes made people
-              appear older than their international age.
+              In Pakistan, someone becomes a legal adult at 18 for most purposes
+              — voting under the Elections Act, and the age used on CNIC
+              issuance. But the threshold isn't universal even within one
+              country: the legal marriage age differs by province (Sindh set it
+              at 18 for both sexes; other provinces still allow 16 for women
+              under certain conditions), and the age for a learner's driving
+              permit is 18 as well, but for a full car license some provinces
+              allow 18 while motorcycle permits can be issued from 15. The
+              chronological age calculation itself never changes — what changes
+              is which threshold a specific law is checking it against.
             </p>
           </div>
 
           <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm mb-10">
-            {/* TARGET: "how to calculate age manually", "age calculation formula", "age calculation borrowing method" */}
             <h3 className="text-2xl font-semibold text-blue-300 mb-5">
               Mathematical Logic Behind Age Calculation
             </h3>
 
             <p className="text-gray-200 mb-4">
-              A correct calculation requires more than subtracting years. The
-              process compares days, months, and years step by step to avoid
-              errors caused by incomplete dates. This is known as the{" "}
-              <strong>borrowing method</strong>.
+              A correct calculation needs more than "current year minus birth
+              year." It compares days, then months, then years, borrowing across
+              columns exactly the way you'd subtract 47 from 82 on paper. This
+              is the <strong>borrowing method</strong>, and it's the same logic
+              worked through with real numbers in the example above.
             </p>
 
             <ol className="list-decimal list-inside space-y-2 text-gray-300 mb-6">
               <li>
                 Compare the current day with the birth day. If the current day
-                is smaller, days are borrowed from the previous month.
+                is smaller, borrow a month's worth of days from the previous
+                month.
               </li>
               <li>
-                Compare the current month with the birth month. If needed, one
-                year is adjusted into months.
+                Compare the current month with the birth month. If needed,
+                borrow a year's worth of months.
               </li>
               <li>Subtract the remaining years to get the final result.</li>
             </ol>
@@ -688,13 +751,13 @@ dateModified: "2026-05-01",
             <figure className="group">
               <Image
                 src="/images/time/chronological-age-subtraction-borrowing-logic.webp"
-                alt="Technical diagram of age calculation borrowing logic showing day, month, and year subtraction steps"
+                alt="This Technical diagram of age calculation borrowing logic showing days, months, and years subtraction steps to make calculation easy "
                 width={1000}
                 height={675}
                 className="rounded-xl border border-blue-500/20 shadow-[0_0_30px_rgba(59,130,246,0.1)] transition-all group-hover:border-blue-500/40"
               />
               <figcaption className="text-gray-500 text-sm italic mt-4 text-center">
-                Fig 1.1: Technical blueprint of the "Borrowing Method" used by our algorithm.
+                Fig 1.1: The "borrowing method" this calculator runs internally.
               </figcaption>
             </figure>
 
@@ -703,56 +766,70 @@ dateModified: "2026-05-01",
                 General Formula
               </p>
               <p className="text-white text-xl font-mono">
-                Age = (Current Date − Birth Date) adjusted for calendar rules
+                Age = (Current Date − Birth Date) Varies with respect to
+                calendar rules
               </p>
             </div>
           </div>
 
-          {/* TARGET: "how to calculate age in Excel", "DATEDIF formula age", "Excel age formula from date of birth" */}
           <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700 mb-6">
             <h3 className="text-2xl font-semibold text-blue-300 mb-4">
               How to Calculate Age in Excel Using DATEDIF
             </h3>
             <p className="text-gray-200 leading-relaxed mb-4">
-              Microsoft Excel has a built-in function called{" "}
-              <code className="text-blue-300 bg-gray-900 px-1 rounded">DATEDIF</code>{" "}
-              that calculates the difference between two dates. It is the most
-              accurate way to get age in Excel without manual math.
+              If you're doing this for a batch of records — say, checking ages
+              for a class list or a payroll sheet — Excel's{" "}
+              <code className="text-blue-300 bg-gray-900 px-1 rounded">
+                DATEDIF
+              </code>{" "}
+              function does the same borrowing logic without you needing to
+              re-derive it for every row.
             </p>
             <div className="bg-gray-900 p-4 rounded-xl font-mono text-sm text-green-300 space-y-2 mb-4">
-              <p><span className="text-gray-500">// Years only</span></p>
+              <p>
+                <span className="text-gray-500">// Years only</span>
+              </p>
               <p>=DATEDIF(A1, TODAY(), "Y")</p>
-              <p className="mt-3"><span className="text-gray-500">// Full breakdown: years, months, days</span></p>
-              <p>=DATEDIF(A1,TODAY(),"Y")&" Years, "&DATEDIF(A1,TODAY(),"YM")&" Months, "&DATEDIF(A1,TODAY(),"MD")&" Days"</p>
+              <p className="mt-3">
+                <span className="text-gray-500">
+                  // Full breakdown: years, months, days
+                </span>
+              </p>
+              <p>
+                =DATEDIF(A1,TODAY(),"Y")&" Years, "&DATEDIF(A1,TODAY(),"YM")&"
+                Months, "&DATEDIF(A1,TODAY(),"MD")&" Days"
+              </p>
             </div>
             <p className="text-gray-400 text-sm">
-              Where <strong className="text-gray-300">A1</strong> contains the date of birth (e.g., 01/01/1990) and{" "}
-              <strong className="text-gray-300">TODAY()</strong> returns today's date automatically.
-              Use "YM" for remaining months and "MD" for remaining days within the current month.
+              Where <strong className="text-gray-300">A1</strong> holds the date
+              of birth (e.g., 15/08/1995) and{" "}
+              <strong className="text-gray-300">TODAY()</strong> auto-updates to
+              the current date. One catch worth knowing: DATEDIF is an
+              undocumented Excel function — it works fine, but it won't show up
+              in Excel's formula autocomplete, so don't assume you typed it
+              wrong if it doesn't suggest itself.
             </p>
           </div>
         </section>
 
         {/* ── H2: Days Lived Counter ── */}
-        {/* TARGET: "how many days have I been alive", "how many days old am I", "calculate days lived", "days alive calculator" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             How Many Days Have I Been Alive?
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-4">
-            Your total days lived is calculated by counting every single
-            calendar day from your birth date up to today, including all leap
-            year days. This gives a precise measure of your lifetime in days
-            rather than rounded years.
+            Add up every calendar day from birth to today, leap days included.
+            The example above — born August 15, 1995, calculated as of July 2,
+            2026 — lands at approximately 11,279 days.
           </p>
 
           <p className="text-gray-200 leading-relaxed mb-8">
-            A simple estimate like <em>years × 365</em> is not accurate because
-            some years contain 366 days. A correct calculation adds one extra
-            day for each leap year that occurred during your lifetime. For a
-            person born in 1990, that means approximately 8–9 extra days by
-            their 35th birthday.
+            Simply multiplying the number of years by 365 leaves out the extra
+            days added during leap years. Over a 30-year span that's 8 missing
+            days, as shown above — small on its own, but it's exactly the kind
+            of error that makes a manually-calculated age off by a week or more
+            once someone's past 40 or 50.
           </p>
 
           <div className="bg-gray-800/20 rounded-2xl border border-gray-700/50 p-6 mb-12 shadow-lg">
@@ -765,21 +842,25 @@ dateModified: "2026-05-01",
                 className="rounded-xl mx-auto border border-gray-700 shadow-md mb-6 hover:border-blue-500/30 transition-colors"
               />
               <figcaption className="text-gray-500 text-sm italic text-center max-w-2xl mx-auto">
-                <span className="font-semibold text-blue-400/80 not-italic">Fig 1.2:</span>{" "}
-                Chronological age as the primary metric for legal eligibility, medical
-                screenings, and standardized historical record-keeping.
+                <span className="font-semibold text-blue-400/80 not-italic">
+                  Fig 1.2:
+                </span>{" "}
+                Milestone tracking matters most where an exact day, not a
+                rounded year, is what a form or screening actually checks.
               </figcaption>
             </figure>
           </div>
 
           <div className="bg-gray-900/80 p-6 rounded-xl border border-blue-900/50 text-center mb-10">
-            <p className="text-blue-400 font-mono text-lg mb-2">Days Lived Formula</p>
+            <p className="text-blue-400 font-mono text-lg mb-2">
+              Days Lived Formula
+            </p>
             <p className="text-white text-xl font-mono">
-              Total Days = (Years × 365) + Leap Days + Remaining Days in Current Year
+              Total Days = (Years × 365) + Leap Days + Remaining Days in Current
+              Year
             </p>
           </div>
 
-          {/* TARGET: "age milestones in days", "how many days is 18 years", "10000 days old age", "50 years in days" */}
           <div className="overflow-x-auto mb-6">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
@@ -813,98 +894,96 @@ dateModified: "2026-05-01",
           </div>
 
           <p className="text-gray-400 italic text-sm mb-4">
-            Values are approximate and may vary slightly depending on birth date
-            and leap year distribution.
+            Values depend on exact birth date and which leap years fall inside
+            the span — treat these as reference points, not an exact match for
+            every birth date.
           </p>
 
           <p className="text-gray-200 leading-relaxed">
-            Tracking age in days is useful in medical, legal, and personal
-            contexts where exact time measurement is required. Reaching{" "}
-            <strong>10,000 days alive</strong> is a popular milestone — it
-            happens at approximately 27 years and 4 months old.
+            10,000 days alive is a milestone people genuinely track — it lands
+            around 27 years and 4 months, give or take a few days depending on
+            how many leap years fell in that specific window.
           </p>
         </section>
 
         {/* ── H2: Leap Year ── */}
-        {/* TARGET: "why the Gregorian calendar makes age calculation complex", "leap year and age calculation", "how do leap years affect age" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Why the Gregorian Calendar Makes Age Calculation Complex
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-            The Gregorian calendar is based on the Earth's orbit around the Sun,
-            which takes approximately <strong>365.2422 days</strong> — not a
-            clean 365 days. This fractional remainder is the reason leap years
-            exist and why simple year-based calculations are never fully
-            accurate.
+            Earth's orbit takes about 365.2422 days, not a clean 365 — that
+            leftover roughly-quarter-day is the entire reason leap years exist,
+            and the entire reason "years × 365" is never quite right.
           </p>
 
           <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-            A leap year is added roughly every 4 years to absorb this extra
-            fraction. The rules are:
+            The rule for which years get the extra day:
           </p>
 
-          {/* TARGET: "leap year rules", "when is a year a leap year", "century year leap year rule" */}
           <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700 mb-8">
             <h3 className="text-xl font-semibold text-blue-300 mb-4">
               The 3-Rule Leap Year System
             </h3>
             <ol className="list-decimal list-inside space-y-3 text-gray-300">
               <li>
-                A year is a leap year if it is <strong className="text-white">divisible by 4</strong>{" "}
-                (e.g., 2024, 2028).
+                A year qualifies as a{" "}
+                <strong className="text-white">leap year</strong> when it can be
+                divided evenly by <strong className="text-white">4</strong>,
+                such as 2024 or 2028.
               </li>
               <li>
-                <strong className="text-white">Exception:</strong> Century years (1700, 1800, 1900) are{" "}
-                <em>not</em> leap years even if divisible by 4.
+                <strong className="text-white">Exception:</strong> Century years
+                (1700, 1800, 1900) are <em>not</em> leap years even if divisible
+                by 4.
               </li>
               <li>
-                <strong className="text-white">Exception to the exception:</strong> Century years divisible
-                by 400 (e.g., 2000, 2400) <em>are</em> leap years.
+                <strong className="text-white">
+                  Exception to the exception:
+                </strong>{" "}
+                Century years divisible by 400 (e.g., 2000, 2400) <em>are</em>{" "}
+                leap years.
               </li>
             </ol>
           </div>
 
-          {/* TARGET: "what age do leap year birthdays celebrate", "February 29 birthday age", "how old is someone born on February 29" */}
           <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700 mb-8">
             <h3 className="text-xl font-semibold text-blue-300 mb-4">
               What Happens If You Were Born on February 29?
             </h3>
             <p className="text-gray-200 leading-relaxed mb-3">
-              People born on <strong>February 29</strong> (a leap day) are called{" "}
-              <strong>leaplings</strong> or <strong>leap year babies</strong>. Their
-              birthday only appears on the calendar every 4 years, so their
-              chronological age is calculated normally — but the birthday celebration
-              falls on either February 28 or March 1 in non-leap years.
+              People born on <strong>February 29</strong> are called{" "}
+              <strong>leaplings</strong>. Their chronological age still
+              increases by exactly one year every 365 or 366 days like anyone
+              else's — the only real question is which date their birthday
+              "shows up" on in the three years out of four when February only
+              has 28 days.
             </p>
             <p className="text-gray-200 leading-relaxed">
-              Legally, most countries recognize February 28 or March 1 as the
-              official birthday in non-leap years, depending on local law. Our
-              calculator handles February 29 birthdays accurately regardless of
-              the current year.
+              Most countries default to February 28, some default to March 1;
+              this calculator counts elapsed days precisely regardless of which
+              convention a specific form uses, so it stays accurate either way.
             </p>
           </div>
 
           <p className="text-gray-200 leading-relaxed text-lg">
-            Because of these irregularities, simple math like{" "}
-            <em>"years × 365"</em> cannot give exact results. Accurate age
-            calculation requires checking real calendar rules — which is why
-            digital calculators like LizoCalc are more reliable than manual
-            estimates.
+            The upshot: a rough "years × 365" estimate isn't wrong by much, but
+            it's never exactly right, and the gap grows every year you add. If a
+            form or a legal deadline needs an exact day count, this is the part
+            of the math that actually matters.
           </p>
         </section>
 
         {/* ── H2: How to Calculate Age ── */}
-        {/* TARGET: "how to calculate age", "how to calculate age from date of birth", "age calculation step by step" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate Age from Date of Birth — Step by Step
+            Learn How to Work Out Your Age from Your Birth Date
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-8">
-            You can calculate age manually by following these steps. This is the
-            same logic that our calculator uses internally to ensure accuracy.
+            Here's the same process from the worked example above, laid out as a
+            general checklist you can apply to any pair of dates.
           </p>
 
           <div className="space-y-4 mb-10">
@@ -912,54 +991,57 @@ dateModified: "2026-05-01",
               {
                 step: "Step 1",
                 title: "Write Down Both Dates",
-                desc: "Note your birth date (day, month, year) and today's date. For example: Born April 15, 1995 — Today: April 24, 2026."
+                desc: "Note your birth date (day, month, year) and today's date. For example: Born August 15, 1995 — Today: July 2, 2026.",
               },
               {
                 step: "Step 2",
                 title: "Subtract the Days",
-                desc: "24 − 15 = 9 days. If today's day is smaller than the birth day, borrow days from the previous month (e.g., borrow 30 or 31 days)."
+                desc: "If today's day number is smaller than the birth day number, borrow a month's worth of days from the month before, then subtract.",
               },
               {
                 step: "Step 3",
                 title: "Subtract the Months",
-                desc: "April (4) − April (4) = 0 months. If the current month is smaller than the birth month, borrow 12 months from the year count."
+                desc: "If the current month (after any borrowing above) is smaller than the birth month, borrow 12 months from the year count.",
               },
               {
                 step: "Step 4",
                 title: "Subtract the Years",
-                desc: "2026 − 1995 = 31 years. Final answer: 31 years, 0 months, 9 days."
+                desc: "Whatever's left in the years column, after any borrowing above, is your final age in completed years.",
               },
               {
                 step: "Step 5",
-                title: "Verify with LizoCalc",
-                desc: "Enter your dates into the LizoCalc Age Calculator above to confirm your manual calculation correctly accounts for leap years."
-              }
+                title: "Cross-Check with the Calculator",
+                desc: "Plug the same two dates into the tool above — if your manual answer doesn't match, it's almost always a missed borrow step or a leap year you didn't account for.",
+              },
             ].map(({ step, title, desc }) => (
-              <div key={step} className="flex gap-4 bg-gray-800/30 rounded-xl p-5 border border-gray-700">
+              <div
+                key={step}
+                className="flex gap-4 bg-gray-800/30 rounded-xl p-5 border border-gray-700"
+              >
                 <span className="flex-shrink-0 w-20 text-xs font-bold text-blue-400 bg-blue-950/60 rounded-lg flex items-center justify-center text-center px-2 py-1 h-fit mt-1">
                   {step}
                 </span>
                 <div>
                   <p className="text-white font-semibold mb-1">{title}</p>
-                  <p className="text-gray-300 text-sm leading-relaxed">{desc}</p>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    {desc}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-
-
         </section>
 
         {/* ── H2: Global Standards ── */}
-        {/* TARGET: "age calculation systems around the world", "Korean age system", "Chinese age system", "international age calculation" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Age Calculation Standards Used in Different Countries
           </h2>
           <p className="text-gray-200 leading-relaxed mb-6">
-            Age is not calculated identically everywhere. Three main systems
-            exist worldwide, and understanding them is important when
-            interpreting results across different cultural or legal contexts:
+            Age isn't a universal calculation worldwide. If you're comparing a
+            birth-year figure from a family member abroad, or reading an
+            international document, it helps to know which system produced the
+            number:
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -968,25 +1050,37 @@ dateModified: "2026-05-01",
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">System</th>
                   <th className="p-4 text-left font-semibold">Used In</th>
-                  <th className="p-4 text-left font-semibold">How Age Increments</th>
-                  <th className="p-4 text-left font-semibold">Key Difference</th>
+                  <th className="p-4 text-left font-semibold">
+                    How Age Increments
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    Key Difference
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 font-semibold text-blue-300">Gregorian (Western)</td>
-                  <td className="p-4">Most of the world</td>
+                  <td className="p-4 font-semibold text-blue-300">
+                    Gregorian (Western)
+                  </td>
+                  <td className="p-4">Most of the world, including Pakistan</td>
                   <td className="p-4">On each birthday</td>
                   <td className="p-4">Age is 0 until first birthday</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-blue-300">East Asian (Korean traditional)</td>
-                  <td className="p-4">Korea (traditional)</td>
+                  <td className="p-4 font-semibold text-blue-300">
+                    East Asian (Korean traditional)
+                  </td>
+                  <td className="p-4">Korea (traditional, now retired)</td>
                   <td className="p-4">At birth (age 1) + Jan 1 each year</td>
-                  <td className="p-4">A baby born Dec 31 is "2" the next day</td>
+                  <td className="p-4">
+                    A baby born Dec 31 is "2" the next day
+                  </td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-blue-300">Chinese Nominal Age</td>
+                  <td className="p-4 font-semibold text-blue-300">
+                    Chinese Nominal Age
+                  </td>
                   <td className="p-4">Parts of China</td>
                   <td className="p-4">At birth and Lunar New Year</td>
                   <td className="p-4">Varies by lunar calendar alignment</td>
@@ -995,81 +1089,85 @@ dateModified: "2026-05-01",
             </table>
           </div>
 
-          {/* TARGET: "Korea abolished traditional age system", "Korean age reform 2023" */}
           <div className="bg-gray-800/40 p-5 rounded-2xl border border-gray-700 mb-6">
             <h3 className="text-lg font-semibold text-blue-300 mb-2">
               South Korea's Age System Reform (2023)
             </h3>
             <p className="text-gray-300 leading-relaxed text-sm">
-              In June 2023, South Korea officially abolished its traditional age
-              counting system by law. All official documents, medical records,
-              and legal contexts now use the international (Gregorian)
-              chronological age system. This means South Koreans are now legally
-              1–2 years younger on paper than they were under the old system.
+              In June 2023, South Korea legally retired its traditional age
+              system. Official documents now use the standard international
+              (Gregorian) age — the same system this calculator uses — which
+              made most South Koreans 1–2 years "younger" on paper overnight,
+              purely as a documentation change, not an actual change in how old
+              anyone was.
             </p>
           </div>
 
           <p className="text-gray-200 leading-relaxed">
-            Our calculator uses the{" "}
-            <strong>standard Gregorian system</strong> — the internationally
-            recognized legal standard used in government IDs, passports,
-            academic records, and financial documents worldwide.
+            This calculator uses the <strong>Gregorian system</strong> — the
+            standard for government IDs, passports, academic records, and
+            financial documents in Pakistan and internationally.
           </p>
         </section>
 
         {/* ── H2: Corrected Age ── */}
-        {/* TARGET: "corrected age for premature babies", "adjusted age premature infant", "corrected gestational age calculator", "how to calculate corrected age" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Corrected Age for Premature Babies (Medical Use Case)
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-            <strong>Corrected age</strong> (also called adjusted age) is used in
-            pediatrics for babies born before full term. It adjusts the child's
-            chronological age based on how early they were born, giving a more
-            accurate measure for tracking developmental milestones.
+            <strong>Corrected age</strong> (also called adjusted age) exists
+            because chronological age alone unfairly measures a premature baby
+            against full-term milestones. It adjusts for how early the baby
+            arrived, so development gets compared to the right baseline.
           </p>
 
           <div className="bg-gray-900/80 p-6 rounded-xl border border-blue-900/50 text-center mb-8">
-            <p className="text-blue-400 font-mono text-lg mb-2">Corrected Age Formula</p>
+            <p className="text-blue-400 font-mono text-lg mb-2">
+              Corrected Age Formula
+            </p>
             <p className="text-white text-xl font-mono">
-              Corrected Age = Chronological Age − (40 weeks − Gestational Age at Birth)
+              Corrected Age = Chronological Age − (40 weeks − Gestational Age at
+              Birth)
             </p>
           </div>
 
           <p className="text-gray-200 leading-relaxed mb-4 text-base">
-            For example, a baby born at 32 weeks (8 weeks early) who is now 6
-            months old has a corrected age of approximately 4 months. Doctors
-            use this number — not 6 months — to assess whether the baby is
-            meeting normal milestones for sitting, smiling, or motor skills.
+            Concretely: a baby born at 32 weeks — 8 weeks early — who is now 6
+            months (24 weeks) old chronologically has a corrected age of about 4
+            months (16 weeks). A pediatrician tracks milestones like sitting up
+            or first smiles against that 4-month baseline, not 6 months, because
+            otherwise a perfectly on-track premature baby would look "behind."
           </p>
 
           <p className="text-gray-200 leading-relaxed mb-4 text-base">
-            Corrected age is typically used until a child reaches{" "}
-            <strong>2 to 3 years old</strong>, after which the difference
-            between chronological and corrected age becomes less clinically
-            significant.
+            Doctors typically stop using corrected age once a child reaches{" "}
+            <strong>2 to 3 years old</strong> — by then the gap between
+            chronological and corrected age stops being clinically meaningful.
           </p>
 
           <p className="text-gray-200 leading-relaxed text-base">
-            This concept is widely used in pediatric healthcare and neonatal
-            intensive care units (NICUs). It is separate from legal age or any
-            official documentation system.
+            This is strictly a pediatric healthcare concept and has no bearing
+            on legal age or official documentation — a birth certificate always
+            records the actual birth date, not a "corrected" one.
           </p>
         </section>
 
         {/* ── H2: Age in Different Units ── */}
-        {/* TARGET: "how old am I in months", "how old am I in weeks", "how old am I in hours", "age in seconds", "convert age to months" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How Old Am I? — Age in Years, Months, Weeks, Days, Hours, and Seconds
+            How Old Am I? — Age in Years, Months, Weeks, Days, Hours, and
+            Seconds
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-6">
-            Your age can be expressed in multiple units beyond just years. This
-            is useful for medical record-keeping, personal curiosity, milestone
-            tracking, and data analysis. Here is how each unit is derived:
+            Years aren't always the most useful unit. Weeks matter for infant
+            development tracking; days matter for legal deadlines; hours and
+            seconds are mostly for satisfying curiosity — but the underlying
+            calculation is identical, just converted to a different scale. Using
+            the worked example (30 years, 10 months, 17 days as of July 2,
+            2026):
           </p>
 
           <div className="overflow-x-auto mb-6">
@@ -1078,18 +1176,28 @@ dateModified: "2026-05-01",
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Unit</th>
                   <th className="p-4 text-left font-semibold">Calculation</th>
-                  <th className="p-4 text-left font-semibold">Example (Age 30)</th>
+                  <th className="p-4 text-left font-semibold">
+                    Example (30y 10m 17d)
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 {[
-                  ["Years", "Direct subtraction with borrowing method", "30 years"],
-                  ["Months", "Years × 12 + remaining months", "~360 months"],
-                  ["Weeks", "Total days ÷ 7", "~1,565 weeks"],
-                  ["Days", "Count all days including leap days", "~10,957 days"],
-                  ["Hours", "Total days × 24", "~262,968 hours"],
-                  ["Minutes", "Total hours × 60", "~15,778,080 minutes"],
-                  ["Seconds", "Total minutes × 60", "~946,684,800 seconds"],
+                  [
+                    "Years",
+                    "Direct subtraction with borrowing method",
+                    "30 years",
+                  ],
+                  ["Months", "Years × 12 + remaining months", "~370 months"],
+                  ["Weeks", "Total days ÷ 7", "~1,611 weeks"],
+                  [
+                    "Days",
+                    "Count all days including leap days",
+                    "~11,279 days",
+                  ],
+                  ["Hours", "Total days × 24", "~270,696 hours"],
+                  ["Minutes", "Total hours × 60", "~16,241,760 minutes"],
+                  ["Seconds", "Total minutes × 60", "~974,505,600 seconds"],
                 ].map(([unit, calc, example]) => (
                   <tr key={unit}>
                     <td className="p-4 font-semibold text-blue-300">{unit}</td>
@@ -1102,68 +1210,66 @@ dateModified: "2026-05-01",
           </div>
 
           <p className="text-gray-200 leading-relaxed">
-            LizoCalc's age calculator provides all of these breakdowns instantly
-            so you never have to compute them manually.
+            The calculator above gives you all of these instantly for your own
+            dates — no need to redo the arithmetic by hand.
           </p>
         </section>
 
         {/* ── H2: Birthday Countdown ── */}
-        {/* TARGET: "how many days until my birthday", "birthday countdown calculator", "next birthday calculator", "days until birthday" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             How Many Days Until My Next Birthday?
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-6">
-            A <strong>birthday countdown calculator</strong> finds the exact
-            number of days between today and your next birthday. It correctly
-            handles year-end crossovers — for example, if your birthday is in
-            January and today is in November, it counts forward into the next
-            year.
+            This works out the gap between today and the next occurrence of your
+            birth month/day — and correctly rolls into next year if your
+            birthday already passed this year. If today is November and your
+            birthday is in January, the countdown correctly points to next
+            January, not a negative number.
           </p>
 
           <div className="bg-gray-900/80 p-6 rounded-xl border border-blue-900/50 text-center mb-8">
-            <p className="text-blue-400 font-mono text-lg mb-2">Birthday Countdown Formula</p>
+            <p className="text-blue-400 font-mono text-lg mb-2">
+              Birthday Countdown Formula
+            </p>
             <p className="text-white text-lg font-mono">
               Days Until Birthday = Next Birthday Date − Today's Date
             </p>
             <p className="text-gray-400 text-sm mt-2">
-              If today is past the birthday this year, next birthday = same day/month in (current year + 1)
+              If today is past the birthday this year, next birthday = same
+              day/month in (current year + 1)
             </p>
           </div>
 
           <p className="text-gray-200 leading-relaxed mb-4">
-            Our calculator also tells you the <strong>day of the week</strong>{" "}
-            your next birthday falls on — useful for planning events, requesting
-            time off, or simply satisfying curiosity.
+            The calculator also shows the <strong>day of the week</strong> your
+            next birthday lands on — handy for booking a venue or putting in a
+            leave request before the date fills up.
           </p>
 
-          {/* TARGET: "what day of the week was I born", "find my birth day of the week", "day of the week calculator" */}
           <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
             <h3 className="text-xl font-semibold text-blue-300 mb-3">
               What Day of the Week Was I Born?
             </h3>
             <p className="text-gray-300 leading-relaxed text-sm">
-              You can determine the day of the week for any past date using the{" "}
-              <strong>Zeller's Congruence</strong> algorithm or the{" "}
-              <strong>Doomsday Algorithm</strong>. Both are mathematical methods
-              that map any Gregorian date to a weekday. Our calculator runs this
-              calculation automatically and displays the result alongside your
-              age breakdown.
+              This uses <strong>Zeller's Congruence</strong> — a formula that
+              maps any Gregorian calendar date directly to a weekday without
+              needing to count forward through every year in between. It's the
+              same underlying math a paper "perpetual calendar" trick uses, just
+              automated.
             </p>
           </div>
         </section>
 
         {/* ── H2: Age in Special Contexts ── */}
-        {/* TARGET: "age calculation for retirement", "age calculation for passport", "how is age calculated for school enrollment", "dog age to human age" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             How Age Is Used in Real-World Contexts
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-8">
-            Chronological age is referenced in virtually every important life
-            event. Here are the most common real-world applications:
+            Where this actually comes up, beyond curiosity:
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
@@ -1171,35 +1277,38 @@ dateModified: "2026-05-01",
               {
                 icon: "🎓",
                 title: "School Enrollment",
-                body: "Most countries determine school readiness based on whether a child turns a specific age (commonly 5 or 6) before a cutoff date in the calendar year. Age calculators help parents verify eligibility before registration deadlines."
+                body: "Most school systems, including many private schools in Pakistan, set a hard age cutoff for a given grade — commonly turning 5 or 6 by a specific date in the academic year. A child born a week after the cutoff often has to wait a full year, so parents check this precisely rather than assuming closest birthday counts.",
               },
               {
                 icon: "🏛️",
                 title: "Legal & Government",
-                body: "Voting rights, driving licenses, legal contracts, alcohol purchase, and retirement pension all have age-based thresholds. Passports and national IDs are issued using date of birth as the primary identifier."
+                body: "CNIC issuance, voting eligibility, and driving license categories in Pakistan are all tied to specific chronological-age thresholds, and NADRA records depend entirely on the birth date submitted at registration — see the FAQ below on what to do if your ID and your actual age don't match.",
               },
               {
                 icon: "🏥",
                 title: "Healthcare & Medicine",
-                body: "Vaccine schedules, pediatric growth charts, cancer screening recommendations, and medication dosages are all calibrated to chronological age in years and months — sometimes to days for neonates."
+                body: "Vaccine schedules (like Pakistan's EPI immunization timeline), growth charts, and medication dosing for children are calibrated to age in months, sometimes weeks for newborns — a few weeks' difference genuinely changes a recommended dose.",
               },
               {
                 icon: "💰",
                 title: "Financial Planning",
-                body: "Retirement calculators, pension eligibility, life insurance premiums, and investment horizon planning all depend on your exact current age and projected future age at specific milestones."
+                body: "Life insurance premiums in Pakistan are priced partly off your exact age at the policy start date, and pension eligibility (for government employees, typically at 60) is checked against your recorded birth date, not the year alone.",
               },
               {
                 icon: "⚽",
                 title: "Sports & Athletics",
-                body: "Youth sports categories, Olympic eligibility, and age-group competitions are strictly governed by chronological age. A single day can determine which category an athlete competes in."
+                body: "Youth cricket and football age-group categories in Pakistan run on strict cutoff dates — a player born one day after the cutoff plays a full age bracket below or above where their skill level might otherwise place them.",
               },
               {
                 icon: "🐕",
                 title: "Pet Age Conversion",
-                body: "A common question is 'how old is my dog in human years?' The traditional rule of multiplying by 7 is inaccurate. Modern science suggests a logarithmic model, especially for the first two years of a dog's life."
+                body: "The old 'multiply by 7' rule for dog years is inaccurate, especially early on — a 1-year-old dog is closer to a 15-year-old human than a 7-year-old, since dogs mature much faster in their first two years and the ratio slows down after that.",
               },
             ].map(({ icon, title, body }) => (
-              <div key={title} className="bg-gray-800/40 p-5 rounded-2xl border border-gray-700">
+              <div
+                key={title}
+                className="bg-gray-800/40 p-5 rounded-2xl border border-gray-700"
+              >
                 <h3 className="text-lg font-semibold text-blue-300 mb-2 flex items-center gap-2">
                   <span>{icon}</span> {title}
                 </h3>
@@ -1210,7 +1319,6 @@ dateModified: "2026-05-01",
         </section>
 
         {/* ── H2: Common Mistakes ── */}
-        {/* TARGET: "common mistakes in age calculation", "why is my age calculation wrong", "off by one error age" */}
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Common Mistakes in Age Calculation (And How to Avoid Them)
@@ -1220,38 +1328,43 @@ dateModified: "2026-05-01",
             {[
               {
                 mistake: "Ignoring Leap Years",
-                fix: "Always count actual calendar days rather than multiplying years by 365. Our calculator handles this automatically."
+                fix: "Count actual calendar days rather than multiplying years by 365 — as shown in the worked example, that's an 8-day gap over just 30 years.",
               },
               {
                 mistake: "Forgetting the Borrowing Step",
-                fix: "When the current day is less than the birth day, many people make arithmetic errors. Always borrow from the prior month before subtracting."
+                fix: "This is where most manual calculations go wrong. If today's day number is smaller than the birth day number, you have to borrow from the month before — skip it and the day count comes out negative or wrong.",
               },
               {
                 mistake: "Using the Wrong Date Format",
-                fix: "Confusing MM/DD/YYYY (US) with DD/MM/YYYY (international) can shift results by months. Always confirm your input format before calculating."
+                fix: "Pakistan uses DD/MM/YYYY, but a lot of software defaults to the US MM/DD/YYYY format. 03/08/2026 means August 3rd in one format and March 8th in the other — always double-check which format a form or tool expects before entering dates.",
               },
               {
                 mistake: "Not Accounting for Time Zones",
-                fix: "For precise age-to-the-hour calculations, birth time and time zone matter. For daily calculations, the date alone is sufficient."
+                fix: "Only matters if you're calculating age down to the exact hour (for a very precise medical or legal timestamp). For anything measured in days or more, the date alone is enough — don't overcomplicate it.",
               },
               {
                 mistake: "Mixing Age Systems",
-                fix: "Applying Korean traditional age logic to a Gregorian date (or vice versa) produces results that differ by 1–2 years. Always specify which system you are using."
+                fix: "Applying Korean traditional age logic to a Gregorian birth date (or the reverse) produces a result that's off by 1-2 years — always confirm which system a specific document or record is using before comparing two ages.",
               },
             ].map(({ mistake, fix }) => (
-              <div key={mistake} className="flex gap-4 bg-gray-800/30 rounded-xl p-5 border border-gray-700">
-                <span className="text-red-400 text-lg flex-shrink-0 mt-0.5">✗</span>
+              <div
+                key={mistake}
+                className="flex gap-4 bg-gray-800/30 rounded-xl p-5 border border-gray-700"
+              >
+                <span className="text-red-400 text-lg flex-shrink-0 mt-0.5">
+                  ✗
+                </span>
                 <div>
                   <p className="text-white font-semibold mb-1">{mistake}</p>
                   <p className="text-gray-300 text-sm leading-relaxed">
-                    <span className="text-green-400 font-semibold">Fix: </span>{fix}
+                    <span className="text-green-400 font-semibold">Fix: </span>
+                    {fix}
                   </p>
                 </div>
               </div>
             ))}
           </div>
         </section>
-
 
         {/* ── TRUST / E-E-A-T BYLINE ── */}
         <div className="flex items-center gap-4 mt-16 mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
@@ -1263,8 +1376,8 @@ dateModified: "2026-05-01",
               Written by Rana Muhammad Abdullah
             </p>
             <p className="text-gray-400 text-xs">
-              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
-              Control Engineering Student ·{" "}
+              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp; Control
+              Engineering Student ·{" "}
               <a
                 href="https://www.linkedin.com/in/abdullahsajjad06/"
                 target="_blank"
@@ -1277,11 +1390,10 @@ dateModified: "2026-05-01",
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
             <span>📅 Published: Apr 1, 2026</span>
-            <span>🔄 Updated: May 01 , 2026</span>
+            <span>🔄 Updated: Jul 2, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>
-
       </article>
       <FAQ items={faqData} />
       <Footer />

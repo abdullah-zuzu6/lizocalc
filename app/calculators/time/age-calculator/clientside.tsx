@@ -4,7 +4,6 @@ import { useState, useEffect, useMemo, useRef } from "react";
 import {
   Calendar,
   RotateCcw,
-  Info,
   ListFilter,
   BarChart3,
   Clock,
@@ -30,6 +29,8 @@ interface AgeDetails {
   totalMinutes: number;
   nextBirthday: number;
 }
+
+const RESULTS_PANEL_MIN_HEIGHT = "min-h-[560px]";
 
 export default function AgeCalculator() {
   const relatedCalculators = [
@@ -196,52 +197,61 @@ export default function AgeCalculator() {
     <main className="min-h-screen bg-background">
       <section className="py-12 px-4 max-w-7xl mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          
+
           {/* INPUT PANEL */}
           <div className="lg:col-span-4 space-y-6">
             <div className="bg-card rounded-2xl border p-6 shadow-sm relative overflow-hidden">
-              
+
               {/* SAVE BUTTON */}
               <button
                 onClick={handleToggleSave}
                 title={isSaved ? "Remove from saved" : "Save calculator"}
+                aria-label={isSaved ? "Remove Age Calculator from saved tools" : "Save Age Calculator to your list"}
+                aria-pressed={isSaved}
                 className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
                   isSaved
                     ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm"
                     : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
                 }`}
               >
-                <Heart size={20} className={isSaved ? "fill-current" : ""} />
+                <Heart size={20} className={isSaved ? "fill-current" : ""} aria-hidden="true" />
               </button>
 
               <h2 className="text-xl font-bold mb-8 flex items-center gap-2">
-                <ListFilter className="text-blue-600" size={20} /> Parameters
+                <ListFilter className="text-blue-600" size={20} aria-hidden="true" /> Parameters
               </h2>
 
               <div className="space-y-6">
                 {/* Date of Birth */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    <label
+                      htmlFor="birth-month-select"
+                      className="text-[10px] font-black uppercase tracking-widest text-muted-foreground"
+                    >
                       Date of Birth
                     </label>
                     <button
                       onClick={() => birthDatePickerRef.current?.showPicker()}
+                      aria-label="Open calendar picker to select date of birth"
                       className="text-blue-600 hover:scale-110 transition-transform"
                     >
-                      <Calendar size={18} />
+                      <Calendar size={18} aria-hidden="true" />
                     </button>
                     <input
                       type="date"
                       ref={birthDatePickerRef}
                       className="sr-only"
+                      aria-label="Date of birth calendar picker"
                       onChange={(e) => handleCalendarChange(e, "birth")}
                     />
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     <select
+                      id="birth-month-select"
                       value={birthMonth}
                       onChange={(e) => setBirthMonth(e.target.value)}
+                      aria-label="Birth month"
                       className="bg-secondary p-3 rounded-xl border-none text-sm font-bold outline-none focus:ring-2 ring-blue-500/20"
                     >
                       {months.map((m) => (
@@ -251,6 +261,7 @@ export default function AgeCalculator() {
                     <select
                       value={birthDay}
                       onChange={(e) => setBirthDay(Number(e.target.value))}
+                      aria-label="Birth day"
                       className="bg-secondary p-3 rounded-xl border-none text-sm font-bold outline-none focus:ring-2 ring-blue-500/20"
                     >
                       {days.map((d) => (
@@ -261,6 +272,7 @@ export default function AgeCalculator() {
                       type="number"
                       value={birthYear}
                       onChange={(e) => setBirthYear(Number(e.target.value))}
+                      aria-label="Birth year"
                       className="bg-secondary p-3 rounded-xl border-none text-sm font-bold w-full outline-none focus:ring-2 ring-blue-500/20"
                       placeholder="Year"
                     />
@@ -270,26 +282,33 @@ export default function AgeCalculator() {
                 {/* Age at Date */}
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                    <label
+                      htmlFor="target-month-select"
+                      className="text-[10px] font-black uppercase tracking-widest text-muted-foreground"
+                    >
                       Age at Date
                     </label>
                     <button
                       onClick={() => targetDatePickerRef.current?.showPicker()}
+                      aria-label="Open calendar picker to select the target date"
                       className="text-blue-600 hover:scale-110 transition-transform"
                     >
-                      <Calendar size={18} />
+                      <Calendar size={18} aria-hidden="true" />
                     </button>
                     <input
                       type="date"
                       ref={targetDatePickerRef}
                       className="sr-only"
+                      aria-label="Target date calendar picker"
                       onChange={(e) => handleCalendarChange(e, "target")}
                     />
                   </div>
                   <div className="grid grid-cols-3 gap-2">
                     <select
+                      id="target-month-select"
                       value={targetMonth}
                       onChange={(e) => setTargetMonth(e.target.value)}
+                      aria-label="Target month"
                       className="bg-secondary p-3 rounded-xl border-none text-sm font-bold outline-none focus:ring-2 ring-blue-500/20"
                     >
                       {months.map((m) => (
@@ -299,6 +318,7 @@ export default function AgeCalculator() {
                     <select
                       value={targetDay}
                       onChange={(e) => setTargetDay(Number(e.target.value))}
+                      aria-label="Target day"
                       className="bg-secondary p-3 rounded-xl border-none text-sm font-bold outline-none focus:ring-2 ring-blue-500/20"
                     >
                       {days.map((d) => (
@@ -309,6 +329,7 @@ export default function AgeCalculator() {
                       type="number"
                       value={targetYear}
                       onChange={(e) => setTargetYear(Number(e.target.value))}
+                      aria-label="Target year"
                       className="bg-secondary p-3 rounded-xl border-none text-sm font-bold w-full outline-none focus:ring-2 ring-blue-500/20"
                       placeholder="Year"
                     />
@@ -320,7 +341,7 @@ export default function AgeCalculator() {
                     onClick={handleCalculate}
                     className="w-full py-4 bg-blue-600 text-white rounded-2xl font-bold text-sm hover:bg-blue-700 shadow-xl shadow-blue-500/10 transition-all flex items-center justify-center gap-2"
                   >
-                    Calculate Age <CheckCircle2 size={18} />
+                    Calculate Age <CheckCircle2 size={18} aria-hidden="true" />
                   </button>
                   <button
                     onClick={() => {
@@ -329,15 +350,18 @@ export default function AgeCalculator() {
                     }}
                     className="w-full py-2.5 bg-secondary text-muted-foreground rounded-xl font-bold text-xs hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
-                    <RotateCcw size={14} /> Reset
+                    <RotateCcw size={14} aria-hidden="true" /> Reset
                   </button>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* RESULTS PANEL */}
-          <div className="lg:col-span-8">
+          {/* RESULTS PANEL
+              Both branches below share the same min-height so switching
+              between "empty state" and "calculated state" never shifts
+              anything below this section on the page (fixes CLS). */}
+          <div className={`lg:col-span-8 ${RESULTS_PANEL_MIN_HEIGHT}`}>
             {showResults && results ? (
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -355,7 +379,7 @@ export default function AgeCalculator() {
 
                   <div className="bg-card border rounded-[2rem] p-8 flex flex-col items-center justify-center shadow-sm">
                     <div className="p-4 bg-pink-500/10 rounded-full mb-4">
-                        <Cake size={32} className="text-pink-500" />
+                        <Cake size={32} className="text-pink-500" aria-hidden="true" />
                     </div>
                     <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest mb-2">
                       Next Birthday In
@@ -369,7 +393,7 @@ export default function AgeCalculator() {
 
                 <div className="bg-card border rounded-[2rem] p-8 shadow-sm">
                   <h3 className="text-[10px] font-black text-muted-foreground uppercase mb-8 tracking-[0.2em] flex items-center gap-2">
-                    <BarChart3 size={16} className="text-blue-500" /> Life Breakdown
+                    <BarChart3 size={16} className="text-blue-500" aria-hidden="true" /> Life Breakdown
                   </h3>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                     <StatBox label="Total Days" value={results.totalDays} />
@@ -379,8 +403,8 @@ export default function AgeCalculator() {
                 </div>
               </div>
             ) : (
-              <div className="h-full min-h-[450px] bg-secondary/10 border-4 border-dashed rounded-[3rem] p-12 text-center flex flex-col items-center justify-center">
-                <Clock size={60} className="opacity-5 mb-6" />
+              <div className="h-full min-h-[560px] bg-secondary/10 border-4 border-dashed rounded-[3rem] p-12 text-center flex flex-col items-center justify-center">
+                <Clock size={60} className="opacity-5 mb-6" aria-hidden="true" />
                 <p className="text-sm font-black uppercase text-muted-foreground tracking-widest">
                   Select dates to see your life summary
                 </p>
@@ -388,8 +412,6 @@ export default function AgeCalculator() {
             )}
           </div>
         </div>
-
-      
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
