@@ -29,6 +29,10 @@ const GRADE_MAP: { [key: string]: number } = {
 type Assignment = { id: string; name: string; grade: string; weight: string };
 
 export default function AdvancedGradeCalculator() {
+  // isMounted is kept only to gate the auto-save effect (so we don't
+  // overwrite saved history with defaults before it's loaded). It no
+  // longer gates the render — that was causing your 0.52-0.595 CLS,
+  // since the whole component rendered nothing until after hydration.
   const [isMounted, setIsMounted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [assignments, setAssignments] = useState<Assignment[]>([
@@ -47,8 +51,6 @@ export default function AdvancedGradeCalculator() {
 
   // --- Initial Load Logic ---
   useEffect(() => {
-    setIsMounted(true);
-    
     // 1. Load Calculator History
     const history = getCalculatorHistory();
     if (history["advanced-grade-calc"]?.data) {
@@ -61,6 +63,8 @@ export default function AdvancedGradeCalculator() {
     // 2. Check if favorited
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+
+    setIsMounted(true);
   }, []);
 
   // --- Auto-Save to LocalStorage ---
@@ -126,8 +130,6 @@ export default function AdvancedGradeCalculator() {
     return { needed };
   }, [assignments, goal, remainingWeight]);
 
-  if (!isMounted) return null;
-
   return (
     <main className="min-h-screen bg-background text-foreground">
       <section className="py-12 px-4 max-w-7xl mx-auto">
@@ -141,17 +143,19 @@ export default function AdvancedGradeCalculator() {
               <button 
                 onClick={handleToggleSave}
                 title={isSaved ? "Remove from Saved" : "Save Calculator"}
+                aria-label={isSaved ? "Remove grade calculator from saved tools" : "Save grade calculator to your tools"}
+                aria-pressed={isSaved}
                 className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
                   isSaved 
                   ? 'bg-red-500/10 border-red-500/20 text-red-500 shadow-sm' 
                   : 'bg-secondary border-border text-muted-foreground hover:text-foreground'
                 }`}
               >
-                <Heart size={18} className={isSaved ? "fill-current" : ""} />
+                <Heart size={18} aria-hidden="true" className={isSaved ? "fill-current" : ""} />
               </button>
 
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <ListFilter className="text-primary" size={20} /> Assignments
+                <ListFilter className="text-primary" size={20} aria-hidden="true" /> Assignments
               </h2>
 
               <div className="space-y-3">
@@ -163,12 +167,14 @@ export default function AdvancedGradeCalculator() {
                     <input
                       className="col-span-6 p-2 bg-background rounded-lg text-xs font-bold border outline-none focus:ring-2 focus:ring-primary/10"
                       value={a.name}
+                      aria-label={`Assignment name for item ${idx + 1}`}
                       onChange={(e) => updateRow(a.id, "name", e.target.value)}
                       placeholder={`Task ${idx + 1}`}
                     />
                     <select
                       className="col-span-3 p-2 bg-background rounded-lg text-xs font-bold border text-primary cursor-pointer outline-none"
                       value={a.grade}
+                      aria-label={`Grade for assignment ${idx + 1}`}
                       onChange={(e) => updateRow(a.id, "grade", e.target.value)}
                     >
                       {Object.keys(GRADE_MAP).map((g) => (
@@ -178,13 +184,16 @@ export default function AdvancedGradeCalculator() {
                     <input
                       className="col-span-2 p-2 bg-background rounded-lg text-xs font-bold border text-center outline-none"
                       value={a.weight}
+                      aria-label={`Weight percentage for assignment ${idx + 1}`}
                       onChange={(e) => updateRow(a.id, "weight", e.target.value)}
                     />
                     <button
                       onClick={() => removeRow(a.id)}
-                      className="col-span-1 flex justify-center text-muted-foreground hover:text-red-500 transition-colors"
+                      aria-label={`Remove assignment ${idx + 1}`}
+                      disabled={assignments.length <= 1}
+                      className="col-span-1 flex justify-center text-muted-foreground hover:text-red-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={14} aria-hidden="true" />
                     </button>
                   </div>
                 ))}
@@ -194,13 +203,13 @@ export default function AdvancedGradeCalculator() {
                     onClick={addRow}
                     className="w-full py-3 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-primary/20 flex items-center justify-center gap-2 transition-all"
                   >
-                    <Plus size={14} /> Add Assessment
+                    <Plus size={14} aria-hidden="true" /> Add Assessment
                   </button>
                   <button
                     onClick={resetCalculator}
                     className="w-full py-2.5 bg-secondary text-muted-foreground text-[10px] font-bold uppercase rounded-xl hover:bg-secondary/80 flex items-center justify-center gap-2 transition-all"
                   >
-                    <RotateCcw size={12} /> Reset Data
+                    <RotateCcw size={12} aria-hidden="true" /> Reset Data
                   </button>
                 </div>
               </div>
@@ -211,15 +220,16 @@ export default function AdvancedGradeCalculator() {
           <div className="lg:col-span-8 space-y-6">
             <div className="bg-card border rounded-2xl p-8 shadow-sm">
               <h2 className="text-xl font-bold mb-8 flex items-center gap-2">
-                <Target className="text-primary" size={20} /> Grade Projection
+                <Target className="text-primary" size={20} aria-hidden="true" /> Grade Projection
               </h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest ml-1">
+                  <label htmlFor="goal-score" className="text-[10px] font-black uppercase text-muted-foreground tracking-widest ml-1">
                     Goal Score (%)
                   </label>
                   <input
+                    id="goal-score"
                     type="number"
                     className="w-full p-4 bg-secondary/50 rounded-2xl font-black text-2xl border border-transparent focus:border-primary/20 focus:bg-background outline-none transition-all"
                     value={goal}
@@ -227,10 +237,11 @@ export default function AdvancedGradeCalculator() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest ml-1">
+                  <label htmlFor="weight-left" className="text-[10px] font-black uppercase text-muted-foreground tracking-widest ml-1">
                     Weight Left (%)
                   </label>
                   <input
+                    id="weight-left"
                     type="number"
                     className="w-full p-4 bg-secondary/50 rounded-2xl font-black text-2xl border border-transparent focus:border-primary/20 focus:bg-background outline-none transition-all"
                     value={remainingWeight}
@@ -248,7 +259,7 @@ export default function AdvancedGradeCalculator() {
                     {results.needed.toFixed(2)}%
                   </h2>
                   <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/10">
-                    <CheckCircle2 size={14} />
+                    <CheckCircle2 size={14} aria-hidden="true" />
                     <span className="text-[10px] font-bold uppercase">Target: {goal}%</span>
                   </div>
                 </div>
@@ -261,7 +272,7 @@ export default function AdvancedGradeCalculator() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card border rounded-2xl p-6 hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
-                  <BookOpen size={18} className="text-primary" /> Strategy
+                  <BookOpen size={18} className="text-primary" aria-hidden="true" /> Strategy
                 </h3>
                 <p className="text-muted-foreground text-xs leading-relaxed">
                   Calculated using weighted mean. If your required score is above 100%, 
@@ -270,7 +281,7 @@ export default function AdvancedGradeCalculator() {
               </div>
               <div className="bg-card border rounded-2xl p-6 hover:shadow-md transition-shadow">
                 <h3 className="font-bold text-sm mb-3 flex items-center gap-2">
-                  <BarChart3 size={18} className="text-primary" /> Precision
+                  <BarChart3 size={18} className="text-primary" aria-hidden="true" /> Precision
                 </h3>
                 <p className="text-muted-foreground text-xs leading-relaxed">
                   For the most accurate results, ensure the "Weight Left" plus the 

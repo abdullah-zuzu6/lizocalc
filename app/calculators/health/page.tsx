@@ -39,11 +39,10 @@ export const metadata: Metadata = {
       "Free online BMI, BMR, TDEE, calorie, and fitness calculators by LizoCalc.",
   },
 
-  // Other SEO
-  robots: {
-    index: false,
-    follow: true,
-  },
+ robots: {
+  index: true,
+  follow: true,
+},
 
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/health",

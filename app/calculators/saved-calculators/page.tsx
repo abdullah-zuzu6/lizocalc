@@ -8,10 +8,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.lizocalc.com/saved-calculators",
   },
-  robots: {
-   index: false,
-    follow: true,
-  },
+ robots: {
+  index: true,
+  follow: true,
+},
 };
 
 export default function Page() {

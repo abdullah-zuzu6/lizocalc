@@ -40,11 +40,10 @@ export const metadata: Metadata = {
       "Free online mortgage, loan EMI, compound interest, ROI, and salary calculators by LizoCalc.",
   },
 
-  // Other SEO
   robots: {
-    index: false,
-    follow: true,
-  },
+  index: true,
+  follow: true,
+},
 
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/financial",

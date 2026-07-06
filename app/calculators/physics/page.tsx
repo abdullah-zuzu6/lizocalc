@@ -39,12 +39,10 @@ export const metadata: Metadata = {
       "Free online physics calculators for density, force, energy, and motion by LizoCalc.",
   },
 
-  // Other SEO
-  robots: {
-   index: false,
-    follow: true,
-  },
-
+ robots: {
+  index: true,
+  follow: true,
+},
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/physics",
   },

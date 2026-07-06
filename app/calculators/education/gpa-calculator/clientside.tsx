@@ -2,16 +2,13 @@
 
 import { useState, useEffect, useMemo } from "react";
 import {
-  
   Trash2,
   GraduationCap,
   CheckCircle2,
   Calculator,
-  
   Heart,
   Target,
   Layers,
-  
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
@@ -37,6 +34,11 @@ type Course = {
 };
 
 export default function GPACalculator() {
+  // NOTE: isMounted is kept only to gate the "save to storage" effect
+  // (so we don't overwrite saved history with defaults before it loads).
+  // It NO LONGER gates the render itself — that was the cause of your
+  // 0.406 CLS. The component now renders full markup on first paint,
+  // then quietly updates from storage after mount.
   const [isMounted, setIsMounted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -54,8 +56,6 @@ export default function GPACalculator() {
   };
 
   useEffect(() => {
-    setIsMounted(true);
-
     const history = getCalculatorHistory();
     if (history["gpa-calc"]?.data?.courses) {
       setCourses(history["gpa-calc"].data.courses);
@@ -64,6 +64,8 @@ export default function GPACalculator() {
 
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((t) => t.href === calculatorInfo.href));
+
+    setIsMounted(true);
   }, []);
 
   useEffect(() => {
@@ -77,15 +79,15 @@ export default function GPACalculator() {
   };
 
   const addRow = () => {
-  const newCourses = Array.from({ length: 3 }).map(() => ({
-    id: Math.random().toString(36).substr(2, 9),
-    name: "",
-    grade: "A",
-    credits: "3", // Set a default credit value of 3
-  }));
-  
-  setCourses((prev) => [...prev, ...newCourses]);
-};
+    const newCourses = Array.from({ length: 3 }).map(() => ({
+      id: Math.random().toString(36).substr(2, 9),
+      name: "",
+      grade: "A",
+      credits: "3",
+    }));
+
+    setCourses((prev) => [...prev, ...newCourses]);
+  };
 
   const removeCourse = (id: string) => {
     if (courses.length > 1) {
@@ -122,8 +124,6 @@ export default function GPACalculator() {
     };
   }, [courses]);
 
-  if (!isMounted) return null;
-
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -135,21 +135,30 @@ export default function GPACalculator() {
 
               <button
                 onClick={handleToggleSave}
+                aria-label={isSaved ? "Remove GPA calculator from saved tools" : "Save GPA calculator to your tools"}
+                aria-pressed={isSaved}
                 className="absolute top-4 right-4 p-2 rounded-xl border"
               >
                 <Heart
                   size={18}
+                  aria-hidden="true"
                   className={isSaved ? "fill-red-500 text-red-500" : ""}
                 />
               </button>
 
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <GraduationCap size={20} className="text-primary" />
+                <GraduationCap size={20} className="text-primary" aria-hidden="true" />
                 Statistics
               </h2>
 
+              {/*
+                FIX FOR CLS: both branches below now share the same
+                min-height (min-h-[220px]) and flex centering, so switching
+                between "placeholder" and "results" never changes the
+                section's height and never shifts content below it.
+              */}
               {showResults ? (
-                <div className="space-y-4">
+                <div className="space-y-4 min-h-[220px]">
                   <div className="bg-primary/5 border rounded-2xl p-8 text-center">
                     <p className="text-[10px] font-black uppercase text-primary tracking-widest">
                       Your GPA
@@ -170,8 +179,8 @@ export default function GPACalculator() {
                   </button>
                 </div>
               ) : (
-                <div className="p-12 text-center border-2 border-dashed rounded-2xl opacity-50">
-                  <Calculator className="mx-auto mb-3" />
+                <div className="min-h-[220px] flex flex-col items-center justify-center text-center border-2 border-dashed rounded-2xl opacity-50">
+                  <Calculator className="mx-auto mb-3" aria-hidden="true" />
                   <p className="text-xs font-bold">
                     Calculate to see results
                   </p>
@@ -190,53 +199,58 @@ export default function GPACalculator() {
                 <div className="col-span-3 text-center">Grade</div>
               </div>
 
-           <div className="space-y-3">
-  {courses.map((course, index) => (
-    <div
-      key={course.id}
-      className="grid grid-cols-12 gap-2 items-center group"
-    >
-      {/* COURSE NAME - Reduced to col-span-4 on mobile for more space elsewhere */}
-      <input
-        type="text"
-        placeholder={`Course ${index + 1}`}
-        value={course.name}
-        onChange={(e) => updateCourse(course.id, "name", e.target.value)}
-        className="col-span-4 md:col-span-5 min-w-0 w-full p-2 bg-background border rounded-lg text-sm outline-none"
-      />
+              <div className="space-y-3">
+                {courses.map((course, index) => (
+                  <div
+                    key={course.id}
+                    className="grid grid-cols-12 gap-2 items-center group"
+                  >
+                    {/* COURSE NAME */}
+                    <input
+                      type="text"
+                      placeholder={`Course ${index + 1}`}
+                      aria-label={`Course name for course ${index + 1}`}
+                      value={course.name}
+                      onChange={(e) => updateCourse(course.id, "name", e.target.value)}
+                      className="col-span-4 md:col-span-5 min-w-0 w-full p-2 bg-background border rounded-lg text-sm outline-none"
+                    />
 
-      {/* CREDITS - Narrower on mobile to save space */}
-      <input
-        type="number"
-        value={course.credits}
-        onChange={(e) => updateCourse(course.id, "credits", e.target.value)}
-        className="col-span-3 md:col-span-3 min-w-0 w-full p-2 bg-background border rounded-lg text-sm text-center outline-none"
-      />
+                    {/* CREDITS */}
+                    <input
+                      type="number"
+                      aria-label={`Credit hours for course ${index + 1}`}
+                      value={course.credits}
+                      onChange={(e) => updateCourse(course.id, "credits", e.target.value)}
+                      className="col-span-3 md:col-span-3 min-w-0 w-full p-2 bg-background border rounded-lg text-sm text-center outline-none"
+                    />
 
-      {/* GRADE + DELETE - Increased to col-span-5 on mobile */}
-      <div className="col-span-5 md:col-span-4 flex items-center gap-1 min-w-0">
-        <select
-          value={course.grade}
-          onChange={(e) => updateCourse(course.id, "grade", e.target.value)}
-          className="flex-1 min-w-0 p-2 pr-8 bg-background border rounded-lg text-sm outline-none cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem] bg-[right_0.3rem_center] bg-no-repeat"
-        >
-          {Object.keys(GRADE_SCALE).map((g) => (
-            <option key={g} value={g}>
-              {g}
-            </option>
-          ))}
-        </select>
+                    {/* GRADE + DELETE */}
+                    <div className="col-span-5 md:col-span-4 flex items-center gap-1 min-w-0">
+                      <select
+                        value={course.grade}
+                        aria-label={`Grade for course ${index + 1}`}
+                        onChange={(e) => updateCourse(course.id, "grade", e.target.value)}
+                        className="flex-1 min-w-0 p-2 pr-8 bg-background border rounded-lg text-sm outline-none cursor-pointer appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.25rem] bg-[right_0.3rem_center] bg-no-repeat"
+                      >
+                        {Object.keys(GRADE_SCALE).map((g) => (
+                          <option key={g} value={g}>
+                            {g}
+                          </option>
+                        ))}
+                      </select>
 
-        <button
-          onClick={() => removeCourse(course.id)}
-          className="p-2 text-muted-foreground hover:text-red-500 shrink-0"
-        >
-          <Trash2 size={16} />
-        </button>
-      </div>
-    </div>
-  ))}
-</div>
+                      <button
+                        onClick={() => removeCourse(course.id)}
+                        aria-label={`Remove course ${index + 1}`}
+                        disabled={courses.length <= 1}
+                        className="p-2 text-muted-foreground hover:text-red-500 shrink-0 disabled:opacity-30 disabled:cursor-not-allowed"
+                      >
+                        <Trash2 size={16} aria-hidden="true" />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
               {/* ADD BUTTON */}
               <button
@@ -251,29 +265,28 @@ export default function GPACalculator() {
                 onClick={() => setShowResults(true)}
                 className="w-full mt-8 px-8 py-3 bg-green-600 text-white rounded-lg font-bold flex items-center justify-center gap-2"
               >
-                Calculate Now <CheckCircle2 size={18} />
+                Calculate Now <CheckCircle2 size={18} aria-hidden="true" />
               </button>
 
-            
             </section>
-               <div className="mt-12">
-                         <RelatedCalculators
-                          calculators={[
-                            {
-                              name: "Grade Calculator",
-                              description: "Semester & Cumulative",
-                              href: "/calculators/education/grade-calculator",
-                              icon: Target,
-                            },
-                            {
-                              name: "LCM Calculator",
-                              description: "Least Common Multiple",
-                              href: "/calculators/math/lcm-calculator",
-                              icon: Layers,
-                            },
-                          ]}
-                        />
-                      </div>
+            <div className="mt-12">
+              <RelatedCalculators
+                calculators={[
+                  {
+                    name: "Grade Calculator",
+                    description: "Semester & Cumulative",
+                    href: "/calculators/education/grade-calculator",
+                    icon: Target,
+                  },
+                  {
+                    name: "LCM Calculator",
+                    description: "Least Common Multiple",
+                    href: "/calculators/math/lcm-calculator",
+                    icon: Layers,
+                  },
+                ]}
+              />
+            </div>
           </div>
         </div>
       </div>

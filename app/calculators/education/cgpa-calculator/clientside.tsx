@@ -28,12 +28,15 @@ const GRADE_SCALE: { [key: string]: number } = {
 
 type Semester = {
   id: string;
-  name: string;           // e.g., "Semester 1", "Fall 2025"
+  name: string;
   gpa: string;
   credits: string;
 };
 
 export default function CGPACalculator() {
+  // isMounted is kept only to gate the auto-save effect (so we don't
+  // overwrite saved history with defaults before it's loaded). It no
+  // longer gates the render — that's what was causing your 0.373 CLS.
   const [isMounted, setIsMounted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -52,8 +55,6 @@ export default function CGPACalculator() {
 
   // Load from localStorage on mount
   useEffect(() => {
-    setIsMounted(true);
-
     const history = getCalculatorHistory();
     if (history["cgpa-calc"]?.data?.semesters) {
       setSemesters(history["cgpa-calc"].data.semesters);
@@ -62,6 +63,8 @@ export default function CGPACalculator() {
 
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((t) => t.href === calculatorInfo.href));
+
+    setIsMounted(true);
   }, []);
 
   // Save to localStorage whenever semesters change
@@ -126,8 +129,6 @@ export default function CGPACalculator() {
     };
   }, [semesters]);
 
-  if (!isMounted) return null;
-
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -140,21 +141,24 @@ export default function CGPACalculator() {
               <button
                 onClick={handleToggleSave}
                 className="absolute top-4 right-4 p-2 rounded-xl border hover:bg-secondary transition-colors"
-                aria-label="Save Calculator"
+                aria-label={isSaved ? "Remove CGPA calculator from saved tools" : "Save CGPA calculator to your tools"}
+                aria-pressed={isSaved}
               >
                 <Heart
                   size={18}
+                  aria-hidden="true"
                   className={isSaved ? "fill-red-500 text-red-500" : ""}
                 />
               </button>
 
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <GraduationCap size={20} className="text-primary" />
+                <GraduationCap size={20} className="text-primary" aria-hidden="true" />
                 CGPA Statistics
               </h2>
 
+              {/* min-h-[220px] on both branches prevents layout shift when toggling */}
               {showResults ? (
-                <div className="space-y-4">
+                <div className="space-y-4 min-h-[220px]">
                   <div className="bg-primary/5 border rounded-2xl p-8 text-center">
                     <p className="text-[10px] font-black uppercase text-primary tracking-widest">
                       Your CGPA
@@ -175,8 +179,8 @@ export default function CGPACalculator() {
                   </button>
                 </div>
               ) : (
-                <div className="p-12 text-center border-2 border-dashed rounded-2xl opacity-50">
-                  <Calculator className="mx-auto mb-3" />
+                <div className="min-h-[220px] flex flex-col items-center justify-center text-center border-2 border-dashed rounded-2xl opacity-50">
+                  <Calculator className="mx-auto mb-3" aria-hidden="true" />
                   <p className="text-xs font-bold">
                     Calculate to see results
                   </p>
@@ -208,6 +212,7 @@ export default function CGPACalculator() {
                       <input
                         type="text"
                         placeholder={`Semester ${index + 1}`}
+                        aria-label={`Semester name for entry ${index + 1}`}
                         value={sem.name}
                         onChange={(e) => updateSemester(sem.id, "name", e.target.value)}
                         className="w-full p-2 bg-background border rounded-lg text-sm outline-none focus:ring-2 focus:ring-primary/20"
@@ -221,6 +226,7 @@ export default function CGPACalculator() {
                             <label className="text-[10px] uppercase font-bold text-muted-foreground mb-1 block md:hidden text-center">Credits</label>
                             <input
                                 type="number"
+                                aria-label={`Credit hours for semester ${index + 1}`}
                                 value={sem.credits}
                                 onChange={(e) => updateSemester(sem.id, "credits", e.target.value)}
                                 className="w-full p-2 bg-background border rounded-lg text-sm text-center outline-none focus:ring-2 focus:ring-primary/20"
@@ -236,6 +242,7 @@ export default function CGPACalculator() {
                                     step="0.01"
                                     min="0"
                                     max="4.0"
+                                    aria-label={`GPA for semester ${index + 1}`}
                                     value={sem.gpa}
                                     onChange={(e) => updateSemester(sem.id, "gpa", e.target.value)}
                                     placeholder="3.45"
@@ -245,10 +252,11 @@ export default function CGPACalculator() {
 
                             <button
                                 onClick={() => removeSemester(sem.id)}
-                                className="md:mt-0 mt-5 p-2 text-muted-foreground hover:text-red-500 shrink-0 transition-colors"
-                                aria-label="Remove Semester"
+                                disabled={semesters.length <= 1}
+                                className="md:mt-0 mt-5 p-2 text-muted-foreground hover:text-red-500 shrink-0 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                                aria-label={`Remove semester ${index + 1}`}
                             >
-                                <Trash2 size={16} />
+                                <Trash2 size={16} aria-hidden="true" />
                             </button>
                         </div>
                     </div>
@@ -268,15 +276,13 @@ export default function CGPACalculator() {
               <button
                 onClick={() => {
                     setShowResults(true);
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); // Helpful for mobile users to see results
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
                 className="w-full mt-8 px-8 py-4 bg-green-600 text-white rounded-xl font-black uppercase tracking-wide flex items-center justify-center gap-2 hover:bg-green-700 transition-all active:scale-[0.98] shadow-lg shadow-green-900/20"
               >
-                Calculate CGPA <CheckCircle2 size={18} />
+                Calculate CGPA <CheckCircle2 size={18} aria-hidden="true" />
               </button>
             </section>
-
-           
           </div>
         </div>
          {/* Related Calculators */}

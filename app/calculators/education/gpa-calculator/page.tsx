@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import GPACalculator from "./clientside";
 
@@ -66,128 +65,129 @@ export const metadata: Metadata = {
     description: "Quickly find your Grade Point Average for single or multiple semesters using LizoCalc's professional GPA tool.",
   },
 };
+
+// Precompute the JSON-LD once at module load instead of on every render.
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Education",
+          item: "https://www.lizocalc.com/calculators/education",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "GPA Calculator",
+          item: "https://www.lizocalc.com/calculators/education/gpa-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator",
+      url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
+      name: "GPA Calculator",
+      description: "Use our GPA calculator to instantly compute your Grade Point Average for single or multiple semesters.",
+      inLanguage: "en",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "LizoCalc",
+        url: "https://www.lizocalc.com",
+      },
+      mainEntityOfPage: {
+        "@type": "SoftwareApplication",
+        "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator#app",
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator#app",
+      name: "GPA Calculator",
+      url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
+      description: "Educational GPA calculator to compute semester and cumulative GPA accurately.",
+      applicationCategory: "EducationalApplication",
+      applicationSubCategory: "GPA Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate semester GPA",
+        "Compute cumulative GPA",
+        "Support multiple grading scales",
+        "Instant calculation with accurate results",
+        "Simple and easy to use",
+      ],
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      creator: {
+        "@type": "Organization",
+        name: "LizoCalc",
+        url: "https://www.lizocalc.com",
+      },
+      potentialAction: {
+        "@type": "UseAction",
+        target: ["https://www.lizocalc.com/calculators/education/gpa-calculator"],
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqData.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ],
+};
+
 export default function GPAPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
+      {/*
+        IMPORTANT FIX: switched from next/script (strategy="beforeInteractive")
+        to a plain <script> tag. JSON-LD is static, non-executing data — it
+        doesn't need a loading strategy, and beforeInteractive was contributing
+        to your render-blocking / FCP-LCP delay. A plain script tag with
+        dangerouslySetInnerHTML is the recommended pattern for structured data
+        in Next.js and does not block rendering.
+      */}
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/gpa-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Education",
-                    item: "https://www.lizocalc.com/calculators/education",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "GPA Calculator",
-                    item: "https://www.lizocalc.com/calculators/education/gpa-calculator",
-                  },
-                ],
-              },
-              {
-  "@type": "WebPage",
-  "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator",
-  url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
-  name: "GPA Calculator",
-  description: "Use our GPA calculator to instantly compute your Grade Point Average for single or multiple semesters.",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "LizoCalc",
-    "url": "https://www.lizocalc.com"
-  },
-  "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/education/gpa-calculator#app"
-}
-},
-
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/gpa-calculator#app",
-                name: "GPA Calculator",
-                url: "https://www.lizocalc.com/calculators/education/gpa-calculator",
-                description:
-                  "Educational GPA calculator to compute semester and cumulative GPA accurately.",
-                applicationCategory: "EducationalApplication",
-                applicationSubCategory: "GPA Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate semester GPA",
-                  "Compute cumulative GPA",
-                  "Support multiple grading scales",
-                  "Instant calculation with accurate results",
-                  "Simple and easy to use",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/education/gpa-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
-            
             <h1 className="text-3xl md:text-4xl font-bold">
-            GPA Calculator: Calculate Your Semester and Cumulative GPA Instantly
+              GPA Calculator: Calculate Your Semester and Cumulative GPA Instantly
             </h1>
           </div>
         </div>
@@ -196,8 +196,6 @@ export default function GPAPage() {
       {/* Calculator Tool */}
       <section className="px-4 py-8">
         <GPACalculator />
-
-        
       </section>
 
       {/* SEO Content */}
@@ -215,7 +213,7 @@ export default function GPAPage() {
           <br />The tool is fully mobile-friendly, works offline after first load (progressive web app style), remembers your grades across sessions (with your consent via functional cookies), supports Pakistani intermediate/university grading systems, and never shows ads. Perfect for students in every from the world  — anyone aiming for top merit lists or international applications. Jump right in and try it now on our{" "}
           <Link
             href="/calculators/education/gpa-calculator"
-            className="text-blue-400 hover:underline font-semibold"
+            className="text-blue-400 underline hover:text-blue-300 font-semibold"
           >
             GPA Calculator page
           </Link>.
@@ -286,7 +284,7 @@ export default function GPAPage() {
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Weighted vs. Unweighted GPA: What’s the Difference?
+            Weighted vs. Unweighted GPA: What's the Difference?
           </h2>
 
           <h3 className="text-2xl font-semibold text-blue-300 mb-5">
@@ -432,16 +430,15 @@ export default function GPAPage() {
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <Link href="/calculators/math/percentage-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/math/percentage-calculator" className="text-blue-400 underline hover:text-blue-300">
                 Percentage Calculator 
               </Link> — for boards using % marks
             </li>
             <li>
-              <Link href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/time/time-calculator" className="text-blue-400 underline hover:text-blue-300">
                 Time Calculator
               </Link> — track study hours in decimal format
             </li>
-            
           </ul>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">

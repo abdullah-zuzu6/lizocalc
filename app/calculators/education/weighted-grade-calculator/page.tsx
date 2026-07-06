@@ -107,228 +107,239 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured data is built once at module scope and safely serialized below.
+// `strategy="afterInteractive"` (instead of "beforeInteractive") stops this
+// script from blocking the initial render — this alone was costing
+// 400-1000ms of render-blocking time per the PageSpeed report. The
+// `.replace(/</g, "\\u003c")` call escapes any "<" characters so the JSON
+// can never be misread as a `</script>` tag (a standard XSS-hardening step
+// for `dangerouslySetInnerHTML` + JSON-LD).
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    /* ── 1. BREADCRUMB ── */
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Education",
+          item: "https://www.lizocalc.com/calculators/education",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Weighted Grade Calculator",
+          item: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+        },
+      ],
+    },
+
+    /* ── 2. PERSON (E-E-A-T) ── */
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#author",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.lizocalc.com/about",
+      jobTitle: "MERN Stack Developer & Tool Maker",
+      description:
+        "Mechatronics & Control Engineering student, MERN Stack developer, and academic tool maker behind LizoCalc.",
+      knowsAbout: [
+        "Academic Grading Systems",
+        "Weighted GPA Calculation",
+        "Educational Tools",
+        "Web Development",
+      ],
+      sameAs: [
+        "https://github.com/abdullah-zuzu6",
+        "https://www.linkedin.com/in/abdullahsajjad06/",
+      ],
+    },
+
+    /* ── 3. ORGANIZATION ── */
+    {
+      "@type": "Organization",
+      "@id": "https://www.lizocalc.com/#org",
+      name: "LizoCalc",
+      url: "https://www.lizocalc.com",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.lizocalc.com/logo.png",
+      },
+      foundingDate: "2026",
+      founder: { "@id": "https://www.lizocalc.com/#author" },
+    },
+
+    /* ── 4. WEBSITE ── */
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      publisher: { "@id": "https://www.lizocalc.com/#org" },
+    },
+
+    /* ── 5. WEBPAGE ── */
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+      url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+      name: "Weighted Grade Calculator — Calculate Your Course Grade Instantly",
+      description:
+        "Free weighted grade calculator. Enter your scores and category weights to compute your exact course grade, see the impact of your final exam, and understand your semester standing.",
+      inLanguage: "en",
+      datePublished: "2026-05-21",
+      dateModified: "2026-05-21",
+      author: { "@id": "https://www.lizocalc.com/#author" },
+      publisher: { "@id": "https://www.lizocalc.com/#org" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#breadcrumb",
+      },
+      primaryImageOfPage: {
+        "@id":
+          "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp#image",
+      },
+    },
+
+    /* ── 6. SOFTWARE APPLICATION ── */
+    {
+      "@type": "SoftwareApplication",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#app",
+      name: "Weighted Grade Calculator",
+      url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+      description:
+        "Free weighted grade calculator to compute your course grade from multiple assignment categories with different percentage weights.",
+      applicationCategory: "EducationalApplication",
+      applicationSubCategory: "Grade Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      softwareVersion: "1.0",
+      datePublished: "2026-05-21",
+      dateModified: "2026-05-21",
+      browserRequirements:
+        "Requires JavaScript. Works on all modern browsers.",
+      featureList: [
+        "Calculate weighted course grade from multiple categories",
+        "Support for percentage and point-based weights",
+        "Final exam requirement calculator",
+        "Works for high school, college, and university grading",
+        "Mobile-friendly, instant results",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@id": "https://www.lizocalc.com/#org" },
+      potentialAction: {
+        "@type": "UseAction",
+        target:
+          "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+      },
+    },
+
+    /* ── 7. HOWTO ── */
+    {
+      "@type": "HowTo",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#howto",
+      name: "How to Calculate Your Weighted Grade",
+      description:
+        "Step-by-step guide to computing a weighted course grade using the LizoCalc Weighted Grade Calculator.",
+      totalTime: "PT2M",
+      image: {
+        "@id":
+          "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp#image",
+      },
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Add your assignment categories",
+          text: "Click 'Add Category' and enter each grading category your professor uses, such as Homework, Quizzes, Midterm Exam, Final Exam, and Projects.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Enter your score for each category",
+          text: "Type your current average score (as a percentage, 0–100) for each category you have completed.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Enter the weight for each category",
+          text: "Enter the weight percentage your professor assigns to each category. Make sure all weights add up to 100%.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Read your weighted grade instantly",
+          text: "Your overall weighted course grade appears immediately, along with your letter grade and a breakdown by category contribution.",
+        },
+      ],
+    },
+
+    /* ── 8. FAQ PAGE ── */
+    {
+      "@type": "FAQPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#faq",
+      mainEntity: faqData.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: { "@type": "Answer", text: item.answer },
+      })),
+    },
+
+    /* ── 9. IMAGE OBJECT ── */
+    {
+      "@type": "ImageObject",
+      "@id":
+        "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp#image",
+      url: "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp",
+      name: "Weighted Grade Formula Example with Score and Percentage Calculations",
+      caption:
+        "Visual breakdown of the weighted grade formula: Weighted Grade = Σ(Score × Weight) / ΣWeights, illustrated with a real example showing homework, quiz, and exam contributions.",
+      description:
+        "Infographic showing how weighted grades are calculated, with a worked example table displaying assignment categories, scores, weights, and their individual percentage contributions to the final grade.",
+      width: 800,
+      height: 500,
+      contentUrl:
+        "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp",
+      encodingFormat: "image/webp",
+    },
+  ],
+};
+
 export default function WeightedGradePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === STRUCTURED DATA === */}
+      {/* === STRUCTURED DATA ===
+          strategy="afterInteractive" lets the page paint first, then injects
+          this script — it no longer blocks FCP/LCP. */}
       <Script
         id="structured-data-weighted-grade"
         type="application/ld+json"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              /* ── 1. BREADCRUMB ── */
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Education",
-                    item: "https://www.lizocalc.com/calculators/education",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Weighted Grade Calculator",
-                    item: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
-                  },
-                ],
-              },
-
-              /* ── 2. PERSON (E-E-A-T) ── */
-              {
-                "@type": "Person",
-                "@id": "https://www.lizocalc.com/#author",
-                name: "Rana Muhammad Abdullah",
-                url: "https://www.lizocalc.com/about",
-                jobTitle: "MERN Stack Developer & Tool Maker",
-                description:
-                  "Mechatronics & Control Engineering student, MERN Stack developer, and academic tool maker behind LizoCalc.",
-                knowsAbout: [
-                  "Academic Grading Systems",
-                  "Weighted GPA Calculation",
-                  "Educational Tools",
-                  "Web Development",
-                ],
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 3. ORGANIZATION ── */
-              {
-                "@type": "Organization",
-                "@id": "https://www.lizocalc.com/#org",
-                name: "LizoCalc",
-                url: "https://www.lizocalc.com",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.lizocalc.com/logo.png",
-                },
-                foundingDate: "2026",
-                founder: { "@id": "https://www.lizocalc.com/#author" },
-              },
-
-              /* ── 4. WEBSITE ── */
-              {
-                "@type": "WebSite",
-                "@id": "https://www.lizocalc.com/#website",
-                url: "https://www.lizocalc.com",
-                name: "LizoCalc",
-                publisher: { "@id": "https://www.lizocalc.com/#org" },
-              },
-
-              /* ── 5. WEBPAGE ── */
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
-                url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
-                name: "Weighted Grade Calculator — Calculate Your Course Grade Instantly",
-                description:
-                  "Free weighted grade calculator. Enter your scores and category weights to compute your exact course grade, see the impact of your final exam, and understand your semester standing.",
-                inLanguage: "en",
-                datePublished: "2026-05-21",
-                dateModified: "2026-05-21",
-                author: { "@id": "https://www.lizocalc.com/#author" },
-                publisher: { "@id": "https://www.lizocalc.com/#org" },
-                isPartOf: { "@id": "https://www.lizocalc.com/#website" },
-                breadcrumb: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#breadcrumb",
-                },
-                primaryImageOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp#image",
-                },
-              },
-
-              /* ── 6. SOFTWARE APPLICATION ── */
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#app",
-                name: "Weighted Grade Calculator",
-                url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
-                description:
-                  "Free weighted grade calculator to compute your course grade from multiple assignment categories with different percentage weights.",
-                applicationCategory: "EducationalApplication",
-                applicationSubCategory: "Grade Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                softwareVersion: "1.0",
-                datePublished: "2026-05-21",
-                dateModified: "2026-05-21",
-                browserRequirements:
-                  "Requires JavaScript. Works on all modern browsers.",
-                featureList: [
-                  "Calculate weighted course grade from multiple categories",
-                  "Support for percentage and point-based weights",
-                  "Final exam requirement calculator",
-                  "Works for high school, college, and university grading",
-                  "Mobile-friendly, instant results",
-                ],
-                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-                creator: { "@id": "https://www.lizocalc.com/#org" },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target:
-                    "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
-                },
-              },
-
-              /* ── 7. HOWTO ── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#howto",
-                name: "How to Calculate Your Weighted Grade",
-                description:
-                  "Step-by-step guide to computing a weighted course grade using the LizoCalc Weighted Grade Calculator.",
-                totalTime: "PT2M",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp#image",
-                },
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Add your assignment categories",
-                    text: "Click 'Add Category' and enter each grading category your professor uses, such as Homework, Quizzes, Midterm Exam, Final Exam, and Projects.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Enter your score for each category",
-                    text: "Type your current average score (as a percentage, 0–100) for each category you have completed.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Enter the weight for each category",
-                    text: "Enter the weight percentage your professor assigns to each category. Make sure all weights add up to 100%.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Read your weighted grade instantly",
-                    text: "Your overall weighted course grade appears immediately, along with your letter grade and a breakdown by category contribution.",
-                  },
-                ],
-              },
-
-              /* ── 8. FAQ PAGE ── */
-              {
-                "@type": "FAQPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#faq",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: { "@type": "Answer", text: item.answer },
-                })),
-              },
-
-              /* ── 9. IMAGE OBJECT ── */
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp#image",
-                url: "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp",
-                name: "Weighted Grade Formula Example with Score and Percentage Calculations",
-                caption:
-                  "Visual breakdown of the weighted grade formula: Weighted Grade = Σ(Score × Weight) / ΣWeights, illustrated with a real example showing homework, quiz, and exam contributions.",
-                description:
-                  "Infographic showing how weighted grades are calculated, with a worked example table displaying assignment categories, scores, weights, and their individual percentage contributions to the final grade.",
-                width: 800,
-                height: 500,
-                contentUrl:
-                  "https://www.lizocalc.com/images/education/weighted-grade-formula-example.webp",
-                encodingFormat: "image/webp",
-              },
-            ],
-          }),
+          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
         }}
       />
 
@@ -528,10 +539,11 @@ export default function WeightedGradePage() {
             <Image
               src="/images/education/weighted-grade-formula-example.webp"
               alt="Weighted grade formula example with score and percentage calculations"
-              className="w-full object-cover"
+              className="w-full h-auto object-cover"
               width={800}
               height={500}
               loading="lazy"
+              quality={75}
               sizes="(max-width: 768px) 100vw, 800px"
             />
           </div>
@@ -1048,7 +1060,7 @@ export default function WeightedGradePage() {
             <li>
               <Link
                 href="/calculators/education/gpa-calculator"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 underline underline-offset-2 hover:text-blue-300"
               >
                 GPA Calculator
               </Link>{" "}
@@ -1057,7 +1069,7 @@ export default function WeightedGradePage() {
             <li>
               <Link
                 href="/calculators/math/percentage-calculator"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 underline underline-offset-2 hover:text-blue-300"
               >
                 Percentage Calculator
               </Link>{" "}
@@ -1075,20 +1087,20 @@ export default function WeightedGradePage() {
             <p className="text-white font-semibold text-sm">
               Written by Rana Muhammad Abdullah
             </p>
-            <p className="text-gray-400 text-xs">
+            <p className="text-gray-300 text-xs">
               MERN Stack Developer & Tool Maker · Mechatronics & Control
               Engineering Student ·{" "}
               <a
                 href="https://www.linkedin.com/in/abdullahsajjad06/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 underline underline-offset-2 hover:text-blue-300"
               >
                 LinkedIn
               </a>
             </p>
           </div>
-          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
+          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
             <span>📅 Published: Apr 1, 2026</span>
             <span>🔄 Updated: May 21, 2026</span>
             <span>✅ Formula verified</span>

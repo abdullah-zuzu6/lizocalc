@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
-import Link  from "next/link";
+import Link from "next/link";
 import AdvancedGradeCalculator from "./clientside";
 
 const faqData = [
@@ -67,126 +66,125 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Education",
+          item: "https://www.lizocalc.com/calculators/education",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Grade Calculator",
+          item: "https://www.lizocalc.com/calculators/education/grade-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/education/grade-calculator",
+      url: "https://www.lizocalc.com/calculators/education/grade-calculator",
+      name: "Advanced Grade Calculator",
+      description: "Use our advanced grade calculator to estimate your semester GPA, track academic performance, and project final grades instantly.",
+      inLanguage: "en",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "LizoCalc",
+        url: "https://www.lizocalc.com",
+      },
+      mainEntityOfPage: {
+        "@type": "SoftwareApplication",
+        "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app",
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app",
+      name: "Advanced Grade Calculator",
+      url: "https://www.lizocalc.com/calculators/education/grade-calculator",
+      description: "Advanced grade calculator to estimate semester GPA, weighted grades, and track academic progress.",
+      applicationCategory: "EducationalApplication",
+      applicationSubCategory: "Grade Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate semester GPA",
+        "Support for weighted grades",
+        "Track multiple courses",
+        "Instant academic standing projection",
+      ],
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      creator: {
+        "@type": "Organization",
+        name: "LizoCalc",
+        url: "https://www.lizocalc.com",
+      },
+      potentialAction: {
+        "@type": "UseAction",
+        target: ["https://www.lizocalc.com/calculators/education/grade-calculator"],
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqData.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ],
+};
+
 export default function GradePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
+      {/*
+        FIX: plain <script> tag instead of next/script strategy="beforeInteractive".
+        JSON-LD is static data — it doesn't need a loading strategy, and
+        beforeInteractive was contributing to your 1,340ms render-blocking
+        delay on mobile.
+      */}
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Education",
-                    item: "https://www.lizocalc.com/calculators/education",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Grade Calculator",
-                    item: "https://www.lizocalc.com/calculators/education/grade-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/education/grade-calculator",
-                url: "https://www.lizocalc.com/calculators/education/grade-calculator",
-                name: "Advanced Grade Calculator",
-                description: "Use our advanced grade calculator to estimate your semester GPA, track academic performance, and project final grades instantly.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app"
-}
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/grade-calculator#app",
-                name: "Advanced Grade Calculator",
-                url: "https://www.lizocalc.com/calculators/education/grade-calculator",
-                description:
-                  "Advanced grade calculator to estimate semester GPA, weighted grades, and track academic progress.",
-                applicationCategory: "EducationalApplication",
-                applicationSubCategory: "Grade Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate semester GPA",
-                  "Support for weighted grades",
-                  "Track multiple courses",
-                  "Instant academic standing projection",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/education/grade-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
-            
             <h1 className="text-3xl md:text-4xl font-bold">
-Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1>
+              Grade Calculator: Track Your Class Standing and Final Exam Goals
+            </h1>
           </div>
         </div>
       </section>
@@ -197,7 +195,7 @@ Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1
       </section>
 
       {/* SEO Content */}
-     <article className="max-w-6xl mx-auto px-6 py-16 text-white">
+      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
         <p className="text-gray-200 leading-relaxed mb-6 text-lg">
           The <strong>Grade Calculator</strong> (also known as current grade tracker, final exam predictor, or weighted grade calculator) is an indispensable tool for students  — especially those in condition preparing for Matric, FSc, A-Levels, or university semesters. Whether you're anxiously checking your current standing after midterms, forecasting what you need on finals to secure an A, or planning how much weight each assignment category carries, knowing your exact grade at any moment removes stress and helps you study smarter. In competitive academic environments like Punjab boards, university merit lists, and scholarship applications, even 0.5–1% can make the difference between first division and second, or qualifying for UET/NUST/LUMS.
         </p>
@@ -212,7 +210,7 @@ Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1
           <br />The tool is mobile-optimized, works offline after first load, saves your course data locally via functional cookies (with your consent), updates in real-time, and contains zero ads. Perfect for intermediate students in Sahiwal, university undergraduates, tuition-going kids, and parents tracking progress. Try it now on our{" "}
           <Link
             href="/calculators/education/grade-calculator"
-            className="text-blue-400 hover:underline font-semibold"
+            className="text-blue-400 underline hover:text-blue-300 font-semibold"
           >
             Grade Calculator page
           </Link>.
@@ -234,7 +232,6 @@ Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1
                 <li>Add individual scores: assignment name, points earned / total points or percentage</li>
                 <li>Watch your current grade update live as you type</li>
               </ol>
-              
             </div>
           </div>
 
@@ -432,16 +429,15 @@ Grade Calculator: Track Your Class Standing and Final Exam Goals            </h1
 
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <Link href="/calculators/education/gpa-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/education/gpa-calculator" className="text-blue-400 underline hover:text-blue-300">
                 GPA Calculator
               </Link> — convert grades to 4.0 scale & track CGPA
             </li>
             <li>
-              <Link href="/calculators/time/time-calculator" className="text-blue-400 hover:underline">
+              <Link href="/calculators/time/time-calculator" className="text-blue-400 underline hover:text-blue-300">
                 Time Calculator
               </Link> — convert study hours to decimal for productivity logs
             </li>
-           
           </ul>
 
           <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">

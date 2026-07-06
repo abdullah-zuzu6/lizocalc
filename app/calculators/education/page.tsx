@@ -40,12 +40,10 @@ export const metadata: Metadata = {
     // creator: "@lizocalc",   // Uncomment and add your handle if you have one
   },
 
-  // Additional SEO
   robots: {
-    index: false,
-    follow: true,
-  },
-
+  index: true,
+  follow: true,
+},
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/education",
   },

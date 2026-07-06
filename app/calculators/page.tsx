@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.lizocalc.com/calculators',
   },
-  robots: {
-    index: false,
-    follow: true,
-  },
+ robots: {
+  index: true,
+  follow: true,
+},
 }
 
 export default function AllCalculatorsPage() {

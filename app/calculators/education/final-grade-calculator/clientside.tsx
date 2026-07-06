@@ -20,12 +20,15 @@ import {
 
 type GradeComponent = {
   id: string;
-  name: string;      // e.g., "Assignment 1", "Midterm", "Final Exam"
-  weight: string;    // percentage weight
-  score: string;     // obtained score in percentage
+  name: string;
+  weight: string;
+  score: string;
 };
 
 export default function FinalGradeCalculator() {
+  // isMounted is kept only to gate the auto-save effect (so we don't
+  // overwrite saved history with defaults before it's loaded). It no
+  // longer gates the render — that was causing your 0.381 CLS.
   const [isMounted, setIsMounted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [showResults, setShowResults] = useState(false);
@@ -45,8 +48,6 @@ export default function FinalGradeCalculator() {
 
   // Load from localStorage on mount
   useEffect(() => {
-    setIsMounted(true);
-
     const history = getCalculatorHistory();
     if (history["final-grade-calc"]?.data?.components) {
       setComponents(history["final-grade-calc"].data.components);
@@ -55,6 +56,8 @@ export default function FinalGradeCalculator() {
 
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((t) => t.href === calculatorInfo.href));
+
+    setIsMounted(true);
   }, []);
 
   // Save to localStorage whenever components change
@@ -127,8 +130,6 @@ export default function FinalGradeCalculator() {
     };
   }, [components]);
 
-  if (!isMounted) return null;
-
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
@@ -141,20 +142,24 @@ export default function FinalGradeCalculator() {
               <button
                 onClick={handleToggleSave}
                 className="absolute top-4 right-4 p-2 rounded-xl border"
+                aria-label={isSaved ? "Remove final grade calculator from saved tools" : "Save final grade calculator to your tools"}
+                aria-pressed={isSaved}
               >
                 <Heart 
                   size={18} 
+                  aria-hidden="true"
                   className={isSaved ? "fill-red-500 text-red-500" : ""} 
                 />
               </button>
 
               <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
-                <GraduationCap size={20} className="text-primary" />
+                <GraduationCap size={20} className="text-primary" aria-hidden="true" />
                 Final Grade
               </h2>
 
+              {/* min-h-[220px] on both branches prevents layout shift when toggling */}
               {showResults ? (
-                <div className="space-y-4">
+                <div className="space-y-4 min-h-[220px]">
                   <div className="bg-primary/5 border rounded-2xl p-8 text-center">
                     <p className="text-[10px] font-black uppercase text-primary tracking-widest">
                       YOUR FINAL GRADE
@@ -180,8 +185,8 @@ export default function FinalGradeCalculator() {
                   </button>
                 </div>
               ) : (
-                <div className="p-12 text-center border-2 border-dashed rounded-2xl opacity-50">
-                  <Calculator className="mx-auto mb-3" />
+                <div className="min-h-[220px] flex flex-col items-center justify-center text-center border-2 border-dashed rounded-2xl opacity-50">
+                  <Calculator className="mx-auto mb-3" aria-hidden="true" />
                   <p className="text-xs font-bold">Calculate to see results</p>
                 </div>
               )}
@@ -208,6 +213,7 @@ export default function FinalGradeCalculator() {
                     <input
                       type="text"
                       placeholder={`Component ${index + 1}`}
+                      aria-label={`Component name for item ${index + 1}`}
                       value={comp.name}
                       onChange={(e) => updateComponent(comp.id, "name", e.target.value)}
                       className="col-span-5 p-2 bg-background border rounded-lg text-sm outline-none"
@@ -216,6 +222,7 @@ export default function FinalGradeCalculator() {
                     {/* Weight */}
                     <input
                       type="number"
+                      aria-label={`Weight percentage for component ${index + 1}`}
                       value={comp.weight}
                       onChange={(e) => updateComponent(comp.id, "weight", e.target.value)}
                       className="col-span-3 p-2 bg-background border rounded-lg text-sm text-center outline-none"
@@ -225,6 +232,7 @@ export default function FinalGradeCalculator() {
                     <div className="col-span-4 flex items-center gap-1">
                       <input
                         type="number"
+                        aria-label={`Score percentage for component ${index + 1}`}
                         value={comp.score}
                         onChange={(e) => updateComponent(comp.id, "score", e.target.value)}
                         placeholder="85"
@@ -233,9 +241,11 @@ export default function FinalGradeCalculator() {
 
                       <button
                         onClick={() => removeComponent(comp.id)}
-                        className="p-2 text-muted-foreground hover:text-red-500 shrink-0"
+                        disabled={components.length <= 1}
+                        aria-label={`Remove component ${index + 1}`}
+                        className="p-2 text-muted-foreground hover:text-red-500 shrink-0 disabled:opacity-30 disabled:cursor-not-allowed"
                       >
-                        <Trash2 size={16} />
+                        <Trash2 size={16} aria-hidden="true" />
                       </button>
                     </div>
                   </div>
@@ -255,15 +265,11 @@ export default function FinalGradeCalculator() {
                 onClick={() => setShowResults(true)}
                 className="w-full mt-8 px-8 py-3 bg-green-600 text-white rounded-lg font-bold flex items-center justify-center gap-2 hover:bg-green-700 transition-colors"
               >
-                Calculate Final Grade <CheckCircle2 size={18} />
+                Calculate Final Grade <CheckCircle2 size={18} aria-hidden="true" />
               </button>
 
-              
             </section>
-
-           
           </div>
-          
         </div>
          {/* Related Calculators */}
             <div className="mt-12">
@@ -281,7 +287,6 @@ export default function FinalGradeCalculator() {
                     href: "/calculators/education/cgpa-calculator",
                     icon: Target,
                   },
-                  
                 ]}
               />
             </div>

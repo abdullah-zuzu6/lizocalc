@@ -2,10 +2,10 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import CGPACalculator from "./clientside";
 import Image from "next/image";
+
 const faqData = [
   {
     question: "How do I convert CGPA to a percentage?",
@@ -27,7 +27,6 @@ const faqData = [
     answer:
       "Yes. GPA usually refers to a single semester's performance, whereas CGPA is your total average across your entire degree. On a resume, you should always list your CGPA as it provides a complete picture of your academic consistency. If your major-specific grades are higher than your overall average, you may also list a 'Major CGPA' separately.",
   },
-
   {
     question: "Does CGPA matter for jobs?",
     answer:
@@ -96,234 +95,225 @@ export const metadata: Metadata = {
     images: ["https://www.lizocalc.com/images/cgpa-formula-diagram.webp"],
   },
 };
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/cgpa-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Education",
+          item: "https://www.lizocalc.com/calculators/education",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "CGPA Calculator",
+          item: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/cgpa-calculator",
+      url: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
+      name: "CGPA Calculator – Cumulative GPA on 4.0 & 10.0 Scale | LizoCalc",
+      description:
+        "Free online CGPA calculator to find cumulative grade point average across all semesters. Supports weighted, unweighted, and percentage conversions with step-by-step working.",
+      primaryImageOfPage:
+        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
+      inLanguage: "en",
+      datePublished: "2026-04-10",
+      dateModified: "2026-04-10",
+      isPartOf: {
+        "@type": "WebSite",
+        name: "LizoCalc",
+        url: "https://www.lizocalc.com",
+      },
+      author: {
+        "@type": "Person",
+        name: "Rana Muhammad Abdullah",
+        jobTitle:
+          "Founder of LizoCalc (Web Tool Developer – Mathematical & Utility Calculators)",
+        url: "https://www.lizocalc.com/about",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "LizoCalc",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://www.lizocalc.com/logo.webp",
+        },
+      },
+      mainEntity: {
+        "@type": "SoftwareApplication",
+        "@id":
+          "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
+      },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
+      name: "CGPA Calculator",
+      url: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
+      image:
+        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
+      description:
+        "Advanced CGPA calculator supporting weighted and unweighted calculations. Features include SGPA to CGPA conversion and target grade planning.",
+      applicationCategory: "EducationalApplication",
+      applicationSubCategory: "Academic Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements:
+        "Requires JavaScript. Works on all modern browsers.",
+      audience: {
+        "@type": "Audience",
+        audienceType:
+          "University Students, High School Students, Academic Counselors",
+      },
+      featureList: [
+        "Calculate CGPA from semester SGPA and credits",
+        "Support for both 4.0 and 10.0 scales",
+        "Weighted and Unweighted GPA options",
+        "Target CGPA planner tool",
+        "Automatic CGPA to Percentage conversion",
+        "Step-by-step calculation breakdown",
+        "Works offline after first load",
+        "Mobile-friendly, zero ads",
+      ],
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      creator: {
+        "@type": "Organization",
+        name: "LizoCalc",
+        url: "https://www.lizocalc.com",
+        logo: "https://www.lizocalc.com/logo.webp",
+      },
+      potentialAction: {
+        "@type": "UseAction",
+        target: [
+          "https://www.lizocalc.com/calculators/education/cgpa-calculator",
+        ],
+      },
+    },
+    {
+      "@type": "HowTo",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-calculate-cgpa",
+      name: "How to Calculate CGPA Manually",
+      image:
+        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
+      description:
+        "Learn the mathematical formula to find CGPA by weighting SGPAs across different semesters.",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Multiply SGPA by Credits",
+          text: "For each semester, multiply the SGPA by the total credits of that semester to get Quality Points.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Sum All Quality Points",
+          text: "Add the quality points from all semesters together.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Sum All Credits",
+          text: "Add the total number of credit hours attempted across all semesters.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 4,
+          name: "Divide and Solve",
+          text: "Divide the total quality points by the total credits. CGPA = Total Points / Total Credits.",
+        },
+      ],
+      tool: [{ "@type": "HowToTool", name: "Academic Transcript" }],
+    },
+    {
+      "@type": "HowTo",
+      "@id":
+        "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-convert-cgpa",
+      name: "How to Convert CGPA to Percentage",
+      image:
+        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
+      description:
+        "The standard method for converting your 4.0 or 10.0 scale CGPA into a percentage score.",
+      step: [
+        {
+          "@type": "HowToStep",
+          position: 1,
+          name: "Identify Your Scale",
+          text: "Determine if your CGPA is on a 4.0 or 10.0 scale.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 2,
+          name: "Apply the Formula",
+          text: "For a 4.0 scale, multiply your CGPA by 25. For a 10.0 scale, a common formula is (CGPA - 0.5) × 10.",
+        },
+        {
+          "@type": "HowToStep",
+          position: 3,
+          name: "Check Institutional Rules",
+          text: "Verify with your university (e.g., HEC or local boards) as some use specific lookup tables instead of direct multiplication.",
+        },
+      ],
+      tool: [{ "@type": "HowToTool", name: "Conversion Formula" }],
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: faqData.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    },
+  ],
+};
+
 export default function GPAPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      <Script
-        id="structured-data"
+
+      {/*
+        FIX: plain <script> tag instead of next/script strategy="beforeInteractive".
+        This was your single biggest render-blocking cost (1,390ms mobile).
+      */}
+      <script
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              // ── 1. BREADCRUMB ──────────────────────────────────────
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/cgpa-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Education",
-                    item: "https://www.lizocalc.com/calculators/education",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "CGPA Calculator",
-                    item: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-                  },
-                ],
-              },
-
-              // ── 2. WEBPAGE ─────────────────────────────────────────
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-                url: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-                name: "CGPA Calculator – Cumulative GPA on 4.0 & 10.0 Scale | LizoCalc",
-                description:
-                  "Free online CGPA calculator to find cumulative grade point average across all semesters. Supports weighted, unweighted, and percentage conversions with step-by-step working.",
-                primaryImageOfPage:
-                  "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-                inLanguage: "en",
-                datePublished: "2026-04-10",
-                dateModified: "2026-04-10",
-                isPartOf: {
-                  "@type": "WebSite",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                // Inside the WebPage object (@type: "WebPage")
-                author: {
-                  "@type": "Person",
-                  name: "Rana Muhammad Abdullah",
-                  jobTitle:
-                    "Founder of LizoCalc (Web Tool Developer – Mathematical & Utility Calculators)",
-                  url: "https://www.lizocalc.com/about",
-                },
-                publisher: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  logo: {
-                    "@type": "ImageObject",
-                    url: "https://www.lizocalc.com/logo.webp",
-                  },
-                },
-                mainEntity: {
-                  "@type": "SoftwareApplication",
-                  "@id":
-                    "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
-                },
-              },
-
-              // ── 3. SOFTWARE APPLICATION ────────────────────────────
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
-                name: "CGPA Calculator",
-                url: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-                image:
-                  "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-                description:
-                  "Advanced CGPA calculator supporting weighted and unweighted calculations. Features include SGPA to CGPA conversion and target grade planning.",
-                applicationCategory: "EducationalApplication",
-                applicationSubCategory: "Academic Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on all modern browsers.",
-                audience: {
-                  "@type": "Audience",
-                  audienceType:
-                    "University Students, High School Students, Academic Counselors",
-                },
-                featureList: [
-                  "Calculate CGPA from semester SGPA and credits",
-                  "Support for both 4.0 and 10.0 scales",
-                  "Weighted and Unweighted GPA options",
-                  "Target CGPA planner tool",
-                  "Automatic CGPA to Percentage conversion",
-                  "Step-by-step calculation breakdown",
-                  "Works offline after first load",
-                  "Mobile-friendly, zero ads",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                  logo: "https://www.lizocalc.com/logo.webp",
-                },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target: [
-                    "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-                  ],
-                },
-              },
-
-              //
-
-              // ── 5. HOWTO #2 — How to Calculate CGPA Manually ──
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-calculate-cgpa",
-                name: "How to Calculate CGPA Manually",
-                image:
-                  "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-                description:
-                  "Learn the mathematical formula to find CGPA by weighting SGPAs across different semesters.",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Multiply SGPA by Credits",
-                    text: "For each semester, multiply the SGPA by the total credits of that semester to get Quality Points.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Sum All Quality Points",
-                    text: "Add the quality points from all semesters together.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Sum All Credits",
-                    text: "Add the total number of credit hours attempted across all semesters.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Divide and Solve",
-                    text: "Divide the total quality points by the total credits. CGPA = Total Points / Total Credits.",
-                  },
-                ],
-                tool: [{ "@type": "HowToTool", name: "Academic Transcript" }],
-              },
-
-              // ── 6. HOWTO #3 — How to Convert CGPA to Percentage ──
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-convert-cgpa",
-                name: "How to Convert CGPA to Percentage",
-                image:
-                  "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-                description:
-                  "The standard method for converting your 4.0 or 10.0 scale CGPA into a percentage score.",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Identify Your Scale",
-                    text: "Determine if your CGPA is on a 4.0 or 10.0 scale.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Apply the Formula",
-                    text: "For a 4.0 scale, multiply your CGPA by 25. For a 10.0 scale, a common formula is (CGPA - 0.5) × 10.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Check Institutional Rules",
-                    text: "Verify with your university (e.g., HEC or local boards) as some use specific lookup tables instead of direct multiplication.",
-                  },
-                ],
-                tool: [{ "@type": "HowToTool", name: "Conversion Formula" }],
-              },
-
-              // ── 7. FAQ PAGE ────────────────────────────────────────
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
@@ -440,7 +430,6 @@ export default function GPAPage() {
             on the 4.0 scale.
           </p>
         </div>
-        {/* Logic & Definition Section (AEO/GEO Optimized) */}
 
         {/* Mathematical Breakdown Section */}
         <section className="mt-24">
@@ -450,7 +439,13 @@ export default function GPAPage() {
 
           <div className="grid lg:grid-cols-3 gap-8 mb-12">
             <div className="bg-gray-900 p-8 rounded-3xl border border-gray-800 hover:border-blue-500/50 transition-all">
-              <h4 className="text-green-400 font-mono text-sm mb-4">STEP 01</h4>
+              {/*
+                FIX (heading order): "STEP 01" is a decorative label, not a
+                real heading — it was an h4 sitting BEFORE the h3, which
+                Lighthouse flags as a non-sequential heading order. Changed
+                to a styled <p> so the h2 → h3 hierarchy stays clean.
+              */}
+              <p className="text-green-400 font-mono text-sm mb-4" aria-hidden="true">STEP 01</p>
               <h3 className="text-xl font-bold text-white mb-3">
                 Identify Quality Points
               </h3>
@@ -460,7 +455,7 @@ export default function GPAPage() {
               </p>
             </div>
             <div className="bg-gray-900 p-8 rounded-3xl border border-gray-800 hover:border-blue-500/50 transition-all">
-              <h4 className="text-green-400 font-mono text-sm mb-4">STEP 02</h4>
+              <p className="text-green-400 font-mono text-sm mb-4" aria-hidden="true">STEP 02</p>
               <h3 className="text-xl font-bold text-white mb-3">
                 Aggregate Sums
               </h3>
@@ -470,7 +465,7 @@ export default function GPAPage() {
               </p>
             </div>
             <div className="bg-gray-900 p-8 rounded-3xl border border-gray-800 hover:border-blue-500/50 transition-all">
-              <h4 className="text-green-400 font-mono text-sm mb-4">STEP 03</h4>
+              <p className="text-green-400 font-mono text-sm mb-4" aria-hidden="true">STEP 03</p>
               <h3 className="text-xl font-bold text-white mb-3">
                 Apply Weighting
               </h3>
@@ -481,7 +476,6 @@ export default function GPAPage() {
             </div>
           </div>
 
-          {/* <div className="text-center bg-gray-900/80 p-12 rounded-3xl border border-blue-500/20 shadow-2xl"> */}
           <div>
             <h3 className="text-2xl font-semibold text-blue-300 mb-8 uppercase tracking-widest">
               CGPA Formula (Step-by-Step Calculation with Example){" "}
@@ -492,8 +486,10 @@ export default function GPAPage() {
                 alt="CGPA formula calculation example with credits and grade points (4.0 scale)"
                 width={850}
                 height={500}
-                priority
-                className="rounded-xl mx-auto mb-6"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 850px"
+                quality={80}
+                className="rounded-xl mx-auto mb-6 w-full h-auto"
               />
               <figcaption className="text-gray-500 text-sm italic">
                 Fig 1.1: Technical breakdown of the Cumulative Grade Point
@@ -529,7 +525,7 @@ export default function GPAPage() {
           </h2>
 
           <p className="text-gray-200 text-lg mb-8 leading-relaxed">
-            Tracking your cumulative performance doesn’t have to be complicated.
+            Tracking your cumulative performance doesn't have to be complicated.
             Whether you are using a 4.0 scale or a percentage-based system,
             follow this streamlined process to find your current standing:
           </p>
@@ -537,7 +533,7 @@ export default function GPAPage() {
           <ol className="space-y-12">
             {/* Step 1 */}
             <li className="bg-gray-800/30 p-8 rounded-3xl border border-gray-700 relative">
-              <span className="absolute -top-4 -left-4 bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold shadow-lg">
+              <span className="absolute -top-4 -left-4 bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold shadow-lg" aria-hidden="true">
                 1
               </span>
               <h3 className="text-2xl font-semibold text-white mb-4 ml-4">
@@ -545,7 +541,7 @@ export default function GPAPage() {
               </h3>
               <p className="text-gray-300 mb-4">
                 First, convert your letter grades into their numerical
-                equivalents based on your school’s grading scale.
+                equivalents based on your school's grading scale.
               </p>
               <ul className="list-disc list-inside text-gray-400 space-y-2 ml-4">
                 <li>
@@ -560,7 +556,7 @@ export default function GPAPage() {
 
             {/* Step 2 */}
             <li className="bg-gray-800/30 p-8 rounded-3xl border border-gray-700 relative">
-              <span className="absolute -top-4 -left-4 bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold shadow-lg">
+              <span className="absolute -top-4 -left-4 bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold shadow-lg" aria-hidden="true">
                 2
               </span>
               <h3 className="text-2xl font-semibold text-white mb-4 ml-4">
@@ -581,7 +577,7 @@ export default function GPAPage() {
 
             {/* Step 3 */}
             <li className="bg-gray-800/30 p-8 rounded-3xl border border-gray-700 relative">
-              <span className="absolute -top-4 -left-4 bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold shadow-lg">
+              <span className="absolute -top-4 -left-4 bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-full font-bold shadow-lg" aria-hidden="true">
                 3
               </span>
               <h3 className="text-2xl font-semibold text-white mb-4 ml-4">
@@ -713,7 +709,7 @@ export default function GPAPage() {
             4.0 scale and open doors to better opportunities.you can{" "}
             <Link
               href="/calculators/education/gpa-calculator"
-              className="text-cyan-700"
+              className="text-blue-400 underline hover:text-blue-300"
             >
               Calculate your single-semester GPA
             </Link>{" "}
@@ -813,7 +809,7 @@ export default function GPAPage() {
             <li>
               <Link
                 href="/calculators/education/grade-calculator"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 underline hover:text-blue-300"
               >
                 Grade Calculator
               </Link>{" "}
@@ -825,7 +821,7 @@ export default function GPAPage() {
             <li>
               <Link
                 href="/calculators/education/gpa-calculator"
-                className="text-blue-400 hover:underline"
+                className="text-blue-400 underline hover:text-blue-300"
               >
                 GPA Calculator
               </Link>{" "}

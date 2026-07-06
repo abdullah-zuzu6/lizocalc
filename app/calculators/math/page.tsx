@@ -40,11 +40,10 @@ export const metadata: Metadata = {
       "Free scientific calculator, percentage, fraction, LCM, GCF, and algebra tools by LizoCalc.",
   },
 
-  // Other SEO
   robots: {
-   index: false,
-    follow: true,
-  },
+  index: true,
+  follow: true,
+},
 
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/math",
