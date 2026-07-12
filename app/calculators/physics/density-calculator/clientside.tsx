@@ -86,13 +86,18 @@ export default function DensityCalculator() {
   ];
 
   // --- State ---
+  // NOTE: these defaults are what both the server AND the first client render
+  // use. We never hide the UI behind an "isMounted" gate anymore — that was
+  // the #1 cause of your 0.59 CLS score, because the whole calculator used
+  // to pop into existence after hydration. Instead we render the full layout
+  // immediately with sane defaults, then quietly upgrade values from history
+  // in an effect (a value changing inside an input does not shift layout).
   const [mass, setMass] = useState<string>("100");
   const [massUnit, setMassUnit] = useState<string>("kg");
   const [volume, setVolume] = useState<string>("1");
   const [volumeUnit, setVolumeUnit] = useState<string>("m3");
   const [densityUnit, setDensityUnit] = useState<string>("kg_m3");
 
-  const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
@@ -104,11 +109,8 @@ export default function DensityCalculator() {
     category: "Physics",
   };
 
-  // --- Initialize & Load ---
+  // --- Load persisted state (does NOT block first paint) ---
   useEffect(() => {
-    setIsMounted(true);
-    
-    // Load inputs from history
     const history = getCalculatorHistory();
     if (history["density-calc"]?.data) {
       const data = history["density-calc"].data;
@@ -119,14 +121,13 @@ export default function DensityCalculator() {
       setDensityUnit(data.densityUnit || "kg_m3");
     }
 
-    // Check if tool is favorited
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Auto-Save History ---
   useEffect(() => {
-    if (!isMounted) return;
     saveCalculatorHistory("density-calc", {
       mass,
       massUnit,
@@ -134,7 +135,7 @@ export default function DensityCalculator() {
       volumeUnit,
       densityUnit,
     });
-  }, [mass, massUnit, volume, volumeUnit, densityUnit, isMounted]);
+  }, [mass, massUnit, volume, volumeUnit, densityUnit]);
 
   // --- Toggle Save Logic ---
   const handleToggleSave = () => {
@@ -168,25 +169,30 @@ export default function DensityCalculator() {
     };
   }, [trigger, mass, massUnit, volume, volumeUnit, densityUnit]);
 
-  if (!isMounted) return null;
-
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    // Changed from <main> to <div>: page.tsx already renders the page's
+    // single <main> landmark. Two <main> elements on one page is what was
+    // flagging "Accessibility tree is not well-formed" in Agentic Browsing.
+    <div className="min-h-screen bg-background text-foreground">
       <section className="py-4 md:py-8 px-4 max-w-7xl mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-          
           {/* Inputs Section */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm relative overflow-hidden">
-              
               {/* SAVE CALCULATOR BUTTON */}
-              <button 
+              <button
                 onClick={handleToggleSave}
                 title={isSaved ? "Remove from saved" : "Save calculator"}
+                aria-label={
+                  isSaved
+                    ? "Remove Density Calculator from saved"
+                    : "Save Density Calculator"
+                }
+                aria-pressed={isSaved}
                 className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
-                  isSaved 
-                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm" 
-                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                  isSaved
+                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm"
+                    : "bg-secondary border-transparent text-gray-300 hover:text-foreground"
                 }`}
               >
                 <Heart size={20} className={isSaved ? "fill-current" : ""} />
@@ -199,6 +205,7 @@ export default function DensityCalculator() {
 
               <div className="space-y-6">
                 <UnitInput
+                  id="mass"
                   label="Mass (m)"
                   value={mass}
                   unit={massUnit}
@@ -207,6 +214,7 @@ export default function DensityCalculator() {
                   onUnitChange={setMassUnit}
                 />
                 <UnitInput
+                  id="volume"
                   label="Volume (V)"
                   value={volume}
                   unit={volumeUnit}
@@ -216,10 +224,14 @@ export default function DensityCalculator() {
                 />
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                  <label
+                    htmlFor="density-unit-select"
+                    className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+                  >
                     Result Density Unit (ρ)
                   </label>
                   <select
+                    id="density-unit-select"
                     value={densityUnit}
                     onChange={(e) => setDensityUnit(e.target.value)}
                     className="w-full px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-sm transition-all"
@@ -249,7 +261,7 @@ export default function DensityCalculator() {
                       setShowResults(false);
                       setTrigger(0);
                     }}
-                    className="flex-1 py-4 bg-secondary text-muted-foreground rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-secondary text-gray-200 rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
                     <RotateCcw size={16} /> RESET
                   </button>
@@ -278,23 +290,23 @@ export default function DensityCalculator() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 pt-8 border-t border-dashed">
                   <div className="p-4 bg-secondary/50 rounded-2xl text-center">
-                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">
+                    <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
                       Total Mass
                     </p>
                     <p className="text-xl font-black">
                       {results.mass}{" "}
-                      <span className="text-sm font-medium text-muted-foreground">
+                      <span className="text-sm font-medium text-gray-300">
                         {massUnit}
                       </span>
                     </p>
                   </div>
                   <div className="p-4 bg-secondary/50 rounded-2xl text-center">
-                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">
+                    <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
                       Total Volume
                     </p>
                     <p className="text-xl font-black">
                       {results.volume}{" "}
-                      <span className="text-sm font-medium text-muted-foreground">
+                      <span className="text-sm font-medium text-gray-300">
                         {volumeUnit}
                       </span>
                     </p>
@@ -302,14 +314,17 @@ export default function DensityCalculator() {
                 </div>
               </div>
             ) : showResults && results && "error" in results ? (
-              <div className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-600 font-bold flex items-center gap-3">
+              <div
+                role="alert"
+                className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-700 font-bold flex items-center gap-3"
+              >
                 <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
                 {results.error}
               </div>
             ) : (
               <div className="h-full min-h-[300px] bg-secondary/10 border-4 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center transition-all">
                 <Layers size={64} className="opacity-10 mb-6" />
-                <p className="text-sm font-black uppercase text-muted-foreground tracking-widest max-w-[200px]">
+                <p className="text-sm font-black uppercase text-gray-300 tracking-widest max-w-[200px]">
                   Enter Parameters to Solve
                 </p>
               </div>
@@ -323,7 +338,7 @@ export default function DensityCalculator() {
             <h3 className="font-black uppercase text-sm flex items-center gap-2">
               <BarChart3 size={18} className="text-blue-600" /> Theory
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-gray-300 leading-relaxed">
               Density ($\rho$) is defined as mass per unit volume. The formula
               is $\rho = m / V$. It determines whether an object sinks or
               floats.
@@ -331,7 +346,7 @@ export default function DensityCalculator() {
           </div>
           <div className="p-6 bg-card border rounded-2xl space-y-3 text-sm">
             <h3 className="font-black uppercase text-sm">Pro Tip</h3>
-            <ul className="space-y-2 text-muted-foreground list-disc list-inside">
+            <ul className="space-y-2 text-gray-300 list-disc list-inside">
               <li>Check your units: kg/m³ is the SI standard.</li>
               <li>Ensure volume is not zero.</li>
             </ul>
@@ -340,7 +355,7 @@ export default function DensityCalculator() {
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -349,6 +364,7 @@ export default function DensityCalculator() {
 // ─────────────────────────────────────────────
 
 interface UnitInputProps {
+  id: string;
   label: string;
   value: string;
   unit: string;
@@ -358,6 +374,7 @@ interface UnitInputProps {
 }
 
 function UnitInput({
+  id,
   label,
   value,
   unit,
@@ -367,18 +384,28 @@ function UnitInput({
 }: UnitInputProps) {
   return (
     <div className="space-y-2">
-      <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+      <label
+        htmlFor={`${id}-value`}
+        className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+      >
         {label}
       </label>
       <div className="flex flex-col sm:flex-row gap-2">
         <input
+          id={`${id}-value`}
           type="number"
           value={value}
           onChange={(e) => onValueChange(e.target.value)}
           placeholder="0.00"
           className="flex-[2] px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-lg transition-all"
         />
+        {/* aria-label gives this select an accessible name since its
+            visual label is shared with the number input above — this
+            resolves the "Select elements do not have associated label
+            elements" audit. */}
         <select
+          id={`${id}-unit`}
+          aria-label={`${label} unit`}
           value={unit}
           onChange={(e) => onUnitChange(e.target.value)}
           className="flex-1 px-3 py-4 bg-secondary/50 rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xs cursor-pointer transition-all"

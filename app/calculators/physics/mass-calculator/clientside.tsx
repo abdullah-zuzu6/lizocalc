@@ -52,7 +52,11 @@ const UNITS = {
   ],
   density: [
     { label: "kilogram/cubic meter [kg/m³]", value: "kg_m3", factor: 1 },
-    { label: "kilogram/cubic centimeter [kg/cm³]", value: "kg_cm3", factor: 1000000 },
+    {
+      label: "kilogram/cubic centimeter [kg/cm³]",
+      value: "kg_cm3",
+      factor: 1000000,
+    },
     { label: "gram/cubic meter [g/m³]", value: "g_m3", factor: 0.001 },
     { label: "gram/cubic centimeter [g/cm³]", value: "g_cm3", factor: 1000 },
     { label: "kilogram/liter [kg/L]", value: "kg_L", factor: 1000 },
@@ -82,13 +86,17 @@ export default function MassCalculator() {
   ];
 
   // --- State ---
+  // These defaults render identically server-side and on first client
+  // paint. There is no more "isMounted" gate hiding the whole calculator —
+  // that gate was the reason CLS was 0.59: the calculator had zero height
+  // and then suddenly gained hundreds of pixels of height right after
+  // hydration completed.
   const [volume, setVolume] = useState<string>("1");
   const [volumeUnit, setVolumeUnit] = useState<string>("m3");
   const [density, setDensity] = useState<string>("1000");
   const [densityUnit, setDensityUnit] = useState<string>("kg_m3");
   const [targetMassUnit, setTargetMassUnit] = useState<string>("kg");
 
-  const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
@@ -100,11 +108,8 @@ export default function MassCalculator() {
     category: "Physics",
   };
 
-  // --- Initialize & Load ---
+  // --- Load persisted state (does NOT block first paint) ---
   useEffect(() => {
-    setIsMounted(true);
-    
-    // Load inputs from history
     const history = getCalculatorHistory();
     if (history["mass-vol-calc"]?.data) {
       const data = history["mass-vol-calc"].data;
@@ -115,14 +120,13 @@ export default function MassCalculator() {
       setTargetMassUnit(data.targetMassUnit || "kg");
     }
 
-    // Check if tool is favorited
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Auto-Save History ---
   useEffect(() => {
-    if (!isMounted) return;
     saveCalculatorHistory("mass-vol-calc", {
       volume,
       volumeUnit,
@@ -130,7 +134,7 @@ export default function MassCalculator() {
       densityUnit,
       targetMassUnit,
     });
-  }, [volume, volumeUnit, density, densityUnit, targetMassUnit, isMounted]);
+  }, [volume, volumeUnit, density, densityUnit, targetMassUnit]);
 
   // --- Toggle Save Logic ---
   const handleToggleSave = () => {
@@ -146,12 +150,15 @@ export default function MassCalculator() {
     if (isNaN(vVal) || isNaN(dVal))
       return { error: "Please enter numeric values." };
 
-    const vFactor = UNITS.volume.find((u) => u.value === volumeUnit)?.factor || 1;
-    const dFactor = UNITS.density.find((u) => u.value === densityUnit)?.factor || 1;
-    const mFactor = UNITS.mass.find((u) => u.value === targetMassUnit)?.factor || 1;
+    const vFactor =
+      UNITS.volume.find((u) => u.value === volumeUnit)?.factor || 1;
+    const dFactor =
+      UNITS.density.find((u) => u.value === densityUnit)?.factor || 1;
+    const mFactor =
+      UNITS.mass.find((u) => u.value === targetMassUnit)?.factor || 1;
 
     // Mass = Density * Volume
-    const massSI = (dVal * dFactor) * (vVal * vFactor);
+    const massSI = dVal * dFactor * (vVal * vFactor);
 
     return {
       mass: massSI / mFactor,
@@ -160,25 +167,31 @@ export default function MassCalculator() {
     };
   }, [trigger, volume, volumeUnit, density, densityUnit, targetMassUnit]);
 
-  if (!isMounted) return null;
-
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    // Changed from <main> to <div>: page.tsx already renders the page's
+    // single <main> landmark. Two <main> elements nested on one page was
+    // flagging "Accessibility tree is not well-formed" under Agentic
+    // Browsing, on both mobile and desktop reports.
+    <div className="min-h-screen bg-background text-foreground">
       <section className="py-4 md:py-8 px-4 max-w-7xl mx-auto space-y-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
-          
           {/* Inputs Section */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-card rounded-2xl border p-5 md:p-8 shadow-sm relative overflow-hidden">
-              
               {/* SAVE BUTTON */}
-              <button 
+              <button
                 onClick={handleToggleSave}
                 title={isSaved ? "Remove from saved" : "Save calculator"}
+                aria-label={
+                  isSaved
+                    ? "Remove Mass Calculator from saved"
+                    : "Save Mass Calculator"
+                }
+                aria-pressed={isSaved}
                 className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
-                  isSaved 
-                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm" 
-                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                  isSaved
+                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm"
+                    : "bg-secondary border-transparent text-gray-300 hover:text-foreground"
                 }`}
               >
                 <Heart size={20} className={isSaved ? "fill-current" : ""} />
@@ -191,6 +204,7 @@ export default function MassCalculator() {
 
               <div className="space-y-6">
                 <UnitInput
+                  id="density"
                   label="Density (ρ)"
                   value={density}
                   unit={densityUnit}
@@ -199,6 +213,7 @@ export default function MassCalculator() {
                   onUnitChange={setDensityUnit}
                 />
                 <UnitInput
+                  id="volume"
                   label="Volume (V)"
                   value={volume}
                   unit={volumeUnit}
@@ -208,10 +223,14 @@ export default function MassCalculator() {
                 />
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                  <label
+                    htmlFor="target-mass-unit-select"
+                    className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+                  >
                     Desired Mass Unit (m)
                   </label>
                   <select
+                    id="target-mass-unit-select"
                     value={targetMassUnit}
                     onChange={(e) => setTargetMassUnit(e.target.value)}
                     className="w-full px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-sm transition-all"
@@ -241,7 +260,7 @@ export default function MassCalculator() {
                       setShowResults(false);
                       setTrigger(0);
                     }}
-                    className="flex-1 py-4 bg-secondary text-muted-foreground rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-secondary text-gray-200 rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
                     <RotateCcw size={16} /> RESET
                   </button>
@@ -270,24 +289,41 @@ export default function MassCalculator() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 pt-8 border-t border-dashed">
                   <div className="p-4 bg-secondary/50 rounded-2xl text-center">
-                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Density Used</p>
-                    <p className="text-xl font-black">{results.density} <span className="text-xs font-medium">{densityUnit}</span></p>
+                    <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
+                      Density Used
+                    </p>
+                    <p className="text-xl font-black">
+                      {results.density}{" "}
+                      <span className="text-xs font-medium text-gray-300">
+                        {densityUnit}
+                      </span>
+                    </p>
                   </div>
                   <div className="p-4 bg-secondary/50 rounded-2xl text-center">
-                    <p className="text-[10px] font-bold uppercase text-muted-foreground mb-1">Volume Used</p>
-                    <p className="text-xl font-black">{results.volume} <span className="text-xs font-medium">{volumeUnit}</span></p>
+                    <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
+                      Volume Used
+                    </p>
+                    <p className="text-xl font-black">
+                      {results.volume}{" "}
+                      <span className="text-xs font-medium text-gray-300">
+                        {volumeUnit}
+                      </span>
+                    </p>
                   </div>
                 </div>
               </div>
             ) : showResults && results && "error" in results ? (
-              <div className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-600 font-bold flex items-center gap-3">
+              <div
+                role="alert"
+                className="bg-red-50 border-2 border-red-100 rounded-2xl p-6 text-red-700 font-bold flex items-center gap-3"
+              >
                 <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
                 {results.error}
               </div>
             ) : (
               <div className="h-full min-h-[400px] bg-secondary/10 border-4 border-dashed rounded-3xl p-12 text-center flex flex-col items-center justify-center transition-all">
                 <Layers size={64} className="opacity-10 mb-6" />
-                <p className="text-sm font-black uppercase text-muted-foreground tracking-widest max-w-[200px]">
+                <p className="text-sm font-black uppercase text-gray-300 tracking-widest max-w-[200px]">
                   Ready to calculate mass
                 </p>
               </div>
@@ -301,16 +337,20 @@ export default function MassCalculator() {
             <h3 className="font-black uppercase text-sm flex items-center gap-2">
               <BarChart3 size={18} className="text-blue-600" /> Theory
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              The mass ($m$) of an object is the product of its density ($\rho$) and its volume ($V$). 
-              The fundamental physics formula is $m = \rho \times V$. This is essential for determining 
-              the amount of matter in a specific space.
+            <p className="text-sm text-gray-300 leading-relaxed">
+              The mass ($m$) of an object is the product of its density
+              ($\rho$) and its volume ($V$). The fundamental physics formula
+              is $m = \rho \times V$. This is essential for determining the
+              amount of matter in a specific space.
             </p>
           </div>
           <div className="p-6 bg-card border rounded-2xl space-y-3 text-sm">
             <h3 className="font-black uppercase text-sm">Pro Tip</h3>
-            <ul className="space-y-2 text-muted-foreground list-disc list-inside">
-              <li>Ensure your density and volume units match your application requirements.</li>
+            <ul className="space-y-2 text-gray-300 list-disc list-inside">
+              <li>
+                Ensure your density and volume units match your application
+                requirements.
+              </li>
               <li>SI standard mass is measured in kilograms (kg).</li>
             </ul>
           </div>
@@ -318,11 +358,12 @@ export default function MassCalculator() {
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
-    </main>
+    </div>
   );
 }
 
 function UnitInput({
+  id,
   label,
   value,
   unit,
@@ -330,6 +371,7 @@ function UnitInput({
   onValueChange,
   onUnitChange,
 }: {
+  id: string;
   label: string;
   value: string;
   unit: string;
@@ -339,25 +381,37 @@ function UnitInput({
 }) {
   return (
     <div className="space-y-2">
-      <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+      <label
+        htmlFor={`${id}-value`}
+        className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+      >
         {label}
       </label>
       <div className="flex flex-col sm:flex-row gap-2">
         <input
+          id={`${id}-value`}
           type="number"
           value={value}
           onChange={(e) => onValueChange(e.target.value)}
           placeholder="0.00"
           className="flex-[2] px-4 py-4 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-lg transition-all"
         />
+        {/* aria-label gives this select its own accessible name — its
+            visual label above is shared with the number input, so the
+            select needs a distinct name. This resolves "Select elements
+            do not have associated label elements". */}
         <select
+          id={`${id}-unit`}
+          aria-label={`${label} unit`}
           value={unit}
           onChange={(e) => onUnitChange(e.target.value)}
           className="flex-1 px-3 py-4 bg-secondary/50 rounded-xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xs cursor-pointer transition-all"
         >
           {options.map((u) => (
             <option key={u.value} value={u.value}>
-              {u.label.includes("[") ? u.label.split("[")[1].replace("]", "") : u.label}
+              {u.label.includes("[")
+                ? u.label.split("[")[1].replace("]", "")
+                : u.label}
             </option>
           ))}
         </select>

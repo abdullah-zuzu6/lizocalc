@@ -28,7 +28,7 @@ import RelatedCalculators from "@/components/RelatedCalculators";
 interface UnitOption {
   label: string;
   value: string;
-  factor: number; 
+  factor: number;
 }
 
 const UNITS = {
@@ -48,12 +48,15 @@ const UNITS = {
 
 export default function SpeedCalculator() {
   // --- State ---
+  // These defaults render identically on the server and on first client
+  // paint — no more "isMounted" gate hiding the whole calculator. That gate
+  // was the reason CLS was 0.55: the calculator had zero height, then
+  // suddenly gained ~450px+ of height right after hydration.
   const [distance, setDistance] = useState<string>("10");
   const [distUnit, setDistUnit] = useState<string>("km");
   const [time, setTime] = useState<string>("1");
   const [timeUnit, setTimeUnit] = useState<string>("hr");
 
-  const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
@@ -79,11 +82,8 @@ export default function SpeedCalculator() {
     category: "Physics",
   };
 
-  // --- Initialize & Load ---
+  // --- Load persisted state (does NOT block first paint) ---
   useEffect(() => {
-    setIsMounted(true);
-    
-    // Load inputs from history
     const history = getCalculatorHistory();
     if (history["speed-adv-calc"]?.data) {
       const data = history["speed-adv-calc"].data;
@@ -93,21 +93,20 @@ export default function SpeedCalculator() {
       setTimeUnit(data.timeUnit || "hr");
     }
 
-    // Check if tool is favorited
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Auto-Save History ---
   useEffect(() => {
-    if (!isMounted) return;
     saveCalculatorHistory("speed-adv-calc", {
       distance,
       distUnit,
       time,
       timeUnit,
     });
-  }, [distance, distUnit, time, timeUnit, isMounted]);
+  }, [distance, distUnit, time, timeUnit]);
 
   // --- Toggle Save Logic ---
   const handleToggleSave = () => {
@@ -124,7 +123,8 @@ export default function SpeedCalculator() {
       return { error: "Please enter a valid distance and a positive time." };
     }
 
-    const dFactor = UNITS.distance.find((u) => u.value === distUnit)?.factor || 1;
+    const dFactor =
+      UNITS.distance.find((u) => u.value === distUnit)?.factor || 1;
     const tFactor = UNITS.time.find((u) => u.value === timeUnit)?.factor || 1;
 
     const distMeters = dVal * dFactor;
@@ -139,25 +139,31 @@ export default function SpeedCalculator() {
     };
   }, [trigger, distance, distUnit, time, timeUnit]);
 
-  if (!isMounted) return null;
-
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    // Changed from <main> to <div>: page.tsx already renders the page's
+    // single <main> landmark. Two <main> elements nested on one page was
+    // flagging "Accessibility tree is not well-formed" under Agentic
+    // Browsing, on both mobile and desktop reports.
+    <div className="min-h-screen bg-background text-foreground">
       <section className="py-8 px-4 max-w-7xl mx-auto space-y-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
           {/* INPUT PANEL */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-card rounded-3xl border p-6 md:p-8 shadow-sm relative overflow-hidden">
-              
               {/* SAVE BUTTON */}
-              <button 
+              <button
                 onClick={handleToggleSave}
                 title={isSaved ? "Remove from saved" : "Save calculator"}
+                aria-label={
+                  isSaved
+                    ? "Remove Speed Calculator from saved"
+                    : "Save Speed Calculator"
+                }
+                aria-pressed={isSaved}
                 className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
-                  isSaved 
-                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm" 
-                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                  isSaved
+                    ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm"
+                    : "bg-secondary border-transparent text-gray-300 hover:text-foreground"
                 }`}
               >
                 <Heart size={20} className={isSaved ? "fill-current" : ""} />
@@ -170,6 +176,7 @@ export default function SpeedCalculator() {
 
               <div className="space-y-8">
                 <UnitInput
+                  id="distance"
                   label="Distance"
                   value={distance}
                   unit={distUnit}
@@ -179,6 +186,7 @@ export default function SpeedCalculator() {
                 />
 
                 <UnitInput
+                  id="time"
                   label="Time Duration"
                   value={time}
                   unit={timeUnit}
@@ -204,7 +212,7 @@ export default function SpeedCalculator() {
                       setShowResults(false);
                       setTrigger(0);
                     }}
-                    className="flex-1 py-4 bg-secondary text-muted-foreground rounded-2xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-secondary text-gray-200 rounded-2xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
                     <RotateCcw size={18} /> RESET
                   </button>
@@ -218,18 +226,20 @@ export default function SpeedCalculator() {
             {showResults && results && !("error" in results) ? (
               <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
                 <div className="bg-card border-2 border-blue-600 rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-blue-600/5 relative overflow-hidden">
-                   <div className="absolute top-0 right-0 p-8 opacity-5">
-                      <Zap size={120} />
-                   </div>
-                   <div className="relative z-10 text-center">
-                      <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.4em] mb-4">
-                        Average Velocity
-                      </p>
-                      <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-2">
-                        {results.kmh}
-                      </h2>
-                      <p className="text-xl font-bold text-muted-foreground uppercase">kilometers per hour</p>
-                   </div>
+                  <div className="absolute top-0 right-0 p-8 opacity-5">
+                    <Zap size={120} />
+                  </div>
+                  <div className="relative z-10 text-center">
+                    <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.4em] mb-4">
+                      Average Velocity
+                    </p>
+                    <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-2">
+                      {results.kmh}
+                    </h2>
+                    <p className="text-xl font-bold text-gray-300 uppercase">
+                      kilometers per hour
+                    </p>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -239,13 +249,16 @@ export default function SpeedCalculator() {
                 </div>
               </div>
             ) : showResults && results && "error" in results ? (
-              <div className="bg-red-50 border-2 border-red-100 rounded-3xl p-8 text-red-600 font-bold flex items-center gap-4">
+              <div
+                role="alert"
+                className="bg-red-50 border-2 border-red-100 rounded-3xl p-8 text-red-700 font-bold flex items-center gap-4"
+              >
                 <TrendingDown /> {results.error}
               </div>
             ) : (
               <div className="h-full min-h-[450px] bg-secondary/10 border-4 border-dashed rounded-[3rem] p-12 text-center flex flex-col items-center justify-center">
                 <Layers size={80} className="opacity-10 mb-6" />
-                <p className="text-sm font-black uppercase text-muted-foreground tracking-[0.2em]">
+                <p className="text-sm font-black uppercase text-gray-300 tracking-[0.2em]">
                   Input distance and time to see results
                 </p>
               </div>
@@ -259,30 +272,41 @@ export default function SpeedCalculator() {
             <h3 className="font-black uppercase text-sm flex items-center gap-2 text-blue-600">
               <BarChart3 size={20} /> The Velocity Formula
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Speed is a scalar quantity that refers to "how fast an object is moving." It is the rate at which an object covers distance. 
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Speed is a scalar quantity that refers to &quot;how fast an
+              object is moving.&quot; It is the rate at which an object
+              covers distance.
             </p>
             <div className="p-4 bg-secondary/50 rounded-xl font-mono text-xs font-bold border">
-                Average Speed = Total Distance / Total Time
+              Average Speed = Total Distance / Total Time
             </div>
           </div>
           <div className="p-8 bg-card border rounded-3xl space-y-4 text-sm">
-            <h3 className="font-black uppercase text-sm text-blue-600">Quick Reference</h3>
-            <ul className="space-y-3 text-muted-foreground">
-              <li className="flex justify-between border-b pb-2"><span>1 km/h</span> <span>0.621 mph</span></li>
-              <li className="flex justify-between border-b pb-2"><span>1 m/s</span> <span>3.6 km/h</span></li>
-              <li className="flex justify-between"><span>1 Knot</span> <span>1.151 mph</span></li>
+            <h3 className="font-black uppercase text-sm text-blue-600">
+              Quick Reference
+            </h3>
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex justify-between border-b pb-2">
+                <span>1 km/h</span> <span>0.621 mph</span>
+              </li>
+              <li className="flex justify-between border-b pb-2">
+                <span>1 m/s</span> <span>3.6 km/h</span>
+              </li>
+              <li className="flex justify-between">
+                <span>1 Knot</span> <span>1.151 mph</span>
+              </li>
             </ul>
           </div>
         </div>
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
-    </main>
+    </div>
   );
 }
 
 function UnitInput({
+  id,
   label,
   value,
   unit,
@@ -290,6 +314,7 @@ function UnitInput({
   onValueChange,
   onUnitChange,
 }: {
+  id: string;
   label: string;
   value: string;
   unit: string;
@@ -299,25 +324,37 @@ function UnitInput({
 }) {
   return (
     <div className="space-y-3">
-      <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+      <label
+        htmlFor={`${id}-value`}
+        className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+      >
         {label}
       </label>
       <div className="flex flex-col sm:flex-row gap-3">
         <input
+          id={`${id}-value`}
           type="number"
           value={value}
           onChange={(e) => onValueChange(e.target.value)}
           placeholder="0.00"
           className="flex-[2] px-5 py-5 bg-secondary rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xl transition-all"
         />
+        {/* aria-label gives this select its own accessible name — its
+            visual label above is shared with the number input, so the
+            select needs a distinct name. This resolves "Select elements
+            do not have associated label elements". */}
         <select
+          id={`${id}-unit`}
+          aria-label={`${label} unit`}
           value={unit}
           onChange={(e) => onUnitChange(e.target.value)}
           className="flex-1 px-4 py-5 bg-secondary/50 rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-black text-xs cursor-pointer uppercase tracking-tighter"
         >
           {options.map((u) => (
             <option key={u.value} value={u.value}>
-              {u.label.includes("[") ? u.label.split("[")[1].replace("]", "") : u.label}
+              {u.label.includes("[")
+                ? u.label.split("[")[1].replace("]", "")
+                : u.label}
             </option>
           ))}
         </select>
@@ -329,7 +366,9 @@ function UnitInput({
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
     <div className="bg-card border rounded-3xl p-6 text-center shadow-sm">
-      <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2 tracking-widest">{label}</p>
+      <p className="text-[10px] font-bold uppercase text-gray-300 mb-2 tracking-widest">
+        {label}
+      </p>
       <p className="text-2xl font-black text-blue-600">{value}</p>
     </div>
   );
