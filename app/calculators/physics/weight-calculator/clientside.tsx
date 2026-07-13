@@ -45,9 +45,13 @@ export default function WeightCalculator() {
   ];
 
   // --- States ---
+  // These defaults render identically server-side and on first client
+  // paint. There is no more "isMounted" gate hiding the whole calculator —
+  // that gate was the reason CLS was 0.55–0.62: the calculator had zero
+  // height, then suddenly gained hundreds of pixels of height right after
+  // hydration completed.
   const [mass, setMass] = useState<string>("70");
   const [gravity, setGravity] = useState<string>("9.807");
-  const [isMounted, setIsMounted] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
@@ -57,9 +61,8 @@ export default function WeightCalculator() {
     category: "Physics",
   };
 
-  // --- Initialize & Load ---
+  // --- Load persisted state (does NOT block first paint) ---
   useEffect(() => {
-    setIsMounted(true);
     const history = getCalculatorHistory();
 
     if (history["weight-calc"]?.data) {
@@ -70,13 +73,13 @@ export default function WeightCalculator() {
 
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Auto-Save History ---
   useEffect(() => {
-    if (!isMounted) return;
     saveCalculatorHistory("weight-calc", { mass, gravity });
-  }, [mass, gravity, isMounted]);
+  }, [mass, gravity]);
 
   const handleToggleSave = () => {
     const nowSaved = toggleSavedCalculator(calculatorInfo);
@@ -91,24 +94,30 @@ export default function WeightCalculator() {
     return (m * g).toFixed(2);
   }, [mass, gravity]);
 
-  if (!isMounted) return null;
-
   return (
-    <main className="min-h-screen bg-background text-foreground">
+    // Changed from <main> to <div>: page.tsx already renders the page's
+    // single <main> landmark. Two <main> elements nested on one page was
+    // flagging "Accessibility tree is not well-formed" under Agentic
+    // Browsing, on both mobile and desktop reports.
+    <div className="min-h-screen bg-background text-foreground">
       <section className="py-8 px-4 max-w-7xl mx-auto space-y-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
           {/* INPUT PANEL */}
           <div className="lg:col-span-5 space-y-6">
             <div className="bg-card rounded-3xl border p-6 md:p-8 shadow-sm relative overflow-hidden">
-              
               <button
                 onClick={handleToggleSave}
                 title={isSaved ? "Remove from saved" : "Save calculator"}
+                aria-label={
+                  isSaved
+                    ? "Remove Weight Calculator from saved"
+                    : "Save Weight Calculator"
+                }
+                aria-pressed={isSaved}
                 className={`absolute top-4 right-4 p-2.5 rounded-xl transition-all border ${
                   isSaved
                     ? "bg-red-500/10 border-red-500/20 text-red-500 shadow-sm"
-                    : "bg-secondary border-transparent text-muted-foreground hover:text-foreground"
+                    : "bg-secondary border-transparent text-gray-300 hover:text-foreground"
                 }`}
               >
                 <Heart size={20} className={isSaved ? "fill-current" : ""} />
@@ -120,11 +129,20 @@ export default function WeightCalculator() {
               </h2>
 
               <div className="space-y-6">
+                {/* FIX: label now has htmlFor pointing to the input's id.
+                    This resolves "Form elements do not have associated
+                    labels" — previously the <label> and <input> had no
+                    programmatic relationship, so screen readers couldn't
+                    announce what the field was for. */}
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
+                  <label
+                    htmlFor="mass-input"
+                    className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+                  >
                     Mass (kg)
                   </label>
                   <input
+                    id="mass-input"
                     type="number"
                     value={mass}
                     onChange={(e) => setMass(e.target.value)}
@@ -133,10 +151,14 @@ export default function WeightCalculator() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
-                    Gravity ($m/s^2$)
+                  <label
+                    htmlFor="gravity-input"
+                    className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+                  >
+                    Gravity (m/s²)
                   </label>
                   <input
+                    id="gravity-input"
                     type="number"
                     value={gravity}
                     onChange={(e) => setGravity(e.target.value)}
@@ -144,11 +166,16 @@ export default function WeightCalculator() {
                   />
                 </div>
 
-                <div className="grid grid-cols-3 gap-2">
+                <div
+                  className="grid grid-cols-3 gap-2"
+                  role="group"
+                  aria-label="Planet gravity presets"
+                >
                   {PLANETS.map((p) => (
                     <button
                       key={p.name}
                       onClick={() => setGravity(p.g.toString())}
+                      aria-pressed={gravity === p.g.toString()}
                       className="py-2.5 bg-secondary/50 rounded-xl text-[10px] font-black uppercase hover:bg-blue-600 hover:text-white transition-all border border-transparent hover:border-blue-400"
                     >
                       {p.name}
@@ -169,7 +196,7 @@ export default function WeightCalculator() {
                       setGravity("");
                       setShowResults(false);
                     }}
-                    className="flex-1 py-4 bg-secondary text-muted-foreground rounded-2xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
+                    className="flex-1 py-4 bg-secondary text-gray-200 rounded-2xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
                     <RotateCcw size={16} /> RESET
                   </button>
@@ -193,19 +220,25 @@ export default function WeightCalculator() {
                     <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-2">
                       {weightResult} <span className="text-3xl md:text-4xl">N</span>
                     </h2>
-                    <p className="text-xl font-bold text-muted-foreground uppercase">Newtons (Force)</p>
+                    <p className="text-xl font-bold text-gray-300 uppercase">
+                      Newtons (Force)
+                    </p>
                   </div>
                 </div>
 
                 <div className="bg-card border rounded-[2rem] p-8 text-center shadow-sm">
-                   <p className="text-[10px] font-bold uppercase text-muted-foreground mb-2 tracking-widest">Imperial Conversion</p>
-                   <p className="text-3xl font-black text-blue-600">{(parseFloat(weightResult) / 4.448).toFixed(2)} lbs</p>
+                  <p className="text-[10px] font-bold uppercase text-gray-300 mb-2 tracking-widest">
+                    Imperial Conversion
+                  </p>
+                  <p className="text-3xl font-black text-blue-600">
+                    {(parseFloat(weightResult) / 4.448).toFixed(2)} lbs
+                  </p>
                 </div>
               </div>
             ) : (
               <div className="h-full min-h-[450px] bg-secondary/10 border-4 border-dashed rounded-[3rem] p-12 text-center flex flex-col items-center justify-center">
                 <WeightIcon size={80} className="opacity-10 mb-6" />
-                <p className="text-sm font-black uppercase text-muted-foreground tracking-[0.2em]">
+                <p className="text-sm font-black uppercase text-gray-300 tracking-[0.2em]">
                   Enter mass and gravity to calculate
                 </p>
               </div>
@@ -219,25 +252,38 @@ export default function WeightCalculator() {
             <h3 className="font-black text-sm flex items-center gap-2 uppercase tracking-widest text-blue-600">
               <BarChart3 size={20} /> Mass vs Weight
             </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Mass is a constant measure of the amount of matter in an object. Weight is the variable force exerted on that mass by gravity. 
+            <p className="text-sm text-gray-300 leading-relaxed">
+              Mass is a constant measure of the amount of matter in an
+              object. Weight is the variable force exerted on that mass by
+              gravity.
             </p>
             <div className="p-4 bg-secondary/50 rounded-2xl font-mono text-xs font-bold border border-dashed">
-                Weight ($W$) = mass ($m$) × gravity ($g$)
+              Weight (W) = mass (m) × gravity (g)
             </div>
           </div>
           <div className="bg-card border rounded-3xl p-8 space-y-4 text-sm">
-            <h3 className="font-black text-sm uppercase tracking-widest text-blue-600">Why Gravity Varies</h3>
-            <div className="space-y-3 text-muted-foreground">
-              <p>• Objects weight less on the Moon because its gravitational field is weaker ($1.62\ m/s^2$).</p>
-              <p>• Weight is technically a vector quantity, as it has a direction pointing toward the center of gravity.</p>
-              <p>• On Earth, gravity slightly fluctuates based on your altitude and latitude.</p>
+            <h3 className="font-black text-sm uppercase tracking-widest text-blue-600">
+              Why Gravity Varies
+            </h3>
+            <div className="space-y-3 text-gray-300">
+              <p>
+                • Objects weigh less on the Moon because its gravitational
+                field is weaker (1.62 m/s²).
+              </p>
+              <p>
+                • Weight is technically a vector quantity, as it has a
+                direction pointing toward the center of gravity.
+              </p>
+              <p>
+                • On Earth, gravity slightly fluctuates based on your
+                altitude and latitude.
+              </p>
             </div>
           </div>
         </div>
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
-    </main>
+    </div>
   );
 }

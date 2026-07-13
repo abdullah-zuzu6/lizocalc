@@ -3,7 +3,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
-import Script from "next/script"; 
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -12,27 +12,30 @@ const BASE_URL = "https://www.lizocalc.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
 
+  applicationName: "LizoCalc",
+
   title: {
-    default: "LizoCalc - Free Calculators for Financial, Fitness & Math and More",
+    default: "LizoCalc - Free Online Calculators for Finance, Fitness & Math",
     template: "%s | LizoCalc",
   },
 
   description:
     "LizoCalc offers free online calculators for finance, fitness, math, education, physics, and more. Simple, accurate, and fast tools designed to solve everyday calculations.",
-  
+
   keywords: [
-    "LizoCalc", "online calculator", "free calculator", "financial calculator",
-    "loan calculator", "mortgage calculator for usa ", "BMI calculator for womens and kids ", "fitness calculator for gyms persons",
-    "math calculator ", "conversion calculator", "scientific calculator"
+    "LizoCalc", "lizocalc calculator", "online calculator", "free calculator", "financial calculator",
+    "loan calculator", "mortgage calculator", "BMI calculator", "fitness calculator",
+    "math calculator", "conversion calculator", "scientific calculator"
   ],
 
-  authors: [{ name: "LizoCalc" }],
+  authors: [{ name: "LizoCalc", url: BASE_URL }],
+  creator: "LizoCalc",
+  publisher: "LizoCalc",
 
   alternates: {
     canonical: BASE_URL,
   },
 
-  // ✅ OPTIMIZED ICONS: Added 96x96 for Google Search results
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -62,10 +65,28 @@ export const metadata: Metadata = {
     ],
   },
 
+  twitter: {
+    card: "summary_large_image",
+    title: "LizoCalc - Free Online Calculators",
+    description: "Free calculators for finance, health, math and physics.",
+    images: ["/logo.webp"],
+  },
+
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
+
+  // Replace with your actual Search Console verification code once you have it
+  // verification: {
+  //   google: "your-google-site-verification-code",
+  // },
 };
 
 export const viewport: Viewport = {
@@ -77,11 +98,12 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  
+
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "LizoCalc",
+    alternateName: "Lizo Calc",
     url: BASE_URL,
     logo: `${BASE_URL}/logo.png`,
     sameAs: [
@@ -90,17 +112,33 @@ export default function RootLayout({
     ],
   };
 
+  const websiteStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "LizoCalc",
+    url: BASE_URL,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${BASE_URL}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <head>
-        {/* ✅ PWA Manifest */}
         <link rel="manifest" href="/manifest.json" />
 
-        {/* ✅ Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationStructuredData),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData),
           }}
         />
       </head>
@@ -108,7 +146,6 @@ export default function RootLayout({
       <body className={`${inter.className} bg-background text-foreground antialiased`}>
         {children}
 
-        {/* ✅ GOOGLE ANALYTICS */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-W122RNR3R4"
           strategy="afterInteractive"
@@ -122,7 +159,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        {/* ✅ VERCEL ANALYTICS (keep this) */}
         <Analytics />
       </body>
     </html>
