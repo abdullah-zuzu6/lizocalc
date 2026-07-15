@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   publisher: "LizoCalc",
 
   alternates: {
-    canonical: BASE_URL,
+    canonical:"/",
   },
 
   icons: {
