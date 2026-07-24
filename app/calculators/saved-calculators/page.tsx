@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description:
     "Access, manage, and quickly open your saved calculators and tools in one place on LizoCalc.",
   alternates: {
-    canonical: "https://www.lizocalc.com/saved-calculators",
+    canonical: "https://www.lizocalc.com/calculators/saved-calculators",
   },
  robots: {
   index: true,
