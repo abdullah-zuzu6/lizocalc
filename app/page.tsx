@@ -9,9 +9,9 @@ import type { Metadata } from 'next'
 const BASE_URL = 'https://www.lizocalc.com'
 
 export const metadata: Metadata = {
-  title: 'LizoCalc - Free Online Calculators for Finance, Health, Math & Physics',
+  title: 'LizoCalc - Free Online Calculators.',
   description:
-    "Use LizoCalc's free online calculators for mortgages, loans, BMI, calories, fractions, percentages, and time. Fast, accurate, no signup required.",
+    "Use LizoCalc's free online calculators for health,math,finance,physics and time etc. Fast, accurate, no signup required.",
   alternates: {
     canonical: BASE_URL,
   },
@@ -153,7 +153,7 @@ export default function Home() {
 
       <section className="max-w-6xl mx-auto px-6 py-16 text-white">
         <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-          About LizoCalc
+          About LizoCalc - A Calcuator Platform
         </h2>
 
         <p className="text-gray-200 leading-relaxed mb-6">
@@ -177,6 +177,88 @@ export default function Home() {
         <p className="text-gray-200 leading-relaxed">
           Every calculator runs client-side in your browser — nothing you enter is
           stored or sent anywhere, and no account is required.
+        </p>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-16 text-white">
+        <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+          How People Actually Use These Calculators
+        </h2>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Most calculator websites just give you a list of tools and expect  you to do everything out on your own. I wanted to do things on this page. Seeing the number is important. Understanding what it means is just as important. Here are five real examples, one from each category on this website using the same math that the live calculators use.
+        </p>
+
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Finance: What Compound Interest Does
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Lets say you put $5,000 into an investment that earns 8% per year. You do not touch it for 15 years. The compound interest will turn that into about $15,861, which is more than triple of that 5k what you started with without adding any extra money. This is why it is an idea to invest early as possible as soon instead of waiting for the right moment.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          The same math works against you when you are borrowing money of investing. A mortgage or loan will add up interest in the way just in reverse. Knowing these numbers before you borrow money can make a difference. Of just guessing based on what you are told you can compare different loan offers to understand the real cost, which can save you time and help you choose the best option that fits your budget or financial situation.
+        </p>
+
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Health: Why BMI Does Not Tell The Whole Story
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Imagine someone who's 5 feet 9 inches tall and weighs 160 pounds. Their BMI is 23.6, which is in the healthy weight range. This is information but it is only one part of the story.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          BMI does not show how much of your weight comes from muscle or body. Two people can have the BMI but have very different body compositions. That is why it is helpful to look at your body percentage and your Total Daily Energy Expenditure as well. These measurements give you an understanding of your health and can help you make smarter decisions if your goal is to lose weight build muscle or maintain a healthy lifestyle.
+        </p>
+
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Math: The Calculation You Probably Do Every Week
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Percentages are used everywhere such as discounts, tax, tips and grades. For example 15% of 240 is 36 which is simple enough. What can be tricky is the reverse, such as "36's what percent of 240?"
+        </p>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          A good calculator can save you from doing this by hand and getting it wrong. The same goes for fractions which're handy for students, teachers or anyone who works with numbers regularly.
+        </p>
+
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Physics: The Formula Is Never The Hard Part. The Units Are
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          The formula for speed is distance divided by time which's easy to understand. For example if you drive 150 miles in 2 hours and 30 minutes your average speed is 60 miles per hour. Where people make mistakes is when they enter "2 hours 30 minutes" as "2.5" without converting the units first.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          A calculator can handle that conversion for you, which's where most manual mistakes happen.
+        </p>
+
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Time: Simple, Until It Is Not
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Working out the exact years, months and days between two dates sounds easy but it can get complicated when leap years and different month lengths are involved. That is usually where manual math goes wrong.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          A time calculator can deal with all of that in the background so your age, date difference or work hours are accurate the time.
+        </p>
+
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Why You Can Trust The Numbers
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Every example here uses the formulas as the live calculators, on this website without any simplification or rounding. If you run these numbers yourself you will get the same result.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed">
+          That is the standard I hold this website to: accurate answers, no sign-up no data stored and no guesswork.
         </p>
       </section>
 
