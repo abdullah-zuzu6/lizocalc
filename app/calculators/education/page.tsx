@@ -57,14 +57,8 @@ export const metadata: Metadata = {
   },
 
   category: "Education",
-
   applicationName: "LizoCalc",
-
-  authors: [
-    {
-      name: "LizoCalc",
-    },
-  ],
+  authors: [{ name: "LizoCalc" }],
 };
 
 const SITE_URL = "https://www.lizocalc.com";
@@ -75,24 +69,37 @@ const PAGE_URL = `${SITE_URL}/calculators/education`;
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${PAGE_URL}#breadcrumb`,
   itemListElement: [
     {
       "@type": "ListItem",
       position: 1,
       name: "Home",
-      item: SITE_URL,
+      item: {
+        "@type": "WebPage",
+        "@id": SITE_URL,
+        name: "Home",
+      },
     },
     {
       "@type": "ListItem",
       position: 2,
       name: "Calculators",
-      item: `${SITE_URL}/calculators`,
+      item: {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/calculators`,
+        name: "Calculators",
+      },
     },
     {
       "@type": "ListItem",
       position: 3,
       name: "Education Calculators",
-      item: PAGE_URL,
+      item: {
+        "@type": "WebPage",
+        "@id": PAGE_URL,
+        name: "Education Calculators",
+      },
     },
   ],
 };
