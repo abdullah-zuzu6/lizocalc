@@ -765,7 +765,7 @@ function CommonMistakesSection() {
         </div>
         <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
           <span>📅 Published: Apr 1, 2026</span>
-          <span>🔄 Updated: Jul 2, 2026</span>
+          <span>🔄 Updated: Jul 28, 2026</span>
           <span>✅ Verified accurate</span>
         </div>
       </div>
