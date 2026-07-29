@@ -3,8 +3,10 @@ import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
 import CalculatorGrid from '@/components/CalculatorGrid'
 import FAQ from '@/components/FAQ'
-import { BarChart3, Heart, Sigma, Timer, Atom } from 'lucide-react'
+import Link from 'next/link'
+import { BarChart3, Heart, Sigma, Timer, Atom,} from 'lucide-react'
 import type { Metadata } from 'next'
+import FollowUs from '@/components/FollowUs'
 
 const BASE_URL = 'https://www.lizocalc.com'
 
@@ -180,6 +182,153 @@ export default function Home() {
         </p>
       </section>
 
+      {/* Internal linking section — placed right after About LizoCalc */}
+      <section className="max-w-6xl mx-auto px-6 pb-16 text-white">
+        <h3 className="text-2xl font-semibold text-blue-300 mb-4">
+          Jump straight to a category
+        </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          If you already know what you&apos;re working on, skip the scroll and
+          go directly to the calculators you need. Our{" "}
+          <Link
+            href="/calculators/financial"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            Financial calculators
+          </Link>{" "}
+          cover everything from a{" "}
+          <Link
+            href="/calculators/financial/mortgage-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            mortgage
+          </Link>{" "}
+          to a{" "}
+          <Link
+            href="/calculators/financial/compound-interest-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            compound interest
+          </Link>{" "}
+          projection. Our{" "}
+          <Link
+            href="/calculators/health"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            Health calculators
+          </Link>{" "}
+          include{" "}
+          <Link
+            href="/calculators/health/bmi-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            BMI
+          </Link>
+          ,{" "}
+          <Link
+            href="/calculators/health/tdee-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            TDEE
+          </Link>
+          , and{" "}
+          <Link
+            href="/calculators/health/body-fat-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            body fat
+          </Link>{" "}
+          tools that go beyond a single number.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          For coursework and academic planning, our{" "}
+          <Link
+            href="/calculators/education"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            Education calculators
+          </Link>{" "}
+          include the{" "}
+          <Link
+            href="/calculators/education/gpa-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            GPA Calculator
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/calculators/education/final-grade-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            Final Grade Calculator
+          </Link>
+          . Need something quick? Our{" "}
+          <Link
+            href="/calculators/math/percentage-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            Percentage Calculator
+          </Link>{" "}
+          and{" "}
+          <Link
+            href="/calculators/time/age-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            Age Calculator
+          </Link>{" "}
+          are two of our most-used tools, and our full{" "}
+          <Link
+            href="/calculators"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            calculator directory
+          </Link>{" "}
+          lists everything in one place, including{" "}
+          <Link
+            href="/calculators/physics/speed-calculator"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            physics
+          </Link>{" "}
+          tools like speed and density.
+        </p>
+
+        <p className="text-gray-200 leading-relaxed">
+          Prefer to read the reasoning before you calculate? Our{" "}
+          <Link
+            href="/blogs/education"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            education guides
+          </Link>
+          ,{" "}
+          <Link
+            href="/blogs/finance"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            finance guides
+          </Link>
+          , and{" "}
+          <Link
+            href="/blogs/health"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            health guides
+          </Link>{" "}
+          walk through the formulas behind these tools with real, worked
+          examples — or start from the{" "}
+          <Link
+            href="/blogs"
+            className="text-blue-400 underline hover:text-blue-300"
+          >
+            blog hub
+          </Link>{" "}
+          if you're not sure where to begin.
+        </p>
+      </section>
+
       <section className="max-w-6xl mx-auto px-6 py-16 text-white">
         <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
           How People Actually Use These Calculators
@@ -261,6 +410,8 @@ export default function Home() {
           That is the standard I hold this website to: accurate answers, no sign-up no data stored and no guesswork.
         </p>
       </section>
+
+<FollowUs/>
 
       <FAQ title="About LizoCalc" items={faqItems} />
 
