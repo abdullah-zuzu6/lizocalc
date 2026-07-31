@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   Scale,
   RotateCcw,
@@ -55,6 +55,16 @@ export default function WeightCalculator() {
   const [showResults, setShowResults] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
 
+  // --- Auto-scroll-to-results (mobile only) ---
+  // Results sit beside the inputs in a 2-column grid at the `lg` breakpoint
+  // and above, so they're already visible there — no scroll needed. Below
+  // `lg` the results stack underneath the inputs, off-screen after Calculate
+  // is pressed, so we smooth-scroll them into view. Unlike Density/Mass/
+  // Speed, this calculator has no `trigger` counter — weightResult recomputes
+  // live off mass/gravity via useMemo, and showResults alone gates display —
+  // so the scroll effect below watches showResults + weightResult instead.
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   const calculatorInfo = {
     name: "Weight Calculator",
     href: "/calculators/physics/weight-calculator",
@@ -93,6 +103,30 @@ export default function WeightCalculator() {
     if (isNaN(m) || isNaN(g)) return null;
     return (m * g).toFixed(2);
   }, [mass, gravity]);
+
+  // --- Scroll results into view after Calculate, mobile/tablet only ---
+  // Runs after `weightResult` (re)computes so the results block has already
+  // rendered with real content — scrolling one tick earlier would target
+  // the still-empty placeholder height and land in the wrong place.
+  useEffect(() => {
+    if (!showResults || !weightResult) return;
+
+    // `lg` in Tailwind's default scale is 1024px — matches the lg:grid-cols-12
+    // breakpoint below where results move beside the inputs instead of below.
+    const isMobileOrTablet =
+      typeof window !== "undefined" && window.innerWidth < 1024;
+
+    if (isMobileOrTablet && resultsRef.current) {
+      // rAF ensures we scroll after the browser has painted the new results
+      // block, so scrollIntoView measures its final position, not a stale one.
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  }, [weightResult, showResults]);
 
   return (
     // Changed from <main> to <div>: page.tsx already renders the page's
@@ -206,7 +240,7 @@ export default function WeightCalculator() {
           </div>
 
           {/* RESULTS PANEL */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7" ref={resultsRef}>
             {showResults && weightResult ? (
               <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
                 <div className="bg-card border-2 border-blue-600 rounded-[2.5rem] p-8 md:p-12 shadow-2xl shadow-blue-600/5 text-center relative overflow-hidden">

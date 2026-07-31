@@ -1,47 +1,13 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import DensityCalculator from "./clientside";
 
-const faqData = [
-  {
-    question: "What is the formula for calculating density?",
-    answer:
-      "Density is defined as the mass of an object divided by its volume. To calculate it manually, you can use the standard formula: $\\rho = \\frac{m}{V}$. In this equation, $\\rho$ (rho) represents density, $m$ is the mass, and $V$ is the volume. For example, if an object has a mass of 200g and a volume of 40cm³, its density would be $5g/cm^3$.",
-  },
-  {
-    question: "How do I use a density calculator for irregular objects?",
-    answer:
-      "For objects without straight edges, you first find the mass using a scale. Then, determine the volume using the water displacement method: 1. Fill a graduated cylinder with a known amount of water. 2. Submerge the object. 3. Subtract the initial volume from the new volume. Once you have these two figures, simply input them into the density calculator to get your result.",
-  },
-  {
-    question: "Why does the density of a substance change with temperature?",
-    answer:
-      "As temperature increases, most substances expand, causing their volume to increase while their mass stays the same. Since density is inversely proportional to volume, an increase in temperature typically results in a decrease in density. This is why warm air rises above cool air—it is literally less dense!",
-  },
-  {
-    question: "What is the difference between density and specific gravity?",
-    answer:
-      "While density is an absolute measure of mass per unit volume (e.g., $kg/m^3$), specific gravity is a dimensionless ratio. It compares the density of a substance to the density of a reference material, usually water at 4°C. If a substance has a specific gravity greater than 1, it will sink in water; if less than 1, it will float.",
-  },
-  {
-    question: "How do I convert density from g/cm³ to kg/m³?",
-    answer:
-      "Converting between metric density units is a matter of powers of ten. To convert $g/cm^3$ to $kg/m^3$, you multiply the value by 1,000. For instance, the density of water is approximately $1g/cm^3$, which is equivalent to $1,000kg/m^3$. A density calculator can handle these conversions instantly to avoid manual calculation errors.",
-  },
-  {
-    question: "Can a density calculator help identify a material?",
-    answer:
-      "Yes! Because density is an intensive property (it doesn't change regardless of how much material you have), it acts like a 'fingerprint.' By calculating the density of an unknown metal and comparing it to a standard density chart—where Gold is $19.3g/cm^3$ and Silver is $10.5g/cm^3$—you can accurately predict what the material is.",
-  },
-];
 export const metadata: Metadata = {
-  title: "Density Calculator - Calculate Density, Mass & Volume with Units",
+  title: "Density Calculator - Density in Multiple Units",
   description:
-    "Free online density calculator – instantly calculate density, mass, or volume using ρ = m/V. Supports kg/m³, g/cm³, lb/ft³ and more units.",
-
+  "Discover our user-friendly density calculator that allows you to input mass and volume in various units, providing results in  multiple density units for your convenience. Enter your values into the tool above, or read on below to see exactly how the math behind it works.",
   keywords: [
     "density calculator",
     "calculate density",
@@ -127,7 +93,7 @@ const structuredData = {
         "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-04-06",
+      dateModified: "2026-08-01",
       mainEntity: {
         "@id":
           "https://www.lizocalc.com/calculators/physics/density-calculator#howto-calculate-density",
@@ -141,6 +107,11 @@ const structuredData = {
         "@type": "WebSite",
         name: "LizoCalc",
         url: "https://www.lizocalc.com",
+      },
+      author: {
+        "@type": "Person",
+        name: "Rana Muhammad Abdullah",
+        url: "https://www.linkedin.com/in/abdullahsajjad06/",
       },
     },
 
@@ -191,69 +162,7 @@ const structuredData = {
         ],
       },
     },
-    // ── 4. HOWTO #1 — How to Use the Density Calculator ───
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/density-calculator#howto-use-calculator",
-      name: "How to Use the Density Calculator",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Step-by-step guide to calculating density from mass and volume using the LizoCalc free online density calculator.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Enter the Mass",
-          text: "Type the mass value into the first field (example: 500) and select the mass unit from the dropdown — g, kg, lb, or tonne.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Enter the Volume",
-          text: "Type the volume value into the second field (example: 250) and choose the volume unit — cm³, m³, L, ft³, or in³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Select Output Density Unit",
-          text: "Choose your desired output density unit from the list — g/cm³, kg/m³, lb/ft³, or g/L.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Click Calculate Density",
-          text: "Press the Calculate Density button. The calculator converts all inputs to SI units, applies ρ = m ÷ V, then converts the result to your selected output unit.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "View the Result",
-          text: "See the density result displayed in large bold text along with the applied formula. Example: 500 g ÷ 250 cm³ = 2 g/cm³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 6,
-          name: "Check the Step-by-Step Explanation",
-          text: "Scroll below the result to see a full breakdown of the calculation including all unit conversions performed.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 7,
-          name: "Review Calculation History",
-          text: "Open the Calculation History tab to review your last 10 results, each saved with timestamp, inputs, and units.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 8,
-          name: "Reset for the Next Calculation",
-          text: "Press the Reset button to clear all fields instantly and begin a fresh calculation.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "LizoCalc Density Calculator" }],
-    },
-
-    // ── 5. HOWTO #2 — How to Calculate Density from Mass & Volume ──
+    // ── 4. HOWTO #1 — How to Calculate Density from Mass & Volume ──
     {
       "@type": "HowTo",
       "@id":
@@ -266,44 +175,26 @@ const structuredData = {
         {
           "@type": "HowToStep",
           position: 1,
-          name: "Write Down the Formula",
-          text: "Use the formula ρ = m ÷ V, where ρ (rho) is density, m is mass in kg or g, and V is volume in m³ or cm³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Measure the Mass",
+          name: "Measure Mass (m)",
           text: "Weigh the object using a balance or scale. Record the value in grams (g) or kilograms (kg).",
         },
         {
           "@type": "HowToStep",
-          position: 3,
-          name: "Measure the Volume",
+          position: 2,
+          name: "Determine Volume (V)",
           text: "For regular shapes, calculate volume from dimensions. For irregular objects, use water displacement.",
         },
         {
           "@type": "HowToStep",
-          position: 4,
-          name: "Make Sure Units Match",
-          text: "Use compatible units before dividing. If mass is in grams and volume is in cm³, the result will be in g/cm³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "Divide Mass by Volume",
-          text: "Divide the mass value by the volume value. Example: 193 g ÷ 10 cm³ = 19.3 g/cm³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 6,
-          name: "Write the Unit and Verify",
-          text: "Always write the density unit with your answer (g/cm³ or kg/m³).",
+          position: 3,
+          name: "Apply Formula (ρ = m / V)",
+          text: "Divide the mass value by the volume value and attach the correct unit. Example: 193 g ÷ 10 cm³ = 19.3 g/cm³.",
         },
       ],
       tool: [{ "@type": "HowToTool", name: "LizoCalc Density Calculator" }],
     },
 
-    // ── 6. HOWTO #3 — How to Find Density of an Irregular Object ──
+    // ── 5. HOWTO #2 — How to Find Density of an Irregular Object ──
     {
       "@type": "HowTo",
       "@id":
@@ -359,7 +250,7 @@ const structuredData = {
       tool: [{ "@type": "HowToTool", name: "LizoCalc Density Calculator" }],
     },
 
-    // ── 7. HOWTO #4 — How to Convert Density Units ────────
+    // ── 6. HOWTO #3 — How to Convert Density Units ────────
     {
       "@type": "HowTo",
       "@id":
@@ -402,18 +293,6 @@ const structuredData = {
       ],
       tool: [{ "@type": "HowToTool", name: "LizoCalc Density Calculator" }],
     },
-    // ── 8. FAQ PAGE ────────────────────────────────────────
-    {
-      "@type": "FAQPage",
-      mainEntity: faqData.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
-    },
   ],
 };
 
@@ -440,8 +319,9 @@ export default function DensityPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              Density Calculator – Calculate Density, Mass & Volume
+              Calculate Density from Mass and Volume in Different Units
             </h1>
+              
           </div>
         </div>
       </section>
@@ -453,90 +333,59 @@ export default function DensityPage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Density Calculator</strong> is one of the most essential
-          tools in physics and everyday science. Density tells us exactly how
-          much mass is packed into a given volume — the reason a tiny piece of
-          gold feels heavier than a large block of wood, why ships float, and
-          how engineers choose materials for bridges, aircraft, and buildings.
-          Whether you’re a student preparing for your Class 9 or 10 Punjab Board
-          physics exam, a Matric/FSc student tackling numericals, a teacher
-          explaining buoyancy and Archimedes’ principle, an engineer checking
-          material specifications, or simply someone who wants to understand why
-          ice floats on water, our free online density calculator makes every
-          calculation instant, accurate, and crystal clear.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          Our completely free, no-registration-required{" "}
-          <strong>density calculator</strong> does all the heavy lifting. Just
-          enter the mass and volume, pick your units (g, kg, lb, cm³, m³, ft³,
-          etc.), and get the density instantly — complete with automatic unit
-          conversion, step-by-step working, highlighted formula, and a full
-          calculation history that saves your last 10 results (with your
-          consent). The tool is fully mobile-friendly, works offline after first
-          load, handles irregular objects via volume displacement, converts
-          between SI and Imperial systems automatically, and never shows ads.
-          Perfect for board exam practice, engineering projects, or quick lab
-          checks. Jump right in and try it now on our{" "}
-          <Link
-            href="/calculators/physics/density-calculator"
-            className="text-blue-300 underline underline-offset-2 hover:text-blue-200 font-semibold"
-          >
-            Density Calculator page
-          </Link>
-          .
-        </p>
-
+      
         <section className="mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Use the Online Density Calculator
+            What Is Density?
           </h2>
+          <p className="text-gray-200 leading-relaxed text-base">
+            The density of a material is defined as its mass per unit volume.
+            The density formula helps us understand how tightly things are
+            packed inside something. It does not just look at how heavy an
+            object is, but it also looks at the space the object takes up,
+            which is called volume.
+          </p>
+        </section>
 
-          <div className="mt-8 space-y-10">
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Quick &amp; Easy Step-by-Step Guide
+        <section className="mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Calculate Density
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-sm text-center">
+              <div className="w-10 h-10 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center mx-auto mb-4">
+                1
+              </div>
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                Measure Mass (m)
               </h3>
-              <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-                <li>
-                  Type the mass into the first field (example: <code>500</code>)
-                  and select the unit (g, kg, lb, etc.).
-                </li>
-                <li>
-                  Enter the volume in the second field (example:{" "}
-                  <code>250</code> cm³ or m³) and pick its unit.
-                </li>
-                <li>
-                  Choose the desired output density unit (g/cm³, kg/m³, lb/ft³,
-                  etc.).
-                </li>
-                <li>
-                  Press the large <strong>Calculate Density</strong> button.
-                </li>
-                <li>
-                  Instantly see the result in big bold text with the exact
-                  formula applied.
-                </li>
-                <li>
-                  Scroll down for step-by-step explanation and unit conversion
-                  details.
-                </li>
-                <li>
-                  Want to reuse a previous calculation? Open the{" "}
-                  <strong>Calculation History</strong> tab — your last 10
-                  results are saved automatically.
-                </li>
-                <li>
-                  Finished? Hit <strong>Reset</strong> to start fresh for the
-                  next numerical.
-                </li>
-              </ol>
-              <p className="text-gray-200 italic mt-6 text-base leading-relaxed">
-                Pro tip: The tool automatically converts between any units,
-                warns you about division by zero, filters invalid entries, and
-                remembers your preferred units so you can solve entire
-                worksheets in seconds.
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Weigh the object on a balance or scale and record the value in
+                grams or kilograms.
+              </p>
+            </div>
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-sm text-center">
+              <div className="w-10 h-10 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center mx-auto mb-4">
+                2
+              </div>
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                Determine Volume (V)
+              </h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Calculate volume from dimensions for regular shapes, or use
+                water displacement for irregular ones.
+              </p>
+            </div>
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-sm text-center">
+              <div className="w-10 h-10 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center mx-auto mb-4">
+                3
+              </div>
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                Apply Formula (ρ = m / V)
+              </h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Divide the mass by the volume and attach the correct unit to
+                get your final density.
               </p>
             </div>
           </div>
@@ -549,302 +398,512 @@ export default function DensityPage() {
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            Density (symbol <span className="font-mono">ρ</span>, Greek letter
-            rho) is defined as mass per unit volume. The formula is:
+            The standard density formula is:
           </p>
           <p className="text-center text-3xl font-mono text-green-300 my-6">
-            ρ = m / V
+            Density (ρ) = Mass (m) ÷ Volume (V)
           </p>
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            where <strong>m</strong> is mass (in kg or g) and <strong>V</strong>{" "}
-            is volume (in m³ or cm³). The result is usually expressed in kg/m³
-            (SI unit) or g/cm³.
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            Scientists use the Greek letter ρ (rho) to represent density.
+            Depending on what you already know, you can rearrange this formula
+            to find the missing value.
           </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Calculating Density from Mass and Volume
+          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
+            The Three Density Formulas
           </h3>
-          <p className="text-gray-200 text-base mb-4">
-            This is the most common use. Example: A 500 g block occupies 250
-            cm³. Density = 500 g / 250 cm³ = <strong>2 g/cm³</strong>.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Finding Mass when Density and Volume are Known
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            Rearrange the formula:{" "}
-            <span className="font-mono text-green-300">m = ρ × V</span>.
-            Example: Steel has density 7.85 g/cm³ and volume 100 cm³ → mass =
-            785 g.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Determining Volume using Density and Mass
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            Rearrange:{" "}
-            <span className="font-mono text-green-300">V = m / ρ</span>.
-            Example: 1000 g of water (density 1 g/cm³) occupies exactly 1000
-            cm³.
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Supported Units for Mass, Volume, and Density
-          </h2>
-
-          <div className="overflow-x-auto mt-8 mb-12">
+          <div className="overflow-x-auto mb-4">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Quantity</th>
-                  <th className="p-4 text-left font-semibold">Common Units</th>
-                  <th className="p-4 text-left font-semibold">SI Unit</th>
+                  <th className="p-4 text-left font-semibold">To Find</th>
+                  <th className="p-4 text-left font-semibold">Formula</th>
+                  <th className="p-4 text-left font-semibold">When to Use</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
+                  <td className="p-4">Density</td>
+                  <td className="p-4 font-mono text-green-300">ρ = m ÷ V</td>
+                  <td className="p-4">
+                    When you know the mass and volume of an object.
+                  </td>
+                </tr>
+                <tr>
                   <td className="p-4">Mass</td>
-                  <td className="p-4">g, kg, lb, tonne</td>
-                  <td className="p-4">kg</td>
+                  <td className="p-4 font-mono text-green-300">m = ρ × V</td>
+                  <td className="p-4">When you know the density and volume.</td>
                 </tr>
                 <tr>
                   <td className="p-4">Volume</td>
-                  <td className="p-4">cm³, m³, L, ft³, in³</td>
-                  <td className="p-4">m³</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Density</td>
-                  <td className="p-4">g/cm³, kg/m³, lb/ft³, g/L</td>
-                  <td className="p-4">kg/m³</td>
+                  <td className="p-4 font-mono text-green-300">V = m ÷ ρ</td>
+                  <td className="p-4">When you know the mass and density.</td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Converting Between g/cm³, kg/m³, and lb/ft³
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            Our calculator does this instantly, but here are the exact
-            relationships:
+          <p className="text-gray-200 text-base">
+            If you need to work out mass or volume on their own, our{" "}
+            <Link
+              href="/calculators/physics/mass-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              Mass Calculator
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/calculators/physics/weight-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              Weight Calculator
+            </Link>{" "}
+            can handle those directly using the rearranged formulas above.
           </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base ml-5">
-            <li>
-              <span className="font-mono text-green-300">
-                1 g/cm³ = 1000 kg/m³
-              </span>{" "}
-              (standard conversion)
-            </li>
-            <li>
-              <span className="font-mono text-green-300">
-                1 kg/m³ ≈ 0.062428 lb/ft³
-              </span>
-            </li>
-            <li>
-              <span className="font-mono text-green-300">
-                1 g/cm³ ≈ 62.428 lb/ft³
-              </span>
-            </li>
+        </section>
+
+        <section className="mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Types of Density (Mass, Weight, and Relative)
+          </h2>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            When we talk about density, we are not always talking about the
+            same thing. This is where people get confused.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            <strong>Mass density</strong> is what people usually mean when
+            they say density. It is the mass of something divided by its
+            volume. We measure it in kilograms per meter or grams per cubic
+            centimeter. This is the kind of density we use in the formula.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            <strong>Weight density</strong> is different. It is the{" "}
+            <Link
+              href="/calculators/physics/weight-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              weight
+            </Link>{" "}
+            of something per unit volume. This changes depending on where you
+            are. For example something weighs differently on the Moon than it
+            does on Earth. Its mass density stays the same.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            People get confused because we use the words weight and mass to
+            mean the same thing in our daily lives. In physics they mean
+            different things.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Relative density — we also call it specific gravity — compares the
+            density of one substance to the density of another substance. We
+            usually compare it to water at 4 degrees Celsius. This is because
+            water has a density of 1 gram per cubic centimeter at that
+            temperature.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mt-4">
+            For example, if something has a density of 0.8 it is 80 percent
+            as dense as water. This means it will float in water. Relative
+            density is a comparison of two densities so it does not have any
+            units.
+          </p>
+        </section>
+
+        <section className="mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Some Common Units for Density
+          </h2>
+
+          <div className="overflow-x-auto mt-8 mb-4">
+            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
+              <thead>
+                <tr className="bg-blue-900/70">
+                  <th className="p-4 text-left font-semibold">Unit</th>
+                  <th className="p-4 text-left font-semibold">kg/m³</th>
+                </tr>
+              </thead>
+              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
+                <tr>
+                  <td className="p-4">Gram per Cubic Centimeter (g/cm³)</td>
+                  <td className="p-4">1,000</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Kilogram per Cubic Meter (kg/m³)</td>
+                  <td className="p-4">1 (SI Unit)</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Pound per Cubic Foot (lb/cu ft)</td>
+                  <td className="p-4">16.02</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Gram per Liter (g/L)</td>
+                  <td className="p-4">1</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Kilogram per Liter (kg/L)</td>
+                  <td className="p-4">1,000</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Ounce per Cubic Foot (oz/cu ft)</td>
+                  <td className="p-4">1.001</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Pound per US Gallon (lb/US gal)</td>
+                  <td className="p-4">119.83</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Ton (US) per Cubic Yard</td>
+                  <td className="p-4">1,186.6</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Gram per Cubic Meter (g/m³)</td>
+                  <td className="p-4">0.001</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Pound per Cubic Inch (lb/cu in)</td>
+                  <td className="p-4">27,680</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Kilogram per Cubic Centimeter (kg/cm³)</td>
+                  <td className="p-4">1,000,000</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Ounce per Cubic Inch (oz/cu in)</td>
+                  <td className="p-4">1,730</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Pound per Imperial Gallon (lb/Imp gal)</td>
+                  <td className="p-4">99.78</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Ton (UK) per Cubic Yard</td>
+                  <td className="p-4">1,328.9</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Pound per Cubic Yard (lb/cu yd)</td>
+                  <td className="p-4">0.5933</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Ounce per US Gallon (oz/US gal)</td>
+                  <td className="p-4">7.489</td>
+                </tr>
+                <tr>
+                  <td className="p-4">PSI per 1,000 Feet</td>
+                  <td className="p-4">2.3067</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Real-Life Examples of Density
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            There are things that show us what density is. For example ships
+            made of steel can float on water. This seems strange because
+            steel is heavier than water. The shape of the ship is such that
+            it traps a lot of air. So when we calculate the density of the
+            ship including the steel, the air and the things it is carrying
+            it is actually lighter than water. That is why the ship can
+            float.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Another example is when you mix oil and water. The oil stays on
+            top of the water because it is lighter.
+          </p>
+          <ul className="list-disc list-inside text-gray-200 space-y-2 text-base ml-2 mb-4">
+            <li>We can not mix oil with water because density of oil is lower.</li>
+            <li>This is the reason oil stays on the surface.</li>
           </ul>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Understanding SI Units vs. Imperial Measurement Systems
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed">
-            SI (International System) uses kg/m³ — the standard in Pakistan’s
-            board exams, universities, and global science. Imperial (lb/ft³) is
-            still used in some US engineering contexts. Our tool converts
-            seamlessly so you never lose marks for wrong units.
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            You can also see density at work when you look at soda cans. A
+            regular soda can will sink in water. A diet soda can will float.
+            This is because the sugar in the soda makes the can heavier. The
+            artificial sweetener in the diet soda does not add much weight so
+            the can is lighter. Density of diet soda is lower than soda that
+            is why diet soda can floats.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Hot air balloons are another example of density. When the air
+            inside the balloon is heated it becomes lighter than the air
+            outside. This makes the balloon rise up into the air because it
+            is now less dense than the air around it.
+          </p>
+          <ol className="list-decimal list-inside text-gray-200 space-y-2 text-base ml-2 mb-4">
+            <li>The balloon air is heated.</li>
+            <li>The heated air is lighter.</li>
+            <li>The balloon rises because density of air is lower than cooler air.</li>
+          </ol>
+
+          <p className="text-gray-200 leading-relaxed text-base">
+            Jewelers use density to check if gold is pure. They do this by
+            putting the gold in water and measuring how water it displaces.
+            Pure gold has a specific density that is hard to fake. So if the
+            density is not right the jeweler will know that the gold is not
+            pure. Density of gold is used to catch fake gold.
           </p>
         </section>
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Step-by-Step Calculation Examples
+            Common Mistakes When Calculating Density and How to Avoid Them
           </h2>
 
+          <p className="text-gray-200 leading-relaxed text-base mb-8">
+            Density seems like the simplest formula in physics. Until you
+            actually start to do the calculation. Most of the problems are
+            not with the math. They are with the way things are set up
+            before the math even begins.
+          </p>
+
           <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            How to Calculate the Density of Liquids vs. Solids
+            Mistakes While Using Online Calculators
           </h3>
-          <p className="text-gray-200 text-base">
-            For solids: measure mass on a balance, volume by dimensions or
-            displacement. For liquids: use a measuring cylinder for volume and
-            balance for mass. Example: 250 ml (250 cm³) of oil has mass 225 g →
-            density = 0.9 g/cm³.
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Online density calculators are useful but they are only as good
+            as the information you put into them:
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Mixing units without converting. Entering mass in pounds and
+            volume in liters into a calculator that expects kilograms and
+            cubic meters will give you a number that looks right but is
+            completely wrong. Always check what units the calculator uses
+            before entering your numbers.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Confusing mass and weight fields. Some calculators say "mass,"
+            others say "weight," and people enter a number from a bathroom
+            scale (which's weight) as if it were mass. On Earth this doesn't
+            usually cause a problem but its still not correct and can be a
+            real issue if you are working with different gravity
+            environments.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Rounding early. A calculator might round a number before you use
+            it in the step of a problem and that small rounding error adds up
+            if you're doing several calculations in a row.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-10">
+            Ignoring figures. A calculator will give you decimal places even
+            if your original measurements only have a few. Showing all of
+            them makes the result look more accurate than it actually is.
           </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            How to find the density of an irregular object?
+          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
+            Mistakes While Doing Physical or Manual Calculations
           </h3>
-          <p className="text-gray-200 text-base">
-            Use Archimedes’ principle: submerge in water, measure displaced
-            volume. Mass = 150 g, displaced volume = 50 cm³ → density = 3 g/cm³.
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            I still remember this from my 9th-grade physics lab in 2022. We
+            were asked to find the density of a metal block using the water
+            displacement method. Put it into a graduated cylinder measure how
+            much the water level rises and use that as the volume.
           </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
-            Example 1: Gold Bar
-          </h4>
-          <p className="text-gray-200 text-base font-mono">
-            Mass = 193 g, Volume = 10 cm³
-            <br />ρ = 193 / 10 = <strong>19.3 g/cm³</strong>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            I got a density value that was completely wrong compared to what
+            the textbook said for the metal. I couldn't figure out why for
+            most of the lab. It turned out I made two mistakes at the time.
+            First I read the water level from an angle of looking straight on
+            so I didn't read the meniscus correctly and got the wrong volume.
+            Second I used the mass of the block that included a sticker tag
+            still attached to it so my mass reading was not accurate either.
+            Neither mistake was big by itself. Together they made my final
+            density number very off.
           </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
-            Example 2: Steel Block (Imperial)
-          </h4>
-          <p className="text-gray-200 text-base font-mono">
-            Mass = 17.35 lb, Volume = 0.5 ft³
-            <br />ρ = 17.35 / 0.5 = <strong>34.7 lb/ft³</strong> (≈ 7850 kg/m³
-            after conversion)
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            That lab taught me something that no textbook explanation had
+            explained before: density calculations are only as accurate as
+            the measurements you take. The formula is simple. The real skill
+            is in measuring mass and volume. Some common problems when doing
+            calculations:
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Air bubbles stuck on the object during water displacement, which
+            makes the volume look bigger than it is.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Not considering the weight of the container when weighing a
+            liquid or powder so the mass includes something it shouldn't.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            Temperature changes that affect volume with liquids because most
+            things expand when they get warmer.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base mb-6">
+            Using the formula for the volume of an irregular shape. Trying to
+            use a cube or sphere formula for something that doesn't fit.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            If you are doing this by hand check that your tools are properly
+            calibrated and take measurements more than once. It only takes
+            two minutes and saves you from having to start over later.
           </p>
         </section>
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Why Density Matters in Physics and Engineering
+            Some Common Material Densities
           </h2>
+          <p className="text-gray-200 leading-relaxed text-base mb-8">
+            Here are 12 of the most popular materials people look up, listed
+            from heaviest to lightest by density:
+          </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Common Densities: From Water to Steel and Gold
-          </h3>
-          <div className="overflow-x-auto mt-8 mb-12">
+          <div className="overflow-x-auto mt-8 mb-6">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Material</th>
-                  <th className="p-4 text-left font-semibold">
-                    Density (kg/m³)
-                  </th>
-                  <th className="p-4 text-left font-semibold">
-                    Density (g/cm³)
-                  </th>
+                  <th className="p-4 text-left font-semibold">Density (g/cm³)</th>
+                  <th className="p-4 text-left font-semibold">Density (kg/m³)</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4">Air (20°C)</td>
-                  <td className="p-4">1.204</td>
-                  <td className="p-4">0.001204</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Water (4°C)</td>
-                  <td className="p-4">1000</td>
-                  <td className="p-4">1.000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Ice</td>
-                  <td className="p-4">917</td>
-                  <td className="p-4">0.917</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Aluminium</td>
-                  <td className="p-4">2700</td>
-                  <td className="p-4">2.70</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Steel</td>
-                  <td className="p-4">7850</td>
-                  <td className="p-4">7.85</td>
-                </tr>
-                <tr>
                   <td className="p-4">Gold</td>
-                  <td className="p-4">19300</td>
-                  <td className="p-4">19.30</td>
+                  <td className="p-4">19.32</td>
+                  <td className="p-4">19320</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Tungsten</td>
+                  <td className="p-4">19.25</td>
+                  <td className="p-4">19250</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Lead</td>
+                  <td className="p-4">11.34</td>
+                  <td className="p-4">11340</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Silver</td>
+                  <td className="p-4">10.49</td>
+                  <td className="p-4">10490</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Copper</td>
+                  <td className="p-4">8.96</td>
+                  <td className="p-4">8960</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Nickel</td>
+                  <td className="p-4">8.90</td>
+                  <td className="p-4">8900</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Brass</td>
+                  <td className="p-4">8.50</td>
+                  <td className="p-4">8500</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Stainless Steel (304)</td>
+                  <td className="p-4">7.93</td>
+                  <td className="p-4">7930</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Steel (Carbon Steel)</td>
+                  <td className="p-4">7.85</td>
+                  <td className="p-4">7850</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Cast Iron</td>
+                  <td className="p-4">6.90</td>
+                  <td className="p-4">6900</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Titanium</td>
+                  <td className="p-4">4.43</td>
+                  <td className="p-4">4430</td>
+                </tr>
+                <tr>
+                  <td className="p-4">Aluminum</td>
+                  <td className="p-4">2.70</td>
+                  <td className="p-4">2700</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            What is the Difference Between Density and Specific Gravity?
-          </h3>
-          <p className="text-gray-200 text-base">
-            Density is absolute (kg/m³). Specific gravity is the ratio of a
-            substance’s density to water’s density (dimensionless). Specific
-            gravity of gold = 19.3. Our calculator shows both when you choose
-            “specific gravity” output.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Why Does Temperature Affect Density Calculations?
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed">
-            Most substances expand when heated, increasing volume while mass
-            stays constant → density decreases. Water is unusual: density is
-            maximum at 4°C. Always note the temperature for accurate lab work.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            How to Use Your Calculation History to Track Results
-          </h3>
-          <p className="text-gray-200 text-base">
-            Every time you calculate, the result is saved with timestamp,
-            inputs, and units. Click any past entry to reload it instantly —
-            perfect for comparing materials or revising for exams.
+          <p className="text-gray-300 text-sm leading-relaxed">
+            About this data: I checked these values from{" "}
+            <a
+              href="https://www.samaterials.com/content/density-measurement-and-common-materials.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              Stanford Advanced Materials (SAM)
+            </a>{" "}
+            as well. SAM, founded in 1994, is a US-based supplier of over
+            10,000 advanced materials used across the aerospace, technology,
+            and medical industries, headquartered in Santa Ana, California.
+            The reference page is written by Chin Trento, who holds a
+            bachelor's degree in applied chemistry from the University of
+            Illinois and has been writing about advanced materials at SAM for
+            over four years — so the numbers above are cross-checked against
+            an industry source, not just pulled from a random table.
           </p>
         </section>
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Frequently Asked Questions about Density
+            How to Calculate Density Using Excel
           </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Is 1 g/cm³ the same as 1000 kg/m³?
-          </h3>
-          <p className="text-gray-200 text-base">
-            Yes — exactly. This is the density of water and the most common
-            conversion you will use in Punjab Board exams.
+          <p className="text-gray-200 leading-relaxed text-base mb-6">
+            You do not need a calculator to figure out density. A simple
+            formula in a spreadsheet can do the job. This is really useful if
+            you are working with a lot of data from a lab or a list of
+            materials.
           </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            What happens to density if the volume is zero?
-          </h3>
-          <p className="text-gray-200 text-base">
-            Mathematically it becomes undefined (division by zero). Our
-            calculator shows a clear warning and prevents the calculation.
+          <p className="text-gray-200 leading-relaxed text-base mb-4">
+            You can start by making a list.
           </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Standard Density of Water at Room Temperature
-          </h3>
-          <p className="text-gray-200 text-base">
-            At 20°C (typical room temperature), water density is approximately{" "}
-            <strong>998 kg/m³</strong> or 0.998 g/cm³. Many textbooks round it
-            to 1000 kg/m³ for simplicity.
+          <p className="text-gray-200 leading-relaxed text-base mb-2">
+            * In column A write down the mass of each thing.
           </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Why is my result showing in Newtons instead of Kilograms?
-          </h3>
-          <p className="text-gray-200 text-base">
-            Density uses mass (kg), not weight (Newtons). If you accidentally
-            entered weight instead of mass, divide by 9.8 m/s² first. Our tool
-            always expects mass.
+          <p className="text-gray-200 leading-relaxed text-base mb-2">
+            * In column B write down the volume of each thing. Make sure you
+            use the same units for everything.
           </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Can the calculator handle gases and liquids?
-          </h3>
-          <p className="text-gray-200 text-base">
-            Yes — just enter the correct mass and volume (or use STP conditions
-            for gases). Try air: 1.2 kg/m³.
+          <p className="text-gray-200 leading-relaxed text-base mb-6">
+            * In column C type in the formula: <code>=A2/B2</code>
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Then you can drag this formula down to all the rows. This way you
+            can calculate the density of lots of things at the same time
+            using the density formula in Excel. For the official reference on
+            how Excel formulas work, see Microsoft's{" "}
+            <a
+              href="https://support.microsoft.com/en-us/office/overview-of-formulas-in-excel-ecfdc708-9162-49e8-b993-c311f47ca173"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              Overview of formulas in Excel
+            </a>{" "}
+            documentation.
           </p>
         </section>
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Physics Tools to Explore
+            Related Calculators
           </h2>
-
           <p className="text-gray-200 text-base mb-6">
             Pair your density practice with these other free calculators:
           </p>
-
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
+            <li>
+              <Link
+                href="/calculators/physics/mass-calculator"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                Mass Calculator
+              </Link>{" "}
+              — find mass when you know density and volume
+            </li>
             <li>
               <Link
                 href="/calculators/physics/weight-calculator"
@@ -860,21 +919,50 @@ export default function DensityPage() {
                 className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
               >
                 Speed Calculator
-              </Link>
-              -Find speed and distance with ease
+              </Link>{" "}
+              — find speed and distance with ease
+            </li>
+            <li>
+              <Link
+                href="/calculators/math/conversion-calculator"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                Conversion Calculator
+              </Link>{" "}
+              — convert between metric and imperial units in one place
             </li>
           </ul>
-
-          <p className="text-gray-200 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Master density today — our free density calculator is fast,
-            accurate, unit-smart, and always ready for your next physics
-            numerical, board exam, or engineering project. Bookmark it and make
-            every calculation effortless!
-          </p>
         </section>
-      </article>
 
-      <FAQ items={faqData} />
+        {/* ── BYLINE ── */}
+        <div className="flex items-center gap-4 mt-12 mb-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
+          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+            RA
+          </div>
+          <div>
+            <p className="text-white font-semibold text-sm">
+              Written by Rana Muhammad Abdullah
+            </p>
+            <p className="text-gray-300 text-xs">
+              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
+              Control Engineering Student ·{" "}
+              <a
+                href="https://www.linkedin.com/in/abdullahsajjad06/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                LinkedIn
+              </a>
+            </p>
+          </div>
+          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
+            <span>📅 Published: Apr 4, 2026</span>
+            <span>🔄 Updated: Aug 01, 2026</span>
+            <span>✅ Verified accurate</span>
+          </div>
+        </div>
+      </article>
 
       <Footer />
     </main>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import {
   RotateCcw,
   Layers,
@@ -102,6 +102,15 @@ export default function DensityCalculator() {
   const [trigger, setTrigger] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
 
+  // --- Auto-scroll-to-results (mobile only) ---
+  // Results sit beside the inputs in a 2-column grid at the `lg` breakpoint
+  // and above, so they're already visible there — no scroll needed. Below
+  // `lg` the results stack underneath the inputs, off-screen after Calculate
+  // is pressed, so we smooth-scroll them into view. resultsRef is attached
+  // to the results column below; resultsRef.current is null until that
+  // element mounts, which only happens once showResults + results are true.
+  const resultsRef = useRef<HTMLDivElement>(null);
+
   // --- Calculator Metadata ---
   const calculatorInfo = {
     name: "Density Calculator",
@@ -168,6 +177,30 @@ export default function DensityCalculator() {
       volume: vVal,
     };
   }, [trigger, mass, massUnit, volume, volumeUnit, densityUnit]);
+
+  // --- Scroll results into view after Calculate, mobile/tablet only ---
+  // Runs after `results` (re)computes so the results block has already
+  // rendered with real content — scrolling one tick earlier would target
+  // the still-empty placeholder height and land in the wrong place.
+  useEffect(() => {
+    if (!showResults || !results) return;
+
+    // `lg` in Tailwind's default scale is 1024px — matches the lg:grid-cols-12
+    // breakpoint above where results move beside the inputs instead of below.
+    const isMobileOrTablet =
+      typeof window !== "undefined" && window.innerWidth < 1024;
+
+    if (isMobileOrTablet && resultsRef.current) {
+      // rAF ensures we scroll after the browser has painted the new results
+      // block, so scrollIntoView measures its final position, not a stale one.
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    }
+  }, [results, showResults]);
 
   return (
     // Changed from <main> to <div>: page.tsx already renders the page's
@@ -271,7 +304,7 @@ export default function DensityCalculator() {
           </div>
 
           {/* Results Section */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7" ref={resultsRef}>
             {showResults && results && !("error" in results) ? (
               <div className="bg-card border-2 border-blue-600/20 rounded-3xl p-6 md:p-12 shadow-sm animate-in fade-in zoom-in-95 duration-300">
                 <div className="space-y-2 text-center">
@@ -332,26 +365,6 @@ export default function DensityCalculator() {
           </div>
         </div>
 
-        {/* Informational Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 bg-card border rounded-2xl space-y-3">
-            <h3 className="font-black uppercase text-sm flex items-center gap-2">
-              <BarChart3 size={18} className="text-blue-600" /> Theory
-            </h3>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              Density ($\rho$) is defined as mass per unit volume. The formula
-              is $\rho = m / V$. It determines whether an object sinks or
-              floats.
-            </p>
-          </div>
-          <div className="p-6 bg-card border rounded-2xl space-y-3 text-sm">
-            <h3 className="font-black uppercase text-sm">Pro Tip</h3>
-            <ul className="space-y-2 text-gray-300 list-disc list-inside">
-              <li>Check your units: kg/m³ is the SI standard.</li>
-              <li>Ensure volume is not zero.</li>
-            </ul>
-          </div>
-        </div>
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
