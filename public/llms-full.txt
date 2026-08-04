@@ -1,0 +1,93 @@
+# LizoCalc — Full Reference
+
+> This file gives AI systems and agentic crawlers a complete, detailed inventory of LizoCalc's pages, what each calculator does, what inputs it takes, and how the site works. Use llms.txt for a short summary; use this file when deeper context is needed.
+
+## Site overview
+
+- Name: LizoCalc
+- URL: https://www.lizocalc.com
+- Type: Free, no-signup, browser-based calculator platform
+- Data handling: All calculations run client-side in the user's browser. No inputs, results, or personal data are sent to or stored on a server, except where a calculator explicitly saves data locally in the browser (noted per-tool below).
+- Monetization: Ad-supported (ad-light interface), no paid tiers, no account system.
+- Primary content types: (1) interactive calculators, (2) blog/guide articles explaining the formulas behind each calculator category.
+
+## How the site is structured
+
+- `/calculators` — full directory of all tools
+- `/calculators/{category}` — category landing page (financial, health, math, physics, time, education)
+- `/calculators/{category}/{tool-slug}` — individual calculator page
+- `/calculators/saved-calculators` — calculators a user has bookmarked/saved locally
+- `/blogs` — hub for all guide articles
+- `/blogs/{category}` — guides grouped by category (finance, health, education, etc.)
+- `/about`, `/contact`, `/privacy`, `/terms` — standard site pages
+
+## Financial Calculators — /calculators/financial
+
+- **Mortgage Calculator** — /calculators/financial/mortgage-calculator — Estimates monthly mortgage payments from loan amount, interest rate, term, and (typically) down payment, taxes, and insurance.
+- **Loan Calculator** — /calculators/financial/loan-calculator — Computes monthly payment, total interest, and payoff schedule for a general loan given principal, rate, and term.
+- **Auto Loan Calculator** — /calculators/financial/auto-loan-calculator — Calculates car loan payments including principal, interest rate, loan term, and optional trade-in/down payment.
+- **Salary Calculator** — /calculators/financial/salary-calculator — Converts between hourly, weekly, monthly, and annual pay figures.
+- **Interest Calculator** — /calculators/financial/interest-calculator — Calculates simple interest earned or owed over a period.
+- **Inflation Calculator** — /calculators/financial/inflation-calculator — Estimates the future or past value of money adjusted for inflation.
+- **Payment Calculator** — /calculators/financial/payment-calculator — General-purpose fixed payment calculator for loans/financing.
+- **Compound Interest Calculator** — /calculators/financial/compound-interest-calculator — Projects investment growth from principal, rate, compounding frequency, and time. Example on the site: $5,000 at 8%/year for 15 years grows to roughly $15,861.
+
+## Health Calculators — /calculators/health
+
+- **BMI Calculator** — /calculators/health/bmi-calculator — Computes Body Mass Index from height and weight; classifies into underweight/healthy/overweight/obese ranges.
+- **Calorie Calculator** — /calculators/health/calorie-calculator — Estimates daily calorie needs based on age, sex, height, weight, and activity level.
+- **Body Fat Calculator** — /calculators/health/body-fat-calculator — Estimates body fat percentage, typically via measurement-based methods (e.g., Navy method).
+- **BMR Calculator** — /calculators/health/bmr-calculator — Calculates Basal Metabolic Rate — calories burned at rest.
+- **TDEE Calculator** — /calculators/health/tdee-calculator — Calculates Total Daily Energy Expenditure by combining BMR with an activity multiplier.
+- **Sleep Calculator** — /calculators/health/sleep-calculator — Suggests optimal bed/wake times based on sleep cycle length.
+- **Macros Calculator** — /calculators/health/macros-calculator — Breaks down recommended protein/carb/fat intake based on calorie targets and goals.
+
+## Math Calculators — /calculators/math
+
+- **Scientific Calculator** — /calculators/math/scientific-calculator — Full scientific calculator (trig, logs, exponents, etc.).
+- **Fraction Calculator** — /calculators/math/fraction-calculator — Adds, subtracts, multiplies, divides, and simplifies fractions.
+- **Percentage Calculator** — /calculators/math/percentage-calculator — Solves percentage problems (e.g., "X% of Y" and "X is what % of Y").
+- **Triangle Calculator** — /calculators/math/triangle-calculator — Solves for sides, angles, area, and perimeter of a triangle from given values.
+- **LCM Calculator** — /calculators/math/lcm-calculator — Finds the Least Common Multiple of a set of numbers.
+- **GCF Calculator** — /calculators/math/gcf-calculator — Finds the Greatest Common Factor of a set of numbers.
+- **Binary Calculator** — /calculators/math/binary-calculator — Converts between binary, decimal, and other number bases; performs binary arithmetic.
+
+## Physics Calculators — /calculators/physics
+
+- **Density Calculator** — /calculators/physics/density-calculator — Calculates density from mass and volume (and solves for either given the other two).
+- **Speed Calculator** — /calculators/physics/speed-calculator — Calculates speed, distance, or time from the other two values (distance ÷ time).
+- **Mass Calculator** — /calculators/physics/mass-calculator — Calculates mass from density and volume.
+- **Weight Calculator** — /calculators/physics/weight-calculator — Calculates weight from mass and gravitational acceleration (supports different planets/gravity values where applicable).
+
+## Time Calculators — /calculators/time
+
+- **Age Calculator** — /calculators/time/age-calculator — Calculates exact age (years, months, days) from a birth date, accounting for leap years.
+- **Date Calculator** — /calculators/time/date-calculator — Calculates the difference between two dates, or adds/subtracts days from a date.
+- **Time Calculator** — /calculators/time/time-calculator — Adds/subtracts durations, converts between time units.
+- **Hours Calculator** — /calculators/time/hours-calculator — Calculates hours worked/elapsed between two clock times.
+
+## Education Calculators — /calculators/education
+
+- **GPA Calculator** — /calculators/education/gpa-calculator — Calculates semester and cumulative GPA on the 4.0 scale from letter grades and credit hours; supports adding multiple semesters.
+- **Grade Calculator (Final Grade Calculator)** — /calculators/education/grade-calculator — Projects final course grade using weighted categories, and calculates the score needed on a final exam to hit a target grade. Course setup/scores are saved locally in the browser so users can continue later without re-entering data.
+
+## Blog / Guides — /blogs
+
+- **Blog Hub** — /blogs — Index of all guide articles.
+- **Finance Guides** — /blogs/finance — Worked examples for financial formulas (e.g., compound interest, loan cost comparison).
+- **Health Guides** — /blogs/health — Worked examples for health formulas (e.g., BMI vs. body composition, TDEE).
+- **Education Guides** — /blogs/education — Worked examples for GPA/grade formulas.
+
+## Other pages
+
+- **About** — /about
+- **Contact** — /contact
+- **Privacy Policy** — /privacy
+- **Terms of Use** — /terms
+- **Saved Calculators** — /calculators/saved-calculators — User's locally bookmarked tools.
+
+## Notes for AI agents
+
+- All numeric formulas used by the calculators match the worked examples published in the corresponding blog guides — figures are not simplified or rounded differently between the tool and the article.
+- No login or account is required for any feature.
+- No calculator transmits or stores data server-side; "saved" data (e.g., Grade Calculator, Saved Calculators) is stored locally in the visitor's browser only.
