@@ -8,49 +8,49 @@ import Image from "next/image";
 
 const faqData = [
   {
-    question: "What is BMI in simple terms?",
+    question: "Can employers reject me because of my weight?",
     answer:
-      "BMI (Body Mass Index) is a number calculated from your height and weight that estimates whether you have a healthy amount of body fat. It does not directly measure fat, but it gives a useful screening number. A BMI between 18.5 and 24.9 is considered normal for most adults.",
+      "In a lot of places, weight on its own isn't a protected category the way race, sex, or age usually are — so yes, in some situations an employer could technically factor it in. But if that decision is really tied to a disability connected to your weight, or if it ends up affecting one gender more than another, it can slide into illegal discrimination. The rules genuinely change depending on where you live, so it's worth checking your local employment laws if this happens to you.",
   },
   {
-    question: "What is the BMI formula?",
+    question: "Is it legal for companies to use BMI in hiring decisions?",
     answer:
-      "The metric formula is BMI = weight (kg) ÷ height² (m²). For example, if you weigh 70 kg and are 1.75 m tall: BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 ≈ 22.86. In imperial units: BMI = (weight in pounds × 703) ÷ height in inches².",
+      "It depends heavily on your location. A small number of places — Michigan is the most cited example in the US, along with a few cities like San Francisco and New York — explicitly ban weight-based hiring discrimination. Outside of those areas, using BMI as a hard cutoff sits in a legal grey zone, and it can get an employer into trouble if it ends up screening out people with an underlying medical condition or disability.",
   },
   {
-    question: "What is a healthy BMI range?",
+    question: "How much does weight matter when applying for jobs?",
     answer:
-      "For adults, a BMI of 18.5–24.9 is considered normal or healthy. Below 18.5 is underweight, 25–29.9 is overweight, and 30 or above is classified as obese. These are general thresholds — they do not account for muscle mass, age, or ethnicity.",
+      "For most desk-based and office roles, honestly, it shouldn't matter at all — what employers are supposed to be evaluating is your skills and experience. It comes up more in physically demanding fields like firefighting, the military, or aviation, where there are real fitness or safety requirements involved. Outside of those specific cases, if weight seems to be influencing a hiring call, that's bias, not a genuine job requirement.",
   },
   {
-    question: "Is BMI different for men and women?",
+    question: "Will my BMI affect my job interview chances?",
     answer:
-      "The BMI formula and categories are the same for both sexes. However, women naturally carry more body fat than men at the same BMI. A woman and a man with identical BMIs may have different health risks because fat distribution differs between sexes.",
+      "For the huge majority of jobs, it shouldn't — interviewers are meant to be judging your qualifications, not your body. That said, unconscious appearance-based bias is a real thing some people worry about, and it's a fair concern. The best move is to focus on what's actually in your control: how prepared you are, how clearly you talk about your experience, and how you carry yourself in the conversation.",
   },
   {
-    question: "Why is BMI not always accurate?",
+    question: "What jobs care most about employee BMI and weight?",
     answer:
-      "BMI does not distinguish between fat and muscle mass. A muscular athlete can have an 'overweight' BMI while having very little body fat. It also does not show where fat is stored — abdominal fat carries more risk than fat on the hips. For elderly people, BMI may underestimate fat because muscle mass decreases with age.",
+      "Jobs with formal physical fitness or medical standards tend to care the most — military service, firefighting, policing, commercial diving, and some airline crew roles are the classic examples. Even then, they usually rely on actual fitness tests rather than a BMI number by itself. Most other fields, from tech to healthcare admin to retail, have no formal weight requirements whatsoever.",
   },
   {
-    question: "How is BMI calculated for children?",
+    question: "How do I prepare for a job interview if I'm overweight?",
     answer:
-      "For children and teens (ages 2–19), BMI is calculated the same way but is then compared to age- and sex-specific growth charts rather than fixed thresholds. A child's BMI percentile tells you how their measurement compares to others of the same age and sex.",
+      "Prepare the exact same way anyone else would: research the company, rehearse your answers out loud, and know your resume cold. If you're feeling self-conscious about how you look, wearing something that actually fits well and feels comfortable can take that worry off your mind so you can focus on the conversation. Real confidence in an interview comes from being over-prepared on substance, not from your size.",
   },
   {
-    question: "What is a better measure than BMI?",
+    question: "Can I sue an employer for weight discrimination?",
     answer:
-      "Waist-to-hip ratio, waist circumference, and body fat percentage are all more precise indicators of health risk. Waist circumference above 94 cm for men or 80 cm for women signals higher risk regardless of BMI. For the most accurate picture, these measurements are used alongside BMI.",
+      "In places with a specific weight discrimination law — Michigan, or a handful of US cities — yes, that's a real legal path. Elsewhere, a standalone weight discrimination case is harder to bring unless it overlaps with disability law or sex discrimination, since severe obesity is sometimes treated as a protected medical condition in that context. This is one of those areas where talking to an employment lawyer where you live actually makes sense, because the rules vary so much.",
   },
   {
-    question: "Is BMI useful for Pakistani adults?",
+    question: "How can I build confidence for job interviews if I'm overweight?",
     answer:
-      "Some research suggests South Asians, including Pakistanis, face higher metabolic risks at lower BMI thresholds. The WHO has proposed adjusted cutoffs (23 for overweight, 27.5 for obese) for Asian populations. It is best to discuss your individual numbers with a doctor who understands your background.",
+      "Confidence in an interview comes mostly from feeling ready, not from anything about your size. Practising your answers out loud, researching the company, and having a few strong stories about your work ready to go will do more for your nerves than anything else. And it helps to remember: most interviewers care about whether you can do the job — and if one doesn't, that's probably not somewhere you'd want to work anyway.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "What is BMI? Meaning, Formula, Limitations & Real Health Use",
+  title: "What Is BMI? Formula, Limitations & Real Health Use",
   description:
     "Understand BMI: what it means, the exact formula in kg and lbs, healthy ranges, a worked example, limitations, and when it is actually useful — explained clearly with visuals.",
   keywords: [
@@ -492,7 +492,7 @@ export default function WhatIsBMIPage() {
         ══════════════════════════════════════════════════ */}
         <section className="mt-10" id="what-is-bmi">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            What is BMI? (Simple Meaning)
+            What is BMI? Explaination 
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
             BMI stands for <strong>Body Mass Index</strong>. The body mass index
@@ -749,64 +749,48 @@ export default function WhatIsBMIPage() {
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="bmi-example">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            BMI Example Calculation — Step by Step
+            Calculating Your BMI: An Example
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Most health blogs show the formula and nothing else. Here are two
-            complete worked examples — metric and imperial — so you can follow
-            every step with your own numbers.
+            Let&rsquo;s say someone weighs 170 pounds and is 5 feet 8 inches
+            tall (68 inches).
           </p>
 
           <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-6">
-            <h3 className="text-xl font-semibold text-blue-300 mb-5">
-              Metric Example (kg and metres)
-            </h3>
             <p className="text-gray-300 mb-4">
-              Person: Weight = <strong>70 kg</strong>, Height ={" "}
-              <strong>1.75 m</strong>
+              Person: Weight = <strong>170 lbs</strong>, Height ={" "}
+              <strong>5 ft 8 in (= 68 inches total)</strong>
             </p>
             <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-              Step 1 — Square the height
-              <br />
-              1.75 × 1.75 = 3.0625 m²
+              BMI = (170 ÷ 68²) × 703
               <br />
               <br />
-              Step 2 — Divide weight by that result
+              68² = 4,624
               <br />
-              70 ÷ 3.0625 = <strong>22.86 kg/m²</strong>
+              170 ÷ 4,624 = 0.03677
               <br />
-              <br />
-              Result: BMI = 22.86 → <strong>Normal weight ✓</strong>
+              0.03677 × 703 ≈ <strong>25.85</strong>
             </div>
           </div>
 
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-6">
-            <h3 className="text-xl font-semibold text-blue-300 mb-5">
-              Imperial Example (lbs and inches)
-            </h3>
-            <p className="text-gray-300 mb-4">
-              Person: Weight = <strong>154 lbs</strong>, Height ={" "}
-              <strong>5 ft 9 in (= 69 inches total)</strong>
-            </p>
-            <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-              Step 1 — Square the height in inches
-              <br />
-              69 × 69 = 4,761 inches²
-              <br />
-              <br />
-              Step 2 — Multiply weight by 703
-              <br />
-              154 × 703 = 108,262
-              <br />
-              <br />
-              Step 3 — Divide
-              <br />
-              108,262 ÷ 4,761 = <strong>22.74 kg/m²</strong>
-              <br />
-              <br />
-              Result: BMI ≈ 22.74 → <strong>Normal weight ✓</strong>
-            </div>
-          </div>
+          <p className="text-gray-200 text-base leading-relaxed mb-2">
+            That number, 25.85, gets you sorted into a category. Here&rsquo;s
+            the standard breakdown used by the CDC and WHO:
+          </p>
+          <ul className="list-disc list-inside text-gray-200 space-y-2 text-base leading-relaxed ml-2 mb-6">
+            <li>Below 18.5: underweight</li>
+            <li>18.5 to 24.9: normal weight</li>
+            <li>25 to 29.9: overweight</li>
+            <li>30 and above: obese</li>
+          </ul>
+
+          <p className="text-gray-200 text-base leading-relaxed mb-6">
+            So in this example, 25.85 lands just barely into
+            &ldquo;overweight&rdquo; — even though that same person, depending
+            on how much of their weight is muscle versus fat, could be in
+            excellent physical condition or could genuinely be carrying excess
+            fat. The formula has no way of knowing which.
+          </p>
 
           <p className="text-gray-200 text-base leading-relaxed">
             You do not need to do this manually every time. Use our{" "}
@@ -1012,34 +996,41 @@ export default function WhatIsBMIPage() {
                 low body fat. Muscle is denser and heavier than fat. BMI sees
                 only total weight — it cannot differentiate between 10 kg of fat
                 and 10 kg of muscle.
-                <sup className="text-blue-400 text-xs ml-1">[7]</sup>
+                <sup className="text-blue-400 text-xs ml-1">[7]</sup> If you
+                want a clearer picture of your own body composition, our{" "}
+                <Link
+                  href="/calculators/health/body-fat-calculator"
+                  className="text-blue-400 hover:underline"
+                >
+                  Body Fat Calculator
+                </Link>{" "}
+                can help fill in that gap.
               </p>
             </div>
 
             <div className="bg-gray-800/50 border-l-4 border-orange-500 rounded-r-xl p-5">
               <h3 className="text-base font-semibold text-orange-300 mb-2">
-                2. It ignores fat distribution
+                2. It ignores where the fat is in the body
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed">
-                Two people with an identical BMI of 26 can have completely
-                different health risks depending on where their fat sits.
-                Visceral fat around the abdominal organs is far more dangerous
-                than subcutaneous fat on the hips and thighs. BMI does not tell
-                you which type you have.
+                Two people can have a body mass index of 26 and still have
+                different health problems. This is because the fat around the
+                stomach and organs is much worse for the body than the fat on
+                the hips and legs. The body mass index does not tell you what
+                kind of fat you have.
               </p>
             </div>
 
             <div className="bg-gray-800/50 border-l-4 border-yellow-500 rounded-r-xl p-5">
               <h3 className="text-base font-semibold text-yellow-300 mb-2">
-                3. Less accurate for older adults
+                3. It is not very good for older people
               </h3>
               <p className="text-gray-300 text-sm leading-relaxed">
-                As people age, muscle mass decreases and body fat tends to
-                increase even if weight stays the same. An elderly person may
-                have a &ldquo;normal&rdquo; BMI while actually having too much
-                fat and too little muscle, increasing fall risk and metabolic
-                problems.
-                <sup className="text-blue-400 text-xs ml-1">[5]</sup>
+                When people get older they lose muscle and gain fat even if
+                they do not weigh more. An older person can have a body mass
+                index that looks normal but still have too much fat and not
+                enough muscle, which can cause problems, like falling and
+                metabolism issues.
               </p>
             </div>
 
@@ -1071,84 +1062,6 @@ export default function WhatIsBMIPage() {
               </p>
             </div>
           </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            H2: BETTER ALTERNATIVES
-        ══════════════════════════════════════════════════ */}
-        <section className="mt-16" id="bmi-alternatives">
-          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Better Alternatives to BMI
-          </h2>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            If BMI vs body fat measurement is the real goal, here are four
-            options that provide more complete information — and that most
-            people can measure at home:
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-green-300 mb-2">
-                Waist Circumference
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Measures abdominal fat directly. Measure at the narrowest point
-                of your torso, just above the belly button.
-              </p>
-              <p className="text-gray-400 text-xs">
-                Risk threshold: &gt;94 cm (men) / &gt;80 cm (women)
-                <sup className="text-blue-400 ml-1">[2]</sup>
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-green-300 mb-2">
-                Waist-to-Hip Ratio (WHR)
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Divide your waist measurement by your hip measurement. A higher
-                ratio signals more abdominal fat and greater cardiovascular
-                risk.
-              </p>
-              <p className="text-gray-400 text-xs">
-                High risk: &gt;1.0 (men) / &gt;0.85 (women)
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-green-300 mb-2">
-                Body Fat Percentage
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                The most direct measure of fatness. Measured via DEXA scan,
-                hydrostatic weighing, or smart scales. Unlike BMI, it
-                distinguishes fat from muscle entirely.
-              </p>
-              <p className="text-gray-400 text-xs">
-                Healthy range: 10–20% (men) / 18–28% (women)
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-green-300 mb-2">
-                Waist-to-Height Ratio
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Divide your waist measurement by your height. Research suggests
-                this is a stronger predictor of cardiometabolic risk than BMI,
-                particularly across different ethnicities.
-              </p>
-              <p className="text-gray-400 text-xs">
-                Healthy: keep waist below half your height
-              </p>
-            </div>
-          </div>
-
-          <p className="text-gray-200 text-base leading-relaxed mt-6">
-            The best approach is to use BMI as one data point alongside waist
-            circumference and waist-to-hip ratio — not as a standalone health
-            verdict.
-          </p>
         </section>
 
         {/* ══════════════════════════════════════════════════
@@ -1188,8 +1101,15 @@ export default function WhatIsBMIPage() {
               <span>
                 <strong>Tracking personal change over time:</strong> Even if
                 your absolute BMI number is imperfect, tracking the direction of
-                change over months can signal whether a diet or fitness plan is
-                producing results.
+                change over months — alongside a tool like our{" "}
+                <Link
+                  href="/calculators/health/calorie-calculator"
+                  className="text-blue-400 hover:underline"
+                >
+                  Calorie Calculator
+                </Link>{" "}
+                — can signal whether a diet or fitness plan is producing
+                results.
               </span>
             </li>
             <li className="flex gap-3">
@@ -1329,65 +1249,6 @@ export default function WhatIsBMIPage() {
             </li>
           </ol>
         </section>
-
-        {/* ══════════════════════════════════════════════════
-            RELATED POSTS
-        ══════════════════════════════════════════════════ */}
-        {/* <section className="mt-16">
-          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Related Health Guides on LizoCalc
-          </h2>
-          <ul className="space-y-3 text-base">
-            <li>
-              <Link
-                href="/blogs/health/bmi-ranges-explained"
-                className="text-blue-400 hover:underline"
-              >
-                BMI ranges explained: what is a normal and healthy BMI?
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blogs/health/bmi-chart-women"
-                className="text-blue-400 hover:underline"
-              >
-                BMI chart for women: how to read and use it
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blogs/health/bmi-chart-men"
-                className="text-blue-400 hover:underline"
-              >
-                BMI chart for men: ranges, categories and what they mean
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blogs/health/how-to-calculate-bmi"
-                className="text-blue-400 hover:underline"
-              >
-                How to calculate BMI manually: formula with examples
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blogs/health/bmi-scale-categories"
-                className="text-blue-400 hover:underline"
-              >
-                BMI scale: underweight, normal, overweight and obese categories
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/blogs/health/bmi-index-vs-body-fat"
-                className="text-blue-400 hover:underline"
-              >
-                BMI index vs body fat: what the number actually tells you
-              </Link>
-            </li>
-          </ul>
-        </section> */}
 
         {/* ══════════════════════════════════════════════════
             E-E-A-T BYLINE
