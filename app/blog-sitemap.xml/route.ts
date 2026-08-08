@@ -40,7 +40,7 @@ export async function GET() {
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
@@ -62,7 +62,7 @@ export async function GET() {
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
@@ -78,13 +78,20 @@ export async function GET() {
       </image:caption>
     </image:image>
   </url>
+  <url>
+    <loc>https://www.lizocalc.com/blogs/finance/debt-consolidation-loan-guide</loc>
+    <lastmod>2026-08-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+
+  </url>
 
   <!-- =========================
         HEALTH BLOG
   ========================== -->
   <url>
     <loc>https://www.lizocalc.com/blogs/health/what-is-bmi</loc>
-    <lastmod>2026-05-01</lastmod>
+    <lastmod>2026-08-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
 
