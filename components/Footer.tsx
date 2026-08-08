@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Facebook, Instagram, Youtube } from 'lucide-react'
+import { Mail, Facebook, Instagram, Youtube, Linkedin } from 'lucide-react'
 
 // Computed at build time — zero client cost
 const currentYear = new Date().getFullYear()
@@ -74,6 +74,18 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Follow Us</h4>
             <ul className="space-y-3 text-sm">
+                <li>
+                <Link
+                  href="https://www.linkedin.com/company/lizocalc/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  prefetch={false}
+                  className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
+                >
+                  <Linkedin className="w-4 h-4" aria-hidden="true" />
+                  LinkedIn
+                </Link>
+              </li>
               <li>
                 <Link
                   href="https://www.facebook.com/profile.php?id=61573367673248"

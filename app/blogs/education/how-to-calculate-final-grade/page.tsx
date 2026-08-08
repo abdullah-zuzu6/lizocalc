@@ -57,12 +57,32 @@ const faqData = [
     answer:
       "The most common US conversion: 90–100% = 4.0 (A), 80–89% = 3.0 (B), 70–79% = 2.0 (C), 60–69% = 1.0 (D), below 60% = 0.0 (F). Plus/minus grades use intermediate values: A− = 3.7, B+ = 3.3, B = 3.0, B− = 2.7, and so on. Some institutions use their own scales, so check your school's official GPA table.",
   },
+  {
+    question: "How do I calculate a weighted average grade by hand?",
+    answer:
+      "Multiply each category average by its weight (as a decimal), then add the results together. For example, with homework 92% at 20%, quizzes 85% at 15%, midterm 78% at 25%, final 88% at 25%, and participation 95% at 15%: (92×0.20)+(85×0.15)+(78×0.25)+(88×0.25)+(95×0.15) = 18.4+12.75+19.5+22+14.25 = 86.9%.",
+  },
+  {
+    question: "What is the difference between a points-based and a percentage-based grading system?",
+    answer:
+      "In a points-based system, your grade is total points earned divided by total points possible, multiplied by 100 — every assignment is weighted automatically by how many points it's worth. In a percentage-based (category-weighted) system, each category (homework, exams, etc.) is assigned a fixed percentage of the final grade regardless of how many points the individual assignments were worth.",
+  },
+  {
+    question: "Is a 70% a passing grade in college?",
+    answer:
+      "It depends on the institution, but 70% (a C− in most US grading scales) is commonly the minimum passing grade for many college courses, while some programs require a C (73%) or higher to pass or to count toward a major. Always check your specific school's or department's passing threshold.",
+  },
+  {
+    question: "How is GPA different from a percentage grade?",
+    answer:
+      "A percentage grade reflects your score in a single course (like 86%), while GPA (Grade Point Average) converts letter grades across all your courses into a single number, usually on a 4.0 scale, and averages them — often weighted by credit hours. You typically need to convert each course's percentage to a letter grade and GPA point before calculating your overall GPA.",
+  },
 ];
 
 export const metadata: Metadata = {
-  title: "How to Calculate Final Grade Before Exams — Formula, Examples & Score Needed",
+  title: "How to Calculate Final Grade |4 Methods",
   description:
-    "Learn how to calculate your final grade using the weighted grade formula. Find what score you need on the final exam to get an A, B, or C — with worked examples, tables, and a free calculator.",
+    "Learn how to calculate your final grade using 4 proven methods — weighted average, points-based, backward calculation, and simple average — with worked examples, tables, and a free calculator.",
   keywords: [
     "how to calculate final grade",
     "final grade calculator",
@@ -77,15 +97,16 @@ export const metadata: Metadata = {
     "can I still pass after final",
     "final grade formula",
     "how to calculate semester grade",
+    "points based grading system",
   ],
   alternates: {
     canonical: "https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade",
   },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "How to Calculate Final Grade Before Exams — Formula, Examples & Score Needed",
+    title: "How to Calculate Final Grade Before Exams — 4 Methods, Formula & Score Needed",
     description:
-      "The complete guide to calculating your final grade: weighted formula, worked examples, score-needed calculator, grading tables, and common mistakes explained clearly.",
+      "The complete guide to calculating your final grade: 4 proven methods, worked examples, a score-needed calculator, grading tables, and common mistakes explained clearly.",
     url: "https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade",
     siteName: "LizoCalc",
     type: "article",
@@ -100,9 +121,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "How to Calculate Final Grade — Formula, Examples & Score Needed",
+    title: "How to Calculate Final Grade — 4 Methods, Formula & Score Needed",
     description:
-      "Weighted grade formula, step-by-step examples, and the exact score you need on your final to hit your target grade.",
+      "Weighted grade formula, points-based grading, step-by-step examples, and the exact score you need on your final to hit your target grade.",
     images: [
       "https://www.lizocalc.com/images/blogs/education/how-to-calculate-final-grade-before-exams.webp",
     ],
@@ -217,13 +238,13 @@ export default function HowToCalculateFinalGradePage() {
                 "@id":
                   "https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade#article",
                 headline:
-                  "How to Calculate Final Grade Before Exams — Formula, Examples & Score Needed",
+                  "How to Calculate Final Grade Before Exams — 4 Methods, Formula & Score Needed",
                 description:
-                  "A complete guide to calculating your final grade: the weighted grade formula, step-by-step worked examples, the score-needed formula, grading scenarios, common mistakes, and a free grade calculator.",
+                  "A complete guide to calculating your final grade: 4 proven methods (weighted average, points-based, backward calculation, simple average), step-by-step worked examples, grading scenarios, common mistakes, and a free grade calculator.",
                 url: "https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade",
                 inLanguage: "en",
                 datePublished: "2026-05-01",
-                dateModified: "2026-05-01",
+                dateModified: "2026-08-08",
                 author: {
                   "@id": "https://www.lizocalc.com/#author",
                 },
@@ -249,9 +270,9 @@ export default function HowToCalculateFinalGradePage() {
                   name: "Final Grade Calculation",
                 },
                 keywords:
-                  "final grade, weighted grade, final exam score needed, grade calculator, how to calculate final grade, semester grade",
+                  "final grade, weighted grade, points based grading, final exam score needed, grade calculator, how to calculate final grade, semester grade",
                 articleSection: "Education",
-                wordCount: 3200,
+                wordCount: 3900,
                 citation: [
                   {
                     "@type": "CreativeWork",
@@ -289,12 +310,12 @@ export default function HowToCalculateFinalGradePage() {
                 "@id":
                   "https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade",
                 url: "https://www.lizocalc.com/blogs/education/how-to-calculate-final-grade",
-                name: "How to Calculate Final Grade Before Exams — Formula, Examples & Score Needed",
+                name: "How to Calculate Final Grade Before Exams — 4 Methods, Formula & Score Needed",
                 description:
-                  "Learn how to calculate your final grade using the weighted formula, find the exact score you need on the final exam, and understand weighted vs unweighted grading.",
+                  "Learn how to calculate your final grade using 4 proven methods, find the exact score you need on the final exam, and understand weighted vs unweighted grading.",
                 inLanguage: "en",
                 datePublished: "2026-05-01",
-                dateModified: "2026-05-01",
+                dateModified: "2026-08-08",
                 isPartOf: {
                   "@id": "https://www.lizocalc.com/#website",
                 },
@@ -442,13 +463,13 @@ export default function HowToCalculateFinalGradePage() {
           </nav>
 
           <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-            How to Calculate Final Grade Before Exams — Formula, Examples &amp; Score Needed
+            How to Calculate Final Grade Before Exams — 4 Methods, Formula &amp; Score Needed
           </h1>
 
           <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-400">
             <span>Published: May 01, 2026</span>
             <span>·</span>
-            <span>12 min read</span>
+            <span>14 min read</span>
             <span>·</span>
             <span className="text-green-400">✅ Factually reviewed</span>
           </div>
@@ -487,21 +508,6 @@ export default function HowToCalculateFinalGradePage() {
           article follow standard weighted grading used at most US and international universities.
         </div>
 
-        {/* ── TABLE OF CONTENTS ── */}
-        <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 mb-12">
-          <p className="text-white font-semibold text-base mb-4">📋 Table of Contents</p>
-          <ol className="space-y-2 text-blue-400 text-sm list-decimal list-inside leading-relaxed">
-            <li><a href="#what-is-final-grade" className="hover:underline">What is a Final Grade?</a></li>
-            <li><a href="#final-grade-formula" className="hover:underline">The Final Grade Formula</a></li>
-            <li><a href="#score-needed-on-final" className="hover:underline">What Score Do I Need on My Final?</a></li>
-            <li><a href="#worked-examples" className="hover:underline">Worked Math Examples</a></li>
-            <li><a href="#grading-scenarios" className="hover:underline">Grading Scenarios Table</a></li>
-            <li><a href="#weighted-vs-unweighted" className="hover:underline">Weighted vs Unweighted Grades</a></li>
-            <li><a href="#grading-systems" className="hover:underline">Common Grading Systems &amp; GPA Conversion</a></li>
-            <li><a href="#common-mistakes" className="hover:underline">Common Mistakes to Avoid</a></li>
-            <li><a href="#faq-section" className="hover:underline">Frequently Asked Questions</a></li>
-          </ol>
-        </div>
 
         {/* ══════════════════════════════════════════════════
             H2: WHAT IS A FINAL GRADE + IMAGE
@@ -609,6 +615,160 @@ export default function HowToCalculateFinalGradePage() {
             All weights in your course must add up to exactly 100%. Always verify this in your
             syllabus before doing any calculations.
           </p>
+        </section>
+
+        {/* ══════════════════════════════════════════════════
+            H2: 4 METHODS TO CALCULATE YOUR FINAL GRADE (NEW)
+        ══════════════════════════════════════════════════ */}
+        <section className="mt-16" id="four-methods">
+          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
+            4 Methods to Calculate Your Final Grade
+          </h2>
+          <p className="text-gray-200 text-base leading-relaxed mb-8">
+            Not every course grades the same way. Depending on your instructor, your school might
+            use a weighted-category system, a raw points system, or a simple unweighted average.
+            Here are the four methods you&rsquo;ll actually run into, with a worked example for each.
+          </p>
+
+          {/* METHOD 1 */}
+          <div className="mb-10">
+            <h3 className="text-xl font-semibold text-blue-300 mb-3">
+              Method 1 — The Weighted Average System
+            </h3>
+            <p className="text-gray-200 text-base leading-relaxed mb-4">
+              The most widely used grading system in high schools and colleges. Instead of every
+              assignment counting equally, categories of work (homework, quizzes, exams, projects)
+              are each assigned a percentage weight that reflects their importance. All the category
+              weights must add up to 100%.
+            </p>
+            <div className="bg-gray-900/70 p-5 rounded-xl border border-gray-700 font-mono text-green-300 text-sm mb-4 overflow-x-auto">
+              Final Grade = (Category 1 Avg × Weight 1) + (Category 2 Avg × Weight 2) + …
+            </div>
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
+              <p className="text-gray-300 text-sm mb-3 font-semibold">Worked Example</p>
+              <p className="text-gray-300 text-sm mb-3">
+                Breakdown: Homework 20%, Quizzes 15%, Midterm 25%, Final Exam 25%, Participation 15%.
+                Your averages: Homework 92%, Quizzes 85%, Midterm 78%, Final 88%, Participation 95%.
+              </p>
+              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
+                92×0.20=18.4 &nbsp;·&nbsp; 85×0.15=12.75 &nbsp;·&nbsp; 78×0.25=19.5
+                <br />
+                88×0.25=22 &nbsp;·&nbsp; 95×0.15=14.25
+                <br /><br />
+                18.4+12.75+19.5+22+14.25 = <strong>86.9% → B+</strong>
+              </div>
+            </div>
+            <p className="text-gray-300 text-sm mt-3">
+              Want to skip the manual multiplication? Our{" "}
+              <Link
+                href="/calculators/education/weighted-grade-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                Weighted Grade Calculator
+              </Link>{" "}
+              runs this exact calculation for any number of categories.
+            </p>
+          </div>
+
+          {/* METHOD 2 */}
+          <div className="mb-10">
+            <h3 className="text-xl font-semibold text-blue-300 mb-3">
+              Method 2 — The Points-Based System
+            </h3>
+            <p className="text-gray-200 text-base leading-relaxed mb-4">
+              Some instructors skip percentage weights entirely. Every assignment is worth a certain
+              number of raw points, and your final grade is simply the total points you earned
+              divided by the total points possible.
+            </p>
+            <div className="bg-gray-900/70 p-5 rounded-xl border border-gray-700 font-mono text-green-300 text-sm mb-4 overflow-x-auto">
+              Final Grade = (Total Points Earned ÷ Total Points Possible) × 100
+            </div>
+            <div className="overflow-x-auto mb-4">
+              <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
+                <thead>
+                  <tr className="bg-blue-900/70">
+                    <th className="p-3 text-left font-semibold">Assignment</th>
+                    <th className="p-3 text-left font-semibold">Earned</th>
+                    <th className="p-3 text-left font-semibold">Possible</th>
+                  </tr>
+                </thead>
+                <tbody className="bg-gray-800/50 divide-y divide-gray-700">
+                  <tr><td className="p-3">Homework Set 1</td><td className="p-3">45</td><td className="p-3">50</td></tr>
+                  <tr><td className="p-3">Homework Set 2</td><td className="p-3">48</td><td className="p-3">50</td></tr>
+                  <tr><td className="p-3">Quiz 1</td><td className="p-3">18</td><td className="p-3">20</td></tr>
+                  <tr><td className="p-3">Midterm</td><td className="p-3">82</td><td className="p-3">100</td></tr>
+                  <tr><td className="p-3">Project</td><td className="p-3">90</td><td className="p-3">100</td></tr>
+                  <tr><td className="p-3">Final Exam</td><td className="p-3">175</td><td className="p-3">200</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
+              Total earned: 458 &nbsp;·&nbsp; Total possible: 520
+              <br />
+              (458 ÷ 520) × 100 = <strong>88.08%</strong>
+            </div>
+            <p className="text-gray-300 text-sm mt-3">
+              This system is popular because it&rsquo;s transparent — you can always see exactly
+              where you stand by adding up points, without tracking separate category weights. Our{" "}
+              <Link
+                href="/calculators/education/grade-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                Grade Calculator
+              </Link>{" "}
+              supports both points-based and percentage-based entry.
+            </p>
+          </div>
+
+          {/* METHOD 3 */}
+          <div className="mb-10">
+            <h3 className="text-xl font-semibold text-blue-300 mb-3">
+              Method 3 — Backward Calculation (What Score Do I Need?)
+            </h3>
+            <p className="text-gray-200 text-base leading-relaxed mb-4">
+              This is the calculation most students actually search for: &ldquo;What score do I
+              need on my final to get an A?&rdquo; It rearranges the weighted grade formula to solve
+              for the final exam score instead of the overall grade. We cover this method in full
+              detail — with the formula, two worked examples, and a complete grading-scenarios
+              table — in the{" "}
+              <a href="#score-needed-on-final" className="text-blue-400 hover:underline">
+                &ldquo;What Score Do I Need on My Final&rdquo; section below
+              </a>
+              , so we won&rsquo;t repeat it here.
+            </p>
+          </div>
+
+          {/* METHOD 4 */}
+          <div className="mb-4">
+            <h3 className="text-xl font-semibold text-blue-300 mb-3">
+              Method 4 — The Simple Average (Unweighted) System
+            </h3>
+            <p className="text-gray-200 text-base leading-relaxed mb-4">
+              Some courses, especially at earlier grade levels, use a simple unweighted average
+              where every assignment counts equally regardless of type or point value.
+            </p>
+            <div className="bg-gray-900/70 p-5 rounded-xl border border-gray-700 font-mono text-green-300 text-sm mb-4 overflow-x-auto">
+              Final Grade = Sum of All Scores ÷ Number of Assignments
+            </div>
+            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
+              <p className="text-gray-300 text-sm mb-3 font-semibold">Worked Example</p>
+              <p className="text-gray-300 text-sm mb-3">
+                Five test scores: 88, 92, 79, 95, and 84.
+              </p>
+              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
+                (88 + 92 + 79 + 95 + 84) ÷ 5 = 438 ÷ 5 = <strong>87.6%</strong>
+              </div>
+            </div>
+            <p className="text-gray-300 text-sm mt-3">
+              This method is straightforward but can be misleading if assignments vary significantly
+              in difficulty or point value, since a 10-point quiz counts just as much as a 100-point
+              exam. See the{" "}
+              <a href="#weighted-vs-unweighted" className="text-blue-400 hover:underline">
+                Weighted vs Unweighted comparison
+              </a>{" "}
+              further down for how this affects your GPA.
+            </p>
+          </div>
         </section>
 
         {/* ══════════════════════════════════════════════════
@@ -977,6 +1137,54 @@ export default function HowToCalculateFinalGradePage() {
         </section>
 
         {/* ══════════════════════════════════════════════════
+            H2: STEP-BY-STEP PROCESS (NEW)
+        ══════════════════════════════════════════════════ */}
+        <section className="mt-16" id="step-by-step-process">
+          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
+            Step-by-Step Process to Calculate Your Own Final Grade
+          </h2>
+          <ol className="space-y-4 text-gray-200 text-base leading-relaxed list-decimal list-inside">
+            <li>
+              <strong>Find your syllabus.</strong> Locate the grading breakdown — this tells you
+              which system your instructor uses (weighted, points-based, or simple average).
+            </li>
+            <li>
+              <strong>Gather all your scores.</strong> List every assignment, quiz, test, and
+              project score you&rsquo;ve received so far, along with the total points possible for
+              each.
+            </li>
+            <li>
+              <strong>Calculate your average in each category.</strong> If your class uses weighted
+              categories, average all your homework scores together, all your quiz scores together,
+              and so on.
+            </li>
+            <li>
+              <strong>Apply the weights.</strong> Multiply each category average by its weight
+              percentage.
+            </li>
+            <li>
+              <strong>Add the weighted results together.</strong> This gives you your current grade.
+            </li>
+            <li>
+              <strong>Factor in remaining assignments.</strong> If you still have assignments left
+              (like a final exam), use the backward-calculation formula above to determine what
+              score you need on those remaining items to hit your target grade.
+            </li>
+            <li>
+              <strong>Convert to a letter grade</strong> using your school&rsquo;s official scale,
+              or run the numbers through our{" "}
+              <Link
+                href="/calculators/education/cgpa-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                CGPA Calculator
+              </Link>{" "}
+              if you need your cumulative standing across multiple courses.
+            </li>
+          </ol>
+        </section>
+
+        {/* ══════════════════════════════════════════════════
             H2: WEIGHTED VS UNWEIGHTED
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="weighted-vs-unweighted">
@@ -1191,7 +1399,15 @@ export default function HowToCalculateFinalGradePage() {
           <p className="text-gray-400 text-sm italic">
             GPA values listed follow the most common US 4.0 scale as described by the College
             Board.<sup className="text-blue-400 text-xs ml-1">[3]</sup> Some institutions use
-            slightly different cutoffs — always verify with your registrar office.
+            slightly different cutoffs — always verify with your registrar office. Want your
+            overall standing across every course? Try our{" "}
+            <Link
+              href="/calculators/education/gpa-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              GPA Calculator
+            </Link>
+            .
           </p>
         </section>
 
@@ -1281,7 +1497,98 @@ export default function HowToCalculateFinalGradePage() {
                 all non-final grades are in before applying the formula.
               </p>
             </div>
+
+            <div className="bg-gray-800/50 border-l-4 border-pink-500 rounded-r-xl p-5">
+              <h3 className="text-base font-semibold text-pink-300 mb-2">
+                7. Mixing up points-based and percentage-based systems
+              </h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Don&rsquo;t average raw points against percentage scores as if they were the same
+                unit. If one assignment is &ldquo;42/50&rdquo; and another is &ldquo;88%,&rdquo;
+                convert everything to the same unit (percentage or points) before combining them —
+                see Method 1 vs Method 2 above.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/50 border-l-4 border-teal-500 rounded-r-xl p-5">
+              <h3 className="text-base font-semibold text-teal-300 mb-2">
+                8. Not checking weighted vs. unweighted GPA
+              </h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                If you&rsquo;re calculating GPA rather than a single class grade, remember that
+                honors, AP, and IB classes often carry extra weight (e.g., a 5.0 scale instead of a
+                4.0 scale). Confirm which scale your school reports before comparing GPAs across
+                semesters.
+              </p>
+            </div>
           </div>
+        </section>
+
+        {/* ══════════════════════════════════════════════════
+            H2: USING ONLINE GRADE CALCULATORS (NEW)
+        ══════════════════════════════════════════════════ */}
+        <section className="mt-16" id="using-online-grade-calculators">
+          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
+            Using Online Grade Calculators
+          </h2>
+          <p className="text-gray-200 text-base leading-relaxed mb-6">
+            If manual math isn&rsquo;t your thing, a free online grade calculator lets you plug in
+            your current grade, the weight of your final exam, and your desired outcome to
+            instantly see what score you need. These tools use the exact same backward-calculation
+            formula described above, so understanding the math first will help you sanity-check
+            any calculator&rsquo;s results and catch potential input errors.
+          </p>
+          <p className="text-gray-200 text-base leading-relaxed mb-4">
+            Depending on what you need, LizoCalc has a dedicated tool for each method covered in
+            this guide:
+          </p>
+          <ul className="space-y-3 text-gray-200 text-base leading-relaxed list-disc list-inside mb-4">
+            <li>
+              <Link
+                href="/calculators/education/final-grade-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                Final Grade Calculator
+              </Link>{" "}
+              — find the score you need on your final exam (Method 3).
+            </li>
+            <li>
+              <Link
+                href="/calculators/education/weighted-grade-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                Weighted Grade Calculator
+              </Link>{" "}
+              — combine multiple weighted categories at once (Method 1).
+            </li>
+            <li>
+              <Link
+                href="/calculators/education/grade-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                Grade Calculator
+              </Link>{" "}
+              — general-purpose calculator for points-based or percentage grading (Method 2).
+            </li>
+            <li>
+              <Link
+                href="/calculators/education/gpa-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                GPA Calculator
+              </Link>{" "}
+              — convert your final grade to a GPA on the 4.0 scale.
+            </li>
+            <li>
+              <Link
+                href="/calculators/education/cgpa-calculator"
+                className="text-blue-400 hover:underline"
+              >
+                CGPA Calculator
+              </Link>{" "}
+              — track your cumulative standing across all your courses and semesters.
+            </li>
+          </ul>
         </section>
 
         {/* ══════════════════════════════════════════════════
@@ -1292,7 +1599,7 @@ export default function HowToCalculateFinalGradePage() {
             Calculate Your Final Grade Now — Free Tool
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            You now have the formula, the examples, and a complete understanding of how weighted
+            You now have all four methods, worked examples, and a complete understanding of how
             grading works. If you want to skip the manual calculation entirely, use our free tool —
             enter your current grade, final exam weight, and target grade, and get your required
             score instantly.
@@ -1419,7 +1726,7 @@ export default function HowToCalculateFinalGradePage() {
           </div>
           <div className="flex flex-wrap gap-3 text-xs text-gray-400 text-right">
             <span>📅 Published: May 01, 2026</span>
-            <span>🔄 Updated: May 01, 2026</span>
+            <span>🔄 Updated: August 08, 2026</span>
             <span>✅ Factually reviewed</span>
           </div>
         </div>

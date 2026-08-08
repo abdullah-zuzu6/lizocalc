@@ -8,49 +8,54 @@ import Image from "next/image";
 
 const faqData = [
   {
-    question: "How do I manually calculate monthly loan payments?",
+    question: "How do you calculate a loan payment by hand?",
     answer:
-      "Use the standard amortization formula: M = P × [r(1+r)^n] ÷ [(1+r)^n − 1]. Where P is your principal (loan amount), r is your monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments (years × 12). For a $10,000 loan at 8% annual interest over 3 years: r = 0.006667, n = 36, and M = $313.36.",
+      "You use the amortization formula: M = Loan Amount × [r(1+r)^n] ÷ [(1+r)^n − 1], where r is the monthly interest rate (annual rate ÷ 12) and n is the total number of payments (years × 12). Plug in your numbers and solve. For a $20,000 car loan at 6% over 5 years, this works out to $386.66 per month.",
   },
   {
-    question: "What is the formula for loan payment calculation?",
+    question: "What is the formula for a loan payment?",
     answer:
-      "The universal loan payment formula is M = P × [r(1+r)^n] ÷ [(1+r)^n − 1]. This formula applies to personal loans, car loans, mortgages, and student loans. The key variables are P (principal), r (monthly interest rate), and n (number of payments). It assumes fixed monthly payments and a fixed interest rate throughout the loan term.",
+      "The formula is M = Loan Amount × [r(1+r)^n] ÷ [(1+r)^n − 1]. This is the standard formula lenders use for fixed-rate, fully amortized loans — including auto loans, personal loans, and mortgages. In South Asia this same math is what produces your EMI (Equated Monthly Instalment).",
   },
   {
-    question: "How do banks calculate EMI?",
+    question: "How is interest calculated on a loan payment?",
     answer:
-      "Banks use the same amortization formula: EMI = P × [r(1+r)^n] ÷ [(1+r)^n − 1]. EMI (Equated Monthly Instalment) is the term used across South Asia, particularly in Pakistan, India, and Bangladesh. The bank converts your annual interest rate to monthly, multiplies your loan term into months, and applies the formula to arrive at a fixed monthly figure.",
+      "Each month, interest is calculated by multiplying your remaining balance by the monthly interest rate. As your balance drops, the interest portion of each payment gets smaller, and more of your fixed payment goes toward paying down the loan amount — even though the total payment itself never changes.",
   },
   {
-    question: "Does paying extra reduce total interest?",
+    question: "What is the difference between an amortized loan and a simple interest loan?",
     answer:
-      "Yes — significantly. Extra payments reduce your outstanding principal faster, which means less principal for interest to accrue on each month. On a $10,000 loan at 8% over 36 months, paying an extra $50 per month can save approximately $420 in total interest and cut the repayment period by around 8 months. Even a single extra payment early in the loan term produces outsized savings.",
+      "An amortized loan has a fixed payment where the split between interest and principal shifts every month as your balance shrinks. A simple interest loan calculates total interest up front as Loan Amount × Rate × Time, and that interest does not recalculate based on a shrinking balance the way amortized interest does.",
   },
   {
-    question: "How much of my payment goes to interest first?",
+    question: "Does paying extra toward my loan reduce interest or principal?",
     answer:
-      "Early in a loan, the majority of each payment covers interest. This is because interest is calculated on the full remaining balance, which is highest at the start. For example, on a $10,000 loan at 8%, your very first payment of $313.36 includes $66.67 in interest and only $246.69 in principal. By month 36, almost the entire payment is principal. This pattern is called front-loaded interest.",
+      "Extra payments typically go straight toward reducing the loan amount. Because less principal is outstanding, less interest accrues on future payments — which is why consistent extra payments can shorten your loan term significantly.",
   },
   {
-    question: "What is an amortization schedule?",
+    question: "How do I calculate the total interest I'll pay over the life of a loan?",
     answer:
-      "An amortization schedule is a complete table showing every payment over the life of a loan. Each row lists the payment number, total payment amount, how much goes to principal, how much goes to interest, and the remaining balance after that payment. The schedule clearly shows how early payments are mostly interest, and later payments are mostly principal — a pattern called amortization.",
+      "Multiply your monthly payment by the total number of payments, then subtract the original loan amount. For the $20,000 car loan example: ($386.66 × 60) − $20,000 = $3,199.60 in total interest.",
+  },
+  {
+    question: "Why did my loan payment change even though I have a fixed rate?",
+    answer:
+      "If your interest rate is truly fixed, the principal and interest portion of your payment will not change. But if your loan includes an escrow account for property taxes and insurance, those costs get reassessed periodically and can raise or lower your total monthly bill even though the loan rate itself hasn't moved.",
+  },
+  {
+    question: "How do I calculate a loan payment if I'm making a down payment?",
+    answer:
+      "Subtract your down payment from the purchase price first, then use that reduced number as the loan amount in the formula. A larger down payment means a smaller loan amount, which lowers both your monthly payment and your total interest paid.",
   },
   {
     question: "What is the difference between APR and interest rate?",
     answer:
-      "The interest rate is the cost of borrowing the principal — expressed as a percentage per year. APR (Annual Percentage Rate) includes the interest rate plus all fees associated with the loan (origination fees, processing charges, insurance). APR is always equal to or higher than the interest rate and represents the true cost of borrowing. When comparing loans, always compare APR, not just the headline interest rate.",
-  },
-  {
-    question: "How much loan can I afford to take?",
-    answer:
-      "A widely used guideline is the 28/36 rule: your monthly housing payment should not exceed 28% of your gross monthly income, and total monthly debt (including all loans) should not exceed 36%. Another check is your debt-to-income (DTI) ratio — total monthly debt payments divided by gross monthly income. Most lenders prefer a DTI below 43%. Calculate your monthly payment first, then check it against these benchmarks before borrowing.",
+      "The interest rate is the annual cost of borrowing the principal, expressed as a percentage. APR (Annual Percentage Rate) includes that interest rate plus lender fees like origination charges, giving a fuller picture of the loan's true cost. When comparing offers from different lenders, compare APR rather than just the headline interest rate.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "How to Calculate Your Loan Payment Step by Step — Formula, Examples & Schedule",
+  title: "How to Calculate Your Loan Payment Step by Step",
   description:
     "Learn how to calculate your monthly loan payment using the exact formula. Includes step-by-step examples, amortization schedule, interest rate comparisons, and a free loan payment calculator.",
   keywords: [
@@ -77,7 +82,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "How to Calculate Your Loan Payment Step by Step — Formula, Examples & Schedule",
     description:
-      "The complete guide to calculating loan payments: the exact formula, a step-by-step worked example, amortization schedule, extra payment impact, and interest rate comparisons.",
+      "The complete guide to calculating loan payments: the exact formula, a step-by-step worked example, amortization schedule, mortgage and simple-interest examples, and interest rate comparisons.",
     url: "https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide",
     siteName: "LizoCalc",
     type: "article",
@@ -86,7 +91,7 @@ export const metadata: Metadata = {
         url: "https://www.lizocalc.com/images/blogs/finance/loan-payment-amortization-chart.webp",
         width: 1400,
         height: 788,
-        alt: "Loan amortization schedule chart showing remaining balance, principal paid, and interest paid over 36 months",
+        alt: "Loan amortization schedule chart showing remaining balance, principal paid, and interest paid over time",
       },
     ],
   },
@@ -94,7 +99,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "How to Calculate Your Loan Payment — Step-by-Step Formula & Examples",
     description:
-      "Master the loan payment formula with worked examples, amortization schedules, and interest comparison tables.",
+      "Master the loan payment formula with worked examples for car loans, mortgages, and simple-interest loans, plus a full amortization schedule.",
     images: [
       "https://www.lizocalc.com/images/blogs/finance/loan-payment-amortization-chart.webp",
     ],
@@ -207,11 +212,11 @@ export default function LoanPaymentCalculateGuidePage() {
                 headline:
                   "How to Calculate Your Loan Payment Step by Step — Formula, Examples & Schedule",
                 description:
-                  "A complete, practical guide to calculating monthly loan payments: the exact amortization formula, a full worked example, amortization schedule table, extra payment analysis, interest rate comparisons, and loan affordability checks.",
+                  "A complete, practical guide to calculating monthly loan payments: the exact amortization formula, worked examples for a car loan, a mortgage, and a simple-interest loan, a full amortization schedule, and interest rate comparisons.",
                 url: "https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide",
                 inLanguage: "en",
                 datePublished: "2026-05-01",
-                dateModified: "2026-05-01",
+                dateModified: "2026-08-08",
                 author: {
                   "@id": "https://www.lizocalc.com/#author",
                 },
@@ -237,9 +242,9 @@ export default function LoanPaymentCalculateGuidePage() {
                   name: "Loan Payment Calculation",
                 },
                 keywords:
-                  "calculate loan payment, monthly loan payment formula, loan EMI calculation, amortization schedule, interest payment calculator, loan repayment",
+                  "calculate loan payment, monthly loan payment formula, loan EMI calculation, amortization schedule, car loan payment, mortgage payment, simple interest loan",
                 articleSection: "Finance",
-                wordCount: 3200,
+                wordCount: 3000,
                 citation: [
                   {
                     "@type": "CreativeWork",
@@ -259,6 +264,24 @@ export default function LoanPaymentCalculateGuidePage() {
                       name: "Investopedia",
                     },
                   },
+                  {
+                    "@type": "CreativeWork",
+                    name: "Consumer Financial Protection Bureau — What is an escrow account?",
+                    url: "https://www.consumerfinance.gov/ask-cfpb/what-is-an-escrow-or-impound-account-en-158/",
+                    publisher: {
+                      "@type": "Organization",
+                      name: "Consumer Financial Protection Bureau",
+                    },
+                  },
+                  {
+                    "@type": "CreativeWork",
+                    name: "Investopedia — Simple Interest",
+                    url: "https://www.investopedia.com/terms/s/simple_interest.asp",
+                    publisher: {
+                      "@type": "Organization",
+                      name: "Investopedia",
+                    },
+                  },
                 ],
               },
 
@@ -270,10 +293,10 @@ export default function LoanPaymentCalculateGuidePage() {
                 url: "https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide",
                 name: "How to Calculate Your Loan Payment Step by Step — Formula, Examples & Schedule",
                 description:
-                  "Learn how to calculate monthly loan payments using the exact formula, with step-by-step examples, amortization schedules, and interest comparisons.",
+                  "Learn how to calculate monthly loan payments using the exact formula, with worked examples for a car loan, a mortgage, and a simple-interest loan.",
                 inLanguage: "en",
                 datePublished: "2026-04-30",
-                dateModified: "2026-04-30",
+                dateModified: "2026-08-08",
                 isPartOf: {
                   "@id": "https://www.lizocalc.com/#website",
                 },
@@ -300,7 +323,7 @@ export default function LoanPaymentCalculateGuidePage() {
                   "https://www.lizocalc.com/blogs/finance/loan-payment-calculate-guide#term",
                 name: "Loan Amortization",
                 description:
-                  "Loan amortization is the process of paying off a debt through scheduled, fixed payments over time. Each payment covers both interest and principal, with interest making up a larger share early in the loan and principal growing larger toward the end.",
+                  "Loan amortization is the process of paying off a debt through fixed scheduled payments over time. Each payment covers both interest and principal, with interest making up a larger share early in the loan and principal growing larger toward the end.",
                 inDefinedTermSet: {
                   "@type": "DefinedTermSet",
                   name: "Finance & Loan Terms — LizoCalc",
@@ -317,7 +340,7 @@ export default function LoanPaymentCalculateGuidePage() {
                   "https://www.lizocalc.com/images/blogs/finance/loan-payment-amortization-chart.webp",
                 name: "Loan Amortization Schedule Chart",
                 caption:
-                  "Line chart showing loan amortization over 36 months — remaining balance (blue), principal paid (green), and interest paid (purple).",
+                  "Line chart illustrating a typical loan amortization curve — remaining balance (blue), cumulative principal paid (green), and cumulative interest paid (purple) — over the life of a loan.",
                 width: 1400,
                 height: 788,
                 encodingFormat: "image/webp",
@@ -345,31 +368,31 @@ export default function LoanPaymentCalculateGuidePage() {
                     "@type": "HowToStep",
                     position: 1,
                     name: "Identify your loan inputs",
-                    text: "Gather your principal (P), annual interest rate, and loan term in years.",
+                    text: "Gather your loan amount, annual interest rate, and loan term in years.",
                   },
                   {
                     "@type": "HowToStep",
                     position: 2,
                     name: "Convert annual rate to monthly",
-                    text: "Divide the annual interest rate by 12 to get the monthly rate (r). Example: 8% ÷ 12 = 0.6667% = 0.006667.",
+                    text: "Divide the annual interest rate by 12 to get the monthly rate. Example: 6% ÷ 12 = 0.5% = 0.005.",
                   },
                   {
                     "@type": "HowToStep",
                     position: 3,
                     name: "Convert years to months",
-                    text: "Multiply the loan term in years by 12 to get n (number of payments). Example: 3 years × 12 = 36 months.",
+                    text: "Multiply the loan term in years by 12 to get the number of payments. Example: 5 years × 12 = 60 payments.",
                   },
                   {
                     "@type": "HowToStep",
                     position: 4,
                     name: "Apply the formula",
-                    text: "M = P × [r(1+r)^n] ÷ [(1+r)^n − 1]. For a $10,000 loan at 8% over 36 months: M = $313.36.",
+                    text: "M = Loan Amount × [r(1+r)^n] ÷ [(1+r)^n − 1]. For a $20,000 loan at 6% over 60 months: M = $386.66.",
                   },
                   {
                     "@type": "HowToStep",
                     position: 5,
                     name: "Calculate total cost",
-                    text: "Multiply your monthly payment by n to get total paid. Subtract P to find total interest. Example: $313.36 × 36 = $11,281. Interest = $11,281 − $10,000 = $1,281.",
+                    text: "Multiply your monthly payment by the number of payments to get total paid. Subtract the loan amount to find total interest. Example: $386.66 × 60 = $23,199.60. Interest = $23,199.60 − $20,000 = $3,199.60.",
                   },
                 ],
               },
@@ -433,7 +456,7 @@ export default function LoanPaymentCalculateGuidePage() {
           <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-gray-400">
             <span>Published: May 01, 2026</span>
             <span>·</span>
-            <span>12 min read</span>
+            <span>11 min read</span>
             <span>·</span>
             <span className="text-green-400">✅ Factually reviewed</span>
           </div>
@@ -452,12 +475,11 @@ export default function LoanPaymentCalculateGuidePage() {
           </p>
           <p className="text-gray-200 text-base leading-relaxed">
             Use the standard loan payment formula:{" "}
-            <strong>M = P × [r(1+r)^n] ÷ [(1+r)^n − 1]</strong>. Where{" "}
-            <strong>P</strong> is the loan amount, <strong>r</strong> is the
-            monthly interest rate (annual rate ÷ 12), and <strong>n</strong> is
-            the total number of monthly payments (years × 12). For a $10,000
-            loan at 8% annual interest over 3 years, the monthly payment is{" "}
-            <strong>$313.36</strong>.
+            <strong>M = Loan Amount × [r(1+r)^n] ÷ [(1+r)^n − 1]</strong>. Where{" "}
+            <strong>r</strong> is the monthly interest rate (annual rate ÷ 12)
+            and <strong>n</strong> is the total number of monthly payments
+            (years × 12). For a $20,000 car loan at 6% annual interest over 5
+            years, the monthly payment is <strong>$386.66</strong>.
           </p>
         </div>
 
@@ -476,134 +498,59 @@ export default function LoanPaymentCalculateGuidePage() {
         ══════════════════════════════════════════════════ */}
         <section className="mt-10" id="introduction">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Why You Should Calculate Your Loan Payment Before Borrowing
+            Check the Math Before You Sign
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Most people focus on the loan amount — and completely miss the
-            monthly payment. That is how overborrowing happens. A $25,000 car
-            loan at 9% over 60 months sounds manageable until you realize the
-            monthly payment is $519 and the total interest paid is over $6,000.
-            Running the numbers before you sign changes everything.
+            You are looking at a loan offer. It could be for a car, a personal
+            loan to pay off credit cards, or even a mortgage. The lender gives
+            you an interest rate and a term — but they don&apos;t always tell
+            you what your monthly payment will actually be. Before you sign
+            anything, it&apos;s worth checking their math yourself.
           </p>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            A <strong>loan payment</strong> is the fixed amount you pay to your
-            lender every month. Each payment covers two things: a portion that
-            reduces your principal (the amount you originally borrowed) and a
-            portion that covers interest (the lender&apos;s charge for lending
-            you money). Understanding how these two components split — and how
-            that split changes month by month — is the foundation of smart
-            borrowing.
-          </p>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Whether you are taking a personal loan, financing a car, applying
-            for a mortgage, or repaying a student loan — the calculation method
-            is the same. The <strong>monthly loan payment formula</strong>,
-            the <strong>loan EMI calculation</strong>, and the concept of an{" "}
-            <strong>amortization schedule</strong> all flow from a single
-            equation. This guide walks through all of it — no financial
-            background required.
+            You don&apos;t need to be a finance expert to figure this out. You
+            need one formula, a calculator, and about ten minutes. Below is
+            the full breakdown, with real numbers.
           </p>
 
           <h3 className="text-xl font-semibold text-blue-300 mb-3">
-            Three Things That Determine Your Monthly Payment
+            What Determines Your Loan Payment
           </h3>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Before touching any formula, it helps to understand the three levers
-            that control your monthly payment:
+            There are three things that decide what you&apos;ll pay each month:
           </p>
           <div className="overflow-x-auto mb-6">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Variable</th>
+                  <th className="p-4 text-left font-semibold">Factor</th>
                   <th className="p-4 text-left font-semibold">What it is</th>
                   <th className="p-4 text-left font-semibold">Effect on payment</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 font-semibold text-blue-300">Loan Amount (Principal)</td>
-                  <td className="p-4 text-gray-300">The total amount you borrow</td>
-                  <td className="p-4 text-gray-300">Higher amount → higher payment</td>
+                  <td className="p-4 font-semibold text-blue-300">Loan Amount</td>
+                  <td className="p-4 text-gray-300">The amount you are actually borrowing</td>
+                  <td className="p-4 text-gray-300">Bigger loan → bigger payment</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-blue-300">Interest Rate</td>
-                  <td className="p-4 text-gray-300">Annual cost of borrowing, as a percentage</td>
-                  <td className="p-4 text-gray-300">Higher rate → higher payment</td>
+                  <td className="p-4 text-gray-300">The percentage rate, converted into a monthly rate for the math</td>
+                  <td className="p-4 text-gray-300">Higher rate → higher payment, even on the same loan amount</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-blue-300">Loan Term</td>
-                  <td className="p-4 text-gray-300">How many months or years to repay</td>
-                  <td className="p-4 text-gray-300">Longer term → lower payment but more total interest</td>
+                  <td className="p-4 text-gray-300">How many months you have to pay it back</td>
+                  <td className="p-4 text-gray-300">Longer term → lower payment, but more interest overall</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="text-gray-200 text-base leading-relaxed">
-            Stretching the loan term reduces the monthly payment — but it
-            increases the total interest you pay over the life of the loan.
-            Shortening the term does the opposite. This trade-off is at the
-            heart of every borrowing decision.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            H2: KEY INPUTS
-        ══════════════════════════════════════════════════ */}
-        <section className="mt-16" id="key-inputs">
-          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Key Inputs Needed to Calculate a Loan Payment
-          </h2>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Before applying the formula, gather these four pieces of information.
-            They appear on every loan offer sheet — if a lender cannot provide
-            all four clearly, that is a red flag.
-          </p>
-
-          <div className="overflow-x-auto mb-6">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Input</th>
-                  <th className="p-4 text-left font-semibold">Symbol</th>
-                  <th className="p-4 text-left font-semibold">Meaning</th>
-                  <th className="p-4 text-left font-semibold">Example</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold text-green-300">Loan Amount</td>
-                  <td className="p-4 font-mono text-yellow-300">P</td>
-                  <td className="p-4 text-gray-300">Principal — total amount borrowed</td>
-                  <td className="p-4 text-gray-300">$10,000</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-green-300">Annual Interest Rate</td>
-                  <td className="p-4 font-mono text-yellow-300">Annual r</td>
-                  <td className="p-4 text-gray-300">Yearly cost of the loan as a percentage</td>
-                  <td className="p-4 text-gray-300">8% per year</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-green-300">Loan Term</td>
-                  <td className="p-4 font-mono text-yellow-300">n (months)</td>
-                  <td className="p-4 text-gray-300">Total repayment period in months</td>
-                  <td className="p-4 text-gray-300">36 months (3 years)</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-green-300">Payment Frequency</td>
-                  <td className="p-4 font-mono text-yellow-300">—</td>
-                  <td className="p-4 text-gray-300">How often payments are made</td>
-                  <td className="p-4 text-gray-300">Monthly (most common)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="text-gray-200 text-base leading-relaxed">
-            This guide uses monthly payments — the standard in most personal
-            loans, car loans, and mortgages worldwide. If your loan uses biweekly
-            or weekly payments, the formula is the same but you divide the annual
-            rate by 26 (biweekly) or 52 (weekly) and adjust the payment count
-            accordingly.
+            Change any one of these and your payment changes with it. This is
+            why two people borrowing the exact same amount can end up with
+            very different monthly bills.
           </p>
         </section>
 
@@ -612,92 +559,60 @@ export default function LoanPaymentCalculateGuidePage() {
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="loan-payment-formula">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            The Monthly Loan Payment Formula — Explained
+            The Loan Payment Formula
           </h2>
+          <p className="text-gray-200 text-base leading-relaxed mb-6">
+            Most loans are <strong>amortized loans</strong>. Each payment
+            covers a mix of interest and principal, and the payment amount
+            stays the same for the life of the loan. The formula for that
+            fixed payment is:
+          </p>
 
-          <h3 className="text-xl font-semibold text-blue-300 mb-4">
-            The Standard Amortization Formula
-          </h3>
           <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-base mb-6 overflow-x-auto">
-            M = P × [ r(1 + r)^n ] ÷ [ (1 + r)^n − 1 ]
+            M = Loan Amount × [ r(1 + r)^n ] ÷ [ (1 + r)^n − 1 ]
             <br />
             <br />
             <span className="text-gray-400 text-sm">
               Where:
               <br />
-              M = Monthly payment
+              M = your monthly payment
               <br />
-              P = Principal (loan amount)
+              Loan Amount = the amount you are borrowing
               <br />
-              r = Monthly interest rate (annual rate ÷ 12)
+              r = monthly interest rate (annual rate ÷ 12, as a decimal)
               <br />
-              n = Total number of monthly payments (years × 12)
+              n = total number of payments (loan term in years × 12)
             </span>
           </div>
 
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            This formula is used universally — by banks, lenders, and financial
-            software worldwide. In South Asia, the same formula drives what is
-            called the <strong>EMI (Equated Monthly Instalment)</strong>{" "}
-            calculation. The name differs; the math is identical.
-          </p>
-
-          <h3 className="text-xl font-semibold text-blue-300 mb-4">
-            How to Convert Inputs Before Using the Formula
-          </h3>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Two conversions are required before plugging in your numbers. These
-            are the most common sources of error when people calculate manually:
+            It looks intimidating the first time you see it. It isn&apos;t
+            that hard once you plug in numbers — and it&apos;s the same
+            formula banks and lenders use worldwide. In South Asia,
+            particularly Pakistan, India, and Bangladesh, this exact
+            calculation is what produces your <strong>EMI (Equated Monthly
+            Instalment)</strong>. The name is different; the math is
+            identical.
           </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
-            <div className="bg-gray-800/50 border border-blue-700/50 rounded-2xl p-5">
-              <h4 className="text-base font-semibold text-blue-300 mb-3">
-                Convert Annual Rate → Monthly Rate
-              </h4>
-              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm">
-                r = Annual rate ÷ 12
-                <br />
-                <br />
-                Example:
-                <br />
-                8% ÷ 12 = 0.6667%
-                <br />= 0.006667 (decimal)
-              </div>
-            </div>
-            <div className="bg-gray-800/50 border border-blue-700/50 rounded-2xl p-5">
-              <h4 className="text-base font-semibold text-blue-300 mb-3">
-                Convert Years → Months
-              </h4>
-              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm">
-                n = Years × 12
-                <br />
-                <br />
-                Example:
-                <br />
-                3 years × 12
-                <br />= 36 months
-              </div>
-            </div>
-          </div>
-
           <p className="text-gray-200 text-base leading-relaxed">
-            Always use the decimal form of the monthly rate — <code className="bg-gray-800 px-1 rounded text-green-300">0.006667</code>, not{" "}
-            <code className="bg-gray-800 px-1 rounded text-green-300">0.6667%</code> — when applying the formula. Forgetting this
-            conversion is one of the most common calculation mistakes.
+            Two conversions trip people up the most: use the monthly rate
+            as a decimal (<code className="bg-gray-800 px-1 rounded text-green-300">0.005</code>,
+            not <code className="bg-gray-800 px-1 rounded text-green-300">0.5%</code>), and use the
+            total number of <em>months</em> for n, not years.
           </p>
         </section>
 
         {/* ══════════════════════════════════════════════════
-            H2: WORKED EXAMPLE
+            H2: WORKED EXAMPLE — CAR LOAN
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="worked-example">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Step-by-Step Worked Example — $10,000 Personal Loan
+            Worked Example — $20,000 Car Loan at 6% for 5 Years
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Let us walk through a complete, realistic calculation from beginning
-            to end. No shortcuts — every step shown.
+            Let&apos;s say you are borrowing $20,000 for a car. The annual
+            interest rate is 6%, and you are paying it off over 5 years. Here
+            is the full calculation, step by step.
           </p>
 
           <div className="bg-blue-900/20 border border-blue-700 rounded-2xl p-6 mb-6">
@@ -707,15 +622,15 @@ export default function LoanPaymentCalculateGuidePage() {
             <div className="grid grid-cols-3 gap-4 text-center">
               <div className="bg-gray-800/60 rounded-xl p-4">
                 <p className="text-gray-400 text-xs mb-1">Loan Amount</p>
-                <p className="text-white font-bold text-xl">$10,000</p>
+                <p className="text-white font-bold text-xl">$20,000</p>
               </div>
               <div className="bg-gray-800/60 rounded-xl p-4">
                 <p className="text-gray-400 text-xs mb-1">Annual Interest</p>
-                <p className="text-white font-bold text-xl">8%</p>
+                <p className="text-white font-bold text-xl">6%</p>
               </div>
               <div className="bg-gray-800/60 rounded-xl p-4">
                 <p className="text-gray-400 text-xs mb-1">Loan Term</p>
-                <p className="text-white font-bold text-xl">3 Years</p>
+                <p className="text-white font-bold text-xl">5 Years</p>
               </div>
             </div>
           </div>
@@ -723,40 +638,38 @@ export default function LoanPaymentCalculateGuidePage() {
           <div className="space-y-4 mb-8">
             <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
               <h3 className="text-base font-semibold text-yellow-300 mb-3">
-                Step 1 — Convert annual rate to monthly
+                Step 1 — Convert the annual rate to a monthly rate
               </h3>
               <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-                r = 8% ÷ 12 = 0.6667% = 0.006667
+                r = 6% ÷ 12 = 0.5% per month = 0.005
               </div>
             </div>
 
             <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
               <h3 className="text-base font-semibold text-yellow-300 mb-3">
-                Step 2 — Convert years to months
+                Step 2 — Figure out the number of payments
               </h3>
               <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-                n = 3 × 12 = 36 months
+                n = 5 years × 12 months = 60 payments
               </div>
             </div>
 
             <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
               <h3 className="text-base font-semibold text-yellow-300 mb-3">
-                Step 3 — Apply the formula
+                Step 3 — Plug everything into the formula
               </h3>
               <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-                (1 + r)^n = (1.006667)^36 = 1.27024
+                (1.005)^60 = 1.34885
                 <br />
                 <br />
-                Numerator: r × (1+r)^n = 0.006667 × 1.27024 = 0.008469
+                Numerator: 0.005 × 1.34885 × 20,000 = 134.885
                 <br />
-                Denominator: (1+r)^n − 1 = 1.27024 − 1 = 0.27024
+                Denominator: 1.34885 − 1 = 0.34885
                 <br />
                 <br />
-                M = 10,000 × (0.008469 ÷ 0.27024)
+                M = 134.885 ÷ 0.34885
                 <br />
-                M = 10,000 × 0.031336
-                <br />
-                M = <strong>$313.36</strong>
+                M = <strong>$386.66 per month</strong>
               </div>
             </div>
 
@@ -765,9 +678,9 @@ export default function LoanPaymentCalculateGuidePage() {
                 Step 4 — Calculate total cost and total interest
               </h3>
               <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-                Total paid = $313.36 × 36 = $11,281
+                Total paid = $386.66 × 60 = $23,199.60
                 <br />
-                Total interest = $11,281 − $10,000 = <strong>$1,281</strong>
+                Total interest = $23,199.60 − $20,000 = <strong>$3,199.60</strong>
               </div>
             </div>
           </div>
@@ -783,58 +696,64 @@ export default function LoanPaymentCalculateGuidePage() {
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
                   <td className="p-4 font-semibold text-green-300">Monthly Payment</td>
-                  <td className="p-4 font-bold text-white text-lg">$313.36</td>
+                  <td className="p-4 font-bold text-white text-lg">$386.66</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-green-300">Total Amount Paid</td>
-                  <td className="p-4 font-bold text-white">$11,281</td>
+                  <td className="p-4 font-bold text-white">$23,199.60</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-green-300">Total Interest Paid</td>
-                  <td className="p-4 font-bold text-yellow-400">$1,281</td>
+                  <td className="p-4 font-bold text-yellow-400">$3,199.60</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-green-300">Loan Term</td>
-                  <td className="p-4 text-gray-300">36 months</td>
+                  <td className="p-4 text-gray-300">60 months</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p className="text-gray-200 text-base leading-relaxed">
-            You do not need to run these steps every time. Use our{" "}
+            Everything else — mortgages, personal loans, any fixed-payment
+            loan — uses this same formula. You just plug in different
+            numbers. You don&apos;t need to run these steps by hand every
+            time, though. Use our{" "}
             <Link
               href="/calculators/financial/loan-calculator"
               className="text-blue-400 hover:underline"
             >
               Loan Payment Calculator
             </Link>{" "}
-            to get your result instantly — enter your principal, rate, and term,
-            and the calculator does the rest.
+            to get your result instantly, including a full amortization
+            schedule.
           </p>
         </section>
 
         {/* ══════════════════════════════════════════════════
-            H2: AMORTIZATION SCHEDULE + IMAGE
+            H2: LOAN AMORTIZATION SCHEDULE (KEPT SECTION — DATA UPDATED)
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="amortization-schedule">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
             Loan Amortization Schedule — How Every Payment Breaks Down
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            An <strong>amortization schedule</strong> is a complete month-by-month
-            breakdown of every payment you make. It answers the question most
-            borrowers never ask: <em>how much of this payment actually reduces
-            my debt?</em>
+            Your payment stays the same every month — the split between
+            interest and principal does not. This is one of the most
+            misunderstood parts of borrowing, so it&apos;s worth walking
+            through carefully.
           </p>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The answer surprises most people. In the early months, the majority
-            of each payment goes toward interest — not principal. This is because
-            interest is calculated on the full outstanding balance, which is at
-            its highest point when you first borrow. As your balance falls, each
-            month&apos;s interest charge shrinks, and more of your fixed payment
-            goes toward reducing principal. This gradual shift is called
-            amortization.
+            Each month, interest owed is calculated as:{" "}
+            <strong>Remaining Balance × Monthly Interest Rate</strong>. Early
+            in the loan, most of your payment goes toward interest because
+            the balance is still high. In month 1 of the $20,000 car loan
+            example, interest owed is 20,000 × 0.005 = $100. Your payment is
+            $386.66, so $100 goes to interest and the remaining $286.66 goes
+            toward the loan amount. As the balance falls each month, the
+            interest charge shrinks slightly and a little more of your
+            payment goes toward paying off the loan — a pattern called{" "}
+            <strong>amortization</strong>.
           </p>
 
           {/* AMORTIZATION CHART IMAGE */}
@@ -842,8 +761,8 @@ export default function LoanPaymentCalculateGuidePage() {
             <div className="rounded-2xl overflow-hidden border border-gray-700">
               <Image
                 src="/images/blogs/finance/loan-payment-amortization-chart.webp"
-                alt="Loan amortization schedule line chart for a $10,000 loan at 8% over 36 months, showing three lines: remaining loan balance declining from $10,000 to $0 (blue), cumulative principal paid rising from $0 to approximately $5,300 (green), and cumulative interest paid rising then flattening at $1,281 (purple)"
-                title="Loan Amortization Schedule Chart — $10,000 at 8% over 36 Months — LizoCalc"
+                alt="Illustrative loan amortization line chart showing remaining balance declining, cumulative principal paid rising, and cumulative interest paid front-loading early and flattening late in the loan term"
+                title="Loan Amortization Schedule Chart — LizoCalc"
                 width={1400}
                 height={788}
                 className="w-full h-auto"
@@ -852,153 +771,172 @@ export default function LoanPaymentCalculateGuidePage() {
               />
             </div>
             <figcaption className="mt-3 text-sm text-gray-400 text-center italic leading-relaxed">
-              <strong className="text-gray-300">Figure 1:</strong> Loan
-              amortization schedule for a $10,000 personal loan at 8% annual
-              interest over 36 months. The blue line shows the remaining loan
-              balance falling from $10,000 to zero. The green line shows
-              cumulative principal paid, which accelerates as the loan matures.
-              The purple line shows cumulative interest paid, which front-loads
-              early in the term and flattens near the end. Total interest paid:
-              $1,281. — LizoCalc Finance Visuals, 2026.
+              <strong className="text-gray-300">Figure 1:</strong> A
+              representative amortization curve. The blue line shows the
+              remaining loan balance falling to zero. The green line shows
+              cumulative principal paid, which accelerates as the loan
+              matures. The purple line shows cumulative interest paid, which
+              front-loads early and flattens near the end — the same pattern
+              shown in the table below for the $20,000 car loan example. —
+              LizoCalc Finance Visuals, 2026.
             </figcaption>
           </figure>
 
           <h3 className="text-xl font-semibold text-blue-300 mb-4">
-            Sample Amortization Table — First 5 Payments
+            Sample Amortization Table — First 6 Payments
           </h3>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Based on the $10,000 loan at 8% over 36 months ($313.36/month):
+            Based on the $20,000 car loan at 6% over 60 months ($386.66/month):
           </p>
 
           <div className="overflow-x-auto mb-6">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Payment #</th>
+                  <th className="p-4 text-left font-semibold">Month</th>
                   <th className="p-4 text-left font-semibold">Payment</th>
-                  <th className="p-4 text-left font-semibold">Principal</th>
-                  <th className="p-4 text-left font-semibold">Interest</th>
+                  <th className="p-4 text-left font-semibold">Interest Paid</th>
+                  <th className="p-4 text-left font-semibold">Principal Paid</th>
                   <th className="p-4 text-left font-semibold">Remaining Balance</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
                   <td className="p-4 font-semibold text-gray-300">1</td>
-                  <td className="p-4">$313.36</td>
-                  <td className="p-4 text-green-400 font-semibold">$246.69</td>
-                  <td className="p-4 text-red-400">$66.67</td>
-                  <td className="p-4">$9,753.31</td>
+                  <td className="p-4">$386.66</td>
+                  <td className="p-4 text-red-400">$100.00</td>
+                  <td className="p-4 text-green-400 font-semibold">$286.66</td>
+                  <td className="p-4">$19,713.34</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-gray-300">2</td>
-                  <td className="p-4">$313.36</td>
-                  <td className="p-4 text-green-400 font-semibold">$248.34</td>
-                  <td className="p-4 text-red-400">$65.02</td>
-                  <td className="p-4">$9,504.97</td>
+                  <td className="p-4">$386.66</td>
+                  <td className="p-4 text-red-400">$98.57</td>
+                  <td className="p-4 text-green-400 font-semibold">$288.09</td>
+                  <td className="p-4">$19,425.25</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold text-gray-300">3</td>
-                  <td className="p-4">$313.36</td>
-                  <td className="p-4 text-green-400 font-semibold">$250.00</td>
-                  <td className="p-4 text-red-400">$63.37</td>
-                  <td className="p-4">$9,254.97</td>
+                  <td className="p-4">$386.66</td>
+                  <td className="p-4 text-red-400">$97.13</td>
+                  <td className="p-4 text-green-400 font-semibold">$289.53</td>
+                  <td className="p-4">$19,135.72</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-gray-300">12</td>
-                  <td className="p-4">$313.36</td>
-                  <td className="p-4 text-green-400 font-semibold">$264.11</td>
-                  <td className="p-4 text-red-400">$49.25</td>
-                  <td className="p-4">$7,127.18</td>
+                  <td className="p-4 font-semibold text-gray-300">4</td>
+                  <td className="p-4">$386.66</td>
+                  <td className="p-4 text-red-400">$95.68</td>
+                  <td className="p-4 text-green-400 font-semibold">$290.98</td>
+                  <td className="p-4">$18,844.74</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-gray-300">24</td>
-                  <td className="p-4">$313.36</td>
-                  <td className="p-4 text-green-400 font-semibold">$281.78</td>
-                  <td className="p-4 text-red-400">$31.58</td>
-                  <td className="p-4">$4,456.41</td>
+                  <td className="p-4 font-semibold text-gray-300">5</td>
+                  <td className="p-4">$386.66</td>
+                  <td className="p-4 text-red-400">$94.22</td>
+                  <td className="p-4 text-green-400 font-semibold">$292.44</td>
+                  <td className="p-4">$18,552.30</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-gray-300">36</td>
-                  <td className="p-4">$313.36</td>
-                  <td className="p-4 text-green-400 font-semibold">$311.26</td>
-                  <td className="p-4 text-red-400">$2.09</td>
-                  <td className="p-4 text-green-400 font-bold">$0.00</td>
+                  <td className="p-4 font-semibold text-gray-300">6</td>
+                  <td className="p-4">$386.66</td>
+                  <td className="p-4 text-red-400">$92.76</td>
+                  <td className="p-4 text-green-400 font-semibold">$293.90</td>
+                  <td className="p-4">$18,258.40</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <p className="text-gray-200 text-base leading-relaxed">
-            Notice how Payment #1 sends $66.67 to interest but Payment #36
-            sends only $2.09. The monthly payment amount never changes — but
-            the proportion going to interest steadily falls throughout the loan
-            life.
+            The interest column keeps shrinking, and the principal column
+            keeps growing, all the way through month 60, where the balance
+            reaches zero on schedule. Most lenders will give you a full
+            schedule when you close on a loan — but if you ever want to
+            build your own, this is exactly how it&apos;s constructed: one
+            row at a time, using the leftover balance from the row before it.
+            Our{" "}
+            <Link
+              href="/calculators/financial/loan-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Loan Payment Calculator
+            </Link>{" "}
+            builds the full table automatically.
           </p>
         </section>
 
         {/* ══════════════════════════════════════════════════
-            H2: EXTRA PAYMENTS
+            H2: MORTGAGE EXAMPLE
         ══════════════════════════════════════════════════ */}
-        <section className="mt-16" id="extra-payment-impact">
+        <section className="mt-16" id="mortgage-example">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            What Happens When You Pay Extra?
+            Calculating Payments for a Mortgage
           </h2>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Extra payments are one of the most powerful — and most
-            underused — tools in personal finance. When you pay more than your
-            required monthly payment, the excess goes entirely toward principal.
-            This reduces the balance on which interest is calculated next month,
-            creating a compounding effect over time.
+            Mortgages use the exact same formula — they just involve bigger
+            numbers and longer terms, usually 15 or 30 years, which is 180 or
+            360 payments.
           </p>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The impact is largest when you make extra payments early in the
-            loan — because that is when the balance is highest and interest is
-            consuming the most of each payment. A single extra payment in month
-            1 saves more interest than the same extra payment in month 30.
+            Say you&apos;re borrowing $300,000 at 5.5% for 30 years. The
+            monthly interest rate is 0.055 ÷ 12 = 0.00458333, and the total
+            number of payments is 30 × 12 = 360. Run that through the formula
+            and you get a monthly payment of about <strong>$1,703</strong>.
           </p>
-
-          <div className="bg-green-900/20 border border-green-600/40 rounded-2xl p-6 mb-6">
-            <h3 className="text-lg font-semibold text-green-300 mb-4">
-              Extra Payment Example — $10,000 at 8% over 36 Months
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-gray-800/50 rounded-xl p-5">
-                <p className="text-gray-400 text-xs mb-2 uppercase tracking-wide">Standard Payment</p>
-                <p className="text-white font-bold text-lg">$313.36 / month</p>
-                <div className="mt-3 space-y-1 text-sm text-gray-300">
-                  <p>Total paid: <span className="text-white font-semibold">$11,281</span></p>
-                  <p>Total interest: <span className="text-red-400 font-semibold">$1,281</span></p>
-                  <p>Payoff: <span className="text-white font-semibold">36 months</span></p>
-                </div>
-              </div>
-              <div className="bg-gray-800/50 rounded-xl p-5 border border-green-700/50">
-                <p className="text-gray-400 text-xs mb-2 uppercase tracking-wide">With Extra $50/Month</p>
-                <p className="text-green-400 font-bold text-lg">$363.36 / month</p>
-                <div className="mt-3 space-y-1 text-sm text-gray-300">
-                  <p>Total paid: <span className="text-white font-semibold">~$10,861</span></p>
-                  <p>Total interest: <span className="text-green-400 font-semibold">~$861</span></p>
-                  <p>Payoff: <span className="text-green-400 font-semibold">~28 months</span></p>
-                </div>
-              </div>
-            </div>
-            <div className="mt-4 p-4 bg-gray-900/60 rounded-xl text-center">
-              <p className="text-green-300 font-semibold">
-                Extra $50/month saves approximately <span className="text-white">$420 in interest</span> and cuts repayment by <span className="text-white">8 months</span>
-              </p>
-            </div>
+          <div className="bg-yellow-900/20 border border-yellow-600/40 rounded-xl p-4 mb-4 text-sm text-yellow-200 leading-relaxed">
+            Keep in mind — that $1,703 figure is principal and interest only.
+            Your actual mortgage bill will likely be higher, because property
+            taxes, homeowners insurance, and private mortgage insurance
+            typically get added in. Most lenders roll those costs into one
+            combined payment through an escrow account.
           </div>
-
           <p className="text-gray-200 text-base leading-relaxed">
-            If you receive a bonus, tax refund, or freelance payment, consider
-            directing a portion toward your loan principal. Even a single
-            lump-sum extra payment mid-loan can meaningfully reduce total
-            interest. Always confirm with your lender that there is no
-            prepayment penalty before doing this.
+            You can run your own numbers — whatever the loan amount, rate, or
+            term — with our{" "}
+            <Link
+              href="/calculators/financial/mortgage-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Mortgage Calculator
+            </Link>
+            .
           </p>
         </section>
 
         {/* ══════════════════════════════════════════════════
-            H2: INTEREST RATE COMPARISON
+            H2: SIMPLE INTEREST LOANS
+        ══════════════════════════════════════════════════ */}
+        <section className="mt-16" id="simple-interest-loans">
+          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
+            What If the Loan Isn&apos;t Amortized?
+          </h2>
+          <p className="text-gray-200 text-base leading-relaxed mb-4">
+            Not every loan works this way. Some personal loans, and most
+            credit cards, use <strong>simple interest</strong> instead —
+            interest calculated directly on the loan amount rather than
+            baked into a fixed, shrinking-balance payment schedule. The
+            formula for simple interest is much shorter:
+          </p>
+          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-base mb-6 overflow-x-auto">
+            Total Interest = Loan Amount × Rate × Time
+          </div>
+          <p className="text-gray-200 text-base leading-relaxed mb-4">
+            If you borrow $5,000 at 8% simple interest for 3 years: 5,000 ×
+            0.08 × 3 = $1,200 in total interest, meaning you&apos;d pay back
+            $6,200 altogether. That interest is often divided evenly across
+            your payment schedule.
+          </p>
+          <p className="text-gray-200 text-base leading-relaxed">
+            The key difference: with simple interest, the interest charge
+            does not shrink as your balance goes down the way it does with an
+            amortized loan. It&apos;s worth checking your loan agreement to
+            see which type you actually have — the math, and your total cost,
+            can end up quite different.
+          </p>
+        </section>
+
+        {/* ══════════════════════════════════════════════════
+            H2: INTEREST RATE COMPARISON (KEPT SECTION — UNCHANGED)
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="interest-rate-comparison">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
@@ -1065,167 +1003,7 @@ export default function LoanPaymentCalculateGuidePage() {
         </section>
 
         {/* ══════════════════════════════════════════════════
-            H2: LOAN TYPES
-        ══════════════════════════════════════════════════ */}
-        <section className="mt-16" id="loan-types">
-          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Applying the Formula Across Different Loan Types
-          </h2>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The same amortization formula works across virtually every type of
-            fixed-rate installment loan. What changes is not the formula — but
-            the typical principal amounts, interest rates, and repayment terms
-            involved.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-blue-300 mb-3">
-                🏠 Mortgage Loans
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                The largest loan most people ever take. Same formula applies
-                but with much larger principals ($100,000–$1M+) and longer
-                terms (15–30 years). Over 30 years, total interest can easily
-                exceed the original loan amount.
-              </p>
-              <p className="text-gray-400 text-xs">Typical term: 15–30 years · Rate: 4–8%</p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-blue-300 mb-3">
-                🚗 Car Loans (Auto Loans)
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Standard fixed-rate installment loans. The formula applies
-                directly. Because terms are shorter (3–7 years), total interest
-                is lower than mortgages, but the rate is often higher.
-              </p>
-              <p className="text-gray-400 text-xs">Typical term: 36–84 months · Rate: 5–15%</p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-blue-300 mb-3">
-                💳 Personal Loans
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Unsecured loans used for anything from debt consolidation to
-                home improvement. Higher interest rates than secured loans
-                because there is no collateral. The worked example in this
-                guide uses a personal loan.
-              </p>
-              <p className="text-gray-400 text-xs">Typical term: 12–60 months · Rate: 7–25%</p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-base font-semibold text-blue-300 mb-3">
-                🎓 Student Loans
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Government-backed student loans may use income-driven repayment
-                plans rather than standard amortization. However, standard
-                fixed repayment plans follow the same formula exactly.
-              </p>
-              <p className="text-gray-400 text-xs">Typical term: 10–25 years · Rate: 3–9%</p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 md:col-span-2">
-              <h3 className="text-base font-semibold text-blue-300 mb-3">
-                🏢 Business Loans
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-2">
-                Installment-based business loans (term loans) use identical
-                amortization mechanics. Some business loans use interest-only
-                periods followed by principal repayment — in those cases, a
-                modified calculation is needed. For standard term loans, the
-                formula above applies directly.
-              </p>
-              <p className="text-gray-400 text-xs">Typical term: 1–10 years · Rate: 6–30%</p>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            H2: COMMON MISTAKES
-        ══════════════════════════════════════════════════ */}
-        <section className="mt-16" id="common-mistakes">
-          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            Common Mistakes When Calculating Loan Payments
-          </h2>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            These are the errors that cause people to underestimate their true
-            loan cost. Each is easy to avoid once you know it exists.
-          </p>
-
-          <div className="space-y-4">
-            <div className="bg-gray-800/50 border-l-4 border-red-500 rounded-r-xl p-5">
-              <h3 className="text-base font-semibold text-red-300 mb-2">
-                1. Forgetting to convert annual rate to monthly
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                This is the most common error. The formula requires the monthly
-                rate (r), not the annual rate. If your loan is 8% per year, you
-                must use <code className="bg-gray-900 px-1 rounded">0.006667</code> in the
-                formula — not <code className="bg-gray-900 px-1 rounded">0.08</code>. Using
-                the annual rate directly will produce a wildly incorrect result.
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border-l-4 border-orange-500 rounded-r-xl p-5">
-              <h3 className="text-base font-semibold text-orange-300 mb-2">
-                2. Ignoring fees and origination charges
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Many lenders charge origination fees (0.5–8% of the loan),
-                processing fees, or insurance premiums on top of the stated
-                interest rate. These do not show up in the monthly payment
-                formula but are part of the true cost. The APR figure accounts
-                for these — the interest rate figure does not.
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border-l-4 border-yellow-500 rounded-r-xl p-5">
-              <h3 className="text-base font-semibold text-yellow-300 mb-2">
-                3. Using the wrong loan term unit
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                The formula uses <strong>months</strong> for n — not years. A
-                5-year loan is 60 months, not 5. Plugging 5 into the formula
-                instead of 60 will produce a completely wrong monthly payment
-                and apparent total cost.
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border-l-4 border-purple-500 rounded-r-xl p-5">
-              <h3 className="text-base font-semibold text-purple-300 mb-2">
-                4. Confusing APR with the interest rate
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Lenders sometimes advertise the interest rate but quote the APR
-                in fine print, or vice versa. The interest rate drives the
-                formula. The APR reflects total borrowing cost including fees.
-                When comparing two loan offers, compare APR — not just the
-                headline interest rate.
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border-l-4 border-blue-500 rounded-r-xl p-5">
-              <h3 className="text-base font-semibold text-blue-300 mb-2">
-                5. Assuming a longer term always saves money
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                A longer loan term reduces monthly payments but dramatically
-                increases total interest paid. A $20,000 car loan at 7% over
-                48 months costs $1,856 in interest. Stretched to 72 months,
-                the same loan costs $2,826 in interest — $970 more — even
-                though the monthly payment feels more comfortable.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
-            H2: APR VS INTEREST RATE
+            H2: APR VS INTEREST RATE (KEPT SECTION — UNCHANGED)
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="apr-vs-interest-rate">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
@@ -1290,98 +1068,21 @@ export default function LoanPaymentCalculateGuidePage() {
         </section>
 
         {/* ══════════════════════════════════════════════════
-            H2: LOAN AFFORDABILITY
-        ══════════════════════════════════════════════════ */}
-        <section className="mt-16" id="loan-affordability">
-          <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
-            How Much Loan Can You Afford? — Affordability Guidelines
-          </h2>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Knowing your monthly payment is step one. Knowing whether you can
-            comfortably afford it — without stretching your finances to the
-            breaking point — is step two. Two frameworks help here.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-blue-300 mb-3">
-                The 28/36 Rule
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                A widely used guideline for mortgage borrowers:
-              </p>
-              <ul className="text-gray-300 text-sm space-y-2 leading-relaxed list-disc list-inside">
-                <li>
-                  Monthly housing costs (mortgage + insurance + taxes) should
-                  not exceed <strong className="text-white">28%</strong> of
-                  gross monthly income
-                </li>
-                <li>
-                  Total monthly debt payments (all loans combined) should not
-                  exceed <strong className="text-white">36%</strong> of gross
-                  monthly income
-                </li>
-              </ul>
-              <p className="text-gray-400 text-xs mt-3 italic">
-                Example: On a $5,000/month gross income, total debt should stay
-                under $1,800/month.
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
-              <h3 className="text-lg font-semibold text-blue-300 mb-3">
-                Debt-to-Income Ratio (DTI)
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                DTI = total monthly debt payments ÷ gross monthly income
-              </p>
-              <ul className="text-gray-300 text-sm space-y-2 leading-relaxed">
-                <li className="flex gap-2">
-                  <span className="text-green-400 font-bold">Below 36%</span>
-                  <span>— generally comfortable, most lenders approve</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-yellow-400 font-bold">36–43%</span>
-                  <span>— borderline; lender discretion varies</span>
-                </li>
-                <li className="flex gap-2">
-                  <span className="text-red-400 font-bold">Above 43%</span>
-                  <span>— high risk; many lenders will decline</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="bg-blue-900/20 border border-blue-700/50 rounded-2xl p-5 mb-6">
-            <h3 className="text-base font-semibold text-blue-300 mb-2">
-              Quick Affordability Check — Before You Borrow
-            </h3>
-            <ol className="text-gray-200 text-sm space-y-2 leading-relaxed list-decimal list-inside">
-              <li>Calculate your proposed monthly payment using the formula above</li>
-              <li>Add it to all existing monthly debt payments (car loan, credit card minimums, other loans)</li>
-              <li>Divide that total by your gross monthly income</li>
-              <li>If the result is above 0.36 (36%), reconsider the loan amount or term</li>
-            </ol>
-          </div>
-
-          <p className="text-gray-200 text-base leading-relaxed">
-            These ratios are guidelines, not rules — your personal cash flow,
-            job stability, and savings cushion all matter. But they give you
-            a fast sanity check before you commit to a monthly obligation.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════════════
             H2: CALCULATOR CTA
         ══════════════════════════════════════════════════ */}
         <section className="mt-16" id="calculate-loan-payment">
           <h2 className="text-3xl font-bold text-blue-400 border-b border-blue-700 pb-3 mb-6">
             Calculate Your Loan Payment Now — Free Tool
           </h2>
+          <p className="text-gray-200 text-base leading-relaxed mb-4">
+            Once you understand the formula, you'll probably still want a
+            calculator for anything beyond a quick sanity check — and that's
+            fine. The value of knowing the formula isn't that you'll use it
+            every day; it's that you can spot-check a lender's numbers and
+            understand exactly why your payment is what it is.
+          </p>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Now that you understand the formula, the amortization mechanics, and
-            what affects your total cost — check your own numbers using our free
-            tool. Enter your loan amount, interest rate, and term to instantly
+            Enter your loan amount, interest rate, and term below to instantly
             see your monthly payment, total interest, and a full amortization
             schedule. No sign-up required.
           </p>
@@ -1395,7 +1096,14 @@ export default function LoanPaymentCalculateGuidePage() {
 
           <p className="text-gray-400 text-sm mt-4">
             Free · No sign-up · Works on mobile · Metric &amp; imperial · Full
-            amortization schedule included
+            amortization schedule included. Buying a house? Try our{" "}
+            <Link
+              href="/calculators/financial/mortgage-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Mortgage Calculator
+            </Link>{" "}
+            instead.
           </p>
         </section>
 
@@ -1408,8 +1116,8 @@ export default function LoanPaymentCalculateGuidePage() {
           </h2>
           <p className="text-gray-400 text-sm mb-5 italic">
             This article is based on standard financial mathematics and
-            guidelines from internationally recognised financial bodies. All
-            sources were verified in April 2026.
+            guidance from recognised financial bodies. All sources were
+            verified in April 2026.
           </p>
 
           <ol className="space-y-4 text-sm text-gray-300 leading-relaxed list-decimal list-inside">
@@ -1428,7 +1136,7 @@ export default function LoanPaymentCalculateGuidePage() {
               >
                 consumerfinance.gov
               </a>
-              . — Source for APR vs interest rate distinction.
+              . — Source for the APR vs interest rate distinction.
             </li>
             <li>
               Investopedia.{" "}
@@ -1442,30 +1150,37 @@ export default function LoanPaymentCalculateGuidePage() {
               >
                 investopedia.com
               </a>
-              . — Source for amortization schedule explanation and formula
-              derivation.
+              . — Source for the amortization schedule explanation and
+              formula derivation.
             </li>
             <li>
-              Federal Reserve.{" "}
-              <em>
-                Consumer Handbook on Adjustable-Rate Mortgages.
-              </em>{" "}
-              Board of Governors of the Federal Reserve System. — Source for
-              loan term and repayment structure principles.
-            </li>
-            <li>
-              Bankrate.{" "}
-              <em>Debt-to-income ratio: What is it and how to calculate it.</em>{" "}
-              Available at:{" "}
+              Consumer Financial Protection Bureau (CFPB).{" "}
+              <em>What is an escrow or impound account?</em> Available at:{" "}
               <a
-                href="https://www.bankrate.com/mortgages/why-debt-to-income-matters-in-mortgages/"
+                href="https://www.consumerfinance.gov/ask-cfpb/what-is-an-escrow-or-impound-account-en-158/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:underline"
               >
-                bankrate.com
+                consumerfinance.gov
               </a>
-              . — Source for debt-to-income ratio guidelines and the 28/36 rule.
+              . — Source for how taxes and insurance get bundled into a
+              mortgage payment via escrow.
+            </li>
+            <li>
+              Investopedia.{" "}
+              <em>Simple Interest: Who Benefits, With Formula and Example.</em>{" "}
+              Available at:{" "}
+              <a
+                href="https://www.investopedia.com/terms/s/simple_interest.asp"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-400 hover:underline"
+              >
+                investopedia.com
+              </a>
+              . — Source for the simple-interest formula and how it differs
+              from amortized interest.
             </li>
             <li>
               Mishkin, F.S.{" "}
@@ -1501,13 +1216,12 @@ export default function LoanPaymentCalculateGuidePage() {
             </p>
             <p className="text-gray-500 text-xs mt-1">
               Content based on standard amortization mathematics, CFPB
-              guidelines, and peer-reviewed financial literature. See full
-              references above.
+              guidance, and financial literature. See full references above.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 text-xs text-gray-400 text-right">
             <span>📅 Published: May 01, 2026</span>
-            <span>🔄 Updated: May 01, 2026</span>
+            <span>🔄 Updated: Aug 08, 2026</span>
             <span>✅ Factually reviewed</span>
           </div>
         </div>

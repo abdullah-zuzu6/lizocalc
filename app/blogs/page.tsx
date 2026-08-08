@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Calculator Guides for School, Money & Health",
+  title: "Blogs Hub| Guides for School, Money & Health",
   description:
     "Plain-English breakdowns of the math behind grades, loans, and BMI — written by the same people who built the calculators.",
   keywords: [

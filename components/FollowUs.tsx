@@ -1,7 +1,12 @@
 import Link from 'next/link'
-import { Facebook, Instagram, Youtube } from 'lucide-react'
+import { Facebook, Instagram, Youtube , Linkedin} from 'lucide-react'
 
 const socialLinks = [
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/lizocalc/',
+    Icon: Linkedin,
+  },
   {
     name: 'Facebook',
     href: 'https://www.facebook.com/profile.php?id=61573367673248',
