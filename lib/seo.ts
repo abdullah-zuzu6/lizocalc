@@ -4,7 +4,7 @@ interface CalculatorMetadata {
   title: string
   description: string
   keywords: string[]
-  category: 'financial' | 'fitness' | 'math' | 'education'|'time'|'physics'
+  category: 'financial' | 'health' | 'math' | 'education'|'time'|'physics'
   slug: string
 }
 
@@ -23,14 +23,14 @@ export function getCategoryPath(category: string): string {
 export function generateCalculatorMetadata(config: CalculatorMetadata): Metadata {
   const fullTitle = `${config.title} - Free Online Calculator | LizoCalc`
   const fullDescription = `${config.description} Fast and accurate calculations. No registration required.`
-  const calculatorUrl = `https://lizocalc.com${getCategoryPath(config.category)}/${config.slug}`
+  const calculatorUrl = `https://www.lizocalc.com${getCategoryPath(config.category)}/${config.slug}`
 
   return {
     title: fullTitle,
     description: fullDescription,
-    keywords: [...config.keywords, 'calculator', 'free online calculator', 'lizo calc'],
+    keywords: [...config.keywords, 'calculator', 'free online calculator', 'LizoCalc'],
     authors: [{ name: 'LizoCalc' }],
-    metadataBase: new URL('https://lizocalc.com'),
+    metadataBase: new URL('https://www.lizocalc.com'),
     openGraph: {
       type: 'website',
       locale: 'en_US',
@@ -58,12 +58,7 @@ export function generateCalculatorMetadata(config: CalculatorMetadata): Metadata
         'max-video-preview': -1,
       },
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: fullTitle,
-      description: fullDescription,
-      images: ['/og-image.jpg'],
-    },
+    
   }
 }
 
@@ -73,7 +68,7 @@ export function generateStructuredData(config: CalculatorMetadata) {
     '@type': 'SoftwareApplication',
     name: config.title,
     description: config.description,
-    url: `https://lizocalc.com${getCategoryPath(config.category)}/${config.slug}`,
+    url: `https://www.lizocalc.com${getCategoryPath(config.category)}/${config.slug}`,
     applicationCategory: 'Productivity',
     offers: {
       '@type': 'Offer',
@@ -83,7 +78,7 @@ export function generateStructuredData(config: CalculatorMetadata) {
     creator: {
       '@type': 'Organization',
       name: 'LizoCalc',
-      url: 'https://lizocalc.com',
+      url: 'https://www.lizocalc.com',
     },
   }
 }

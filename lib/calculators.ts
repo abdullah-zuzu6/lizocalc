@@ -49,8 +49,24 @@ export const calculators: Calculator[] = [
   { slug: 'date-calculator', category: 'time' },
   { slug: 'time-calculator', category: 'time' },
   { slug: 'hours-calculator', category: 'time' },
+  { slug: '7-days-from-today-calculator', category: 'time' },
+  { slug: '14-days-from-today-calculator', category: 'time' },
+  { slug: '21-days-from-today-calculator', category: 'time' },
+  { slug: '28-days-from-today-calculator', category: 'time' },
+  { slug: '30-days-from-today-calculator', category: 'time' },
+  { slug: '45-days-from-today-calculator', category: 'time' },
+  { slug: '60-days-from-today-calculator', category: 'time' },
+  { slug: '90-days-from-today-calculator', category: 'time' },
+  { slug: '120-days-from-today-calculator', category: 'time' },
+  { slug: '150-days-from-today-calculator', category: 'time' },
+  { slug: '180-days-from-today-calculator', category: 'time' },
+  { slug: '200-days-from-today-calculator', category: 'time' },
+  { slug: '250-days-from-today-calculator', category: 'time' },
+  { slug: '300-days-from-today-calculator', category: 'time' },
+  { slug: '365-days-from-today-calculator', category: 'time' },
 
-//Density calculator
+
+//Physics calculator
   { slug: 'density-calculator', category: 'physics' },
   { slug: 'speed-calculator', category: 'physics' },
   { slug: 'mass-calculator', category: 'physics' },

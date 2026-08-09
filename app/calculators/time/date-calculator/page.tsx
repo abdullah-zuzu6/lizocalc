@@ -52,7 +52,7 @@ const faqData = [
 //  METADATA
 // ─────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Date to Date Calculator  — Days Between Dates, 90/60/30 Days From Today",
+  title: "Date Calculator — Days Between Dates, 90/60/30 Days From Today",
   description:
     "Free date calculator: find days between two dates, calculate 90, 60, 45, 30, or 28 days from any date, or count days since a past event. Instant results with leap year accuracy.",
   keywords: [

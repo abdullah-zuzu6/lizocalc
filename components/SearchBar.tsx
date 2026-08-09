@@ -13,14 +13,20 @@ const allCalculators = [
   { name: 'Inflation Calculator', href: '/calculators/financial/inflation-calculator', category: 'Financial' },
   { name: 'Salary Calculator', href: '/calculators/financial/salary-calculator', category: 'Financial' },
   { name: 'ROI Calculator', href: '/calculators/financial/roi-calculator', category: 'Financial' },
-  { name: 'BMI Calculator', href: '/calculators/health/bmi-calculator', category: 'Fitness' },
-  { name: 'Calorie Calculator', href: '/calculators/health/calorie-calculator', category: 'Fitness' },
-  { name: 'Body Fat Calculator', href: '/calculators/health/body-fat-calculator', category: 'Fitness' },
-  { name: 'BMR Calculator', href: '/calculators/health/bmr-calculator', category: 'Fitness' },
-  { name: 'TDEE Calculator', href: '/calculators/health/tdee-calculator', category: 'Fitness' },
-  { name: 'Macros Calculator', href: '/calculators/health/macros-calculator', category: 'Fitness' },
-  { name: 'Calorie Deficit Calculator', href: '/calculators/health/calorie-deficit-calculator', category: 'Fitness' },
-  { name: 'Sleep Calculator', href: '/calculators/health/sleep-calculator', category: 'Fitness' },
+
+
+
+  { name: 'BMI Calculator', href: '/calculators/health/bmi-calculator', category: 'Health' },
+  { name: 'Calorie Calculator', href: '/calculators/health/calorie-calculator', category: 'Health' },
+  { name: 'Body Fat Calculator', href: '/calculators/health/body-fat-calculator', category: 'Health' },
+  { name: 'BMR Calculator', href: '/calculators/health/bmr-calculator', category: 'Health' },
+  { name: 'TDEE Calculator', href: '/calculators/health/tdee-calculator', category: 'Health' },
+  { name: 'Macros Calculator', href: '/calculators/health/macros-calculator', category: 'Health' },
+  { name: 'Calorie Deficit Calculator', href: '/calculators/health/calorie-deficit-calculator', category: 'Health' },
+  { name: 'Sleep Calculator', href: '/calculators/health/sleep-calculator', category: 'Health' },
+
+
+
   { name: 'Scientific Calculator', href: '/calculators/math/scientific-calculator', category: 'Math' },
   { name: 'Fraction Calculator', href: '/calculators/math/fraction-calculator', category: 'Math' },
   { name: 'Percentage Calculator', href: '/calculators/math/percentage-calculator', category: 'Math' },
@@ -34,13 +40,35 @@ const allCalculators = [
   { name: 'Permutation & Combination Calculator', href: '/calculators/math/permutation-combination-calculator', category: 'Math' },
   { name: 'Z-Score Calculator', href: '/calculators/math/z-score-calculator', category: 'Math' },
   { name: 'Conversion Calculator', href: '/calculators/math/conversion-calculator', category: 'Math' },
+
+
+
   { name: 'Age Calculator', href: '/calculators/time/age-calculator', category: 'Time' },
   { name: 'Date Calculator', href: '/calculators/time/date-calculator', category: 'Time' },
   { name: 'Time Calculator', href: '/calculators/time/time-calculator', category: 'Time' },
   { name: 'Hours Calculator', href: '/calculators/time/hours-calculator', category: 'Time' },
+  { name: '7 Days From Today Calculator', href: '/calculators/time/7-days-from-today-calculator', category: 'Time' },
+  { name: '14 Days From Today Calculator', href: '/calculators/time/14-days-from-today-calculator', category: 'Time' },
+  { name: '21 Days From Today Calculator', href: '/calculators/time/21-days-from-today-calculator', category: 'Time' },
+  { name: '28 Days From Today Calculator', href: '/calculators/time/28-days-from-today-calculator', category: 'Time' },
+  { name: '30 Days From Today Calculator', href: '/calculators/time/30-days-from-today-calculator', category: 'Time' },
+  { name: '45 Days From Today Calculator', href: '/calculators/time/45-days-from-today-calculator', category: 'Time' },
+  { name: '60 Days From Today Calculator', href: '/calculators/time/60-days-from-today-calculator', category: 'Time' },
+  { name: '90 Days From Today Calculator', href: '/calculators/time/90-days-from-today-calculator', category: 'Time' },
+  { name: '120 Days From Today Calculator', href: '/calculators/time/120-days-from-today-calculator', category: 'Time' },
+  { name: '150 Days From Today Calculator', href: '/calculators/time/150-days-from-today-calculator', category: 'Time' },
+  { name: '180 Days From Today Calculator', href: '/calculators/time/180-days-from-today-calculator', category: 'Time' },
+  { name: '200 Days From Today Calculator', href: '/calculators/time/200-days-from-today-calculator', category: 'Time' },
+  { name: '250 Days From Today Calculator', href: '/calculators/time/250-days-from-today-calculator', category: 'Time' },
+  { name: '300 Days From Today Calculator', href: '/calculators/time/300-days-from-today-calculator', category: 'Time' },
+  { name: '365 Days From Today Calculator', href: '/calculators/time/365-days-from-today-calculator', category: 'Time' },
+
+
+
   { name: 'GPA Calculator', href: '/calculators/education/gpa-calculator', category: 'Education' },
   { name: 'Grade Calculator', href: '/calculators/education/grade-calculator', category: 'Education' },
   { name: 'CGPA Calculator', href: '/calculators/education/cgpa-calculator', category: 'Education' },
+  {name:  'weighted grade calculator', href:'/calculators/education/weighted-grade-calculator', category:'Education'},
   { name: 'Final Grade Calculator', href: '/calculators/education/final-grade-calculator', category: 'Education' },
   { name: 'Density Calculator', href: '/calculators/physics/density-calculator', category: 'Physics' },
   { name: 'Mass Calculator', href: '/calculators/physics/mass-calculator', category: 'Physics' },

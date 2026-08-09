@@ -3,7 +3,7 @@ import Script from "next/script";
 import TimeCalculators from "./OtherCalculators";
 
 export const metadata: Metadata = {
-  title: "4+ Time Calculators | Age, Date & Hours Tools",
+  title: "19+ Time Calculators | Age,Date,Days & Hours",
   description:
     "Free online time calculators for age, date difference, time duration, and working hours. Accurate tools for personal dates, planning, and time tracking.",
 
