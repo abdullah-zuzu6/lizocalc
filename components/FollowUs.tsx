@@ -27,7 +27,7 @@ const socialLinks = [
 export default function FollowUs() {
   return (
     <section className="max-w-6xl mx-auto px-6 pb-16 text-white text-center">
-      <h4 className="font-semibold mb-6 text-xl">Follow Us</h4>
+      <h4 className="font-semibold mb-6 text-xl">Follow Us On </h4>
 
       <div className="flex flex-row flex-wrap items-center justify-center gap-4">
         {socialLinks.map(({ name, href, Icon }) => (
