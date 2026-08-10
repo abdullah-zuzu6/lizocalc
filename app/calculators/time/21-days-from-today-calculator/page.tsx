@@ -9,7 +9,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "21 Days From Today Calculator -Countdown",
+title: "21 Days From Today - Calculator & Countdown",
   description:
     "Need the exact date 21 days out? Get it instantly, see how people actually search for this, and skip the finger-counting on your calendar.",
   keywords: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "21 Days From Today - Date Calculator & Countdown",
+    title: "21 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 21 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
     url: "https://www.lizocalc.com/calculators/time/21-days-from-today-calculator",

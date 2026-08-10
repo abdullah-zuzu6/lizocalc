@@ -7,7 +7,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "150 Days From Today Calculator -Countdown",
+  title: "150 Days From Today - Calculator & Countdown",
   description:
     "Need the date 150 days from today? Get it instantly, plus a live countdown and calendar view — no flipping through five calendar pages to count it out.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "150 Days From Today - Date Calculator & Countdown",
+    title: "150 Days From Today - Calculator & Countdown",
     description:
       "Find the exact date 150 days from today in one click, with a live countdown and every common date format.",
     url: "https://www.lizocalc.com/calculators/time/150-days-from-today-calculator",

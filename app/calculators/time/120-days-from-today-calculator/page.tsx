@@ -7,7 +7,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "120 Days From Today Calculator -Countdown",
+  title: "120 Days From Today - Calculator & Countdown",
   description:
     "120 days from today, down to the exact date — plus why that number shows up in mortgage foreclosure rules, prescription refills, and disability insurance.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "120 Days From Today - Date Calculator & Countdown",
+    title: "120 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 120 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
     url: "https://www.lizocalc.com/calculators/time/120-days-from-today-calculator",

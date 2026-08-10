@@ -7,7 +7,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "180 Days From Today Calculator -Countdown",
+  title: "180 Days From Today - Calculator & Countdown",
   description:
     "180 days from today, worked out to the exact date — plus why that number runs your passport's 6-month rule and the Schengen 90/180 clock.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "180 Days From Today - Date Calculator & Countdown",
+    title: "180 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 180 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
     url: "https://www.lizocalc.com/calculators/time/180-days-from-today-calculator",

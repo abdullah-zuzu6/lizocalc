@@ -7,7 +7,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "45 Days From Today Calculator -Countdown",
+    title: "45 Days From Today - Calculator & Countdown",
   description:
     "45 days from today, worked out to the exact date — plus why that number keeps showing up in 1031 exchanges, mattress trials, and insurance claims.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "45 Days From Today - Date Calculator & Countdown",
+    title: "45 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 45 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
     url: "https://www.lizocalc.com/calculators/time/45-days-from-today-calculator",

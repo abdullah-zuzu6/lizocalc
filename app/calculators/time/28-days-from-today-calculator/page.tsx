@@ -7,7 +7,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "28 Days From Today Calculator -Countdown",
+  title: "28 Days From Today - Calculator & Countdown",
   description:
     "28 days isn't the same as 'a month' — get the exact date, see why the two drift apart, and check what this number actually means for rehab timelines and billing cycles.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "28 Days From Today - Date Calculator & Countdown",
+    title: "28 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 28 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
     url: "https://www.lizocalc.com/calculators/time/28-days-from-today-calculator",

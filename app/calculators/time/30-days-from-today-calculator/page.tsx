@@ -7,7 +7,7 @@ import DaysFromTodayCalculator from "./clientside";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "30 Days From Today Calculator -Countdown",
+    title: "30 Days From Today - Calculator & Countdown",
   description:
     "30 days and 'one month' aren't always the same date — get the exact date 30 days out, and see where that gap catches people on returns and refunds.",
   keywords: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "30 Days From Today - Date Calculator & Countdown",
+    title: "30 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 30 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
     url: "https://www.lizocalc.com/calculators/time/30-days-from-today-calculator",
