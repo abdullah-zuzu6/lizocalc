@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical:
-      "https://www.lizocalc.com/blogs/education/dept-consolidation-loan-guide",
+      "https://www.lizocalc.com/blogs/finance/debt-consolidation-loan-guide",
   },
   robots: { index: true, follow: true },
   openGraph: {
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
       "Debt Consolidation Loans Explained — Pros, Cons, Interest Rates & How They Work",
     description:
       "How debt consolidation loans actually work, a real worked example, honest pros and cons, interest rate ranges by credit score, and alternatives worth comparing first.",
-    url: "https://www.lizocalc.com/blogs/education/dept-consolidation-loan-guide",
+    url: "https://www.lizocalc.com/blogs/finance/debt-consolidation-loan-guide",
     siteName: "LizoCalc",
     type: "article",
     images: [
