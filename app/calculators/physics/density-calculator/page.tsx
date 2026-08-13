@@ -93,7 +93,7 @@ const structuredData = {
         "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-01",
+      dateModified: "2026-08-14",
       mainEntity: {
         "@id":
           "https://www.lizocalc.com/calculators/physics/density-calculator#howto-calculate-density",
@@ -333,177 +333,76 @@ export default function DensityPage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-      
+
         <section className="mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             What Is Density?
           </h2>
           <p className="text-gray-200 leading-relaxed text-base">
-            The density of a material is defined as its mass per unit volume.
-            The density formula helps us understand how tightly things are
-            packed inside something. It does not just look at how heavy an
-            object is, but it also looks at the space the object takes up,
-            which is called volume.
+            <Link
+              href="/info/physics/density"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              Density
+            </Link>{" "}
+            is just a way of describing how tightly matter is packed into a
+            given space. Pick up a golf ball and a table-tennis ball — same
+            size, completely different weight in your hand. That difference,
+            mass squeezed into the same volume, is density in its simplest
+            form. It doesn&apos;t care how big or small something is, only
+            how "crowded" the matter inside it happens to be.
           </p>
         </section>
 
-        <section className="mt-20">
+        <section className="mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate Density
+            The Density Formula
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-sm text-center">
-              <div className="w-10 h-10 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center mx-auto mb-4">
-                1
-              </div>
-              <h3 className="text-lg font-semibold text-blue-300 mb-2">
-                Measure Mass (m)
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Weigh the object on a balance or scale and record the value in
-                grams or kilograms.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-sm text-center">
-              <div className="w-10 h-10 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center mx-auto mb-4">
-                2
-              </div>
-              <h3 className="text-lg font-semibold text-blue-300 mb-2">
-                Determine Volume (V)
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Calculate volume from dimensions for regular shapes, or use
-                water displacement for irregular ones.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 shadow-sm text-center">
-              <div className="w-10 h-10 rounded-full bg-blue-700 text-white font-bold flex items-center justify-center mx-auto mb-4">
-                3
-              </div>
-              <h3 className="text-lg font-semibold text-blue-300 mb-2">
-                Apply Formula (ρ = m / V)
-              </h3>
-              <p className="text-gray-300 text-sm leading-relaxed">
-                Divide the mass by the volume and attach the correct unit to
-                get your final density.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Understanding the Density Formula:{" "}
-            <span className="font-mono text-green-300">ρ = m / V</span>
-          </h2>
-
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            The standard density formula is:
-          </p>
           <p className="text-center text-3xl font-mono text-green-300 my-6">
             Density (ρ) = Mass (m) ÷ Volume (V)
           </p>
-          <p className="text-gray-200 leading-relaxed mb-8 text-base">
-            Scientists use the Greek letter ρ (rho) to represent density.
-            Depending on what you already know, you can rearrange this formula
-            to find the missing value.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            The Three Density Formulas
-          </h3>
-          <div className="overflow-x-auto mb-4">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">To Find</th>
-                  <th className="p-4 text-left font-semibold">Formula</th>
-                  <th className="p-4 text-left font-semibold">When to Use</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">Density</td>
-                  <td className="p-4 font-mono text-green-300">ρ = m ÷ V</td>
-                  <td className="p-4">
-                    When you know the mass and volume of an object.
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4">Mass</td>
-                  <td className="p-4 font-mono text-green-300">m = ρ × V</td>
-                  <td className="p-4">When you know the density and volume.</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Volume</td>
-                  <td className="p-4 font-mono text-green-300">V = m ÷ ρ</td>
-                  <td className="p-4">When you know the mass and density.</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <p className="text-gray-200 text-base">
-            If you need to work out mass or volume on their own, our{" "}
+          <p className="text-gray-200 leading-relaxed text-base">
+            That&apos;s the whole equation, but the useful part is how you
+            can flip it around depending on what you&apos;re missing. Know
+            the density and the volume, you can back into the mass. Know the
+            mass and the density, volume falls out just as easily. Once you
+            get comfortable with the{" "}
             <Link
-              href="/calculators/physics/mass-calculator"
+              href="/info/physics/density/mass-volume-density-relationship"
               className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
             >
-              Mass Calculator
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/calculators/physics/weight-calculator"
-              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-            >
-              Weight Calculator
-            </Link>{" "}
-            can handle those directly using the rearranged formulas above.
+              relationship between mass, volume, and density
+            </Link>
+            , the calculator above just becomes a shortcut for algebra you
+            already understand.
           </p>
         </section>
 
-        <section className="mt-20">
+        <section className="mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Types of Density (Mass, Weight, and Relative)
+            Density Units You&apos;ll Run Into
           </h2>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            When we talk about density, we are not always talking about the
-            same thing. This is where people get confused.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            <strong>Mass density</strong> is what people usually mean when
-            they say density. It is the mass of something divided by its
-            volume. We measure it in kilograms per meter or grams per cubic
-            centimeter. This is the kind of density we use in the formula.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            <strong>Weight density</strong> is different. It is the{" "}
+          <p className="text-gray-200 leading-relaxed text-base">
+            Labs tend to use g/cm³, engineers lean on kg/m³, and a lot of US
+            material spec sheets still quote lb/ft³. None of that is
+            arbitrary — it&apos;s just habit built around whatever field
+            wrote the number down first. If you&apos;ve ever pulled a value
+            off a datasheet and it wouldn&apos;t plug into your equation, you
+            were probably staring at{" "}
             <Link
-              href="/calculators/physics/weight-calculator"
+              href="/info/physics/density/specific-weight-units-explained"
               className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
             >
-              weight
+              specific weight
             </Link>{" "}
-            of something per unit volume. This changes depending on where you
-            are. For example something weighs differently on the Moon than it
-            does on Earth. Its mass density stays the same.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            People get confused because we use the words weight and mass to
-            mean the same thing in our daily lives. In physics they mean
-            different things.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base">
-            Relative density — we also call it specific gravity — compares the
-            density of one substance to the density of another substance. We
-            usually compare it to water at 4 degrees Celsius. This is because
-            water has a density of 1 gram per cubic centimeter at that
-            temperature.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mt-4">
-            For example, if something has a density of 0.8 it is 80 percent
-            as dense as water. This means it will float in water. Relative
-            density is a comparison of two densities so it does not have any
-            units.
+            instead of density, or a unit that needed converting first. Our{" "}
+            <Link
+              href="/info/physics/density/density-unit-conversion-guide"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              density unit conversion guide
+            </Link>{" "}
+            walks through the exact factors so you&apos;re not guessing.
           </p>
         </section>
 
@@ -596,150 +495,22 @@ export default function DensityPage() {
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Real-Life Examples of Density
+            Comparing Real Materials
           </h2>
-
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            There are things that show us what density is. For example ships
-            made of steel can float on water. This seems strange because
-            steel is heavier than water. The shape of the ship is such that
-            it traps a lot of air. So when we calculate the density of the
-            ship including the steel, the air and the things it is carrying
-            it is actually lighter than water. That is why the ship can
-            float.
-          </p>
-
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Another example is when you mix oil and water. The oil stays on
-            top of the water because it is lighter.
-          </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-2 text-base ml-2 mb-4">
-            <li>We can not mix oil with water because density of oil is lower.</li>
-            <li>This is the reason oil stays on the surface.</li>
-          </ul>
-
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            You can also see density at work when you look at soda cans. A
-            regular soda can will sink in water. A diet soda can will float.
-            This is because the sugar in the soda makes the can heavier. The
-            artificial sweetener in the diet soda does not add much weight so
-            the can is lighter. Density of diet soda is lower than soda that
-            is why diet soda can floats.
-          </p>
-
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Hot air balloons are another example of density. When the air
-            inside the balloon is heated it becomes lighter than the air
-            outside. This makes the balloon rise up into the air because it
-            is now less dense than the air around it.
-          </p>
-          <ol className="list-decimal list-inside text-gray-200 space-y-2 text-base ml-2 mb-4">
-            <li>The balloon air is heated.</li>
-            <li>The heated air is lighter.</li>
-            <li>The balloon rises because density of air is lower than cooler air.</li>
-          </ol>
-
           <p className="text-gray-200 leading-relaxed text-base">
-            Jewelers use density to check if gold is pure. They do this by
-            putting the gold in water and measuring how water it displaces.
-            Pure gold has a specific density that is hard to fake. So if the
-            density is not right the jeweler will know that the gold is not
-            pure. Density of gold is used to catch fake gold.
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Common Mistakes When Calculating Density and How to Avoid Them
-          </h2>
-
-          <p className="text-gray-200 leading-relaxed text-base mb-8">
-            Density seems like the simplest formula in physics. Until you
-            actually start to do the calculation. Most of the problems are
-            not with the math. They are with the way things are set up
-            before the math even begins.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Mistakes While Using Online Calculators
-          </h3>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Online density calculators are useful but they are only as good
-            as the information you put into them:
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Mixing units without converting. Entering mass in pounds and
-            volume in liters into a calculator that expects kilograms and
-            cubic meters will give you a number that looks right but is
-            completely wrong. Always check what units the calculator uses
-            before entering your numbers.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Confusing mass and weight fields. Some calculators say "mass,"
-            others say "weight," and people enter a number from a bathroom
-            scale (which's weight) as if it were mass. On Earth this doesn't
-            usually cause a problem but its still not correct and can be a
-            real issue if you are working with different gravity
-            environments.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Rounding early. A calculator might round a number before you use
-            it in the step of a problem and that small rounding error adds up
-            if you're doing several calculations in a row.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-10">
-            Ignoring figures. A calculator will give you decimal places even
-            if your original measurements only have a few. Showing all of
-            them makes the result look more accurate than it actually is.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Mistakes While Doing Physical or Manual Calculations
-          </h3>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            I still remember this from my 9th-grade physics lab in 2022. We
-            were asked to find the density of a metal block using the water
-            displacement method. Put it into a graduated cylinder measure how
-            much the water level rises and use that as the volume.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            I got a density value that was completely wrong compared to what
-            the textbook said for the metal. I couldn't figure out why for
-            most of the lab. It turned out I made two mistakes at the time.
-            First I read the water level from an angle of looking straight on
-            so I didn't read the meniscus correctly and got the wrong volume.
-            Second I used the mass of the block that included a sticker tag
-            still attached to it so my mass reading was not accurate either.
-            Neither mistake was big by itself. Together they made my final
-            density number very off.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            That lab taught me something that no textbook explanation had
-            explained before: density calculations are only as accurate as
-            the measurements you take. The formula is simple. The real skill
-            is in measuring mass and volume. Some common problems when doing
-            calculations:
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Air bubbles stuck on the object during water displacement, which
-            makes the volume look bigger than it is.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Not considering the weight of the container when weighing a
-            liquid or powder so the mass includes something it shouldn't.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            Temperature changes that affect volume with liquids because most
-            things expand when they get warmer.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-6">
-            Using the formula for the volume of an irregular shape. Trying to
-            use a cube or sphere formula for something that doesn't fit.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base">
-            If you are doing this by hand check that your tools are properly
-            calibrated and take measurements more than once. It only takes
-            two minutes and saves you from having to start over later.
+            Numbers on a chart only mean something once you compare them
+            side by side. A block of aluminum and a block of lead the exact
+            same size can differ in weight by a factor of four, and that gap
+            is entirely density. It&apos;s also how jewelers catch fake gold
+            and how scrap yards sort metal without cutting into it. If you
+            want the full breakdown of{" "}
+            <Link
+              href="/info/physics/density/density-of-common-materials"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              density values for common materials
+            </Link>
+            , the table below is a good starting reference.
           </p>
         </section>
 
@@ -840,50 +611,86 @@ export default function DensityPage() {
             10,000 advanced materials used across the aerospace, technology,
             and medical industries, headquartered in Santa Ana, California.
             The reference page is written by Chin Trento, who holds a
-            bachelor's degree in applied chemistry from the University of
-            Illinois and has been writing about advanced materials at SAM for
-            over four years — so the numbers above are cross-checked against
-            an industry source, not just pulled from a random table.
+            bachelor&apos;s degree in applied chemistry from the University
+            of Illinois and has been writing about advanced materials at SAM
+            for over four years — so the numbers above are cross-checked
+            against an industry source, not just pulled from a random table.
           </p>
         </section>
 
         <section className="mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate Density Using Excel
+            Density in Liquids and Gases
           </h2>
-          <p className="text-gray-200 leading-relaxed text-base mb-6">
-            You do not need a calculator to figure out density. A simple
-            formula in a spreadsheet can do the job. This is really useful if
-            you are working with a lot of data from a lab or a list of
-            materials.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-4">
-            You can start by making a list.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-2">
-            * In column A write down the mass of each thing.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-2">
-            * In column B write down the volume of each thing. Make sure you
-            use the same units for everything.
-          </p>
-          <p className="text-gray-200 leading-relaxed text-base mb-6">
-            * In column C type in the formula: <code>=A2/B2</code>
-          </p>
           <p className="text-gray-200 leading-relaxed text-base">
-            Then you can drag this formula down to all the rows. This way you
-            can calculate the density of lots of things at the same time
-            using the density formula in Excel. For the official reference on
-            how Excel formulas work, see Microsoft's{" "}
-            <a
-              href="https://support.microsoft.com/en-us/office/overview-of-formulas-in-excel-ecfdc708-9162-49e8-b993-c311f47ca173"
-              target="_blank"
-              rel="noopener noreferrer"
+            Solids hold their density fairly steady, but liquids and gases
+            don&apos;t play by the same rules. The{" "}
+            <Link
+              href="/info/physics/density/density-of-water"
               className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
             >
-              Overview of formulas in Excel
-            </a>{" "}
-            documentation.
+              density of water
+            </Link>{" "}
+            shifts slightly with temperature, which is why lab work always
+            notes the conditions a measurement was taken under. Air is even
+            more restless — the{" "}
+            <Link
+              href="/info/physics/density/density-of-air"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              density of air
+            </Link>{" "}
+            changes with altitude, humidity, and temperature all at once.
+            For gases specifically, the{" "}
+            <Link
+              href="/info/physics/density/gas-density-formula"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              gas density formula
+            </Link>{" "}
+            ties directly back to the{" "}
+            <Link
+              href="/info/physics/density/ideal-gas-law-pv-nrt"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              ideal gas law (PV = nRT)
+            </Link>
+            , which is the equation chemists reach for the moment pressure
+            and temperature enter the picture.
+          </p>
+        </section>
+
+        <section className="mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            A Few Related Ideas Worth Knowing
+          </h2>
+          <p className="text-gray-200 leading-relaxed text-base">
+            A common question is whether{" "}
+            <Link
+              href="/info/physics/density/is-density-a-physical-or-chemical-property"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              density counts as a physical or chemical property
+            </Link>{" "}
+            — it&apos;s physical, since you can measure it without changing
+            what the substance actually is. Grain silos and soil labs work
+            with a related idea called{" "}
+            <Link
+              href="/info/physics/density/what-is-bulk-density"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              bulk density
+            </Link>
+            , which accounts for the air gaps between loose particles. And
+            pilots deal with{" "}
+            <Link
+              href="/info/physics/density/what-is-density-altitude"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              density altitude
+            </Link>{" "}
+            every takeoff, since thinner air at higher elevations changes how
+            much lift a wing can generate.
           </p>
         </section>
 
@@ -895,15 +702,7 @@ export default function DensityPage() {
             Pair your density practice with these other free calculators:
           </p>
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            <li>
-              <Link
-                href="/calculators/physics/mass-calculator"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Mass Calculator
-              </Link>{" "}
-              — find mass when you know density and volume
-            </li>
+           
             <li>
               <Link
                 href="/calculators/physics/weight-calculator"
@@ -913,15 +712,7 @@ export default function DensityPage() {
               </Link>{" "}
               — calculate weight based on mass and gravity
             </li>
-            <li>
-              <Link
-                href="/calculators/physics/speed-calculator"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Speed Calculator
-              </Link>{" "}
-              — find speed and distance with ease
-            </li>
+           
             <li>
               <Link
                 href="/calculators/math/conversion-calculator"
@@ -958,7 +749,7 @@ export default function DensityPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
             <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: Aug 01, 2026</span>
+            <span>🔄 Updated: Aug 14, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

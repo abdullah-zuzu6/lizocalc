@@ -102,5 +102,5 @@ Disallow: /
 # =====================================================================
 
 Sitemap: https://www.lizocalc.com/sitemap.xml
-Sitemap: https://www.lizocalc.com/image-sitemap.xml
 Sitemap: https://www.lizocalc.com/blog-sitemap.xml
+Sitemap: https://www.lizocalc.com/info/physics/sitemap.xml
