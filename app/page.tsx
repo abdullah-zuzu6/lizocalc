@@ -155,7 +155,7 @@ export default function Home() {
 
       <section className="max-w-6xl mx-auto px-6 py-16 text-white">
         <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-          About LizoCalc - A Calcuator Platform
+          LizoCalc - A Calcuator Platform
         </h2>
 
         <p className="text-gray-200 leading-relaxed mb-6">
@@ -180,236 +180,35 @@ export default function Home() {
           Every calculator runs client-side in your browser — nothing you enter is
           stored or sent anywhere, and no account is required.
         </p>
-      </section>
 
-      {/* Internal linking section — placed right after About LizoCalc */}
-      <section className="max-w-6xl mx-auto px-6 pb-16 text-white">
-        <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-          Jump straight to a category
+        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
+          Why people choose LizoCalc
         </h3>
 
         <p className="text-gray-200 leading-relaxed mb-6">
-          If you already know what you&apos;re working on, skip the scroll and
-          go directly to the calculators you need. Our{" "}
-          <Link
-            href="/calculators/financial"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            Financial calculators
-          </Link>{" "}
-          cover everything from a{" "}
-          <Link
-            href="/calculators/financial/mortgage-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            mortgage
-          </Link>{" "}
-          to a{" "}
-          <Link
-            href="/calculators/financial/compound-interest-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            compound interest
-          </Link>{" "}
-          projection. Our{" "}
-          <Link
-            href="/calculators/health"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            Health calculators
-          </Link>{" "}
-          include{" "}
-          <Link
-            href="/calculators/health/bmi-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            BMI
-          </Link>
-          ,{" "}
-          <Link
-            href="/calculators/health/tdee-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            TDEE
-          </Link>
-          , and{" "}
-          <Link
-            href="/calculators/health/body-fat-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            body fat
-          </Link>{" "}
-          tools that go beyond a single number.
+          Most calculator sites make you dig through pop-ups, wait for slow pages to
+          load, or create an account just to see a simple result. LizoCalc skips all
+          of that. Open a calculator, type your numbers, and get your answer right
+          away — that&apos;s the whole experience.
         </p>
 
         <p className="text-gray-200 leading-relaxed mb-6">
-          For coursework and academic planning, our{" "}
-          <Link
-            href="/calculators/education"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            Education calculators
-          </Link>{" "}
-          include the{" "}
-          <Link
-            href="/calculators/education/gpa-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            GPA Calculator
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/calculators/education/final-grade-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            Final Grade Calculator
-          </Link>
-          . Need something quick? Our{" "}
-          <Link
-            href="/calculators/math/percentage-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            Percentage Calculator
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/calculators/time/age-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            Age Calculator
-          </Link>{" "}
-          are two of our most-used tools, and our full{" "}
-          <Link
-            href="/calculators"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            calculator directory
-          </Link>{" "}
-          lists everything in one place, including{" "}
-          <Link
-            href="/calculators/physics/speed-calculator"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            physics
-          </Link>{" "}
-          tools like speed and density.
+          We also don&apos;t split things across ten different websites. Whether you
+          need to check your BMI, work out a loan payment, or find the days left
+          until an event, it&apos;s all in one place, built with the same simple
+          design. So once you&apos;re used to one calculator, the rest feel familiar
+          too.
         </p>
 
         <p className="text-gray-200 leading-relaxed">
-          Prefer to read the reasoning before you calculate? Our{" "}
-          <Link
-            href="/blogs/education"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            education guides
-          </Link>
-          ,{" "}
-          <Link
-            href="/blogs/finance"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            finance guides
-          </Link>
-          , and{" "}
-          <Link
-            href="/blogs/health"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            health guides
-          </Link>{" "}
-          walk through the formulas behind these tools with real, worked
-          examples — or start from the{" "}
-          <Link
-            href="/blogs"
-            className="text-blue-400 underline hover:text-blue-300"
-          >
-            blog hub
-          </Link>{" "}
-          if you're not sure where to begin.
+          Your privacy matters to us as well. Since every calculation happens right
+          in your browser, we never see or save what you type. No hidden tracking,
+          no data collection — just a tool that does its job and gets out of your
+          way.
         </p>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-          How People Actually Use These Calculators
-        </h2>
 
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Most calculator websites just give you a list of tools and expect  you to do everything out on your own. I wanted to do things on this page. Seeing the number is important. Understanding what it means is just as important. Here are five real examples, one from each category on this website using the same math that the live calculators use.
-        </p>
-
-        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
-          Finance: What Compound Interest Does
-        </h3>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Lets say you put $5,000 into an investment that earns 8% per year. You do not touch it for 15 years. The compound interest will turn that into about $15,861, which is more than triple of that 5k what you started with without adding any extra money. This is why it is an idea to invest early as possible as soon instead of waiting for the right moment.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          The same math works against you when you are borrowing money of investing. A mortgage or loan will add up interest in the way just in reverse. Knowing these numbers before you borrow money can make a difference. Of just guessing based on what you are told you can compare different loan offers to understand the real cost, which can save you time and help you choose the best option that fits your budget or financial situation.
-        </p>
-
-        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
-          Health: Why BMI Does Not Tell The Whole Story
-        </h3>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Imagine someone who's 5 feet 9 inches tall and weighs 160 pounds. Their BMI is 23.6, which is in the healthy weight range. This is information but it is only one part of the story.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          BMI does not show how much of your weight comes from muscle or body. Two people can have the BMI but have very different body compositions. That is why it is helpful to look at your body percentage and your Total Daily Energy Expenditure as well. These measurements give you an understanding of your health and can help you make smarter decisions if your goal is to lose weight build muscle or maintain a healthy lifestyle.
-        </p>
-
-        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
-          Math: The Calculation You Probably Do Every Week
-        </h3>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Percentages are used everywhere such as discounts, tax, tips and grades. For example 15% of 240 is 36 which is simple enough. What can be tricky is the reverse, such as "36's what percent of 240?"
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          A good calculator can save you from doing this by hand and getting it wrong. The same goes for fractions which're handy for students, teachers or anyone who works with numbers regularly.
-        </p>
-
-        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
-          Physics: The Formula Is Never The Hard Part. The Units Are
-        </h3>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          The formula for speed is distance divided by time which's easy to understand. For example if you drive 150 miles in 2 hours and 30 minutes your average speed is 60 miles per hour. Where people make mistakes is when they enter "2 hours 30 minutes" as "2.5" without converting the units first.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          A calculator can handle that conversion for you, which's where most manual mistakes happen.
-        </p>
-
-        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
-          Time: Simple, Until It Is Not
-        </h3>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Working out the exact years, months and days between two dates sounds easy but it can get complicated when leap years and different month lengths are involved. That is usually where manual math goes wrong.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          A time calculator can deal with all of that in the background so your age, date difference or work hours are accurate the time.
-        </p>
-
-        <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
-          Why You Can Trust The Numbers
-        </h3>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Every example here uses the formulas as the live calculators, on this website without any simplification or rounding. If you run these numbers yourself you will get the same result.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed">
-          That is the standard I hold this website to: accurate answers, no sign-up no data stored and no guesswork.
-        </p>
-      </section>
 
 <FollowUs/>
 

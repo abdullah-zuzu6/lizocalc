@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Free Density Calculator | Mass, Volume & Density Tool",
+    title: "Free Density Calculator | Density in Multiple Units ",
     description:
       "Instantly calculate density (ρ = m/V), mass, or volume with multiple units. Free physics tool for students.",
     url: "https://www.lizocalc.com/calculators/physics/density-calculator",
