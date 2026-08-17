@@ -11,7 +11,9 @@ import {
   BarChart3,
   Layers,
   Heart,
+  ArrowLeftRight,
 } from "lucide-react";
+import Link from "next/link";
 
 import {
   getCalculatorHistory,
@@ -22,7 +24,7 @@ import {
 import RelatedCalculators from "@/components/RelatedCalculators";
 
 // ─────────────────────────────────────────────
-// Types & Professional Unit Constants
+// Types & Unit Constants
 // ─────────────────────────────────────────────
 
 interface UnitOption {
@@ -31,20 +33,73 @@ interface UnitOption {
   factor: number;
 }
 
-const UNITS = {
-  distance: [
-    { label: "kilometers [km]", value: "km", factor: 1000 },
-    { label: "meters [m]", value: "m", factor: 1 },
-    { label: "miles [mi]", value: "mi", factor: 1609.34 },
-    { label: "feet [ft]", value: "ft", factor: 0.3048 },
-    { label: "nautical miles [nm]", value: "nmi", factor: 1852 },
-  ],
-  time: [
-    { label: "hours [hr]", value: "hr", factor: 3600 },
-    { label: "minutes [min]", value: "min", factor: 60 },
-    { label: "seconds [sec]", value: "sec", factor: 1 },
-  ],
-};
+// Distance units, factor = meters per 1 unit.
+const DISTANCE_UNITS: UnitOption[] = [
+  { label: "millimeters [mm]", value: "mm", factor: 0.001 },
+  { label: "centimeters [cm]", value: "cm", factor: 0.01 },
+  { label: "meters [m]", value: "m", factor: 1 },
+  { label: "kilometers [km]", value: "km", factor: 1000 },
+  { label: "inches [in]", value: "in", factor: 0.0254 },
+  { label: "feet [ft]", value: "ft", factor: 0.3048 },
+  { label: "yards [yd]", value: "yd", factor: 0.9144 },
+  { label: "miles [mi]", value: "mi", factor: 1609.344 },
+  { label: "nautical miles [nmi]", value: "nmi", factor: 1852 },
+];
+
+// Speed units, factor = meters/second per 1 unit. Grouped the same way
+// calculator.net groups them, so the converter dropdowns read the same way
+// most people already expect from that reference implementation.
+const SPEED_UNIT_GROUPS: { group: string; units: UnitOption[] }[] = [
+  {
+    group: "Common speed units",
+    units: [
+      { label: "meters/second [m/s]", value: "mps", factor: 1 },
+      { label: "kilometers/hour [km/h]", value: "kmh", factor: 1000 / 3600 },
+      { label: "miles/hour [mph]", value: "mph", factor: 1609.344 / 3600 },
+      { label: "knots [kn]", value: "kn", factor: 1852 / 3600 },
+      { label: "feet/second [ft/s]", value: "ftps", factor: 0.3048 },
+    ],
+  },
+  {
+    group: "Other speed units",
+    units: [
+      { label: "kilometers/minute [km/min]", value: "kmpmin", factor: 1000 / 60 },
+      { label: "kilometers/second [km/s]", value: "kmps", factor: 1000 },
+      { label: "meters/hour [m/h]", value: "mph_", factor: 1 / 3600 },
+      { label: "meters/minute [m/min]", value: "mpmin", factor: 1 / 60 },
+      { label: "centimeters/hour [cm/h]", value: "cmph", factor: 0.01 / 3600 },
+      { label: "centimeters/minute [cm/min]", value: "cmpmin", factor: 0.01 / 60 },
+      { label: "centimeters/second [cm/s]", value: "cmps", factor: 0.01 },
+      { label: "millimeters/hour [mm/h]", value: "mmph", factor: 0.001 / 3600 },
+      { label: "millimeters/minute [mm/min]", value: "mmpmin", factor: 0.001 / 60 },
+      { label: "millimeters/second [mm/s]", value: "mmps", factor: 0.001 },
+      { label: "miles/minute [mi/min]", value: "mipmin", factor: 1609.344 / 60 },
+      { label: "miles/second [mi/s]", value: "mips", factor: 1609.344 },
+      { label: "yards/hour [yd/h]", value: "ydph", factor: 0.9144 / 3600 },
+      { label: "yards/minute [yd/min]", value: "ydpmin", factor: 0.9144 / 60 },
+      { label: "yards/second [yd/s]", value: "ydps", factor: 0.9144 },
+      { label: "feet/hour [ft/h]", value: "ftph", factor: 0.3048 / 3600 },
+      { label: "feet/minute [ft/min]", value: "ftpmin", factor: 0.3048 / 60 },
+      { label: "inches/hour [in/h]", value: "inph", factor: 0.0254 / 3600 },
+      { label: "inches/minute [in/min]", value: "inpmin", factor: 0.0254 / 60 },
+      { label: "inches/second [in/s]", value: "inps", factor: 0.0254 },
+      { label: "light speed [c]", value: "c", factor: 299792458 },
+    ],
+  },
+];
+
+const ALL_SPEED_UNITS: UnitOption[] = SPEED_UNIT_GROUPS.flatMap((g) => g.units);
+
+// The five common output units shown on the main calculator's result panel.
+const OUTPUT_UNIT_META = [
+  { key: "kmh", label: "Kilometers / Hour", unit: "km/h" },
+  { key: "mph", label: "Miles / Hour", unit: "mph" },
+  { key: "mps", label: "Meters / Second", unit: "m/s" },
+  { key: "kn", label: "Knots", unit: "kn" },
+  { key: "ftps", label: "Feet / Second", unit: "ft/s" },
+] as const;
+
+type OutputUnitKey = (typeof OUTPUT_UNIT_META)[number]["key"];
 
 export default function SpeedCalculator() {
   // --- State ---
@@ -54,8 +109,17 @@ export default function SpeedCalculator() {
   // suddenly gained ~450px+ of height right after hydration.
   const [distance, setDistance] = useState<string>("10");
   const [distUnit, setDistUnit] = useState<string>("km");
-  const [time, setTime] = useState<string>("1");
-  const [timeUnit, setTimeUnit] = useState<string>("hr");
+
+  // Time Duration is three separate fields (hours / minutes / seconds) that
+  // combine into a single duration, instead of one value + one unit
+  // dropdown. This lets someone enter "8 hr 4 min 30 sec" as one duration
+  // instead of only ever picking a single unit at a time.
+  const [timeHours, setTimeHours] = useState<string>("1");
+  const [timeMinutes, setTimeMinutes] = useState<string>("0");
+  const [timeSeconds, setTimeSeconds] = useState<string>("0");
+
+  // Which unit gets the large, featured result card.
+  const [outputUnit, setOutputUnit] = useState<OutputUnitKey>("kmh");
 
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
@@ -96,8 +160,10 @@ export default function SpeedCalculator() {
       const data = history["speed-adv-calc"].data;
       setDistance(data.distance || "10");
       setDistUnit(data.distUnit || "km");
-      setTime(data.time || "1");
-      setTimeUnit(data.timeUnit || "hr");
+      setTimeHours(data.timeHours || "1");
+      setTimeMinutes(data.timeMinutes || "0");
+      setTimeSeconds(data.timeSeconds || "0");
+      setOutputUnit(data.outputUnit || "kmh");
     }
 
     const savedTools = getSavedCalculators();
@@ -110,10 +176,12 @@ export default function SpeedCalculator() {
     saveCalculatorHistory("speed-adv-calc", {
       distance,
       distUnit,
-      time,
-      timeUnit,
+      timeHours,
+      timeMinutes,
+      timeSeconds,
+      outputUnit,
     });
-  }, [distance, distUnit, time, timeUnit]);
+  }, [distance, distUnit, timeHours, timeMinutes, timeSeconds, outputUnit]);
 
   // --- Toggle Save Logic ---
   const handleToggleSave = () => {
@@ -124,27 +192,46 @@ export default function SpeedCalculator() {
   const results = useMemo(() => {
     if (trigger === 0) return null;
     const dVal = parseFloat(distance);
-    const tVal = parseFloat(time);
 
-    if (isNaN(dVal) || isNaN(tVal) || tVal <= 0) {
+    // Treat a blank field as 0 so someone can, say, leave hours empty and
+    // only fill in minutes/seconds without triggering a validation error.
+    const hVal = timeHours.trim() === "" ? 0 : parseFloat(timeHours);
+    const mVal = timeMinutes.trim() === "" ? 0 : parseFloat(timeMinutes);
+    const sVal = timeSeconds.trim() === "" ? 0 : parseFloat(timeSeconds);
+
+    if (
+      isNaN(dVal) ||
+      isNaN(hVal) ||
+      isNaN(mVal) ||
+      isNaN(sVal) ||
+      hVal < 0 ||
+      mVal < 0 ||
+      sVal < 0
+    ) {
       return { error: "Please enter a valid distance and a positive time." };
     }
 
     const dFactor =
-      UNITS.distance.find((u) => u.value === distUnit)?.factor || 1;
-    const tFactor = UNITS.time.find((u) => u.value === timeUnit)?.factor || 1;
+      DISTANCE_UNITS.find((u) => u.value === distUnit)?.factor || 1;
 
     const distMeters = dVal * dFactor;
-    const timeSeconds = tVal * tFactor;
-    const speedMPS = distMeters / timeSeconds;
+    const totalTimeSeconds = hVal * 3600 + mVal * 60 + sVal;
+
+    if (totalTimeSeconds <= 0) {
+      return { error: "Please enter a valid distance and a positive time." };
+    }
+
+    const speedMPS = distMeters / totalTimeSeconds;
 
     return {
       kmh: (speedMPS * 3.6).toFixed(2),
-      mph: (speedMPS * 2.23694).toFixed(2),
+      mph: (speedMPS / (1609.344 / 3600)).toFixed(2),
       mps: speedMPS.toFixed(2),
+      kn: (speedMPS / (1852 / 3600)).toFixed(2),
+      ftps: (speedMPS / 0.3048).toFixed(2),
       pace: (60 / (speedMPS * 3.6)).toFixed(2), // min/km
     };
-  }, [trigger, distance, distUnit, time, timeUnit]);
+  }, [trigger, distance, distUnit, timeHours, timeMinutes, timeSeconds]);
 
   // --- Scroll results into view after Calculate, mobile/tablet only ---
   // Runs after `results` (re)computes so the results block has already
@@ -169,6 +256,9 @@ export default function SpeedCalculator() {
       });
     }
   }, [results, showResults]);
+
+  const featured = OUTPUT_UNIT_META.find((u) => u.key === outputUnit)!;
+  const otherUnits = OUTPUT_UNIT_META.filter((u) => u.key !== outputUnit);
 
   return (
     // Changed from <main> to <div>: page.tsx already renders the page's
@@ -211,20 +301,41 @@ export default function SpeedCalculator() {
                   label="Distance"
                   value={distance}
                   unit={distUnit}
-                  options={UNITS.distance}
+                  options={DISTANCE_UNITS}
                   onValueChange={setDistance}
                   onUnitChange={setDistUnit}
                 />
 
-                <UnitInput
-                  id="time"
+                <HMSInput
                   label="Time Duration"
-                  value={time}
-                  unit={timeUnit}
-                  options={UNITS.time}
-                  onValueChange={setTime}
-                  onUnitChange={setTimeUnit}
+                  hours={timeHours}
+                  minutes={timeMinutes}
+                  seconds={timeSeconds}
+                  onHoursChange={setTimeHours}
+                  onMinutesChange={setTimeMinutes}
+                  onSecondsChange={setTimeSeconds}
                 />
+
+                <div className="space-y-3">
+                  <label
+                    htmlFor="output-unit"
+                    className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+                  >
+                    Show Result In
+                  </label>
+                  <select
+                    id="output-unit"
+                    value={outputUnit}
+                    onChange={(e) => setOutputUnit(e.target.value as OutputUnitKey)}
+                    className="w-full px-4 py-4 bg-secondary rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-sm cursor-pointer"
+                  >
+                    {OUTPUT_UNIT_META.map((u) => (
+                      <option key={u.key} value={u.key}>
+                        {u.label} ({u.unit})
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
                 <div className="pt-4 flex flex-col sm:flex-row gap-4">
                   <button
@@ -239,7 +350,9 @@ export default function SpeedCalculator() {
                   <button
                     onClick={() => {
                       setDistance("");
-                      setTime("");
+                      setTimeHours("");
+                      setTimeMinutes("");
+                      setTimeSeconds("");
                       setShowResults(false);
                       setTrigger(0);
                     }}
@@ -262,20 +375,25 @@ export default function SpeedCalculator() {
                   </div>
                   <div className="relative z-10 text-center">
                     <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.4em] mb-4">
-                      Average Velocity
+                      Average Speed
                     </p>
                     <h2 className="text-6xl md:text-8xl font-black tracking-tighter mb-2">
-                      {results.kmh}
+                      {results[featured.key]}
                     </h2>
                     <p className="text-xl font-bold text-gray-300 uppercase">
-                      kilometers per hour
+                      {featured.label} ({featured.unit})
                     </p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <StatCard label="Miles Per Hour" value={`${results.mph} mph`} />
-                  <StatCard label="Meters Per Sec" value={`${results.mps} m/s`} />
+                  {otherUnits.map((u) => (
+                    <StatCard
+                      key={u.key}
+                      label={u.label}
+                      value={`${results[u.key]} ${u.unit}`}
+                    />
+                  ))}
                   <StatCard label="Pace (min/km)" value={results.pace} />
                 </div>
               </div>
@@ -297,24 +415,32 @@ export default function SpeedCalculator() {
           </div>
         </div>
 
-        {/* EDUCATIONAL SECTION */}
+        {/* SPEED CONVERTER */}
+        <SpeedUnitConverter />
+
+        
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10">
           <div className="p-8 bg-card border rounded-3xl space-y-4">
             <h3 className="font-black uppercase text-sm flex items-center gap-2 text-blue-600">
-              <BarChart3 size={20} /> The Velocity Formula
+              <BarChart3 size={20} /> What is Speed?
             </h3>
             <p className="text-sm text-gray-300 leading-relaxed">
-              Speed is a scalar quantity that refers to &quot;how fast an
-              object is moving.&quot; It is the rate at which an object
-              covers distance.
+             
+              <Link
+                href="/info/physics/speed"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                Speed
+              </Link>{" "}
+              is how fast an object moves. It is the rate at which an object covers distance. The standard formula is speed equals distance divided by time. Its standard SI unit is meters per second (m/s)
             </p>
             <div className="p-4 bg-secondary/50 rounded-xl font-mono text-xs font-bold border">
-              Average Speed = Total Distance / Total Time
+              Speed = Total Distance / Total Time
             </div>
           </div>
           <div className="p-8 bg-card border rounded-3xl space-y-4 text-sm">
             <h3 className="font-black uppercase text-sm text-blue-600">
-              Quick Reference
+              Common Speed Conversions
             </h3>
             <ul className="space-y-3 text-gray-300">
               <li className="flex justify-between border-b pb-2">
@@ -332,6 +458,122 @@ export default function SpeedCalculator() {
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Speed Converter — standalone from/to unit converter
+// ─────────────────────────────────────────────
+
+export function SpeedUnitConverter() {
+  const [value, setValue] = useState<string>("1");
+  const [fromUnit, setFromUnit] = useState<string>("kmh");
+  const [toUnit, setToUnit] = useState<string>("mph");
+
+  const converted = useMemo(() => {
+    const val = parseFloat(value);
+    if (isNaN(val)) return null;
+
+    const from = ALL_SPEED_UNITS.find((u) => u.value === fromUnit);
+    const to = ALL_SPEED_UNITS.find((u) => u.value === toUnit);
+    if (!from || !to) return null;
+
+    const valueInMps = val * from.factor;
+    const result = valueInMps / to.factor;
+
+    // Light speed and other tiny/huge factors need more precision than a
+    // flat 2 decimals, otherwise the result rounds straight to 0.00.
+    const decimals = Math.abs(result) < 0.01 && result !== 0 ? 8 : 4;
+    return result.toFixed(decimals);
+  }, [value, fromUnit, toUnit]);
+
+  const swapUnits = () => {
+    setFromUnit(toUnit);
+    setToUnit(fromUnit);
+  };
+
+  return (
+    <div className="bg-card rounded-3xl border p-6 md:p-8 shadow-sm">
+      <h2 className="text-lg font-black mb-6 flex items-center gap-2 uppercase tracking-tight">
+        <ArrowLeftRight className="text-blue-600" size={22} />
+        Speed Converter
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4 items-end">
+        <div className="space-y-3">
+          <label
+            htmlFor="conv-from-value"
+            className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+          >
+            From
+          </label>
+          <input
+            id="conv-from-value"
+            type="number"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            placeholder="0.00"
+            className="w-full px-5 py-5 bg-secondary rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xl transition-all"
+          />
+          <select
+            id="conv-from-unit"
+            aria-label="Convert from unit"
+            value={fromUnit}
+            onChange={(e) => setFromUnit(e.target.value)}
+            className="w-full px-4 py-4 bg-secondary/50 rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-black text-xs cursor-pointer"
+          >
+            {SPEED_UNIT_GROUPS.map((g) => (
+              <optgroup key={g.group} label={g.group}>
+                {g.units.map((u) => (
+                  <option key={u.value} value={u.value}>
+                    {u.label}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+
+        <button
+          type="button"
+          onClick={swapUnits}
+          title="Swap units"
+          aria-label="Swap From and To units"
+          className="mx-auto md:mb-16 p-3 rounded-xl bg-secondary hover:bg-secondary/80 border transition-all"
+        >
+          <ArrowLeftRight size={20} className="text-blue-600" />
+        </button>
+
+        <div className="space-y-3">
+          <label
+            htmlFor="conv-to-unit"
+            className="text-[10px] font-black uppercase text-gray-300 tracking-widest"
+          >
+            To
+          </label>
+          <div className="w-full px-5 py-5 bg-secondary/50 rounded-2xl border-2 border-blue-600 font-black text-xl text-blue-600 truncate">
+            {converted ?? "—"}
+          </div>
+          <select
+            id="conv-to-unit"
+            aria-label="Convert to unit"
+            value={toUnit}
+            onChange={(e) => setToUnit(e.target.value)}
+            className="w-full px-4 py-4 bg-secondary/50 rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-black text-xs cursor-pointer"
+          >
+            {SPEED_UNIT_GROUPS.map((g) => (
+              <optgroup key={g.group} label={g.group}>
+                {g.units.map((u) => (
+                  <option key={u.value} value={u.value}>
+                    {u.label}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>
   );
 }
@@ -389,6 +631,84 @@ function UnitInput({
             </option>
           ))}
         </select>
+      </div>
+    </div>
+  );
+}
+
+// Three side-by-side number fields (Hours / Minutes / Seconds) that combine
+// into a single duration, e.g. 8 hr + 4 min + 30 sec, rather than forcing a
+// single value tied to one unit at a time.
+function HMSInput({
+  label,
+  hours,
+  minutes,
+  seconds,
+  onHoursChange,
+  onMinutesChange,
+  onSecondsChange,
+}: {
+  label: string;
+  hours: string;
+  minutes: string;
+  seconds: string;
+  onHoursChange: (v: string) => void;
+  onMinutesChange: (v: string) => void;
+  onSecondsChange: (v: string) => void;
+}) {
+  return (
+    <div className="space-y-3">
+      <label className="text-[10px] font-black uppercase text-gray-300 tracking-widest">
+        {label}
+      </label>
+      <div className="grid grid-cols-3 gap-3">
+        <div className="space-y-1">
+          <input
+            id="time-hours"
+            type="number"
+            min="0"
+            value={hours}
+            onChange={(e) => onHoursChange(e.target.value)}
+            placeholder="0"
+            aria-label={`${label} hours`}
+            className="w-full px-4 py-5 bg-secondary rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xl transition-all text-center"
+          />
+          <p className="text-[9px] font-black uppercase text-gray-300 tracking-widest text-center">
+            Hours
+          </p>
+        </div>
+        <div className="space-y-1">
+          <input
+            id="time-minutes"
+            type="number"
+            min="0"
+            max="59"
+            value={minutes}
+            onChange={(e) => onMinutesChange(e.target.value)}
+            placeholder="0"
+            aria-label={`${label} minutes`}
+            className="w-full px-4 py-5 bg-secondary rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xl transition-all text-center"
+          />
+          <p className="text-[9px] font-black uppercase text-gray-300 tracking-widest text-center">
+            Min
+          </p>
+        </div>
+        <div className="space-y-1">
+          <input
+            id="time-seconds"
+            type="number"
+            min="0"
+            max="59"
+            value={seconds}
+            onChange={(e) => onSecondsChange(e.target.value)}
+            placeholder="0"
+            aria-label={`${label} seconds`}
+            className="w-full px-4 py-5 bg-secondary rounded-2xl border-2 border-transparent focus:border-blue-600 outline-none font-bold text-xl transition-all text-center"
+          />
+          <p className="text-[9px] font-black uppercase text-gray-300 tracking-widest text-center">
+            Sec
+          </p>
+        </div>
       </div>
     </div>
   );

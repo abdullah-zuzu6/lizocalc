@@ -22,6 +22,11 @@ export const infoPages: InfoPage[] = [
   { category: 'physics', subcategory: 'density', slug: 'what-is-bulk-density', lastModified: '2026-08-14' },
   { category: 'physics', subcategory: 'density', slug: 'what-is-density-altitude', lastModified: '2026-08-14' },
 
+  { category: 'physics', subcategory: 'speed', slug: '', lastModified: '2026-08-17' }, // /info/physics/speed itself
+  { category: 'physics', subcategory: 'speed', slug: 'how-to-calculate-average-speed', lastModified: '2026-08-17' },
+  { category: 'physics', subcategory: 'speed', slug: 'instantaneous-vs-average-speed', lastModified: '2026-08-17' },
+  { category: 'physics', subcategory: 'speed', slug: 'speed-measurement', lastModified: '2026-08-17' },
+  { category: 'physics', subcategory: 'speed', slug: 'speed-units', lastModified: '2026-08-17' },
   // health, math, education entries go here later —
   // just add more objects, no new lib file needed
 ];
