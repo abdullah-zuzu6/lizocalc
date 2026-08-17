@@ -485,19 +485,36 @@ export default function SpeedCalculatorPage() {
               </Link>{" "}
               — work out journey duration on its own
             </li>
-            
-            
-            <li>
-              <Link
-                href="/calculators/physics/weight-calculator"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Weight Calculator
-              </Link>{" "}
-              — convert mass into weight under different gravity values
-            </li>
           </ul>
         </section>
+           {/* ── BYLINE ── */}
+        <div className="flex items-center gap-4 mt-12 mb-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
+          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
+            RA
+          </div>
+          <div>
+            <p className="text-white font-semibold text-sm">
+              Written by Rana Muhammad Abdullah
+            </p>
+            <p className="text-gray-300 text-xs">
+              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
+              Control Engineering Student ·{" "}
+              <a
+                href="https://www.linkedin.com/in/abdullahsajjad06/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                LinkedIn
+              </a>
+            </p>
+          </div>
+          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
+            <span>📅 Published: Apr 4, 2026</span>
+            <span>🔄 Updated: Aug 18, 2026</span>
+            <span>✅ Verified accurate</span>
+          </div>
+        </div>
       </article>
 
       <FAQ items={faqData} />

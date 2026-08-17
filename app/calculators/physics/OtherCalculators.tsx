@@ -25,12 +25,7 @@ const calculators = [
     href: "/calculators/physics/speed-calculator",
     category: "Physics",
   },
-  {
-    name: "Weight Calculator",
-    description: "Calculate weight on Earth or other celestial bodies from mass and gravity",
-    href: "/calculators/physics/weight-calculator",
-    category: "Physics",
-  },
+  
 ];
 
 export default function PhysicsCalculators() {
@@ -246,17 +241,7 @@ export default function PhysicsCalculators() {
       </Link>
       .
     </li>
-    <li>
-      If you want to know the weight of something on Earth or on another
-      planet, use the{" "}
-      <Link
-        href="/calculators/physics/weight-calculator"
-        className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-      >
-        <strong className="text-blue-300">Weight Calculator</strong>
-      </Link>
-      .
-    </li>
+    
   </ul>
 </div>
         <p className="text-gray-300 italic text-base leading-relaxed">

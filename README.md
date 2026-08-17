@@ -75,7 +75,7 @@
 - [Density Calculator](https://www.lizocalc.com/calculators/physics/density-calculator)
 - [Speed Calculator](https://www.lizocalc.com/calculators/physics/speed-calculator)
 - [Mass Calculator](https://www.lizocalc.com/calculators/physics/mass-calculator)
-- [Weight Calculator](https://www.lizocalc.com/calculators/physics/weight-calculator)
+
 
 ## ⏱️ Time & Date Calculators
 

@@ -431,13 +431,7 @@ const allCalculators = [
     category: "Physics",
     icon: Clock,
   },
-  {
-    name: "Weight Calculator",
-    description: "Calculate weight on different celestial bodies",
-    href: "/calculators/physics/weight-calculator",
-    category: "Physics",
-    icon: Clock,
-  },
+  
 ];
 
 const CATEGORY_ORDER = [

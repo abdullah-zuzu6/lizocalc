@@ -3,7 +3,7 @@ import Script from "next/script";
 import PhysicsCalculators from "./OtherCalculators";
 
 export const metadata: Metadata = {
-  title: "4+ Physics Calculators | Density, Mass, Speed etc",
+  title: "3+ Physics Calculators | Density, Mass, Speed etc",
   description:
     "Free online physics calculators for density, mass, speed, and weight. Solve ρ = m/V, W = mg, and average-speed problems with clear units and real examples.",
 

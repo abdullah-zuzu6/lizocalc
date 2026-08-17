@@ -93,7 +93,7 @@ const structuredData = {
         "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-14",
+      dateModified: "2026-08-18",
       mainEntity: {
         "@id":
           "https://www.lizocalc.com/calculators/physics/density-calculator#howto-calculate-density",
@@ -703,15 +703,7 @@ export default function DensityPage() {
           </p>
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
            
-            <li>
-              <Link
-                href="/calculators/physics/weight-calculator"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Weight Calculator
-              </Link>{" "}
-              — calculate weight based on mass and gravity
-            </li>
+           
            
             <li>
               <Link
@@ -749,7 +741,7 @@ export default function DensityPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
             <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: Aug 14, 2026</span>
+            <span>🔄 Updated: Aug 18, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

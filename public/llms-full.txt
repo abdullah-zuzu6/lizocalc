@@ -57,7 +57,6 @@
 - **Density Calculator** — /calculators/physics/density-calculator — Calculates density from mass and volume (and solves for either given the other two).
 - **Speed Calculator** — /calculators/physics/speed-calculator — Calculates speed, distance, or time from the other two values (distance ÷ time).
 - **Mass Calculator** — /calculators/physics/mass-calculator — Calculates mass from density and volume.
-- **Weight Calculator** — /calculators/physics/weight-calculator — Calculates weight from mass and gravitational acceleration (supports different planets/gravity values where applicable).
 
 ## Time Calculators — /calculators/time
 

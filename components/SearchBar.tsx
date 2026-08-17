@@ -73,7 +73,6 @@ const allCalculators = [
   { name: 'Density Calculator', href: '/calculators/physics/density-calculator', category: 'Physics' },
   { name: 'Mass Calculator', href: '/calculators/physics/mass-calculator', category: 'Physics' },
   { name: 'Speed Calculator', href: '/calculators/physics/speed-calculator', category: 'Physics' },
-  { name: 'Weight Calculator', href: '/calculators/physics/weight-calculator', category: 'Physics' },
 ]
 export default function SearchBar() {
   const [query, setQuery] = useState('')
