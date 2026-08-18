@@ -373,7 +373,7 @@ export default function BMIPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              BMI Calculator – Calculate Body Mass Index by Height &amp; Weight
+              BMI Calculator 
             </h1>
           </div>
           <ShareBar/>
