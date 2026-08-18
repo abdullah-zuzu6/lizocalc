@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import CompoundInterestCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -196,6 +197,7 @@ export default function CompoundInterestPage() {
              Compound Interest Rate Converter: Compare APR and APY Instantly
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

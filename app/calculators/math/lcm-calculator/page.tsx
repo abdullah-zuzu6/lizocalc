@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import LCMCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -170,13 +171,19 @@ export default function LCMPage() {
         }}
       />
 
-      {/* Hero Section */}
+     
+
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
-        <div className="max-w-6xl mx-auto flex items-center gap-3">
-          
-          <h1 className="text-3xl md:text-4xl font-bold">LCM Calculator: Find the Least Common Multiple with Prime Factorization</h1>
-        </div>
-      </section>
+              <div className="max-w-6xl mx-auto">
+                <div className="flex items-center gap-3">
+                 
+                  <h1 className="text-3xl md:text-4xl font-bold">
+                    LCM Calculator - Find the Least Common Multiple
+                  </h1>
+                </div>
+                <ShareBar/>
+              </div>
+            </section>
 
       {/* Calculator Tool */}
       <section className="px-4 py-8">

@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import AdvancedInflationCalculator from './clientside'
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -196,6 +197,7 @@ export default function InflationPage() {
             Inflation Calculator: Calculate the Purchasing Power of Your Money
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

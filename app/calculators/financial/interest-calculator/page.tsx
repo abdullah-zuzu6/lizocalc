@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import AdvancedInterestCalculator from './clientside'
+import ShareBar from "@/components/Sharebar";
 
 
 const faqData = [
@@ -195,6 +196,7 @@ export default function InterestPage() {
              Interest Calculator: Visualize Your Wealth Accumulation Path
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

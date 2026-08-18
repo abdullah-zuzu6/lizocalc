@@ -6,6 +6,7 @@ import Script from "next/script";
 import Link from "next/link";
 
 import AdvancedCalorieCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -188,6 +189,7 @@ export default function CaloriePage() {
               expenditure{" "}
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

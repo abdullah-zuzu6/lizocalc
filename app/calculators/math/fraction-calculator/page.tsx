@@ -7,6 +7,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import FractionCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 // ────────────────────────────────────────────────
 //  FAQ Content
@@ -164,15 +165,19 @@ export default function FractionCalculatorPage() {
         }}
       />
 
-      {/* Hero Section */}
+     
+
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
-        <div className="max-w-6xl mx-auto flex items-center gap-3">
-          
-          <h1 className="text-3xl md:text-4xl font-bold">
-            Fraction Calculator: Add, Subtract, Multiply, and Divide Fractions
-          </h1>
-        </div>
-      </section>
+              <div className="max-w-6xl mx-auto">
+                <div className="flex items-center gap-3">
+                 
+                  <h1 className="text-3xl md:text-4xl font-bold">
+                    Fraction Calculator 
+                  </h1>
+                </div>
+                <ShareBar/>
+              </div>
+            </section>
 
       {/* Calculator Component (client-side only) */}
       <section className="px-4 py-8">

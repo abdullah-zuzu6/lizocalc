@@ -7,6 +7,7 @@ import Link from "next/link";
 
 
 import AdvancedBodyFatCalculator from './clientside'
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -181,6 +182,7 @@ export default function BodyFatPage() {
             <h1 className="text-3xl md:text-4xl font-bold">
 Body Fat Calculator: Track Your Body Composition Easily            </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

@@ -6,6 +6,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import CasioCalculatorAdvanced from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 
 
@@ -206,6 +207,7 @@ export default function ScientificPage() {
              Scientific Calculator Online | Fast & Precise Calculations Solver
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

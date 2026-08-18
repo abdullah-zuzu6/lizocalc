@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import ZScoreCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -179,6 +180,7 @@ export default function ZScorePage() {
               Z-Score Calculator - Find Percentile & Normal Distribution Rank
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

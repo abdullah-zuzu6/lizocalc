@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import AdvancedSalaryCalculator from './clientside'
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -196,6 +197,7 @@ export default function SalaryPage() {
              Salary Calculator: Convert Your Hourly, Monthly, and Annual Pay
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

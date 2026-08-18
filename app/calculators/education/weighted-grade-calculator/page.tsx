@@ -6,6 +6,7 @@ import Script from "next/script";
 import Link from "next/link";
 import Image from "next/image";
 import WeightedGradeCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -349,6 +350,7 @@ export default function WeightedGradePage() {
           <h1 className="text-3xl md:text-4xl font-bold">
             Weighted Grade Calculator: Find Your Exact Course Grade Instantly
           </h1>
+          <ShareBar/>
         </div>
       </section>
 

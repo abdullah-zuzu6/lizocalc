@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import PermutationCombinationCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 
 const faqData = [
@@ -205,6 +206,7 @@ export default function PermutationCombinationPage() {
              Permutation and Combination Calculator: Solve nPr and nCr Instantly
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

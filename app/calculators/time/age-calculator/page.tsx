@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import AgeCalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -445,6 +446,7 @@ export default function AgeCalculatorPage() {
             <h1 className="text-3xl md:text-4xl font-bold">
               Age Calculator (Chronological Age Calculator)
             </h1>
+          
           </div>
 
           <p className="mt-6 text-gray-200 text-lg leading-relaxed max-w-6xl">
@@ -454,6 +456,8 @@ export default function AgeCalculatorPage() {
             is the same standard used on Pakistani ID documents, school
             admission forms, and job application age limits.
           </p>
+          <ShareBar/>
+                
         </div>
       </section>
       {/* Calculator Tool */}

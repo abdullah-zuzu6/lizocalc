@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import AdvancedGradeCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -186,6 +187,7 @@ export default function GradePage() {
               Grade Calculator: Track Your Class Standing and Final Exam Goals
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

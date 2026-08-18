@@ -6,6 +6,7 @@ import Script from "next/script";
 import Link from "next/link";
 import HoursCalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -378,6 +379,7 @@ export default function HoursPage() {
               Hours Calculator: Find the Exact Duration Between Two Times
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

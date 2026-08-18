@@ -6,6 +6,7 @@ import Script from "next/script";
 import Link from "next/link";
 import AdvancedBMRCalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -387,6 +388,7 @@ export default function BMRPage() {
             Calculate how many calories your body burns at complete rest using
             age, gender, height, and weight.
           </p>
+          <ShareBar/>
         </div>
       </section>
 

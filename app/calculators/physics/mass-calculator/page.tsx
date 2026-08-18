@@ -4,16 +4,8 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import MassCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
-// NOTE ON THE FIX BELOW: these answers use LaTeX (\rho, \times) inside
-// normal (non-raw) JS strings. In a JS string literal, "\r" is the actual
-// carriage-return escape character and "\t" is the actual tab escape
-// character — both invisible control characters, not the letters "r" and
-// "t". That means the original "$m = \rho \times V$" silently contained a
-// carriage return where "rho" should start and a tab where "times" should
-// start, badly corrupting the formula. Every LaTeX backslash below is now
-// doubled ("\\rho", "\\times") so the literal backslash reaches your
-// KaTeX/MathJax renderer instead of being swallowed as an escape sequence.
 const faqData = [
   {
     question: "What is the formula to find mass using density and volume?",
@@ -453,9 +445,10 @@ export default function MassCalculatorPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              Mass Calculator: Solve for Mass Using Density and Volume
+              Mass Calculator - Mass in Multiple Units
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

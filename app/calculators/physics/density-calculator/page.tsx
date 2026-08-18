@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import DensityCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 export const metadata: Metadata = {
   title: "Density Calculator - Density in Multiple Units",
@@ -319,10 +320,11 @@ export default function DensityPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              Calculate Density from Mass and Volume in Different Units
+              Density Calculator - Density in Multiple Units
             </h1>
               
           </div>
+          <ShareBar/>
         </div>
       </section>
 

@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 
 export const faqData = [
   {
@@ -183,6 +184,7 @@ export default function ConversionCalculatorPage() {
               Converter
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

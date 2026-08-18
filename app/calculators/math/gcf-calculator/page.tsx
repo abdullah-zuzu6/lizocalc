@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import GCFCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -192,14 +193,20 @@ export default function GCFPage() {
         }}
       />
 
-      {/* Hero Section */}
+     
+
+
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
-        <div className="max-w-6xl mx-auto flex items-center gap-3">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            GCF Calculator: Find the Greatest Common Factor Step-by-Step
-          </h1>
-        </div>
-      </section>
+              <div className="max-w-6xl mx-auto">
+                <div className="flex items-center gap-3">
+                 
+                  <h1 className="text-3xl md:text-4xl font-bold">
+                    GCF Calculator - Find the Greatest Common Factor
+                  </h1>
+                </div>
+                <ShareBar/>
+              </div>
+            </section>
 
       {/* Calculator Tool */}
       <section className="px-4 py-8">

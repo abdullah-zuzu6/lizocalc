@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import SpeedCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 // Plain-language FAQ copy — no LaTeX, no $ signs, nothing that needs
 // backslash-escaping. Kept as short, direct answers to real questions
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Speed Calculator | LizoCalc",
+    title: "Speed Calculator-Speed in Multiple Units | LizoCalc",
     description:
       "Free speed, distance, and time calculator with automatic unit conversion between km/h, mph, m/s, ft/s, and knots.",
     url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
@@ -285,6 +286,7 @@ export default function SpeedCalculatorPage() {
               Speed Calculator
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

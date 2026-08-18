@@ -6,6 +6,7 @@ import Script from "next/script";
 import Link from "next/link";
 import TimeCalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 /* ─────────────────────────────────────────────
    FAQ DATA
@@ -401,6 +402,8 @@ export default function TimePage() {
             seconds, get decimal hours for payroll, and calculate total seconds
             for science — all in real time, no sign-up needed.
           </p>
+          <ShareBar/>
+    
         </div>
       </section>
 

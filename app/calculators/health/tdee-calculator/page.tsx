@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import Link from "next/link";
 import AdvancedTDEECalculator from './clientside'
+import ShareBar from "@/components/Sharebar";
 
 
 const faqData = [
@@ -196,6 +197,7 @@ export default function TDEEPage() {
             <h1 className="text-3xl md:text-4xl font-bold">
 Tdee calculator: discover your daily maintenance calories and macro needs            </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

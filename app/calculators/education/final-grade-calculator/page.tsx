@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import FinalGradeCalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -355,14 +356,14 @@ export default function FinalGradePage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              Final Grade Calculator – Calculate What Score You Need on Your
-              Final Exam
+              Final Grade Calculator
             </h1>
           </div>
           <p className="text-gray-300 mt-3 text-lg">
             Find your current grade, final exam weight, and required score to
             reach your target course grade — instantly.
           </p>
+          <ShareBar/>
         </div>
       </section>
 

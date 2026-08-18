@@ -6,6 +6,7 @@ import Script from "next/script";
 import { Suspense } from "react";
 import BinaryCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 export const faqData = [
   {
     question: "How do you add two binary numbers?",
@@ -186,6 +187,7 @@ export default function BinaryCalculatorPage() {
             Binary Calculator – Convert, Calculate & Analyze Binary Numbers
             Instantly
           </h1>
+           <ShareBar/>
         </div>
       </section>
 

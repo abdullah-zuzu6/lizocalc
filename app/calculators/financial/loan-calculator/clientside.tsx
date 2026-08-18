@@ -287,26 +287,7 @@ export default function AdvancedLoanCalculator() {
                 </p>
               </div>
             )}
-            
-            <div className="bg-card border rounded-[2rem] p-8 shadow-sm">
-              <h3 className="font-bold text-lg mb-4 flex items-center gap-2 text-blue-600">
-                <Info size={20} /> About Loan Types
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-                <div>
-                  <p className="font-black uppercase text-[10px] mb-2">Amortized</p>
-                  <p className="text-muted-foreground leading-relaxed">Regular periodic payments consisting of both principal and interest.</p>
-                </div>
-                <div>
-                  <p className="font-black uppercase text-[10px] mb-2">Deferred</p>
-                  <p className="text-muted-foreground leading-relaxed">Single payment at the end of the term including all compounded interest.</p>
-                </div>
-                <div>
-                  <p className="font-black uppercase text-[10px] mb-2">Bond/Zero-Coupon</p>
-                  <p className="text-muted-foreground leading-relaxed">Determines the current value needed to reach a specific future amount.</p>
-                </div>
-              </div>
-            </div>
+          
           </div>
         </div>
 

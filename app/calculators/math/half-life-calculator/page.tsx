@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import HalfLifeCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 const faqData = [
   {
     question: "What is half-life and how is it calculated?",
@@ -179,6 +180,7 @@ export default function HalfLifePage() {
              Half-Life Calculator: Track Exponential Decay and Remaining Amounts
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

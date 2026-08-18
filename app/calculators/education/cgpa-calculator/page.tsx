@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import CGPACalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -318,22 +319,10 @@ export default function GPAPage() {
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold">
-            CGPA Calculator: Calculate Cumulative GPA (4.0 & 10 Scale){" "}
+            CGPA Calculator
           </h1>
-          <p className="text-lg text-gray-200 mb-2">
-            CGPA is calculated by multiplying each semester GPA by its credit
-            hours, adding all results, and dividing by total credits. It shows
-            your overall academic performance across all semesters in a single
-            value.
-          </p>
-          <div className="bg-gray-800 p-4 rounded-lg border border-blue-500/30 my-4">
-            <p className="font-mono text-green-400">
-              Formula: CGPA = Σ (SGPA × Credits) ÷ Total Credits
-            </p>
-            <p className="text-sm text-gray-300 mt-2">
-              Example: (3.8 × 20 + 3.4 × 22) ÷ 42 = <strong>3.59</strong>
-            </p>
-          </div>
+          
+          <ShareBar/>
         </div>
       </section>
 

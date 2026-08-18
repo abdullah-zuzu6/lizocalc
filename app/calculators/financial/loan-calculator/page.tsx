@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import AdvancedLoanCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -196,6 +197,7 @@ export default function LoanPage() {
               Loan Calculator: Plan Your Amortized, Deferred, or Bond Payments
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

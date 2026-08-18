@@ -6,6 +6,7 @@ import Script from "next/script";
 import Link from "next/link";
 import BMICalculator from "./clientside";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 const faqData = [
   {
@@ -375,6 +376,7 @@ export default function BMIPage() {
               BMI Calculator – Calculate Body Mass Index by Height &amp; Weight
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

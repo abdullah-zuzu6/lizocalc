@@ -6,6 +6,7 @@ import Script from "next/script";
 
 import PythagoreanCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 const faqData = [
   {
     question: "What is the formula used in a Pythagorean theorem calculator?",
@@ -194,6 +195,7 @@ export default function PythagoreanPage() {
               Pythagorean Theorem Calculator -Solve Right Triangles Instantly
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

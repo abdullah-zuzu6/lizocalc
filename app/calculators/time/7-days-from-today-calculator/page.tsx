@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import DaysFromTodayCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 // Revalidate hourly so the server-rendered "today" never drifts far from
 // real time, without going full force-dynamic and losing edge caching.
@@ -243,6 +244,7 @@ export default function SevenDaysFromTodayPage() {
           <p className="text-gray-300 mt-2 text-sm md:text-base">
             Calculated for today · {formatFull(today)}
           </p>
+          <ShareBar/>
         </div>
       </section>
 

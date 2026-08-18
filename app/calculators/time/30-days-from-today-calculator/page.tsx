@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import DaysFromTodayCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 export const revalidate = 3600;
 
@@ -221,6 +222,7 @@ export default function ThirtyDaysFromTodayPage() {
           <p className="text-gray-300 mt-2 text-sm md:text-base">
             Calculated for today · {formatFull(today)}
           </p>
+          <ShareBar/>
         </div>
       </section>
 

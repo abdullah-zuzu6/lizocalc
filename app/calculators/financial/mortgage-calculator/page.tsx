@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import AdvancedMortgageCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 const faqData = [
   {
     question: "How do I calculate my monthly mortgage payment manually?",
@@ -193,6 +194,7 @@ export default function MortgagePage() {
            Mortgage Calculator: Plan Your Home Loan with Precision
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

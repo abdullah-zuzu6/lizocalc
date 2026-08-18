@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import GPACalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
 
 
 const faqData = [
@@ -187,9 +188,10 @@ export default function GPAPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              GPA Calculator: Calculate Your Semester and Cumulative GPA Instantly
+              GPA Calculator 
             </h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 

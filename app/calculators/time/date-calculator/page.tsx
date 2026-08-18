@@ -6,6 +6,7 @@ import Link from "next/link";
 import DateCalculatorClient from "./clientside";
 import DaysFromTodayWidget from "@/components/DaysFromTodayWidget";
 import Image from "next/image";
+import ShareBar from "@/components/Sharebar";
 
 // ─────────────────────────────────────────────
 //  FAQ DATA  (simplified wording, kept keyword coverage)
@@ -255,6 +256,8 @@ export default function DateCalculatorPage() {
           <h1 className="text-3xl md:text-4xl font-bold">
             Date Calculator: Days Between Dates, Add Days &amp; Days From Today
           </h1>
+          <ShareBar/>
+                  
         </div>
       </section>
 

@@ -3,6 +3,8 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import DaysFromTodayCalculator from "./clientside";
+import ShareBar from "@/components/Sharebar";
+import { DialogOverlay } from "@/components/ui/dialog";
 
 export const revalidate = 3600;
 
@@ -222,14 +224,15 @@ export default function TwentyEightDaysFromTodayPage() {
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
-        <div className="max-w-6xl mx-auto">
+        <DialogOverlay className="max-w-6xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold">
             28 Days From Today
           </h1>
           <p className="text-gray-300 mt-2 text-sm md:text-base">
             Calculated for today · {formatFull(today)}
           </p>
-        </div>
+          <ShareBar/>
+        </DialogOverlay>
       </section>
 
       {/* Calculator Tool */}

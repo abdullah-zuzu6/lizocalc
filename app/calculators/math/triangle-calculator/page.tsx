@@ -5,6 +5,7 @@ import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import TriangleCalculator from "./clientside";
 import Link from "next/link";
+import ShareBar from "@/components/Sharebar";
 
 
 const faqData = [
@@ -192,6 +193,7 @@ export default function TrianglePage() {
             
             <h1 className="text-3xl md:text-4xl font-bold">Triangle Calculator | Solve Sides, Angles, Area & Perimeter</h1>
           </div>
+          <ShareBar/>
         </div>
       </section>
 
