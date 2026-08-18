@@ -222,18 +222,21 @@ export default function TwentyEightDaysFromTodayPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
-        <DialogOverlay className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            28 Days From Today
-          </h1>
-          <p className="text-gray-300 mt-2 text-sm md:text-base">
-            Calculated for today · {formatFull(today)}
-          </p>
-          <ShareBar/>
-        </DialogOverlay>
-      </section>
+      
+
+     {/* Hero Section */}
+           <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+             <div className="max-w-6xl mx-auto">
+               <h1 className="text-3xl md:text-4xl font-bold">
+                 28 Days From Today
+               </h1>
+               <p className="text-gray-300 mt-2 text-sm md:text-base">
+                 Calculated for today · {formatFull(today)}
+               </p>
+             <ShareBar/>
+             </div>
+           </section>
+     
 
       {/* Calculator Tool */}
       <section className="px-4 py-8">
