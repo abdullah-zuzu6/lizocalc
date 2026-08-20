@@ -9,7 +9,7 @@ import Link from "next/link";
 const calculators = [
   {
     name: "BMI Calculator",
-    description: "Calculate your Body Mass Index based on height and weight",
+    description: "Calculate your Body Mass Index based on height and weight .",
     href: "/calculators/health/bmi-calculator",
     category: "Health",
   },
