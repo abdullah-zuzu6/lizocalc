@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import CompoundInterestCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
@@ -74,119 +73,74 @@ description: "Easily convert interest rates between different compounding period
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Financial",
+          item: "https://www.lizocalc.com/calculators/financial",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Compound Interest Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
+      name: "Advanced Compound Interest Calculator",
+      description:
+        "Use our advanced compound interest calculator to estimate investment growth, total interest, and future value instantly.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
+
 export default function CompoundInterestPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Financial",
-                    item: "https://www.lizocalc.com/calculators/financial",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Compound Interest Calculator",
-                    item: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
-                url: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
-                name: "Advanced Compound Interest Calculator",
-                description: "Use our advanced compound interest calculator to estimate investment growth, total interest, and future value instantly.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#app"
-}
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/compound-interest-calculator#app",
-                name: "Advanced Compound Interest Calculator",
-                url: "https://www.lizocalc.com/calculators/financial/compound-interest-calculator",
-                description:
-                  "Advanced compound interest calculator to estimate future value, total interest, and investment growth over time.",
-                applicationCategory: "FinanceApplication",
-                applicationSubCategory: "Compound Interest Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate future investment value",
-                  "Estimate total interest earned",
-                  "Visualize compound interest growth",
-                  "Include monthly or annual contributions",
-                  "Adjust compounding frequency",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/financial/compound-interest-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+      <script
+  id="structured-data-compound-interest-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

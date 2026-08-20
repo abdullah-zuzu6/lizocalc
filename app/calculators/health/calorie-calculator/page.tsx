@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 
 import AdvancedCalorieCalculator from "./clientside";
@@ -61,124 +60,72 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/calorie-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Health",
+          item: "https://www.lizocalc.com/calculators/health",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Calorie Calculator",
+          item: "https://www.lizocalc.com/calculators/health/calorie-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/calorie-calculator",
+      url: "https://www.lizocalc.com/calculators/health/calorie-calculator",
+      name: "Advanced Calorie Calculator",
+      description:
+        "Use our advanced calorie calculator to estimate your daily energy needs, track macros, and reach your fitness goals instantly.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/health/calorie-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
 export default function CaloriePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/calorie-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Health",
-                    item: "https://www.lizocalc.com/calculators/health",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Calorie Calculator",
-                    item: "https://www.lizocalc.com/calculators/health/calorie-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/calorie-calculator",
-                url: "https://www.lizocalc.com/calculators/health/calorie-calculator",
-                name: "Advanced Calorie Calculator",
-                description:
-                  "Use our advanced calorie calculator to estimate your daily energy needs, track macros, and reach your fitness goals instantly.",
-                inLanguage: "en",
-                isPartOf: {
-                  "@type": "WebSite",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                mainEntityOfPage: {
-                  "@type": "SoftwareApplication",
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/calorie-calculator#app",
-                },
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/calorie-calculator#app",
-                name: "Advanced Calorie Calculator",
-                url: "https://www.lizocalc.com/calculators/health/calorie-calculator",
-                description:
-                  "Advanced calorie calculator to estimate daily energy expenditure, macro requirements, and fitness goals.",
-                applicationCategory: "HealthApplication",
-                applicationSubCategory: "Calorie Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate daily calorie needs (TDEE)",
-                  "Estimate macronutrient breakdown",
-                  "Support for weight loss and muscle gain goals",
-                  "Adjustable activity levels",
-                  "Metric and imperial unit support",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target: [
-                    "https://www.lizocalc.com/calculators/health/calorie-calculator",
-                  ],
-                },
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+      
+<script
+  id="structured-data-calorie-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

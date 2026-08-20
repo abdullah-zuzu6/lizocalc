@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 
 import Link from "next/link";
 import AdvancedTDEECalculator from './clientside'
@@ -76,118 +75,71 @@ description: "Calculate your total daily energy expenditure (tdee) using the mif
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/tdee-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Health",
+          item: "https://www.lizocalc.com/calculators/health",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "TDEE Calculator",
+          item: "https://www.lizocalc.com/calculators/health/tdee-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/tdee-calculator",
+      url: "https://www.lizocalc.com/calculators/health/tdee-calculator",
+      name: "Advanced TDEE Calculator",
+      description:
+        "Use our advanced TDEE calculator to estimate your Total Daily Energy Expenditure, understand your caloric maintenance level, and reach your fitness goals.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/health/tdee-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
+
 export default function TDEEPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/tdee-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Health",
-                    item: "https://www.lizocalc.com/calculators/health",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "TDEE Calculator",
-                    item: "https://www.lizocalc.com/calculators/health/tdee-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/health/tdee-calculator",
-                url: "https://www.lizocalc.com/calculators/health/tdee-calculator",
-                name: "Advanced TDEE Calculator",
-                description: "Use our advanced TDEE calculator to estimate your Total Daily Energy Expenditure, understand your caloric maintenance level, and reach your fitness goals.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },"mainEntityOfPage": {
-    "@type": "SoftwareApplication",
-    "@id": "https://www.lizocalc.com/calculators/health/tdee-calculator#app"
-  }
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/tdee-calculator#app",
-                name: "Advanced TDEE Calculator",
-                url: "https://www.lizocalc.com/calculators/health/tdee-calculator",
-                description:
-                  "Advanced TDEE calculator to estimate daily energy expenditure and caloric maintenance levels.",
-                applicationCategory: "HealthApplication",
-                applicationSubCategory: "TDEE Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate Total Daily Energy Expenditure (TDEE)",
-                  "Determine daily maintenance calories",
-                  "Activity level adjustments",
-                  "Support for weight loss and muscle gain goals",
-                  "Metric and imperial unit support",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-    "@type": "UseAction",
-    "target": ["https://www.lizocalc.com/calculators/health/tdee-calculator"]
-  }
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+<script
+  id="structured-data-sleep-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

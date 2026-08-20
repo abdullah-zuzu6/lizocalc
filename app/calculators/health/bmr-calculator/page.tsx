@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import AdvancedBMRCalculator from "./clientside";
 import Image from "next/image";
@@ -107,274 +106,75 @@ export const metadata: Metadata = {
   },
 };
 
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Health",
+          item: "https://www.lizocalc.com/calculators/health",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "BMR Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/health/bmr-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/bmr-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/health/bmr-calculator",
+      name:
+        "BMR Calculator – Calculate Your Basal Metabolic Rate Accurately",
+      description:
+        "Use our free BMR calculator to find your Basal Metabolic Rate using the Mifflin-St Jeor equation. Get daily calorie needs and understand how age, weight, height, and sex affect BMR.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
 export default function BMRPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT === */}
-      <Script
-        id="structured-data-bmr-calculator"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              /* ── 1. BREADCRUMB ── */
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Health",
-                    item: "https://www.lizocalc.com/calculators/health",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "BMR Calculator",
-                    item: "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                  },
-                ],
-              },
-
-              /* ── 2. PERSON (E-E-A-T author) ── */
-              {
-                "@type": "Person",
-                "@id": "https://www.lizocalc.com/#author",
-                name: "Rana Muhammad Abdullah",
-                url: "https://www.lizocalc.com/about",
-                jobTitle: "MERN Stack Developer & Tool Maker",
-                description:
-                  "Mechatronics & Control Engineering student, MERN Stack developer, and health tool maker behind LizoCalc.",
-                knowsAbout: [
-                  "BMR Calculation",
-                  "Metabolism",
-                  "Calorie Needs",
-                  "Mifflin-St Jeor Equation",
-                  "Web Development",
-                  "Mechatronics",
-                ],
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 3. ORGANIZATION ── */
-              {
-                "@type": "Organization",
-                "@id": "https://www.lizocalc.com/#org",
-                name: "LizoCalc",
-                url: "https://www.lizocalc.com",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.lizocalc.com/logo.png",
-                },
-                foundingDate: "2026",
-                founder: { "@id": "https://www.lizocalc.com/#author" },
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 4. WEBSITE ── */
-              {
-                "@type": "WebSite",
-                "@id": "https://www.lizocalc.com/#website",
-                url: "https://www.lizocalc.com",
-                name: "LizoCalc",
-                publisher: { "@id": "https://www.lizocalc.com/#org" },
-              },
-
-              /* ── 5. WEBPAGE ── */
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                url: "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                name: "BMR Calculator – Calculate Your Basal Metabolic Rate Accurately",
-                description:
-                  "Use our free BMR calculator to find your Basal Metabolic Rate using the Mifflin-St Jeor equation. Includes TDEE multipliers, weight goal calorie tables, and BMR by age reference charts.",
-                inLanguage: "en",
-                datePublished: "2026-04-01",
-                dateModified: "2026-05-01",
-                about: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator#app",
-                },
-                mainEntity: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator#app",
-                },
-                primaryImageOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/images/health/bmr-metabolism-calculator.webp#image",
-                },
-                author: { "@id": "https://www.lizocalc.com/#author" },
-                publisher: { "@id": "https://www.lizocalc.com/#org" },
-                isPartOf: { "@id": "https://www.lizocalc.com/#website" },
-                breadcrumb: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator#breadcrumb",
-                },
-              },
-
-              /* ── 6. SOFTWARE APPLICATION ── */
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmr-calculator#app",
-                name: "BMR Calculator",
-                url: "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                description:
-                  "Free BMR calculator using the Mifflin-St Jeor equation to determine daily resting calorie needs with TDEE activity multipliers and weight goal targets.",
-                mainEntityOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                },
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/health/bmr-metabolism-calculator.webp#image",
-                },
-                applicationCategory: "HealthApplication",
-                applicationSubCategory: "BMR Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                softwareVersion: "1.0",
-                datePublished: "2026-04-01",
-                dateModified: "2026-05-01",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate Basal Metabolic Rate (BMR) using Mifflin-St Jeor",
-                  "Instant daily, monthly, and yearly calorie estimates",
-                  "Gender-specific formula constants for accuracy",
-                  "Metric units (kg, cm) — perfect for Pakistan",
-                  "Intuitive sliders with live result updates",
-                  "Reset for quick family or client comparisons",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: { "@id": "https://www.lizocalc.com/#org" },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target:
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                },
-              },
-
-              /* ── 7. HOWTO ── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmr-calculator#howto",
-                name: "How to Calculate Your Basal Metabolic Rate",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/health/bmr-metabolism-calculator.webp#image",
-                },
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                },
-                description:
-                  "Step-by-step guide to calculating your BMR using the LizoCalc BMR Calculator",
-                totalTime: "PT1M",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Select your biological gender",
-                    text: "Choose Male or Female using the toggle — this applies the correct Mifflin-St Jeor constant (+5 for men, −161 for women) for accurate results.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Set your age",
-                    text: "Slide the Age handle to your current age in years. Age directly affects BMR due to gradual muscle loss over time.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Enter your weight in kg",
-                    text: "Adjust the Weight slider to your current body weight in kilograms. Weigh yourself in the morning for the most accurate reading.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Enter your height in cm",
-                    text: "Move the Height slider to your height in centimetres. Measure without shoes standing straight against a wall.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 5,
-                    name: "Read your instant results",
-                    text: "Your daily BMR, monthly estimate, and yearly projection appear instantly — ready to use for diet planning, calorie tracking, or TDEE calculation.",
-                  },
-                ],
-              },
-
-              /* ── 8. FAQ PAGE ── */
-              {
-                "@type": "FAQPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmr-calculator#faq",
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmr-calculator",
-                },
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-
-              /* ── 9. IMAGE OBJECT ── */
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/health/bmr-metabolism-calculator.webp#image",
-                url: "https://www.lizocalc.com/images/health/bmr-metabolism-calculator.webp",
-                name: "Basal Metabolic Rate Infographic — Energy Consumption by Organ System at Rest",
-                caption:
-                  "Detailed BMR infographic showing how major organs — brain (20%), liver (21–25%), skeletal muscle (15–22%), heart (9–10%), kidneys (7–8%), and digestive system (10%) — consume resting energy, plus key factors affecting BMR.",
-                description:
-                  "An anatomical BMR infographic illustrating the percentage of resting calories consumed by each major organ system, the five primary factors affecting BMR (age, gender, body composition, genetics, and hormones), and the relationship between BMR, cellular processes, and daily calorie needs.",
-                width: 1200,
-                height: 750,
-                contentUrl:
-                  "https://www.lizocalc.com/images/health/bmr-metabolism-calculator.webp",
-                encodingFormat: "image/webp",
-              },
-            ],
-          }),
-        }}
-      />
+      <script
+  id="structured-data-bmr-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

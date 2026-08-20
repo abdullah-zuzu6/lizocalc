@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import BMICalculator from "./clientside";
 import Image from "next/image";
@@ -94,279 +93,74 @@ export const metadata: Metadata = {
       "Instantly calculate your BMI with metric or imperial units. Includes BMI chart, categories, and healthy weight ranges.",
   },
 };
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Health",
+          item: "https://www.lizocalc.com/calculators/health",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "BMI Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/health/bmi-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/bmi-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/health/bmi-calculator",
+      name:
+        "BMI Calculator – Calculate Body Mass Index by Height & Weight",
+      description:
+        "Use our free BMI calculator to find your Body Mass Index instantly. Supports metric and imperial units and includes BMI categories and healthy weight ranges.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
+      },
+    },
+  ],
+};
 
 export default function BMIPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT === */}
-      <Script
-        id="structured-data-bmi-calculator"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              /* ── 1. BREADCRUMB ── */
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Health",
-                    item: "https://www.lizocalc.com/calculators/health",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "BMI Calculator",
-                    item: "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                  },
-                ],
-              },
-
-              /* ── 2. PERSON (E-E-A-T author) ── */
-              {
-                "@type": "Person",
-                "@id": "https://www.lizocalc.com/#author",
-                name: "Rana Muhammad Abdullah",
-                url: "https://www.lizocalc.com/about",
-                jobTitle: "MERN Stack Developer & Tool Maker",
-                description:
-                  "Mechatronics & Control Engineering student, MERN Stack developer, and health tool maker behind LizoCalc.",
-                knowsAbout: [
-                  "BMI Calculation",
-                  "Health Metrics",
-                  "Body Composition",
-                  "Web Development",
-                  "Mechatronics",
-                ],
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 3. ORGANIZATION ── */
-              {
-                "@type": "Organization",
-                "@id": "https://www.lizocalc.com/#org",
-                name: "LizoCalc",
-                url: "https://www.lizocalc.com",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.lizocalc.com/logo.png",
-                },
-                foundingDate: "2026",
-                founder: {
-                  "@id": "https://www.lizocalc.com/#author",
-                },
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 4. WEBSITE ── */
-              {
-                "@type": "WebSite",
-                "@id": "https://www.lizocalc.com/#website",
-                url: "https://www.lizocalc.com",
-                name: "LizoCalc",
-                publisher: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-              },
-
-              /* ── 5. WEBPAGE ── */
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                name: "BMI Calculator – Calculate Body Mass Index by Height & Weight",
-                description:
-                  "Use our free BMI calculator to find your Body Mass Index instantly. Supports metric and imperial units. Includes BMI chart, healthy weight ranges, and categories.",
-                inLanguage: "en",
-                datePublished: "2026-04-01",
-                dateModified: "2026-05-01",
-                about: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator#app",
-                },
-                mainEntity: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator#app",
-                },
-                primaryImageOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/images/health/bmi-chart-category-scale.webp#image",
-                },
-                author: {
-                  "@id": "https://www.lizocalc.com/#author",
-                },
-                publisher: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-                isPartOf: {
-                  "@id": "https://www.lizocalc.com/#website",
-                },
-                breadcrumb: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
-                },
-              },
-
-              /* ── 6. SOFTWARE APPLICATION ── */
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmi-calculator#app",
-                name: "BMI Calculator",
-                url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                description:
-                  "Free BMI calculator to determine Body Mass Index using metric or imperial units, with full category classification and healthy weight ranges.",
-                mainEntityOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                },
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/health/bmi-chart-category-scale.webp#image",
-                },
-                applicationCategory: "HealthApplication",
-                applicationSubCategory: "BMI Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                softwareVersion: "1.0",
-                datePublished: "2026-04-01",
-                dateModified: "2026-05-01",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate Body Mass Index (BMI)",
-                  "Supports metric (kg/cm) and imperial (lbs/inches) units",
-                  "BMI category classification per WHO guidelines",
-                  "Healthy weight range for any height",
-                  "South Asian / Pakistani BMI threshold guidance",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target:
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                },
-              },
-
-              /* ── 7. HOWTO ── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmi-calculator#howto",
-                name: "How to Calculate Your BMI",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/health/bmi-chart-category-scale.webp#image",
-                },
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                },
-                description:
-                  "Step-by-step guide to calculating Body Mass Index using the LizoCalc BMI Calculator",
-                totalTime: "PT1M",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Choose your unit system",
-                    text: "Select metric (kg and cm) or imperial (lbs and inches) using the toggle at the top of the calculator.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Enter your weight",
-                    text: "Type or slide to your current body weight in kilograms (metric) or pounds (imperial).",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Enter your height",
-                    text: "Enter your height in centimeters (metric) or feet and inches (imperial).",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Read your BMI result instantly",
-                    text: "Your BMI score, category (e.g. Healthy Weight), and healthy weight range appear immediately — no button needed.",
-                  },
-                ],
-              },
-
-              /* ── 8. FAQ PAGE ── */
-              {
-                "@type": "FAQPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/bmi-calculator#faq",
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/health/bmi-calculator",
-                },
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-
-              /* ── 9. IMAGE OBJECT ── */
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/health/bmi-chart-category-scale.webp#image",
-                url: "https://www.lizocalc.com/images/health/bmi-chart-category-scale.webp",
-                name: "BMI Chart Showing Weight Categories from Underweight to Obese",
-                caption:
-                  "Visual BMI scale showing all five WHO weight categories — Underweight, Healthy Weight, Overweight, Obese, and Severely Obese — mapped against BMI values.",
-                description:
-                  "A BMI category scale chart illustrating the WHO standard weight classifications from below 18.5 (Underweight) through 40+ (Obesity Class III), used as a visual reference alongside the LizoCalc BMI calculator.",
-                width: 800,
-                height: 500,
-                contentUrl:
-                  "https://www.lizocalc.com/images/health/bmi-chart-category-scale.webp",
-                encodingFormat: "image/png",
-              },
-            ],
-          }),
-        }}
-      />
+     <script
+  id="structured-data-bmi-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import AdvancedPaymentCalculator from './clientside'
 import ShareBar from "@/components/Sharebar";
@@ -74,119 +73,73 @@ description: "Calculate your monthly loan payments and view a complete amortizat
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/payment-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Financial",
+          item: "https://www.lizocalc.com/calculators/financial",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Payment Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/financial/payment-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/payment-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/financial/payment-calculator",
+      name: "Advanced Payment Calculator",
+      description:
+        "Use our advanced payment calculator to estimate monthly loan payments, interest costs, and repayment schedules instantly.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/financial/payment-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
 export default function PaymentPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/payment-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Financial",
-                    item: "https://www.lizocalc.com/calculators/financial",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Payment Calculator",
-                    item: "https://www.lizocalc.com/calculators/financial/payment-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/financial/payment-calculator",
-                url: "https://www.lizocalc.com/calculators/financial/payment-calculator",
-                name: "Advanced Payment Calculator",
-                description: "Use our advanced payment calculator to estimate monthly loan payments, interest costs, and repayment schedules instantly.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/financial/payment-calculator#app"
-}
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/payment-calculator#app",
-                name: "Advanced Payment Calculator",
-                url: "https://www.lizocalc.com/calculators/financial/payment-calculator",
-                description:
-                  "Advanced payment calculator to estimate monthly payments, interest, and complete amortization schedule.",
-                applicationCategory: "FinanceApplication",
-                applicationSubCategory: "Payment Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate monthly loan payments",
-                  "Estimate total interest payable",
-                  "View full amortization schedule",
-                  "Compare payment frequencies",
-                  "Assess impact of extra principal payments",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/financial/payment-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+      <script
+  id="structured-data-payment-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

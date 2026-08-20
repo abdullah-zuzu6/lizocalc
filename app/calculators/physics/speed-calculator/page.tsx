@@ -88,13 +88,9 @@ export const metadata: Metadata = {
       "Calculate speed, distance, or time instantly with our free multi-unit speed calculator and converter.",
   },
 };
-
-// Structured data pulled out of the component body so JSON.stringify runs
-// once per build rather than on every render.
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    // ── 1. BREADCRUMB ──────────────────────────────────────
     {
       "@type": "BreadcrumbList",
       "@id":
@@ -122,157 +118,36 @@ const structuredData = {
           "@type": "ListItem",
           position: 4,
           name: "Speed Calculator",
-          item: "https://www.lizocalc.com/calculators/physics/speed-calculator",
+          item:
+            "https://www.lizocalc.com/calculators/physics/speed-calculator",
         },
       ],
     },
-
-    // ── 2. WEBPAGE ─────────────────────────────────────────
     {
       "@type": "WebPage",
-      "@id": "https://www.lizocalc.com/calculators/physics/speed-calculator",
-      url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
+      "@id":
+        "https://www.lizocalc.com/calculators/physics/speed-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/physics/speed-calculator",
       name: "Speed Calculator – Calculate Speed, Distance & Time | LizoCalc",
       description:
-        "Free online speed calculator using v = d ÷ t. Instantly calculate speed, distance, or time in km/h, mph, m/s, ft/s, or knots with automatic unit conversion and a built-in speed converter.",
+        "Free online speed calculator using v = d ÷ t. Calculate speed, distance, or time in km/h, mph, m/s, ft/s, or knots with automatic unit conversion.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-17",
-      isPartOf: {
-        "@type": "WebSite",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-      },
-      mainEntity: {
+      dateModified: "2026-08-20",
+      breadcrumb: {
         "@id":
-          "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-calculate-speed",
+          "https://www.lizocalc.com/calculators/physics/speed-calculator#breadcrumb",
       },
-      mainEntityOfPage: {
-        "@type": "SoftwareApplication",
-        "@id":
-          "https://www.lizocalc.com/calculators/physics/speed-calculator#app",
-      },
-    },
-
-    // ── 3. SOFTWARE APPLICATION ────────────────────────────
-    {
-      "@type": "SoftwareApplication",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/speed-calculator#app",
-      name: "Speed Calculator",
-      url: "https://www.lizocalc.com/calculators/physics/speed-calculator",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Free online speed calculator using v = d ÷ t. Calculate speed from distance and time, find distance using speed and time, or solve for time. Supports km/h, mph, m/s, ft/s, and knots with automatic unit conversion and a standalone speed converter.",
-      applicationCategory: "EducationalApplication",
-      applicationSubCategory: "Physics Calculator",
-      operatingSystem: "Any",
-      inLanguage: "en",
-      browserRequirements:
-        "Requires JavaScript. Works on all modern browsers.",
-      audience: {
-        "@type": "Audience",
-        audienceType: "Students, Teachers, Travelers, Athletes",
-      },
-      featureList: [
-        "Calculate speed from distance and time using v = d ÷ t",
-        "Supports km, m, mi, yd, ft, and nmi for distance",
-        "Results shown in km/h, mph, m/s, ft/s, and knots simultaneously",
-        "Built-in speed unit converter for one-off conversions",
-        "Multi-segment average speed calculation",
-        "Choice of hours, minutes, and seconds combined into one duration",
-        "Works offline after first load",
-        "Mobile-friendly, zero ads",
-      ],
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      creator: {
-        "@type": "Organization",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-        logo: "https://www.lizocalc.com/logo.webp",
-      },
-      potentialAction: {
-        "@type": "UseAction",
-        target: [
-          "https://www.lizocalc.com/calculators/physics/speed-calculator",
-        ],
-      },
-    },
-
-    // ── 4. HOWTO — How to Use the Speed Calculator ─────────
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/speed-calculator#howto-calculate-speed",
-      name: "How to Calculate Speed from Distance and Time",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Step-by-step guide to calculating speed, distance, or time using the LizoCalc free online speed calculator.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Enter the Distance",
-          text: "Type the distance value into the first field and select its unit — km, m, mi, yd, ft, or nautical miles.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Enter the Time",
-          text: "Fill in hours, minutes, and seconds separately, or just one of them. Leaving a field blank counts it as zero.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Pick a Headline Unit",
-          text: "Choose which unit — km/h, mph, m/s, ft/s, or knots — you want shown as the main result. The rest still appear underneath.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Click Calculate",
-          text: "Press Calculate. The tool applies speed = distance ÷ time and converts the result into every supported unit at once.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "Convert a Different Speed if Needed",
-          text: "Use the Speed Converter section below the results to convert any other speed value between km/h, mph, m/s, ft/s, and knots.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "LizoCalc Speed Calculator" }],
-    },
-
-    // ── 5. FAQ PAGE ────────────────────────────────────────
-    {
-      "@type": "FAQPage",
-      mainEntity: faqData.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
     },
   ],
 };
-
 export default function SpeedCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === STRUCTURED JSON-LD DATA ===
-          Switched from next/script (strategy="beforeInteractive") to a
-          plain <script> tag. JSON-LD never executes, so it never needed
-          Next's script-loading machinery — beforeInteractive was forcing
-          it into the render-blocking path, flagged as "Render-blocking
-          requests — est savings 1,370ms" on mobile. */}
+    
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
@@ -513,7 +388,7 @@ export default function SpeedCalculatorPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
             <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: Aug 18, 2026</span>
+            <span>🔄 Updated: Aug 20, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

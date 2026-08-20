@@ -110,39 +110,6 @@ const structuredData = {
       ],
     },
     {
-      "@type": "Person",
-      "@id": "https://www.lizocalc.com/#author",
-      name: "Rana Muhammad Abdullah",
-      url: "https://www.lizocalc.com/about",
-      jobTitle: "MERN Stack Developer & Tool Maker",
-      description: "Mechatronics & Control Engineering student, MERN Stack developer, and productivity tool maker behind LizoCalc.",
-      knowsAbout: ["Date Calculation", "Calendar Logic", "Day Counters", "Web Development", "Mechatronics"],
-      sameAs: [
-        "https://github.com/abdullah-zuzu6",
-        "https://www.linkedin.com/in/abdullahsajjad06/",
-      ],
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://www.lizocalc.com/#org",
-      name: "LizoCalc",
-      url: "https://www.lizocalc.com",
-      logo: { "@type": "ImageObject", url: "https://www.lizocalc.com/logo.webp" },
-      foundingDate: "2026",
-      founder: { "@id": "https://www.lizocalc.com/#author" },
-      sameAs: [
-        "https://github.com/abdullah-zuzu6",
-        "https://www.linkedin.com/in/abdullahsajjad06/",
-      ],
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.lizocalc.com/#website",
-      url: "https://www.lizocalc.com",
-      name: "LizoCalc",
-      publisher: { "@id": "https://www.lizocalc.com/#org" },
-    },
-    {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/time/date-calculator",
       url: "https://www.lizocalc.com/calculators/time/date-calculator",
@@ -150,86 +117,8 @@ const structuredData = {
       description: "Free date calculator: find days between two dates, calculate 90, 60, 45, 30, or 28 days from any date, or count days since a past event.",
       inLanguage: "en",
       datePublished: "2026-04-04",
-      dateModified: "2026-05-01",
-      about: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app" },
-      mainEntity: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app" },
-      primaryImageOfPage: { "@id": "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp#image" },
-      author: { "@id": "https://www.lizocalc.com/#author" },
-      publisher: { "@id": "https://www.lizocalc.com/#org" },
-      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      dateModified: "2026-08-20",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator#breadcrumb" },
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app",
-      name: "Date Calculator",
-      url: "https://www.lizocalc.com/calculators/time/date-calculator",
-      description: "Calculate days between two dates, add or subtract days from any date, find 90/60/30 days from today, and count days since past events.",
-      image: { "@id": "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp#image" },
-      mainEntityOfPage: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator" },
-      applicationCategory: "UtilityApplication",
-      applicationSubCategory: "Date & Calendar Calculator",
-      operatingSystem: "Any",
-      inLanguage: "en",
-      softwareVersion: "1.0",
-      datePublished: "2026-04-04",
-      dateModified: "2026-05-01",
-      browserRequirements: "Requires JavaScript. Works on modern browsers.",
-      featureList: [
-        "Calculate days between two dates",
-        "Add or subtract days, weeks, months, years from any date",
-        "Find 90, 60, 45, 30, 28 days from today automatically",
-        "Count days since a past date",
-        "Inclusive and exclusive day counting toggle",
-        "Leap year accurate Gregorian calendar logic",
-        "Business days (weekdays) counter",
-        "Completely free with no ads",
-      ],
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-      creator: { "@id": "https://www.lizocalc.com/#org" },
-      potentialAction: {
-        "@type": "UseAction",
-        target: "https://www.lizocalc.com/calculators/time/date-calculator",
-      },
-    },
-    {
-      "@type": "HowTo",
-      "@id": "https://www.lizocalc.com/calculators/time/date-calculator#howto",
-      name: "How to Calculate Days Between Two Dates",
-      image: { "@id": "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp#image" },
-      isPartOf: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator" },
-      description: "Step-by-step guide to finding the exact number of days between any two dates using LizoCalc Date Calculator.",
-      totalTime: "PT1M",
-      step: [
-        { "@type": "HowToStep", position: 1, name: "Select the mode", text: "Choose 'Days Between Dates' to find a duration, or 'Add/Subtract Days' to find a future or past date." },
-        { "@type": "HowToStep", position: 2, name: "Enter your start date", text: "Click the date picker or type your start date in MM/DD/YYYY format." },
-        { "@type": "HowToStep", position: 3, name: "Enter your end date or number of days", text: "For duration mode, pick your end date. For add/subtract mode, enter the number of days, weeks, months, or years." },
-        { "@type": "HowToStep", position: 4, name: "Read instant results", text: "Results appear immediately showing total days, weeks, months, years breakdown, and the day of the week for any result date." },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.lizocalc.com/calculators/time/date-calculator#faq",
-      isPartOf: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator" },
-      mainEntity: (faqData || []).map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: { "@type": "Answer", text: item.answer },
-      })),
-    },
-    {
-      "@type": "ImageObject",
-      "@id": "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp#image",
-      url: "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp",
-      name: "Date Calculator — Days Between Dates Interface with 30, 60 and 90 Days From Today Buttons",
-      caption:
-        "LizoCalc Date Calculator showing a Starting Date calendar (green pin) and an Ending Date calendar (blue pin) connected by a double-headed arrow labeled Days Between Dates, with quick-select buttons for 30 Days, 60 Days, and 90 Days From Today.",
-      description:
-        "Flat-design infographic of the LizoCalc Date Calculator interface — illustrating how to find days between two dates using a start and end calendar picker, with quick buttons for the most searched periods: 30, 60, and 90 days from today.",
-      width: 1390,
-      height: 783,
-      contentUrl: "https://www.lizocalc.com/images/time/date-calculator-days-between-dates.webp",
-      encodingFormat: "image/webp",
     },
   ],
 };
@@ -720,7 +609,7 @@ export default function DateCalculatorPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
             <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: May 01, 2026</span>
+            <span>🔄 Updated: Aug 20, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

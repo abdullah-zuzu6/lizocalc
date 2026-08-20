@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import ROICalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
@@ -73,119 +72,73 @@ description: "Measure your investment performance with our free ROI calculator. 
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/roi-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Financial",
+          item: "https://www.lizocalc.com/calculators/financial",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "ROI Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/financial/roi-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/roi-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/financial/roi-calculator",
+      name: "Advanced ROI Calculator",
+      description:
+        "Use our advanced ROI calculator to estimate the return on investment, net profit, and investment efficiency instantly.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/financial/roi-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
 export default function ROIPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/roi-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Financial",
-                    item: "https://www.lizocalc.com/calculators/financial",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "ROI Calculator",
-                    item: "https://www.lizocalc.com/calculators/financial/roi-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/financial/roi-calculator",
-                url: "https://www.lizocalc.com/calculators/financial/roi-calculator",
-                name: "Advanced ROI Calculator",
-                description: "Use our advanced ROI calculator to estimate the return on investment, net profit, and investment efficiency instantly.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/financial/roi-calculator#app"
-}
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/roi-calculator#app",
-                name: "Advanced ROI Calculator",
-                url: "https://www.lizocalc.com/calculators/financial/roi-calculator",
-                description:
-                  "Advanced ROI calculator to estimate return on investment, total gain, and profitability percentage.",
-                applicationCategory: "FinanceApplication",
-                applicationSubCategory: "ROI Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate percentage ROI",
-                  "Estimate net profit from investment",
-                  "Analyze investment gain vs cost",
-                  "Compare different financial scenarios",
-                  "Assess investment efficiency",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/financial/roi-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+    <script
+  id="structured-data-roi-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

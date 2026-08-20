@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import AdvancedSleepCalculator from './clientside'
 import ShareBar from "@/components/Sharebar";
@@ -75,120 +74,73 @@ description: "calculate your ideal bedtime or wake-up time based on 90-minute sl
   },
 };
 
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/sleep-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Health",
+          item: "https://www.lizocalc.com/calculators/health",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Sleep Calculator",
+          item: "https://www.lizocalc.com/calculators/health/sleep-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/health/sleep-calculator",
+      url: "https://www.lizocalc.com/calculators/health/sleep-calculator",
+      name: "Advanced Sleep Calculator",
+      description:
+        "Use our advanced sleep calculator to find the best times to go to bed and wake up, helping you wake up feeling refreshed by timing your sleep cycles.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/health/sleep-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
+
 export default function SleepPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/sleep-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Health",
-                    item: "https://www.lizocalc.com/calculators/health",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Sleep Calculator",
-                    item: "https://www.lizocalc.com/calculators/health/sleep-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/health/sleep-calculator",
-                url: "https://www.lizocalc.com/calculators/health/sleep-calculator",
-                name: "Advanced Sleep Calculator",
-                description: "Use our advanced sleep calculator to find the best times to go to bed and wake up, helping you wake up feeling refreshed by timing your sleep cycles.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-    "@type": "SoftwareApplication",
-    "@id": "https://www.lizocalc.com/calculators/health/sleep-calculator#app"
-  }
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/health/sleep-calculator#app",
-                name: "Advanced Sleep Calculator",
-                url: "https://www.lizocalc.com/calculators/health/sleep-calculator",
-                description:
-                  "Advanced sleep calculator to determine optimal bedtimes and wake-up times using sleep cycle logic.",
-                applicationCategory: "HealthApplication",
-                applicationSubCategory: "Sleep Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate optimal bedtime",
-                  "Calculate ideal wake-up times",
-                  "Sleep cycle-based recommendations",
-                  "Improve sleep quality and wakefulness",
-                  "Easy to use planning tool",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-    "@type": "UseAction",
-    "target": ["https://www.lizocalc.com/calculators/health/sleep-calculator"]
-  }
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
-
+      <script
+  id="structured-data-sleep-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">

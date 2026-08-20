@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import AdvancedLoanCalculator from "./clientside";
 import Link from "next/link";
 import ShareBar from "@/components/Sharebar";
@@ -74,119 +73,73 @@ description: "Calculate monthly payments and full amortization schedules for amo
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/loan-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Financial",
+          item: "https://www.lizocalc.com/calculators/financial",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Loan Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/financial/loan-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/loan-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/financial/loan-calculator",
+      name: "Advanced Loan Calculator",
+      description:
+        "Use our advanced loan calculator to estimate monthly loan payments, interest, and total repayment costs instantly.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/financial/loan-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
 export default function LoanPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/loan-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Financial",
-                    item: "https://www.lizocalc.com/calculators/financial",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Loan Calculator",
-                    item: "https://www.lizocalc.com/calculators/financial/loan-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/financial/loan-calculator",
-                url: "https://www.lizocalc.com/calculators/financial/loan-calculator",
-                name: "Advanced Loan Calculator",
-                description: "Use our advanced loan calculator to estimate monthly loan payments, interest, and total repayment costs instantly.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/financial/loan-calculator#app"
-}
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/loan-calculator#app",
-                name: "Advanced Loan Calculator",
-                url: "https://www.lizocalc.com/calculators/financial/loan-calculator",
-                description:
-                  "Advanced loan calculator to estimate monthly payments, interest, and amortization schedule for various loan types.",
-                applicationCategory: "FinanceApplication",
-                applicationSubCategory: "Loan Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate monthly loan payments",
-                  "Estimate total interest cost",
-                  "View detailed amortization schedule",
-                  "Add extra monthly payments",
-                  "Compare different loan terms",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/financial/loan-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+      <script
+  id="structured-data-loan-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

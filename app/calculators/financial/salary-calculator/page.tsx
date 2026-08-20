@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import AdvancedSalaryCalculator from './clientside'
 import Link from "next/link";
 import ShareBar from "@/components/Sharebar";
@@ -74,119 +73,76 @@ description: "Easily convert your pay between hourly, monthly, and annual rates.
   },
 };
 
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/salary-calculator#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.lizocalc.com",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Calculators",
+          item: "https://www.lizocalc.com/calculators",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Financial Calculators",
+          item: "https://www.lizocalc.com/calculators/financial",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Salary Calculator",
+          item:
+            "https://www.lizocalc.com/calculators/financial/salary-calculator",
+        },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id":
+        "https://www.lizocalc.com/calculators/financial/salary-calculator",
+      url:
+        "https://www.lizocalc.com/calculators/financial/salary-calculator",
+      name: "Advanced Salary Calculator",
+      description:
+        "Use our advanced salary calculator to estimate your net take-home pay after taxes, deductions, and bonuses instantly.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: {
+        "@id":
+          "https://www.lizocalc.com/calculators/financial/salary-calculator#breadcrumb",
+      },
+    },
+  ],
+};
+
+
 export default function SalaryPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/salary-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Financial Calculators",
-                    item: "https://www.lizocalc.com/calculators/financial",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Salary Calculator",
-                    item: "https://www.lizocalc.com/calculators/financial/salary-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/financial/salary-calculator",
-                url: "https://www.lizocalc.com/calculators/financial/salary-calculator",
-                name: "Advanced Salary Calculator",
-                description: "Use our advanced salary calculator to estimate your net take-home pay after taxes, deductions, and bonuses instantly.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": {
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/financial/salary-calculator#app"
-}
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/financial/salary-calculator#app",
-                name: "Advanced Salary Calculator",
-                url: "https://www.lizocalc.com/calculators/financial/salary-calculator",
-                description:
-                  "Advanced salary calculator to estimate net pay, tax impact, and annual take-home income.",
-                applicationCategory: "FinanceApplication",
-                applicationSubCategory: "Salary Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate net take-home pay",
-                  "Estimate federal and state tax impact",
-                  "Incorporate annual bonuses",
-                  "Calculate pay periods (monthly, bi-weekly)",
-                  "Factor in pre-tax deductions",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-  "@type": "UseAction",
-  "target": ["https://www.lizocalc.com/calculators/financial/salary-calculator"]
-}
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
-      />
+      <script
+  id="structured-data-salary-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{
+    __html: JSON.stringify(structuredData),
+  }}
+/>
+
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">

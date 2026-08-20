@@ -66,6 +66,7 @@ export const metadata: Metadata = {
     description: "Project your final grades and manage weighted course categories with LizoCalc's professional-grade academic calculator.",
   },
 };
+// ─────────────────────────────────────────────
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -74,91 +75,22 @@ const jsonLd = {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.lizocalc.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Calculators",
-          item: "https://www.lizocalc.com/calculators",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Education",
-          item: "https://www.lizocalc.com/calculators/education",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "Grade Calculator",
-          item: "https://www.lizocalc.com/calculators/education/grade-calculator",
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Education", item: "https://www.lizocalc.com/calculators/education" },
+        { "@type": "ListItem", position: 4, name: "Grade Calculator", item: "https://www.lizocalc.com/calculators/education/grade-calculator" },
       ],
     },
     {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/education/grade-calculator",
       url: "https://www.lizocalc.com/calculators/education/grade-calculator",
-      name: "Advanced Grade Calculator",
-      description: "Use our advanced grade calculator to estimate your semester GPA, track academic performance, and project final grades instantly.",
+      name: "Grade Calculator | Weighted & Final Grade Predictor | LizoCalc",
+      description: "Estimate your semester GPA and project final exam requirements with our advanced grade calculator. Track academic performance using weighted categories and custom scales.",
       inLanguage: "en",
-      isPartOf: {
-        "@type": "WebSite",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-      },
-      mainEntityOfPage: {
-        "@type": "SoftwareApplication",
-        "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app",
-      },
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app",
-      name: "Advanced Grade Calculator",
-      url: "https://www.lizocalc.com/calculators/education/grade-calculator",
-      description: "Advanced grade calculator to estimate semester GPA, weighted grades, and track academic progress.",
-      applicationCategory: "EducationalApplication",
-      applicationSubCategory: "Grade Calculator",
-      operatingSystem: "Any",
-      inLanguage: "en",
-      browserRequirements: "Requires JavaScript. Works on modern browsers.",
-      featureList: [
-        "Calculate semester GPA",
-        "Support for weighted grades",
-        "Track multiple courses",
-        "Instant academic standing projection",
-      ],
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      creator: {
-        "@type": "Organization",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-      },
-      potentialAction: {
-        "@type": "UseAction",
-        target: ["https://www.lizocalc.com/calculators/education/grade-calculator"],
-      },
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: faqData.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb" },
     },
   ],
 };
@@ -168,13 +100,8 @@ export default function GradePage() {
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/*
-        FIX: plain <script> tag instead of next/script strategy="beforeInteractive".
-        JSON-LD is static data — it doesn't need a loading strategy, and
-        beforeInteractive was contributing to your 1,340ms render-blocking
-        delay on mobile.
-      */}
       <script
+      id="structured-data-grade-calculator"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

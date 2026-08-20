@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import TimeCalculator from "./clientside";
 import Image from "next/image";
@@ -108,6 +107,36 @@ export const metadata: Metadata = {
   },
 };
 
+// ─────────────────────────────────────────────
+//  STRUCTURED DATA (kept out of the render path)
+// ─────────────────────────────────────────────
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 4, name: "Time Calculator", item: "https://www.lizocalc.com/calculators/time/time-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/time/time-calculator",
+      url: "https://www.lizocalc.com/calculators/time/time-calculator",
+      name: "Time Calculator – Convert Hours, Minutes & Seconds Instantly",
+      description: "Free time calculator to convert hours to minutes, minutes to seconds, and get decimal hours for payroll and billing.",
+      inLanguage: "en",
+      datePublished: "2026-03-29",
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb" },
+    },
+  ],
+}; 
+
 /* ─────────────────────────────────────────────
    PAGE
 ───────────────────────────────────────────── */
@@ -115,279 +144,11 @@ export default function TimePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-
-      {/* ══════════════════════════════════════════
-          STRUCTURED DATA — JSON-LD
-      ══════════════════════════════════════════ */}
-      <Script
-        id="structured-data-time-calculator"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              /* ── 1. BREADCRUMB ── */
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Time",
-                    item: "https://www.lizocalc.com/calculators/time",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Time Calculator",
-                    item: "https://www.lizocalc.com/calculators/time/time-calculator",
-                  },
-                ],
-              },
-
-              /* ── 2. PERSON (E-E-A-T) ── */
-              {
-                "@type": "Person",
-                "@id": "https://www.lizocalc.com/#author",
-                name: "Rana Muhammad Abdullah",
-                url: "https://www.lizocalc.com/about",
-                jobTitle: "MERN Stack Developer & Tool Maker",
-                description:
-                  "Mechatronics & Control Engineering student, MERN Stack developer, and productivity tool maker behind LizoCalc.",
-                knowsAbout: [
-                  "Time Calculation",
-                  "Payroll Tools",
-                  "Decimal Hours",
-                  "Unit Conversion",
-                  "Web Development",
-                ],
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 3. ORGANIZATION ── */
-              {
-                "@type": "Organization",
-                "@id": "https://www.lizocalc.com/#org",
-                name: "LizoCalc",
-                url: "https://www.lizocalc.com",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.lizocalc.com/logo.png",
-                },
-                foundingDate: "2026",
-                founder: { "@id": "https://www.lizocalc.com/#author" },
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 4. WEBSITE ── */
-              {
-                "@type": "WebSite",
-                "@id": "https://www.lizocalc.com/#website",
-                url: "https://www.lizocalc.com",
-                name: "LizoCalc",
-                publisher: { "@id": "https://www.lizocalc.com/#org" },
-              },
-
-              /* ── 5. WEBPAGE ── */
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/time-calculator",
-                url: "https://www.lizocalc.com/calculators/time/time-calculator",
-                name: "Time Calculator – Convert Hours, Minutes & Seconds Instantly",
-                description:
-                  "Free time calculator to convert hours to minutes, minutes to seconds, and get decimal hours for payroll and billing.",
-                inLanguage: "en",
-                datePublished: "2026-03-29",
-                dateModified: "2026-05-01",
-                about: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/time-calculator#app",
-                },
-               mainEntity: {
-  "@id":
-    "https://www.lizocalc.com/calculators/time/time-calculator#app",
-},
-                primaryImageOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp#image",
-                },
-                author: { "@id": "https://www.lizocalc.com/#author" },
-                publisher: { "@id": "https://www.lizocalc.com/#org" },
-                isPartOf: { "@id": "https://www.lizocalc.com/#website" },
-                breadcrumb: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb",
-                },
-              },
-
-              /* ── 6. SOFTWARE APPLICATION ── */
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/time-calculator#app",
-                name: "Time Calculator — Convert Hours, Minutes & Seconds",
-                url: "https://www.lizocalc.com/calculators/time/time-calculator",
-                description:
-                  "Free online time calculator that converts between hours, minutes, and seconds. Provides decimal hours for payroll, total seconds for science, and hh:mm:ss format for timesheets.",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp#image",
-                },
-                mainEntityOfPage: {
-  "@id":
-    "https://www.lizocalc.com/calculators/time/time-calculator",
-},
-                applicationCategory: "UtilityApplication",
-                applicationSubCategory: "Time & Unit Conversion Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                softwareVersion: "2.0",
-                datePublished: "2026-03-29",
-                dateModified: "2026-05-01",
-                browserRequirements:
-                  "Requires JavaScript. Works on all modern browsers.",
-                featureList: [
-                  "Convert hours to minutes and seconds",
-                  "Convert minutes to decimal hours",
-                  "Calculate total seconds from hh:mm:ss",
-                  "Real-time slider and manual input",
-                  "Mobile-optimized touch-friendly interface",
-                  "One-click reset",
-                  "Cookie memory for returning users",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: { "@id": "https://www.lizocalc.com/#org" },
-                potentialAction: {
-                  "@type": "UseAction",
-                target:
-  "https://www.lizocalc.com/calculators/time/time-calculator",
-                },
-              },
-
-              /* ── 7. HOWTO ── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/time-calculator#howto",
-                name: "How to Convert Hours, Minutes and Seconds Using LizoCalc",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/total-seconds-breakdown.webp#image",
-                },
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/time-calculator",
-                },
-                description:
-                  "Step-by-step guide to converting time units and getting decimal hours instantly.",
-                totalTime: "PT1M",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Enter your hours",
-                    text: "Drag the Hours slider or type a value directly. Supports whole numbers and decimals (e.g. 2.5 hours).",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Enter your minutes",
-                    text: "Drag the Minutes slider or type a value (0–59). The calculator accepts values above 59 for cumulative totals.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Enter your seconds",
-                    text: "Set the Seconds slider or type the exact seconds. Decimal seconds are supported for scientific precision.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Read your results instantly",
-                    text: "All four outputs update in real time: hh:mm:ss format, total seconds, total minutes (decimal), and decimal hours — ready for payroll, billing, or science logging.",
-                  },
-                ],
-              },
-
-            {
-  "@type": "FAQPage",
-  "@id":
-    "https://www.lizocalc.com/calculators/time/time-calculator#faq",
-  isPartOf: {
-    "@id":
-      "https://www.lizocalc.com/calculators/time/time-calculator",
-  },
-  mainEntity: (faqData || []).map((item) => ({
-    "@type": "Question",
-    name: item.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: item.answer,
-    },
-  })),
-},
-              /* ── 9. IMAGE OBJECTS ── */
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp#image",
-                url: "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp",
-                name: "Time Unit Conversion Flow — Hours to Minutes to Seconds",
-                "caption": "Visual diagram showing the sexagesimal conversion chain: 1 Hour × 60 = 60 Minutes × 60 = 3,600 Seconds. Examples: 2 hours = 120 minutes; 1.5 hours = 90 minutes.",
-                 description:
-                  "Infographic illustrating the base-60 (sexagesimal) time system used for hours, minutes, and seconds — the foundation of all time unit conversions.",
-                width: 800,
-                height: 450,
-                contentUrl:
-                  "https://www.lizocalc.com/images/time/time-unit-conversion-flow.webp",
-                encodingFormat: "image/webp",
-              },
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/time/total-seconds-breakdown.webp#image",
-                url: "https://www.lizocalc.com/images/time/total-seconds-breakdown.webp",
-                name: "Converting Time to Total Seconds — Step-by-Step Breakdown",
-                caption:
-                  "Step-by-step infographic: 1 hour 30 minutes 45 seconds = 3,600 + 1,800 + 45 = 5,445 total seconds. Also shows total minutes (90.75) and decimal hours (1.5125).",
-                description:
-                  "Math breakdown infographic showing how to convert 1h 30m 45s into total seconds (5,445), total minutes (90.75), and decimal hours (1.5125) using the standard time formula.",
-                width: 800,
-                height: 450,
-                contentUrl:
-                  "https://www.lizocalc.com/images/time/total-seconds-breakdown.webp",
-                encodingFormat: "image/webp",
-              },
-            ],
-          }),
-        }}
-      />
+<script
+  id="structured-data-time-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+/>
 
       {/* ══════════════════════════════════════════
           HERO SECTION
@@ -1024,7 +785,7 @@ export default function TimePage() {
             </div>
             <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
               <span>📅 Published: Mar 29, 2026</span>
-              <span>🔄 Updated: May 01 , 2026</span>
+              <span>🔄 Updated: Aug 20, 2026</span>
               <span>✅ Verified accurate</span>
             </div>
           </div>

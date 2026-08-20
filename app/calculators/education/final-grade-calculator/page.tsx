@@ -105,238 +105,34 @@ export const metadata: Metadata = {
       "Enter your current grade, final exam weight, and target grade to instantly find the score you need on your final exam.",
   },
 };
+// ─────────────────────────────────────────────
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "BreadcrumbList",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/final-grade-calculator#breadcrumb",
+      "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator#breadcrumb",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.lizocalc.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Calculators",
-          item: "https://www.lizocalc.com/calculators",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Education",
-          item: "https://www.lizocalc.com/calculators/education",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "Final Grade Calculator",
-          item: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Education", item: "https://www.lizocalc.com/calculators/education" },
+        { "@type": "ListItem", position: 4, name: "Final Grade Calculator", item: "https://www.lizocalc.com/calculators/education/final-grade-calculator" },
       ],
-    },
-    {
-      "@type": "Person",
-      "@id": "https://www.lizocalc.com/#author",
-      name: "Rana Muhammad Abdullah",
-      url: "https://www.lizocalc.com/about",
-      jobTitle: "MERN Stack Developer & Tool Maker",
-      description:
-        "Mechatronics & Control Engineering student, MERN Stack developer, and academic tool maker behind LizoCalc.",
-      knowsAbout: [
-        "Grade Calculation",
-        "Weighted Grading",
-        "Academic Tools",
-        "Web Development",
-        "Mechatronics",
-      ],
-      sameAs: [
-        "https://github.com/abdullah-zuzu6",
-        "https://www.linkedin.com/in/abdullahsajjad06/",
-      ],
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://www.lizocalc.com/#org",
-      name: "LizoCalc",
-      url: "https://www.lizocalc.com",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://www.lizocalc.com/logo.png",
-      },
-      foundingDate: "2026",
-      founder: { "@id": "https://www.lizocalc.com/#author" },
-      sameAs: [
-        "https://github.com/abdullah-zuzu6",
-        "https://www.linkedin.com/in/abdullahsajjad06/",
-      ],
-    },
-    {
-      "@type": "WebSite",
-      "@id": "https://www.lizocalc.com/#website",
-      url: "https://www.lizocalc.com",
-      name: "LizoCalc",
-      publisher: { "@id": "https://www.lizocalc.com/#org" },
     },
     {
       "@type": "WebPage",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/final-grade-calculator",
+      "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator",
       url: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      name: "Final Grade Calculator – What Score Do You Need on Your Final Exam?",
-      description:
-        "Use our free final grade calculator to find the exact exam score needed to reach your target course grade. Includes weighted grade formula, common scenarios, and letter grade charts.",
+      name: "Final Grade Calculator – What Score Do You Need on Your Final Exam? | LizoCalc",
+      description: "Use our free final grade calculator to find the exact exam score needed to reach your target course grade. Includes weighted grade formula, common scenarios, and letter grade charts.",
       inLanguage: "en",
       datePublished: "2026-05-01",
-      dateModified: "2026-05-01",
-      about: {
-        "@id":
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator#app",
-      },
-      mainEntity: {
-        "@id":
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator#app",
-      },
-      primaryImageOfPage: {
-        "@id":
-          "https://www.lizocalc.com/images/education/weighted-final-grade-breakdown.webp#image",
-      },
-      author: { "@id": "https://www.lizocalc.com/#author" },
-      publisher: { "@id": "https://www.lizocalc.com/#org" },
-      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
-      breadcrumb: {
-        "@id":
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator#breadcrumb",
-      },
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/final-grade-calculator#app",
-      name: "Final Grade Calculator",
-      url: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      description:
-        "Free final grade calculator to determine the exact exam score needed to achieve a target course grade using weighted grading formulas.",
-      mainEntityOfPage: {
-        "@id":
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      },
-      image: {
-        "@id":
-          "https://www.lizocalc.com/images/education/weighted-final-grade-breakdown.webp#image",
-      },
-      applicationCategory: "EducationalApplication",
-      applicationSubCategory: "Grade Calculator",
-      operatingSystem: "Any",
-      inLanguage: "en",
-      softwareVersion: "1.0",
-      datePublished: "2026-05-01",
-      dateModified: "2026-05-01",
-      browserRequirements:
-        "Requires JavaScript. Works on modern browsers.",
-      featureList: [
-        "Calculate required final exam score for any target grade",
-        "Weighted grade formula (current grade + final exam weight)",
-        "Instant results with no button press needed",
-        "Pass/fail scenario analysis",
-        "Supports any course grading breakdown",
-      ],
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      creator: { "@id": "https://www.lizocalc.com/#org" },
-      potentialAction: {
-        "@type": "UseAction",
-        target:
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      },
-    },
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/final-grade-calculator#howto",
-      name: "How to Calculate What You Need on Your Final Exam",
-      image: {
-        "@id":
-          "https://www.lizocalc.com/images/education/weighted-final-grade-breakdown.webp#image",
-      },
-      isPartOf: {
-        "@id":
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      },
-      description:
-        "Step-by-step guide to calculating your required final exam score using the LizoCalc Final Grade Calculator",
-      totalTime: "PT1M",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Enter your current grade",
-          text: "Type your current course grade as a percentage (e.g., 85%). This is your grade before the final exam.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Enter your final exam weight",
-          text: "Enter the percentage weight of your final exam in the course (e.g., 30 for 30%). Check your course syllabus for this number.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Enter your target grade",
-          text: "Enter the final course grade you want to achieve (e.g., 90 for an A). This is your goal, not your current grade.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Read your required exam score instantly",
-          text: "The calculator instantly shows the minimum score you need on your final exam, your letter grade projection, and whether your goal is achievable.",
-        },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/final-grade-calculator#faq",
-      isPartOf: {
-        "@id":
-          "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      },
-      mainEntity: (faqData || []).map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
-    },
-    {
-      "@type": "ImageObject",
-      "@id":
-        "https://www.lizocalc.com/images/education/weighted-final-grade-breakdown.webp#image",
-      url: "https://www.lizocalc.com/images/education/weighted-final-grade-breakdown.webp",
-      name: "Academic Coursework Percentage Breakdown — Total Grade Composition Chart",
-      caption:
-        "Weighted grade composition donut chart showing: Final Exam 30%, Major Assignments & Projects 25%, Midterm Exam 20%, Quizzes 15%, and Homework & Exercises 10% — based on an example undergraduate syllabus.",
-      description:
-        "A visual breakdown of a typical weighted course grade structure showing how final exams, midterms, projects, quizzes, and homework each contribute a specific percentage to the total course grade of 100%.",
-      width: 1200,
-      height: 750,
-      contentUrl:
-        "https://www.lizocalc.com/images/education/weighted-final-grade-breakdown.webp",
-      encodingFormat: "image/webp",
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator#breadcrumb" },
     },
   ],
 };
-
 export default function FinalGradePage() {
   return (
     <main className="min-h-screen bg-background">
@@ -347,6 +143,7 @@ export default function FinalGradePage() {
         This was your 430ms render-blocking cost.
       */}
       <script
+      id="structured-data-final-grade-calculator"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
@@ -1378,7 +1175,7 @@ export default function FinalGradePage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
             <span>📅 Published: May 01, 2026</span>
-            <span>🔄 Updated: May 01, 2026</span>
+            <span>🔄 Updated: August 20, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

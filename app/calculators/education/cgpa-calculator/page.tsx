@@ -96,211 +96,34 @@ export const metadata: Metadata = {
     images: ["https://www.lizocalc.com/images/cgpa-formula-diagram.webp"],
   },
 };
+// ─────────────────────────────────────────────
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "BreadcrumbList",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/cgpa-calculator#breadcrumb",
+      "@id": "https://www.lizocalc.com/calculators/education/cgpa-calculator#breadcrumb",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.lizocalc.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Calculators",
-          item: "https://www.lizocalc.com/calculators",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Education",
-          item: "https://www.lizocalc.com/calculators/education",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "CGPA Calculator",
-          item: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Education", item: "https://www.lizocalc.com/calculators/education" },
+        { "@type": "ListItem", position: 4, name: "CGPA Calculator", item: "https://www.lizocalc.com/calculators/education/cgpa-calculator" },
       ],
     },
     {
       "@type": "WebPage",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/cgpa-calculator",
+      "@id": "https://www.lizocalc.com/calculators/education/cgpa-calculator",
       url: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
       name: "CGPA Calculator – Cumulative GPA on 4.0 & 10.0 Scale | LizoCalc",
-      description:
-        "Free online CGPA calculator to find cumulative grade point average across all semesters. Supports weighted, unweighted, and percentage conversions with step-by-step working.",
-      primaryImageOfPage:
-        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
+      description: "Free online CGPA calculator to find cumulative grade point average across all semesters. Supports weighted, unweighted, and percentage conversions with step-by-step working.",
       inLanguage: "en",
       datePublished: "2026-04-10",
-      dateModified: "2026-04-10",
-      isPartOf: {
-        "@type": "WebSite",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-      },
-      author: {
-        "@type": "Person",
-        name: "Rana Muhammad Abdullah",
-        jobTitle:
-          "Founder of LizoCalc (Web Tool Developer – Mathematical & Utility Calculators)",
-        url: "https://www.lizocalc.com/about",
-      },
-      publisher: {
-        "@type": "Organization",
-        name: "LizoCalc",
-        logo: {
-          "@type": "ImageObject",
-          url: "https://www.lizocalc.com/logo.webp",
-        },
-      },
-      mainEntity: {
-        "@type": "SoftwareApplication",
-        "@id":
-          "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
-      },
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/cgpa-calculator#app",
-      name: "CGPA Calculator",
-      url: "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-      image:
-        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-      description:
-        "Advanced CGPA calculator supporting weighted and unweighted calculations. Features include SGPA to CGPA conversion and target grade planning.",
-      applicationCategory: "EducationalApplication",
-      applicationSubCategory: "Academic Calculator",
-      operatingSystem: "Any",
-      inLanguage: "en",
-      browserRequirements:
-        "Requires JavaScript. Works on all modern browsers.",
-      audience: {
-        "@type": "Audience",
-        audienceType:
-          "University Students, High School Students, Academic Counselors",
-      },
-      featureList: [
-        "Calculate CGPA from semester SGPA and credits",
-        "Support for both 4.0 and 10.0 scales",
-        "Weighted and Unweighted GPA options",
-        "Target CGPA planner tool",
-        "Automatic CGPA to Percentage conversion",
-        "Step-by-step calculation breakdown",
-        "Works offline after first load",
-        "Mobile-friendly, zero ads",
-      ],
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      creator: {
-        "@type": "Organization",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-        logo: "https://www.lizocalc.com/logo.webp",
-      },
-      potentialAction: {
-        "@type": "UseAction",
-        target: [
-          "https://www.lizocalc.com/calculators/education/cgpa-calculator",
-        ],
-      },
-    },
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-calculate-cgpa",
-      name: "How to Calculate CGPA Manually",
-      image:
-        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-      description:
-        "Learn the mathematical formula to find CGPA by weighting SGPAs across different semesters.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Multiply SGPA by Credits",
-          text: "For each semester, multiply the SGPA by the total credits of that semester to get Quality Points.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Sum All Quality Points",
-          text: "Add the quality points from all semesters together.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Sum All Credits",
-          text: "Add the total number of credit hours attempted across all semesters.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Divide and Solve",
-          text: "Divide the total quality points by the total credits. CGPA = Total Points / Total Credits.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "Academic Transcript" }],
-    },
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/education/cgpa-calculator#howto-convert-cgpa",
-      name: "How to Convert CGPA to Percentage",
-      image:
-        "https://www.lizocalc.com/images/cgpa-formula-diagram.webp",
-      description:
-        "The standard method for converting your 4.0 or 10.0 scale CGPA into a percentage score.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Identify Your Scale",
-          text: "Determine if your CGPA is on a 4.0 or 10.0 scale.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Apply the Formula",
-          text: "For a 4.0 scale, multiply your CGPA by 25. For a 10.0 scale, a common formula is (CGPA - 0.5) × 10.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Check Institutional Rules",
-          text: "Verify with your university (e.g., HEC or local boards) as some use specific lookup tables instead of direct multiplication.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "Conversion Formula" }],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: faqData.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/education/cgpa-calculator#breadcrumb" },
     },
   ],
 };
-
 export default function GPAPage() {
   return (
     <main className="min-h-screen bg-background">
@@ -311,6 +134,7 @@ export default function GPAPage() {
         This was your single biggest render-blocking cost (1,390ms mobile).
       */}
       <script
+        id="structured-data-cgpa-calculator"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />

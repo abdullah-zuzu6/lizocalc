@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import AgeCalculator from "./clientside";
 import Image from "next/image";
 import ShareBar from "@/components/Sharebar";
@@ -96,348 +95,45 @@ export const metadata: Metadata = {
       "Instantly calculate your age in years, months, and days. Discover your total days lived and next birthday countdown.",
   },
 };
+// ─────────────────────────────────────────────
+//  STRUCTURED DATA (kept out of the render path)
+// ─────────────────────────────────────────────
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 4, name: "Age Calculator", item: "https://www.lizocalc.com/calculators/time/age-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/time/age-calculator",
+      url: "https://www.lizocalc.com/calculators/time/age-calculator",
+      name: "Age Calculator – Exact Age in Years, Months, Days | LizoCalc",
+      description: "Calculate your exact age and breakdown in years, months, and days using accurate Gregorian calendar logic.",
+      inLanguage: "en",
+      datePublished: "2025-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb" },
+    },
+  ],
+};
 
 export default function AgeCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
-      {/* === JSON-LD STRUCTURED DATA ===
-          Moved to afterInteractive: this JSON blob doesn't need to block
-          the page from becoming interactive, and loading it eagerly was
-          competing with real content for render time (flagged as a
-          render-blocking / legacy-JS cost in PageSpeed). */}
-      <Script
-        id="structured-data-age-calculator"
-        type="application/ld+json"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              /* ── 1. BREADCRUMB ─────────────────────────────────── */
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Time",
-                    item: "https://www.lizocalc.com/calculators/time",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Age Calculator",
-                    item: "https://www.lizocalc.com/calculators/time/age-calculator",
-                  },
-                ],
-              },
-
-              /* ── 2. PERSON (E-E-A-T author) ─────────────────────── */
-              {
-                "@type": "Person",
-                "@id": "https://www.lizocalc.com/#author",
-                name: "Rana Muhammad Abdullah",
-                url: "https://www.lizocalc.com/about",
-                jobTitle: "MERN Stack Developer & Tool Maker",
-                description:
-                  "Mechatronics & Control Engineering student, MERN Stack developer, and productivity tool maker behind LizoCalc.",
-                knowsAbout: [
-                  "Age Calculation",
-                  "Date & Time Tools",
-                  "Gregorian Calendar Logic",
-                  "Web Development",
-                  "Mechatronics",
-                ],
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 3. ORGANIZATION ─────────────────────────────────── */
-              {
-                "@type": "Organization",
-                "@id": "https://www.lizocalc.com/#org",
-                name: "LizoCalc",
-                url: "https://www.lizocalc.com",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.lizocalc.com/logo.webp",
-                },
-                foundingDate: "2026",
-                founder: {
-                  "@id": "https://www.lizocalc.com/#author",
-                },
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 4. WEBSITE ──────────────────────────────────────── */
-              {
-                "@type": "WebSite",
-                "@id": "https://www.lizocalc.com/#website",
-                url: "https://www.lizocalc.com",
-                name: "LizoCalc",
-                publisher: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-              },
-
-              /* ── 5. WEBPAGE ──────────────────────────────────────── */
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/age-calculator",
-                url: "https://www.lizocalc.com/calculators/time/age-calculator",
-                name: "Age Calculator – Exact Age in Years, Months, Days | LizoCalc",
-                description:
-                  "Calculate your exact age and breakdown in years, months, and days using accurate Gregorian calendar logic.",
-                inLanguage: "en",
-                datePublished: "2025-04-01",
-                dateModified: "2026-07-02",
-                about: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator#app",
-                },
-                mainEntity: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator#app",
-                },
-                primaryImageOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
-                },
-                author: {
-                  "@id": "https://www.lizocalc.com/#author",
-                },
-                publisher: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-                isPartOf: {
-                  "@id": "https://www.lizocalc.com/#website",
-                },
-                breadcrumb: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb",
-                },
-              },
-
-              /* ── 6. SOFTWARE APPLICATION ─────────────────────────── */
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/age-calculator#app",
-                name: "Advanced Age Calculator",
-                url: "https://www.lizocalc.com/calculators/time/age-calculator",
-                description:
-                  "Free online tool to determine chronological age. Provides breakdown in years, months, weeks, days, and seconds. Includes birthday countdown and leap year detection.",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
-                },
-                mainEntityOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator",
-                },
-                applicationCategory: "UtilitiesApplication",
-                applicationSubCategory: "Time Management Tool",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                softwareVersion: "1.0",
-                datePublished: "2025-04-01",
-                dateModified: "2026-07-02",
-                browserRequirements:
-                  "Requires JavaScript. Works on all modern browsers.",
-                featureList: [
-                  "Calculate age in years, months, and days",
-                  "Total lifespan in weeks, days, hours, and seconds",
-                  "Next birthday countdown timer",
-                  "Determine birth day of the week",
-                  "Leap year compatible precision",
-                  "Calculation history storage",
-                  "Fast, mobile-optimized interface",
-                  "Completely free with no ads",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target:
-                    "https://www.lizocalc.com/calculators/time/age-calculator",
-                },
-              },
-
-              /* ── 7. HOWTO #1 — How to Calculate Chronological Age ── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/age-calculator#howto-chronological-age",
-                name: "How to Calculate Chronological Age Manually",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
-                },
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator",
-                },
-                description:
-                  "A step-by-step method to calculate age in years, months, and days by subtracting the birth date from the current date.",
-                totalTime: "PT2M",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Subtract the Days",
-                    text: "Subtract the birth day from the current day. If the current day is smaller, borrow 30 or 31 days from the current month.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Subtract the Months",
-                    text: "Subtract the birth month from the current month. If the current month is smaller, borrow 12 months from the current year.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Subtract the Years",
-                    text: "Subtract the birth year from the current year to get the final age in years.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Verify with LizoCalc",
-                    text: "Enter your dates into the LizoCalc Age Calculator to ensure your manual calculation accounts for leap years correctly.",
-                  },
-                ],
-                tool: [
-                  { "@type": "HowToTool", name: "LizoCalc Age Calculator" },
-                ],
-              },
-
-              /* ── 8. HOWTO #2 — How to Calculate Age in Excel ──────── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/age-calculator#howto-calculate-age-excel",
-                name: "How to Calculate Age in Excel Using DATEDIF",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/age-milestone-birthday-tracking.webp#image",
-                },
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator",
-                },
-                description:
-                  "Quick guide on using Excel formulas to calculate age automatically from a date of birth.",
-                totalTime: "PT2M",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Enter the Birth Date",
-                    text: "Type the date of birth in cell A1 (e.g., 01/01/1990).",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Apply the DATEDIF Formula",
-                    text: "In cell B1, type the formula: =DATEDIF(A1, TODAY(), 'Y').",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Get Years, Months, and Days",
-                    text: "Use 'YM' for months and 'MD' for days within the DATEDIF function to get a full age breakdown.",
-                  },
-                ],
-                tool: [
-                  {
-                    "@type": "HowToTool",
-                    name: "Microsoft Excel or Google Sheets",
-                  },
-                ],
-              },
-
-              {
-                "@type": "FAQPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/age-calculator#faq",
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/age-calculator",
-                },
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-
-              /* ── 10. IMAGE OBJECTS ───────────────────────────────── */
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp#image",
-                url: "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp",
-                name: "Chronological Age Calculation — Borrowing Logic Technical Diagram",
-                caption:
-                  "Fig 1.1: Technical blueprint of the borrowing method used by the LizoCalc age algorithm — showing day, month, and year subtraction steps with borrow logic for accurate Gregorian calendar age calculation.",
-                description:
-                  "Technical diagram illustrating the step-by-step borrowing logic used to calculate chronological age: subtracting days (borrowing from months), subtracting months (borrowing from years), and subtracting years to produce an exact age breakdown.",
-                width: 1000,
-                height: 675,
-                contentUrl:
-                  "https://www.lizocalc.com/images/time/chronological-age-subtraction-borrowing-logic.webp",
-                encodingFormat: "image/webp",
-              },
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/time/age-milestone-birthday-tracking.webp#image",
-                url: "https://www.lizocalc.com/images/time/age-milestone-birthday-tracking.webp",
-                name: "Age Milestone and Birthday Tracking Calendar",
-                caption:
-                  "Fig 1.2: Monthly calendar with red pins marking significant birthdays and age milestones — including 10,000 days alive — illustrating chronological age as the primary metric for legal eligibility, medical screenings, and standardized historical record-keeping.",
-                description:
-                  "Visual of a milestone birthday tracking calendar showing how chronological age is used to mark significant life events, legal thresholds, and medical screening dates — reinforcing the practical importance of accurate age calculation.",
-                width: 1000,
-                height: 650,
-                contentUrl:
-                  "https://www.lizocalc.com/images/time/age-milestone-birthday-tracking.webp",
-                encodingFormat: "image/webp",
-              },
-            ],
-          }),
-        }}
-      />
+     <script
+  id="structured-data-age-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+/>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
@@ -1370,7 +1066,6 @@ export default function AgeCalculatorPage() {
           </div>
         </section>
 
-        {/* ── TRUST / E-E-A-T BYLINE ── */}
         <div className="flex items-center gap-4 mt-16 mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
           <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
             RA
@@ -1394,7 +1089,7 @@ export default function AgeCalculatorPage() {
           </div>
           <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
             <span>📅 Published: Apr 1, 2026</span>
-            <span>🔄 Updated: Jul 2, 2026</span>
+            <span>🔄 Updated: Aug 20, 2026</span>
             <span>✅ Verified accurate</span>
           </div>
         </div>

@@ -47,23 +47,6 @@ const allCalculators = [
   { name: 'Date Calculator', href: '/calculators/time/date-calculator', category: 'Time' },
   { name: 'Time Calculator', href: '/calculators/time/time-calculator', category: 'Time' },
   { name: 'Hours Calculator', href: '/calculators/time/hours-calculator', category: 'Time' },
-  { name: '7 Days From Today Calculator', href: '/calculators/time/7-days-from-today-calculator', category: 'Time' },
-  { name: '14 Days From Today Calculator', href: '/calculators/time/14-days-from-today-calculator', category: 'Time' },
-  { name: '21 Days From Today Calculator', href: '/calculators/time/21-days-from-today-calculator', category: 'Time' },
-  { name: '28 Days From Today Calculator', href: '/calculators/time/28-days-from-today-calculator', category: 'Time' },
-  { name: '30 Days From Today Calculator', href: '/calculators/time/30-days-from-today-calculator', category: 'Time' },
-  { name: '45 Days From Today Calculator', href: '/calculators/time/45-days-from-today-calculator', category: 'Time' },
-  { name: '60 Days From Today Calculator', href: '/calculators/time/60-days-from-today-calculator', category: 'Time' },
-  { name: '90 Days From Today Calculator', href: '/calculators/time/90-days-from-today-calculator', category: 'Time' },
-  { name: '120 Days From Today Calculator', href: '/calculators/time/120-days-from-today-calculator', category: 'Time' },
-  { name: '150 Days From Today Calculator', href: '/calculators/time/150-days-from-today-calculator', category: 'Time' },
-  { name: '180 Days From Today Calculator', href: '/calculators/time/180-days-from-today-calculator', category: 'Time' },
-  { name: '200 Days From Today Calculator', href: '/calculators/time/200-days-from-today-calculator', category: 'Time' },
-  { name: '250 Days From Today Calculator', href: '/calculators/time/250-days-from-today-calculator', category: 'Time' },
-  { name: '300 Days From Today Calculator', href: '/calculators/time/300-days-from-today-calculator', category: 'Time' },
-  { name: '365 Days From Today Calculator', href: '/calculators/time/365-days-from-today-calculator', category: 'Time' },
-
-
 
   { name: 'GPA Calculator', href: '/calculators/education/gpa-calculator', category: 'Education' },
   { name: 'Grade Calculator', href: '/calculators/education/grade-calculator', category: 'Education' },

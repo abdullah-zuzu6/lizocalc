@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import Link from "next/link";
 import HoursCalculator from "./clientside";
 import Image from "next/image";
@@ -99,278 +98,46 @@ export const metadata: Metadata = {
       "Quickly calculate elapsed time and total hours between any two times with our free, professional calculator.",
   },
 };
+// ─────────────────────────────────────────────
+//  STRUCTURED DATA (kept out of the render path)
+// ─────────────────────────────────────────────
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 4, name: "Hours Calculator", item: "https://www.lizocalc.com/calculators/time/hours-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/time/hours-calculator",
+      url: "https://www.lizocalc.com/calculators/time/hours-calculator",
+      name: "Hours Calculator: Find the Exact Duration Between Two Times",
+      description: "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
+      inLanguage: "en",
+      datePublished: "2026-04-01",
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb" },
+    },
+  ],
+};
 
 export default function HoursPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
+<script
+  id="structured-data-hours-calculator"
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+/>
 
-      {/* === SINGLE JSON-LD SCRIPT — UPDATED SCHEMA === */}
-      <Script
-        id="structured-data-hours-calculator"
-        type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              /* ── 1. BREADCRUMB ── */
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Time",
-                    item: "https://www.lizocalc.com/calculators/time",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Hours Calculator",
-                    item: "https://www.lizocalc.com/calculators/time/hours-calculator",
-                  },
-                ],
-              },
-
-              /* ── 2. PERSON (E-E-A-T author) ── */
-              {
-                "@type": "Person",
-                "@id": "https://www.lizocalc.com/#author",
-                name: "Rana Muhammad Abdullah",
-                url: "https://www.lizocalc.com/about",
-                jobTitle: "MERN Stack Developer & Tool Maker",
-                description:
-                  "Mechatronics & Control Engineering student, MERN Stack developer, and productivity tool maker behind LizoCalc.",
-                knowsAbout: [
-                  "Time Calculation",
-                  "Payroll Tools",
-                  "Decimal Hours",
-                  "Web Development",
-                  "Mechatronics",
-                ],
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 3. ORGANIZATION ── */
-              {
-                "@type": "Organization",
-                "@id": "https://www.lizocalc.com/#org",
-                name: "LizoCalc",
-                url: "https://www.lizocalc.com",
-                logo: {
-                  "@type": "ImageObject",
-                  url: "https://www.lizocalc.com/logo.png",
-                },
-                foundingDate: "2026",
-                founder: {
-                  "@id": "https://www.lizocalc.com/#author",
-                },
-                sameAs: [
-                  "https://github.com/abdullah-zuzu6",
-                  "https://www.linkedin.com/in/abdullahsajjad06/",
-                ],
-              },
-
-              /* ── 4. WEBSITE ── */
-              {
-                "@type": "WebSite",
-                "@id": "https://www.lizocalc.com/#website",
-                url: "https://www.lizocalc.com",
-                name: "LizoCalc",
-                publisher: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-              },
-
-              /* ── 5. WEBPAGE ── */
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/hours-calculator",
-                url: "https://www.lizocalc.com/calculators/time/hours-calculator",
-                name: "Hours Calculator: Find the Exact Duration Between Two Times",
-                description:
-                  "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
-                inLanguage: "en",
-                datePublished: "2026-04-01",
-                dateModified: "2026-05-01",
-                about: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator#app",
-                },
-                mainEntity: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator#app",
-                },
-                primaryImageOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp#image",
-                },
-                author: {
-                  "@id": "https://www.lizocalc.com/#author",
-                },
-                publisher: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-                isPartOf: {
-                  "@id": "https://www.lizocalc.com/#website",
-                },
-                breadcrumb: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb",
-                },
-              },
-
-              /* ── 6. SOFTWARE APPLICATION ── */
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/hours-calculator#app",
-                name: "Hours Calculator",
-                url: "https://www.lizocalc.com/calculators/time/hours-calculator",
-                description:
-                  "Free hours calculator to determine the exact time duration between two times, supporting overnight calculations.",
-                mainEntityOfPage: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator",
-                },
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp#image",
-                },
-                applicationCategory: "UtilityApplication",
-                applicationSubCategory: "Time Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                softwareVersion: "1.0",
-                datePublished: "2026-04-01",
-                dateModified: "2026-05-01",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Calculate duration between two times",
-                  "Supports AM/PM format",
-                  "Handles overnight (midnight) shifts",
-                  "Provides result in decimal hours and minutes",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@id": "https://www.lizocalc.com/#org",
-                },
-                potentialAction: {
-                  "@type": "UseAction",
-                  target:
-                    "https://www.lizocalc.com/calculators/time/hours-calculator",
-                },
-              },
-
-              /* ── 7. HOWTO (AI Overview trigger) ── */
-              {
-                "@type": "HowTo",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/hours-calculator#howto",
-                name: "How to Calculate Hours Between Two Times",
-                image: {
-                  "@id":
-                    "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp#image",
-                },
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator",
-                },
-                description:
-                  "Step-by-step guide to calculating elapsed time using the LizoCalc Hours Calculator",
-                totalTime: "PT1M",
-                step: [
-                  {
-                    "@type": "HowToStep",
-                    position: 1,
-                    name: "Choose your time format",
-                    text: "Select 12-hour (AM/PM) or 24-hour format using the toggle at the top of the calculator.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 2,
-                    name: "Enter your start time",
-                    text: "Select hours (1–12), minutes (00–59), and AM or PM for your shift start time.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 3,
-                    name: "Enter your end time",
-                    text: "Repeat the same selection for your end time. For overnight shifts, select the next-day AM time — the calculator handles midnight crossover automatically.",
-                  },
-                  {
-                    "@type": "HowToStep",
-                    position: 4,
-                    name: "Read your results instantly",
-                    text: "Results appear immediately showing total duration in hours and minutes, total minutes, and decimal hours — ready for payroll or billing.",
-                  },
-                ],
-              },
-
-              /* ── 8. FAQ PAGE ── */
-              {
-                "@type": "FAQPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/time/hours-calculator#faq",
-                isPartOf: {
-                  "@id":
-                    "https://www.lizocalc.com/calculators/time/hours-calculator",
-                },
-                mainEntity: (faqData || []).map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-
-              /* ── 9. IMAGE OBJECT ── */
-              {
-                "@type": "ImageObject",
-                "@id":
-                  "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp#image",
-                url: "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp",
-                name: "Alarm Clock Showing 7:30 — Decimal Hours Conversion Illustration",
-                caption:
-                  "Minimalist alarm clock at 7:30, illustrating that 7 hours 30 minutes equals 7.50 decimal hours — not 7.30. The most common payroll conversion mistake, solved.",
-                description:
-                  "Visual aid showing the difference between clock time (7:30) and decimal hours (7.50) — a common source of payroll errors when converting minutes to decimal format for billing.",
-                width: 600,
-                height: 400,
-                contentUrl:
-                  "https://www.lizocalc.com/images/time/alarm-clock-minimal.webp",
-                encodingFormat: "image/webp",
-              },
-            ],
-          }),
-        }}
-      />
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
@@ -1170,7 +937,7 @@ export default function HoursPage() {
             </div>
             <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
               <span>📅 Published: Apr 1, 2026</span>
-              <span>🔄 Updated: May 01, 2026</span>
+              <span>🔄 Updated: Aug 20, 2026</span>
               <span>✅ Verified accurate</span>
             </div>
           </div>

@@ -84,342 +84,34 @@ export const metadata: Metadata = {
   },
 };
 
-// Structured data pulled out of the component body so JSON.stringify runs
-// once per build rather than on every render.
+// ─────────────────────────────────────────────
+//  STRUCTURED DATA (kept out of the render path)
+//  Simplified to Breadcrumb + WebPage only, matching the
+//  age-calculator schema format.
+// ─────────────────────────────────────────────
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
-    // ── 1. BREADCRUMB ──────────────────────────────────────
     {
       "@type": "BreadcrumbList",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/mass-calculator#breadcrumb",
+      "@id": "https://www.lizocalc.com/calculators/physics/mass-calculator#breadcrumb",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.lizocalc.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Calculators",
-          item: "https://www.lizocalc.com/calculators",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Physics",
-          item: "https://www.lizocalc.com/calculators/physics",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "Mass Calculator",
-          item: "https://www.lizocalc.com/calculators/physics/mass-calculator",
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Physics", item: "https://www.lizocalc.com/calculators/physics" },
+        { "@type": "ListItem", position: 4, name: "Mass Calculator", item: "https://www.lizocalc.com/calculators/physics/mass-calculator" },
       ],
     },
-
-    // ── 2. WEBPAGE ─────────────────────────────────────────
     {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/physics/mass-calculator",
       url: "https://www.lizocalc.com/calculators/physics/mass-calculator",
       name: "Mass Calculator – Find Mass from Density & Volume | LizoCalc",
-      description:
-        "Free online mass calculator using m = ρ × V. Enter density and volume in any unit and instantly get mass in kg, g, lb, or oz with step-by-step working.",
+      description: "Free online mass calculator using m = ρ × V. Enter density and volume in any unit and instantly get mass in kg, g, lb, or oz with step-by-step working.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-04-05",
-      isPartOf: {
-        "@type": "WebSite",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-      },
-      mainEntity: {
-        "@id":
-          "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-calculate-mass",
-      },
-      mainEntityOfPage: {
-        "@type": "SoftwareApplication",
-        "@id":
-          "https://www.lizocalc.com/calculators/physics/mass-calculator#app",
-      },
-    },
-
-    // ── 3. SOFTWARE APPLICATION ────────────────────────────
-    {
-      "@type": "SoftwareApplication",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/mass-calculator#app",
-      name: "Mass Calculator",
-      url: "https://www.lizocalc.com/calculators/physics/mass-calculator",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Free physics mass calculator using m = ρ × V. Calculate mass from density and volume with automatic unit conversion across kg, g, lb, oz and more.",
-      applicationCategory: "EducationalApplication",
-      applicationSubCategory: "Physics Calculator",
-      operatingSystem: "Any",
-      inLanguage: "en",
-      browserRequirements:
-        "Requires JavaScript. Works on all modern browsers.",
-      audience: {
-        "@type": "Audience",
-        audienceType: "Students, Engineers, Scientists",
-      },
-      featureList: [
-        "Calculate mass from density and volume using m = ρ × V",
-        "Supports kg, g, lb, oz, tonne, mg, carat output units",
-        "Auto unit conversion across metric and imperial systems",
-        "Step-by-step calculation breakdown",
-        "Calculation history (last 10 results)",
-        "Works offline after first load",
-        "Mobile-friendly, zero ads",
-      ],
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      creator: {
-        "@type": "Organization",
-        name: "LizoCalc",
-        url: "https://www.lizocalc.com",
-        logo: "https://www.lizocalc.com/logo.webp",
-      },
-      potentialAction: {
-        "@type": "UseAction",
-        target: [
-          "https://www.lizocalc.com/calculators/physics/mass-calculator",
-        ],
-      },
-    },
-
-    // ── 4. HOWTO #1 — How to Use the Calculator ───────────
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-use-calculator",
-      name: "How to Use the Mass Calculator",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Step-by-step guide to calculating mass from density and volume using the LizoCalc free online mass calculator.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Enter Density",
-          text: "Enter the density value in the first field (example: 7.85) and select the unit from the dropdown — kg/m³, g/cm³, lb/ft³, lb/gal, g/L, or oz/in³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Enter Volume",
-          text: "Input the volume value in the second field (example: 0.2) and choose the volume unit — m³, cm³, L, ft³, in³, gal, or ml.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Select Output Unit",
-          text: "Select your desired output mass unit from the list — kg, g, lb, mg, oz, tonne, or carat.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Click Calculate Mass",
-          text: "Click the Calculate Mass button. The calculator normalizes all inputs to SI units, applies the formula m = ρ × V, then converts the result to your selected output unit.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "View the Result",
-          text: "View the instant result in large, bold text with the applied formula shown clearly below the answer.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 6,
-          name: "Check Step-by-Step Explanation",
-          text: "Scroll below the result to see the detailed step-by-step explanation including all unit conversions performed.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 7,
-          name: "Review Calculation History",
-          text: "Open the Calculation History panel to review your last 10 results, each stored with timestamp, inputs, and units.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 8,
-          name: "Reset for Next Calculation",
-          text: "Press the Reset button to clear all fields instantly and start a fresh calculation.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "LizoCalc Mass Calculator" }],
-    },
-
-    // ── 5. HOWTO #2 — How to Calculate Mass from Density & Volume ──
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-calculate-mass",
-      name: "How to Calculate Mass from Density and Volume",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Learn the step-by-step manual method to find mass using the physics formula m = ρ × V, with a worked example.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Write Down the Formula",
-          text: "Use the formula m = ρ × V, where m is mass (kg), ρ (rho) is density (kg/m³), and V is volume (m³). This is derived from the density equation ρ = m ÷ V rearranged to make mass the subject.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Identify the Density",
-          text: "Find or look up the density of the material. Examples: water = 1000 kg/m³, steel = 7850 kg/m³, aluminium = 2700 kg/m³, gold = 19300 kg/m³, air = 1.204 kg/m³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Measure or Find the Volume",
-          text: "Measure the object's volume. For regular shapes, use geometry (length × width × height for a box). For liquids, use a graduated cylinder. For irregular objects, use water displacement.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Convert Units to Match",
-          text: "Make sure density and volume are in compatible units before calculating. Example: if density is in kg/m³ then volume must be in m³. Key conversions: 1 g/cm³ = 1000 kg/m³, 1 L = 0.001 m³, 1 ft³ = 0.0283168 m³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "Multiply Density by Volume",
-          text: "Multiply the density value by the volume value. Example: steel beam with density 7850 kg/m³ and volume 0.12 m³ → mass = 7850 × 0.12 = 942 kg.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 6,
-          name: "Write the Unit with Your Answer",
-          text: "Always write the unit alongside the numerical answer (kg, g, lb). The unit confirms your calculation is correct. If units cancel correctly, your answer is reliable.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "LizoCalc Mass Calculator" }],
-    },
-
-    // ── 6. HOWTO #3 — How to Find Mass of an Irregular Object ──
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-irregular-object",
-      name: "How to Find the Mass of an Irregular Object",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Step-by-step method to calculate the mass of any irregular-shaped object using water displacement (Archimedes' principle) and density.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Get a Graduated Cylinder",
-          text: "Fill a graduated cylinder or measuring jug with a known amount of water. Record the initial water level — for example, 200 ml.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Submerge the Object Fully",
-          text: "Carefully lower the irregular object into the water so it is fully submerged. Make sure it does not touch the sides or bottom. Use a string if needed to hold it under.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Read the New Water Level",
-          text: "Read the new water level after the object is fully submerged. Example: water rose from 200 ml to 265 ml.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Calculate the Displaced Volume",
-          text: "Subtract the initial water level from the new level. This equals the volume of your object. Example: 265 ml − 200 ml = 65 ml = 65 cm³ = 0.000065 m³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "Look Up the Material Density",
-          text: "Identify what material the object is made of and look up its density. Examples: copper = 8960 kg/m³, glass = 2500 kg/m³, rock/granite = 2700 kg/m³, iron = 7870 kg/m³.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 6,
-          name: "Enter Values in LizoCalc",
-          text: "Enter the displaced volume (65 cm³) and the material density into the LizoCalc Mass Calculator, select your output unit, and click Calculate to instantly get the mass.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 7,
-          name: "Verify the Result",
-          text: "Cross-check by weighing the object on a scale if available. The calculated mass and the weighed mass should match closely, confirming both your volume measurement and material density were accurate.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "LizoCalc Mass Calculator" }],
-    },
-
-    // ── 7. HOWTO #4 — How to Convert Mass Units ───────────
-    {
-      "@type": "HowTo",
-      "@id":
-        "https://www.lizocalc.com/calculators/physics/mass-calculator#howto-convert-units",
-      name: "How to Convert Mass Units (kg, g, lb, oz, tonne)",
-      image: "https://www.lizocalc.com/logo.webp",
-      description:
-        "Step-by-step guide to converting mass between metric and imperial units with key conversion factors and worked examples.",
-      step: [
-        {
-          "@type": "HowToStep",
-          position: 1,
-          name: "Identify Your Starting Unit",
-          text: "Note which unit your mass is currently in. Common units: kilograms (kg), grams (g), milligrams (mg), pounds (lb), ounces (oz), tonnes (t), carats (ct).",
-        },
-        {
-          "@type": "HowToStep",
-          position: 2,
-          name: "Choose Your Target Unit",
-          text: "Decide which unit you need to convert to. For scientific work use kg. For US/UK everyday use choose lb or oz. For very small masses use mg or g.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 3,
-          name: "Apply the Correct Conversion Factor",
-          text: "Use these exact conversion factors: 1 kg = 1000 g | 1 kg = 2.20462 lb | 1 kg = 35.274 oz | 1 lb = 453.592 g | 1 lb = 16 oz | 1 tonne = 1000 kg | 1 carat = 0.0002 kg | 1 oz = 28.3495 g.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 4,
-          name: "Multiply or Divide",
-          text: "To convert to a smaller unit multiply (kg → g: multiply by 1000). To convert to a larger unit divide (g → kg: divide by 1000). Example: 5 kg to pounds = 5 × 2.20462 = 11.023 lb.",
-        },
-        {
-          "@type": "HowToStep",
-          position: 5,
-          name: "Use LizoCalc for Instant Conversion",
-          text: "For automatic conversion without manual calculation, enter your density and volume into LizoCalc Mass Calculator, select your desired output unit (kg, g, lb, oz, tonne, mg, or carat), and the result is instantly converted for you.",
-        },
-      ],
-      tool: [{ "@type": "HowToTool", name: "LizoCalc Mass Calculator" }],
-    },
-
-    // ── 8. FAQ PAGE ────────────────────────────────────────
-    {
-      "@type": "FAQPage",
-      mainEntity: faqData.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.answer,
-        },
-      })),
+      dateModified: "2026-08-20",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/physics/mass-calculator#breadcrumb" },
     },
   ],
 };
@@ -429,13 +121,8 @@ export default function MassCalculatorPage() {
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === STRUCTURED JSON-LD DATA ===
-          Switched from next/script (strategy="beforeInteractive") to a
-          plain <script> tag. JSON-LD never executes, so it never needed
-          Next's script-loading machinery — beforeInteractive was forcing
-          it into the render-blocking path, flagged as "Render-blocking
-          requests — est savings 1,420ms" on mobile. */}
       <script
+        id="structured-data-mass-calculator"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
@@ -691,14 +378,6 @@ export default function MassCalculatorPage() {
             Science.
           </p>
 
-          {/*
-            FIX: these three cards were <h4> directly under the section's
-            <h2>, with no <h3> in between — a heading-level skip that
-            Lighthouse flags as "Heading elements are not in a
-            sequentially-descending order". Changed to <h3> so the
-            hierarchy reads h2 → h3 → h3 → h3, matching every other
-            section on the page.
-          */}
           <div className="grid md:grid-cols-3 gap-6 mt-8">
             <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
               <h3 className="text-xl font-bold text-blue-300 mb-3">
