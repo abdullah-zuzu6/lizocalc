@@ -86,7 +86,7 @@ export default function Home() {
 
   const physics = [
     { slug: 'density-calculator' }, { slug: 'speed-calculator' },
-    { slug: 'mass-calculator' }, { slug: 'weight-calculator' }
+    { slug: 'mass-calculator' },
   ].map(c => ({ name: formatName(c.slug), href: `/calculators/physics/${c.slug}` }))
 
   const faqJsonLd = {
