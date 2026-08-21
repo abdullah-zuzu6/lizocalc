@@ -1,49 +1,54 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import MassCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
+import AuthorBio from "@/components/AuthorBio";
+
+
 
 const faqData = [
   {
     question: "What is the formula to find mass using density and volume?",
     answer:
-      "To find the mass of an object, you multiply its density by its volume. The standard formula is $m = \\rho \\times V$, where $m$ is mass, $\\rho$ (rho) is density, and $V$ is volume. For example, if you have 2 liters ($2,000 cm^3$) of water with a density of $1 g/cm^3$, the mass is exactly $2,000 grams$ or $2 kilograms$.",
+      "Multiply density by volume: m = ρ × V. m is mass, ρ (rho) is density, and V is volume. Say you've got 2 liters of water, that's 2,000 cm³, and water's density is 1 g/cm³. Multiply those and you get 2,000 grams, or 2 kg. Simple as that.",
   },
   {
     question: "What is the difference between mass and weight?",
     answer:
-      "Mass is the amount of matter in an object and remains constant anywhere in the universe. Weight, however, is the force of gravity acting on that mass. The relationship is defined by $W = m \\times g$. While your mass is the same on Earth and the Moon, you would weigh much less on the Moon because its gravitational acceleration ($g$) is only about $1.62 m/s^2$ compared to Earth's $9.8 m/s^2$.",
+      "Mass is how much matter is in something, and it doesn't change no matter where you are. Weight is gravity pulling on that mass, so it does change. The formula is W = m × g. Your mass on the Moon is identical to your mass on Earth, but you'd weigh a lot less there because the Moon's gravity, about 1.62 m/s², is much weaker than Earth's 9.8 m/s².",
   },
   {
     question: "How do you calculate the mass of a chemical solution?",
     answer:
-      "In chemistry, mass is often calculated using molar mass and the number of moles. The formula is $m = n \\times M$, where $n$ is the amount of substance in moles and $M$ is the molar mass (g/mol). For instance, to find the mass of 2 moles of Water ($H_2O$), you multiply 2 by its molar mass ($18.015 g/mol$) to get $36.03 grams$.",
+      "In chemistry you usually work from moles and molar mass: m = n × M, where n is the number of moles and M is the molar mass in g/mol. Take 2 moles of water. Water's molar mass is 18.015 g/mol, so 2 × 18.015 gives you 36.03 grams.",
   },
   {
     question: "How can I find mass if I only know force and acceleration?",
     answer:
-      "Based on Newton's Second Law of Motion, mass can be determined if you know the force applied and the resulting acceleration. By rearranging $F = m \\times a$, we get $m = F / a$. If a force of $50 Newtons$ causes an object to accelerate at $5 m/s^2$, the mass of that object is $10 kg$.",
+      "That's Newton's second law rearranged. F = m × a becomes m = F / a. So if a 50 newton force accelerates something at 5 m/s², divide 50 by 5 and the mass comes out to 10 kg.",
   },
   {
     question: "Why is mass considered an 'intrinsic property' of matter?",
     answer:
-      "Mass is intrinsic because it does not depend on external factors like location, temperature, or pressure. Unlike volume, which can change if you heat a gas, or weight, which changes based on gravity, the number of atoms and molecules (the mass) stays the same unless matter is physically added or removed.",
+      "Because it doesn't budge when the surroundings do. Heat a gas and its volume changes. Move to another planet and your weight changes. But the actual amount of matter, the mass, stays put unless you physically add or remove some of it.",
   },
   {
     question: "How do you convert between Imperial and Metric mass units?",
     answer:
-      "Mass calculators typically use conversion factors to switch between systems. To convert pounds (lbs) to kilograms (kg), you multiply by $0.453592$. Conversely, to go from kilograms to pounds, you multiply by $2.20462$. For example, a $150 lb$ person has a mass of approximately $68.04 kg$.",
+      "Multiply pounds by 0.453592 to get kilograms, or multiply kilograms by 2.20462 to get pounds back. A 150 lb person, for example, comes out to roughly 68.04 kg.",
   },
 ];
+ 
 
 export const metadata: Metadata = {
   title: "Mass Calculator – Find Mass from Density & Volume ",
 
   description:
-    "Free online mass calculator using m = ρ × V. Instantly calculate mass from density and volume with unit conversion (kg, g, lb, oz). Step-by-step results for students & engineers.",
+    "Free online mass calculator using m = ρ × V. Instantly calculate mass from density and volume with unit conversion (kg, g, lb, oz).",
 
   keywords: [
     "mass calculator",
@@ -116,9 +121,32 @@ const structuredData = {
   ],
 };
 
+// Small reusable "textbook style" fraction — numerator over denominator,
+// used instead of the ÷ sign wherever the source content divides.
+function Fraction({ numerator, denominator }: { numerator: string; denominator: string }) {
+  return (
+    <span className="inline-flex flex-col items-center mx-1.5 align-middle text-green-300 leading-tight">
+      <span className="px-1.5 pb-0.5 border-b-2 border-green-300">{numerator}</span>
+      <span className="px-1.5 pt-0.5">{denominator}</span>
+    </span>
+  );
+}
+
+const tocItems = [
+  { id: "what-is-mass", label: "What is Mass" },
+  { id: "mass-formula", label: "What is the Formula for Mass" },
+  { id: "mass-from-volume", label: "How to Find Mass from Volume" },
+  { id: "mass-from-density", label: "How to Find Mass from Density" },
+  { id: "mass-vs-weight", label: "Why is Mass Different from Weight" },
+  { id: "mass-examples", label: "Mass Calculation Examples" },
+];
+
 export default function MassCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
+      {/* Smooth-scroll for the in-page jump links below */}
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
 
       <script
@@ -127,18 +155,22 @@ export default function MassCalculatorPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Mass Calculator - Mass in Multiple Units
-            </h1>
-          </div>
-          <ShareBar/>
-        </div>
-      </section>
+     {/* Hero Section */}
+<section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
+  <div className="max-w-6xl mx-auto">
+    <div className="flex items-center gap-3">
+      <h1 className="text-3xl md:text-4xl font-bold">
+        Mass Calculator
+      </h1>
+    </div>
 
+    <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+      Calculate mass easily using density and volume.
+    </p>
+
+    <ShareBar />
+  </div>
+</section>
       {/* Calculator Tool */}
       <section className="px-4 py-8">
         <MassCalculator />
@@ -146,444 +178,288 @@ export default function MassCalculatorPage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Mass Calculator</strong> — powered by the fundamental
-          relationship between mass, density, and volume — is an
-          indispensable tool for physics students, engineers, and anyone
-          dealing with material properties. Mass tells us how much matter is
-          present in an object, and when combined with density and volume, it
-          becomes the key to solving countless problems in mechanics,
-          buoyancy, material selection, and everyday science.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A <strong>mass calculator</strong> is use to calculate the mass of
+          an object by using density and volume. The logic behind it is very
+          simple if know the right formula for mass calculation, you can do
+          it by hand in very few minutes.
         </p>
 
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          Our completely free, no-registration-required{" "}
-          <strong>mass calculator</strong> handles everything instantly.
-          Simply enter density and volume (or mass and density to find
-          volume), select your units (kg/m³, g/cm³, lb/ft³, lb/gal, and many
-          more), and get the mass in your chosen unit — complete with
-          automatic unit conversion, step-by-step working, formula
-          highlighting, and a calculation history that saves your last 10
-          results (with consent). Fully mobile-friendly, works offline after
-          first load, supports irregular objects via displacement, and zero
-          ads. Ideal for exam prep, lab reports, or quick checks. Try it now
-          on our{" "}
-          <Link
-            href="/calculators/physics/mass-calculator"
-            className="text-blue-300 underline underline-offset-2 hover:text-blue-200 font-semibold"
-          >
-            Mass Calculator page
-          </Link>
-          .
-        </p>
 
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate Mass with Our Online Tool
+        {/* Jump-to-section navigation block */}
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio/>
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
-
-          <div className="mt-8 space-y-10">
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Quick &amp; Easy Step-by-Step Guide
-              </h3>
-              <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-                <li>
-                  Enter the density value in the first field (example:{" "}
-                  <code>7.85</code>) and select the unit (kg/m³, g/cm³,
-                  lb/ft³, etc.).
-                </li>
-                <li>
-                  Input the volume in the second field (example:{" "}
-                  <code>0.2</code> m³ or cm³) and choose its unit.
-                </li>
-                <li>Select your desired output mass unit (kg, g, lb, etc.).</li>
-                <li>
-                  Click the prominent <strong>Calculate Mass</strong> button.
-                </li>
-                <li>
-                  View the instant result in large, bold text with the
-                  applied formula shown clearly.
-                </li>
-                <li>
-                  Check below for detailed step-by-step explanation and any
-                  unit conversions performed.
-                </li>
-                <li>
-                  Review past calculations? Open the{" "}
-                  <strong>Calculation History</strong> panel — your recent
-                  results are stored automatically.
-                </li>
-                <li>
-                  Ready for the next problem? Press <strong>Reset</strong> to
-                  clear the fields instantly.
-                </li>
-              </ol>
-              <p className="text-gray-200 italic mt-6 text-base leading-relaxed">
-                Pro tip: The calculator normalizes all units internally (to SI
-                where needed), warns about zero volume, rejects invalid
-                inputs, and remembers your favorite units for faster workflow
-                during long study sessions or lab work.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            The Physics of Mass: Understanding the Formula{" "}
-            <span className="font-mono text-green-300">m = ρ × V</span>
-          </h2>
-
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            Mass (m) is the amount of matter in an object and remains
-            constant regardless of location. It is calculated using density
-            (ρ) and volume (V):
-          </p>
-          <p className="text-center text-3xl font-mono text-green-300 my-6">
-            m = ρ × V
-          </p>
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            This is the rearranged form of the density formula (ρ = m / V).
-            Mass is an intrinsic property, unlike weight, which depends on
-            gravity.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Understanding the Relationship Between Mass, Volume, and Density
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            Density describes how tightly packed the matter is. Higher
-            density means more mass in the same volume. Lower density objects
-            (like wood or ice) float in higher density fluids (like water).
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Converting Density and Volume to Mass Instantly
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            Our tool handles complex conversions automatically. Example:
-            Density 7850 kg/m³, Volume 0.05 m³ → Mass = 392.5 kg.
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Extensive Unit Support: From Metric to Imperial Systems
-          </h2>
-
-          <div className="overflow-x-auto mt-8 mb-12">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Quantity</th>
-                  <th className="p-4 text-left font-semibold">
-                    Supported Units
-                  </th>
-                  <th className="p-4 text-left font-semibold">SI Base</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">Density</td>
-                  <td className="p-4">
-                    kg/m³, g/cm³, lb/ft³, lb/gal, g/L, oz/in³
-                  </td>
-                  <td className="p-4">kg/m³</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Volume</td>
-                  <td className="p-4">m³, cm³, L, ft³, in³, gal, ml</td>
-                  <td className="p-4">m³</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Mass</td>
-                  <td className="p-4">kg, g, lb, mg, oz, tonne, carat</td>
-                  <td className="p-4">kg</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            How to Use Different Units Like lb/gal, kg/m³, and cm³
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed">
-            Enter any combination — the calculator converts internally. Key
-            conversions: 1 g/cm³ = 1000 kg/m³, 1 lb/ft³ ≈ 16.0185 kg/m³, 1
-            lb/gal ≈ 119.826 kg/m³.
-          </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
-            How does the calculator handle unit normalization?
-          </h4>
-          <p className="text-gray-200 text-base">
-            All inputs are converted to SI units (kg, m³), calculation is
-            performed, then output is converted to your selected unit —
-            ensuring maximum accuracy even across mixed systems.
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Step-by-Step Calculation Examples for Students
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Calculating the Mass of Liquids vs. Solids
-          </h3>
-          <p className="text-gray-200 text-base">
-            Solids: Use measured volume or dimensions. Liquids: Use graduated
-            cylinder for volume. Example (liquid): Density of diesel 850
-            kg/m³, 5 L (0.005 m³) → Mass = 4.25 kg.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            How to Find the Mass of an Object in Kilograms, Grams, or Pounds
-          </h3>
-          <p className="text-gray-200 text-base">
-            Enter density and volume, select output unit. Irregular object:
-            Use water displacement for volume.
-          </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
-            Example 1: Steel Beam (Metric)
-          </h4>
-          <p className="text-gray-200 text-base font-mono">
-            Density = 7850 kg/m³, Volume = 0.12 m³
-            <br />
-            m = 7850 × 0.12 = <strong>942 kg</strong>
-          </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
-            Example 2: Gasoline Barrel (Imperial to Metric)
-          </h4>
-          <p className="text-gray-200 text-base font-mono">
-            Density = 6.3 lb/gal, Volume = 55 gal
-            <br />
-            Mass = 6.3 × 55 = <strong>346.5 lb</strong> (≈ 157.2 kg)
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Advanced Rearrangements &amp; Related Formulas Every Student
-            Should Know
-          </h2>
-
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            The mass formula is just one piece of the puzzle. Mastering all
-            three rearrangements helps you solve almost every numerical in
-            chapters like Properties of Matter, Fluid Statics, and Material
-            Science.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-3">
-                Find Mass
-              </h3>
-              <p className="text-center text-2xl font-mono text-green-300 my-4">
-                m = ρ × V
-              </p>
-              <p className="text-gray-200 text-sm">
-                Most common use — given density &amp; volume
-              </p>
-            </div>
-
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-3">
-                Find Density
-              </h3>
-              <p className="text-center text-2xl font-mono text-green-300 my-4">
-                ρ = m / V
-              </p>
-              <p className="text-gray-200 text-sm">
-                Used in lab experiments &amp; identification of substances
-              </p>
-            </div>
-
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-3">
-                Find Volume
-              </h3>
-              <p className="text-center text-2xl font-mono text-green-300 my-4">
-                V = m / ρ
-              </p>
-              <p className="text-gray-200 text-sm">
-                Helpful in buoyancy &amp; capacity problems
-              </p>
-            </div>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Related Important Formulas in Physics
-          </h3>
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base ml-5">
-            <li>
-              Weight →{" "}
-              <span className="font-mono text-green-300">W = m × g</span> (g
-              ≈ 9.81 m/s² in Pakistan)
-            </li>
-            <li>
-              Buoyant force →{" "}
-              <span className="font-mono text-green-300">
-                F_b = ρ_fluid × V_submerged × g
-              </span>
-            </li>
-            <li>
-              Relative density / Specific gravity →{" "}
-              <span className="font-mono text-green-300">
-                RD = ρ_substance / ρ_water
-              </span>{" "}
-              (dimensionless)
-            </li>
-            <li>Percentage relative density → RD × 100%</li>
-            <li>
-              Apparent weight in liquid →{" "}
-              <span className="font-mono text-green-300">
-                W_app = W - F_b
-              </span>
-            </li>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
+        </nav>
 
-          <p className="text-gray-200 italic mt-6">
-            Pro tip for board exams: Always write the formula first with
-            units, substitute values with correct units, then solve. This
-            habit can save 2–3 marks per question.
+        {/* What is mass */}
+        <section id="what-is-mass" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            What is Mass
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Mass is the amount of matter in an object. It&apos;s measured in
+            kilograms (kg) in the <strong>SI system</strong>, or grams (g)
+            for smaller amounts. For example a brick or block, a bag of
+            sugar, a car engine. The most common thing for each that they
+            have a fixed mass that does not change if you change it from one
+            place to another.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Mass is not the same as <strong>weight</strong>, this is the most
+            common error when people think that both mass and weight are
+            same. So before using this mass calculator keep the thing that
+            you are using this for mass calculation on the basis of density
+            and volume, not measuring weight.
           </p>
         </section>
 
-        <section className="mt-20">
+        {/* What is the formula for mass */}
+        <section id="mass-formula" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Real-World Applications of Mass and Density Calculations
+            What is the Formula for Mass
           </h2>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Standard Density Reference Values for Common Materials
-          </h3>
-          <div className="overflow-x-auto mt-8 mb-12">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Material</th>
-                  <th className="p-4 text-left font-semibold">
-                    Density (kg/m³)
-                  </th>
-                  <th className="p-4 text-left font-semibold">
-                    Density (g/cm³)
-                  </th>
-                  <th className="p-4 text-left font-semibold">Notes</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">Air (20°C)</td>
-                  <td className="p-4">1.204</td>
-                  <td className="p-4">0.001204</td>
-                  <td className="p-4">Dry air</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Water (4°C)</td>
-                  <td className="p-4">1000</td>
-                  <td className="p-4">1.000</td>
-                  <td className="p-4">Maximum density</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Ice (0°C)</td>
-                  <td className="p-4">917</td>
-                  <td className="p-4">0.917</td>
-                  <td className="p-4">Floats on water</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Gasoline</td>
-                  <td className="p-4">720–775</td>
-                  <td className="p-4">0.72–0.775</td>
-                  <td className="p-4">Approx. 737</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Aluminium</td>
-                  <td className="p-4">2700</td>
-                  <td className="p-4">2.70</td>
-                  <td className="p-4">Light metal</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Steel / Iron</td>
-                  <td className="p-4">7850</td>
-                  <td className="p-4">7.85</td>
-                  <td className="p-4">Common structural</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Gold</td>
-                  <td className="p-4">19300</td>
-                  <td className="p-4">19.30</td>
-                  <td className="p-4">Very dense</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Mercury</td>
-                  <td className="p-4">13600</td>
-                  <td className="p-4">13.60</td>
-                  <td className="p-4">Liquid metal</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="md:float-right md:ml-8 mb-6 w-full max-w-[260px] mx-auto md:mx-0">
+            <Image
+              src="/images/physics/mass-formula-pic.webp"
+              alt="Mass formula diagram"
+              width={400}
+              height={400}
+              className="w-full h-auto rounded-xl border border-gray-700"
+            />
           </div>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Everyday &amp; Professional Uses of Mass Calculations
-          </h3>
-
-          <div className="grid md:grid-cols-2 gap-6 mt-6">
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-bold text-blue-300 mb-3">
-                School / College Level
-              </h4>
-              <ul className="list-disc list-inside text-gray-200 space-y-2 text-base">
-                <li>Verifying purity of metals (gold, copper) in practicals</li>
-                <li>
-                  Calculating buoyant force in Archimedes’ principle
-                  experiments
-                </li>
-                <li>Finding volume of irregular objects (stone, wooden block)</li>
-                <li>Solving numericals on floating &amp; sinking</li>
-                <li>Comparing densities in identification tests</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-bold text-blue-300 mb-3">
-                Engineering &amp; Industry
-              </h4>
-              <ul className="list-disc list-inside text-gray-200 space-y-2 text-base">
-                <li>Estimating weight of steel beams, concrete, and rebar</li>
-                <li>Fuel quantity calculation in tanks (kg or tonnes)</li>
-                <li>Material requirement for casting, forging, 3D printing</li>
-                <li>Checking if a ship/submarine will float (average density)</li>
-                <li>Quality control in pharmaceutical &amp; chemical industries</li>
-              </ul>
-            </div>
-          </div>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-10 mb-3">
-            Quick Real-Life Example: Petrol Pump Scam Check
-          </h4>
-          <p className="text-gray-200 text-base">
-            Petrol density ≈ 730–750 kg/m³. If a 20-liter (0.02 m³) dispenser
-            gives you only 14 kg instead of expected ~15 kg, it may be
-            delivering less fuel. Use our calculator to verify quickly.
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            There are 3 formulas for mass calculation:
           </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Using Calculation History to Track Your Physics Lab Results
-          </h3>
-          <p className="text-gray-200 text-base">
-            Save time in labs: Every calculation is logged with timestamp,
-            inputs, and units. Reload any entry to repeat or compare — great
-            for error checking or reporting.
+          <ol className="list-decimal list-inside text-gray-200 space-y-3 text-base mb-6">
+            <li>
+              <strong>From density and volume</strong>: m = ρ × V
+            </li>
+            <li>
+              <strong>From force and acceleration</strong> (Newton&apos;s
+              second law): m ={" "}
+              <Fraction numerator="F" denominator="a" />
+            </li>
+            <li>
+              <strong>From moles and molar mass</strong> (chemistry): m = n ×
+              M
+            </li>
+          </ol>
+
+          <p className="text-gray-200 leading-relaxed text-base clear-none">
+            In the first formula, <strong>ρ (rho)</strong> stands for  <Link
+                href="/info/physics/density"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                density 
+              </Link>, usually in kg/m³ or g/cm³, and V is volume, and this is
+            the formula that we use in this calculator, you can select the
+            different units for volume and density as well and also can
+            select multiple units for calculated mass outputs. In the
+            second, F is force in newtons and a is acceleration in m/s². In
+            the third, n is the number of moles and M is molar mass in g/mol.
           </p>
         </section>
 
-        <section className="mt-20">
+        {/* How to find mass from volume */}
+        <section id="mass-from-volume" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Find Mass from Volume
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Only volume can not give you mass. You also need density,
+            because mass and volume relate through density:{" "}
+            <strong>m = ρ × V</strong>.
+          </p>
+
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-6">
+            <h3 className="text-lg font-semibold text-blue-300 mb-4">
+              Steps:
+            </h3>
+            <ol className="list-decimal list-inside text-gray-200 space-y-3 text-base">
+              <li>Measure or look up the volume of the object, in m³ or cm³.</li>
+              <li>Find the density of the material, in kg/m³ or g/cm³.</li>
+              <li>Just simple Multiply.</li>
+            </ol>
+          </div>
+
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: a block of oak measures 0.02 m³. Oak has a density of
+            about 750 kg/m³.
+          </p>
+          <p className="text-gray-200 font-mono text-lg mb-4">
+            m = 750 × 0.02 = 15 kg
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Same block made of lead (density 11,340 kg/m³) would have a mass
+            of 226.8 kg, even though the volume is identical. Volume actually
+            tells you the size. <strong>Density</strong> tells you what
+            fills that size.
+          </p>
+        </section>
+
+        {/* How to find mass from density */}
+        <section id="mass-from-density" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Find Mass from Density
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            This is the same formula used in reverse when volume is unknown.
+            However, most density-to-mass problems give you the density and
+            volume first, so you can simply multiply them to find the mass:
+          </p>
+
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-6">
+            <ol className="list-decimal list-inside text-gray-200 space-y-3 text-base">
+              <li>First confirm the density value and its units.</li>
+              <li>
+                Then confirm the volume set units according to the
+                density&apos;s units (convert cm³ to m³, or g/cm³ to kg/m³,
+                as needed).
+              </li>
+              <li>After this just multiply density by volume.</li>
+            </ol>
+          </div>
+
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: seawater has a density of roughly 1,025 kg/m³. A
+            container holding 0.5 m³ of seawater has a mass of:
+          </p>
+          <p className="text-gray-200 font-mono text-lg mb-4">
+            m = 1,025 × 0.5 = 512.5 kg
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Fresh water, at a density of 1,000 kg/m³, would give 500 kg for
+            the same volume. The 25 kg difference comes entirely from
+            dissolved salt.
+          </p>
+        </section>
+
+        {/* Why is mass different from weight */}
+        <section id="mass-vs-weight" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Why is Mass Different from Weight
+          </h2>
+
+          <div className="md:float-right md:ml-8 mb-6 w-full max-w-[260px] mx-auto md:mx-0">
+            <Image
+              src="/images/physics/mass-vs-weight.webp"
+              alt="Mass vs weight comparison"
+              width={400}
+              height={400}
+              className="w-full h-auto rounded-xl border border-gray-700"
+            />
+          </div>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Mass basically calculate the matter. Weight measures the force
+            gravity exerts on that matter.{" "}
+            <strong>Weight = mass × gravitational</strong> acceleration (W =
+            mg).
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            On <strong>Earth</strong>, gravitational acceleration is about{" "}
+            <strong>9.81 m/s².</strong> But on the Moon, it is about{" "}
+            <strong>1.62 m/s²</strong> which is one-sixth of Earth&apos;s
+            gravitational acceleration. A 70 kg astronaut has a mass of 70 kg
+            everywhere, but when we talk about weight then it is about 686
+            newtons on Earth and only about 113 newtons on the{" "}
+            <strong>Moon</strong>.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed text-base clear-none">
+            This is why a mass calculator that works from weight needs the
+            correct gravitational acceleration for the location like moon,
+            mars etc. If you calculate mass from density and volume and you
+            think do measured weight then it is incorrect.
+          </p>
+        </section>
+
+        {/* Mass calculation examples */}
+        <section id="mass-examples" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Mass Calculation Examples
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">
+                <strong>Example 1: Volume and density.</strong>
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                A cube of aluminum is 0.1 m on each side, so its volume is
+                0.001 m³. Since aluminum has a density of 2,700 kg/m³:
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">
+                <strong>m</strong> = 2,700 × 0.001 = 2.7 kg
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">
+                <strong>Example 2: Weight and gravity.</strong>
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                A package weighs 98.1 N on Earth. Since Earth&apos;s gravity
+                is about 9.81 m/s²:
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg flex items-center justify-center flex-wrap">
+                <strong>m</strong>&nbsp;=&nbsp;
+                <Fraction numerator="98.1" denominator="9.81" />
+                &nbsp;= 10 kg
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">
+                <strong>Example 3: Moles and molar mass.</strong>
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                A chemistry sample contains 2.5 moles of sodium chloride
+                (NaCl). Its molar mass is 58.44 g/mol:
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">
+                <strong>m</strong> = 2.5 × 58.44 = 146.1 g
+              </p>
+            </div>
+          </div>
+
+          <p className="text-gray-200 leading-relaxed mt-8 text-base">
+            The point is very simple, first select the formula that you want
+            to use, and just calculate according to these one.See the relationship between  <Link
+                href="/info/physics/mass-volume-density-relationship"
+                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+              >
+                mass, density, and volume.
+              </Link>
+          </p>
+        </section>
+
+        {/* <section className="mt-4">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             More Physics Tools to Explore
           </h2>
@@ -603,13 +479,7 @@ export default function MassCalculatorPage() {
               — find density from mass and volume
             </li>
           </ul>
-
-          <p className="text-gray-200 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Master mass, density, and volume today — our free mass calculator
-            is accurate, unit-smart, fast, and always available for your next
-            physics problem, board exam, or engineering task.
-          </p>
-        </section>
+        </section> */}
       </article>
 
       <FAQ items={faqData} />

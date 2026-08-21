@@ -362,31 +362,7 @@ export default function MassCalculator() {
           </div>
         </div>
 
-        {/* Informational Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-6 bg-card border rounded-2xl space-y-3">
-            <h3 className="font-black uppercase text-sm flex items-center gap-2">
-              <BarChart3 size={18} className="text-blue-600" /> Theory
-            </h3>
-            <p className="text-sm text-gray-300 leading-relaxed">
-              The mass ($m$) of an object is the product of its density
-              ($\rho$) and its volume ($V$). The fundamental physics formula
-              is $m = \rho \times V$. This is essential for determining the
-              amount of matter in a specific space.
-            </p>
-          </div>
-          <div className="p-6 bg-card border rounded-2xl space-y-3 text-sm">
-            <h3 className="font-black uppercase text-sm">Pro Tip</h3>
-            <ul className="space-y-2 text-gray-300 list-disc list-inside">
-              <li>
-                Ensure your density and volume units match your application
-                requirements.
-              </li>
-              <li>SI standard mass is measured in kilograms (kg).</li>
-            </ul>
-          </div>
-        </div>
-
+     
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
     </div>

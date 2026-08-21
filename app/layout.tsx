@@ -83,10 +83,7 @@ export const metadata: Metadata = {
     },
   },
 
-  // Replace with your actual Search Console verification code once you have it
-  // verification: {
-  //   google: "your-google-site-verification-code",
-  // },
+  
 };
 
 export const viewport: Viewport = {
@@ -102,6 +99,7 @@ export default function RootLayout({
   const organizationStructuredData = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${BASE_URL}/#organization`,
     name: "LizoCalc",
     alternateName: "Lizo Calc",
     url: BASE_URL,
@@ -115,8 +113,10 @@ export default function RootLayout({
   const websiteStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": `${BASE_URL}/#website`,
     name: "LizoCalc",
     url: BASE_URL,
+    publisher: { "@id": `${BASE_URL}/#organization` },
     potentialAction: {
       "@type": "SearchAction",
       target: `${BASE_URL}/search?q={search_term_string}`,

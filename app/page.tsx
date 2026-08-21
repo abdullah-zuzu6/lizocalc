@@ -89,6 +89,18 @@ export default function Home() {
     { slug: 'mass-calculator' },
   ].map(c => ({ name: formatName(c.slug), href: `/calculators/physics/${c.slug}` }))
 
+  const webPageStructuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${BASE_URL}/#webpage`,
+    url: BASE_URL,
+    name: 'LizoCalc - Free Online Calculators',
+    description:
+      "Use LizoCalc's free online calculators for health, math, finance, physics and time. Fast, accurate, no signup required.",
+    isPartOf: { '@id': `${BASE_URL}/#website` },
+    about: { '@id': `${BASE_URL}/#organization` },
+  }
+
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -104,6 +116,10 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageStructuredData) }}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
