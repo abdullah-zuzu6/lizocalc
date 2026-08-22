@@ -99,31 +99,6 @@ export default function Footer() {
                 </Link>
               </li>
 
-              <li>
-                <Link
-                  href="https://www.instagram.com/lizocalc/?hl=en"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  prefetch={false}
-                  className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
-                >
-                  <Instagram className="w-4 h-4" aria-hidden="true" />
-                  Instagram
-                </Link>
-              </li>
-
-              <li>
-                <Link
-                  href="https://www.youtube.com/channel/UCJiKjUqHhQ8JLlyn3fPyjhQ"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  prefetch={false}
-                  className="text-muted-foreground hover:text-primary transition-colors flex items-center gap-2"
-                >
-                  <Youtube className="w-4 h-4" aria-hidden="true" />
-                  YouTube
-                </Link>
-              </li>
             </ul>
           </div>
 

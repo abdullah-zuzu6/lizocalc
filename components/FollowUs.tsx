@@ -12,16 +12,6 @@ const socialLinks = [
     href: 'https://www.facebook.com/profile.php?id=61573367673248',
     Icon: Facebook,
   },
-  {
-    name: 'Instagram',
-    href: 'https://www.instagram.com/lizocalc/?hl=en',
-    Icon: Instagram,
-  },
-  {
-    name: 'YouTube',
-    href: 'https://www.youtube.com/channel/UCJiKjUqHhQ8JLlyn3fPyjhQ',
-    Icon: Youtube,
-  },
 ]
 
 export default function FollowUs() {

@@ -11,7 +11,7 @@ import FollowUs from '@/components/FollowUs'
 const BASE_URL = 'https://www.lizocalc.com'
 
 export const metadata: Metadata = {
-  title: 'LizoCalc - Free Online Calculators.',
+  title: 'LizoCalc - Free Calculators for Financial, Fitness & Math and More',
   description:
     "Use LizoCalc's free online calculators for health,math,finance,physics and time etc. Fast, accurate, no signup required.",
   alternates: {
@@ -171,18 +171,24 @@ export default function Home() {
 
       <section className="max-w-6xl mx-auto px-6 py-16 text-white">
         <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-          LizoCalc - A Calcuator Platform
+          LizoCalc - A Calculator Platform
         </h2>
 
         <p className="text-gray-200 leading-relaxed mb-6">
-          LizoCalc brings finance, health, math, physics, and time calculators together
-          in one fast, ad-light interface. Every tool gives an instant, accurate result
-          without forcing you to sign up or hunt across different sites.
+          LizoCalc is a website with free calculators for finance, health, math, physics,
+          and time. Our goal is simple: make every calculator accurate, fast, and genuinely
+          useful, and keep it different from the sites you&apos;ve tried before. We&apos;re
+          adding new calculators all the time. Use any of them without logging in or handing
+          over your data.
         </p>
 
         <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-4">
           What you can calculate here
         </h3>
+
+        <p className="text-gray-200 leading-relaxed mb-6">
+          Right now we have more than 50 calculators, and that number keeps growing.
+        </p>
 
         <ul className="list-disc list-inside text-gray-200 space-y-2 mb-8">
           <li><strong>Financial:</strong> mortgages, loans, compound interest, inflation</li>
@@ -193,7 +199,7 @@ export default function Home() {
         </ul>
 
         <p className="text-gray-200 leading-relaxed">
-          Every calculator runs client-side in your browser — nothing you enter is
+          Every calculator runs client-side in your browser. Nothing you enter is
           stored or sent anywhere, and no account is required.
         </p>
 
@@ -201,27 +207,25 @@ export default function Home() {
           Why people choose LizoCalc
         </h3>
 
-        <p className="text-gray-200 leading-relaxed mb-6">
-          Most calculator sites make you dig through pop-ups, wait for slow pages to
-          load, or create an account just to see a simple result. LizoCalc skips all
-          of that. Open a calculator, type your numbers, and get your answer right
-          away — that&apos;s the whole experience.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed mb-6">
-          We also don&apos;t split things across ten different websites. Whether you
-          need to check your BMI, work out a loan payment, or find the days left
-          until an event, it&apos;s all in one place, built with the same simple
-          design. So once you&apos;re used to one calculator, the rest feel familiar
-          too.
-        </p>
-
-        <p className="text-gray-200 leading-relaxed">
-          Your privacy matters to us as well. Since every calculation happens right
-          in your browser, we never see or save what you type. No hidden tracking,
-          no data collection — just a tool that does its job and gets out of your
-          way.
-        </p>
+        <ol className="list-decimal list-inside text-gray-200 space-y-4">
+          <li className="leading-relaxed">
+            Most calculator sites make you dig through pop-ups, wait for slow pages to load,
+            or create an account just to see one number. LizoCalc skips all of that. Open a
+            calculator, type your numbers, get your answer. That&apos;s the whole experience,
+            and user experience is our first priority.
+          </li>
+          <li className="leading-relaxed">
+            We also don&apos;t split things across ten different websites. Whether you need
+            to check your BMI, work out a loan payment, or find the days between two dates,
+            it&apos;s all in one place, built with the same simple design. Once you&apos;re
+            used to one calculator, the rest feel familiar too.
+          </li>
+          <li className="leading-relaxed">
+            Your privacy matters to us. Every calculation runs right in your browser, so what
+            you type never leaves your device. No hidden tracking, no data collection, just a
+            tool that does its job and gets out of your way.
+          </li>
+        </ol>
       </section>
 
 
