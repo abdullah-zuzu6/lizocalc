@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import {
   Zap,
   Move,
@@ -12,6 +12,9 @@ import {
   Layers,
   Heart,
   ArrowLeftRight,
+  Share2,
+  Copy,
+  Check,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -125,6 +128,10 @@ export default function SpeedCalculator() {
   const [trigger, setTrigger] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
 
+  // --- Share Results state ---
+  const [shareUrl, setShareUrl] = useState<string>("");
+  const [linkCopied, setLinkCopied] = useState(false);
+
   // --- Auto-scroll-to-results (mobile only) ---
   // Results sit beside the inputs in a 2-column grid at the `lg` breakpoint
   // and above, so they're already visible there — no scroll needed. Below
@@ -153,17 +160,34 @@ export default function SpeedCalculator() {
     category: "Physics",
   };
 
-  // --- Load persisted state (does NOT block first paint) ---
+  // --- Load persisted state or a shared link on first mount ---
+  // A shared link (?dist=...&h=...&m=...&s=...) always wins over locally
+  // saved history, since the whole point of sharing is to reproduce
+  // someone else's exact result.
   useEffect(() => {
-    const history = getCalculatorHistory();
-    if (history["speed-adv-calc"]?.data) {
-      const data = history["speed-adv-calc"].data;
-      setDistance(data.distance || "10");
-      setDistUnit(data.distUnit || "km");
-      setTimeHours(data.timeHours || "1");
-      setTimeMinutes(data.timeMinutes || "0");
-      setTimeSeconds(data.timeSeconds || "0");
-      setOutputUnit(data.outputUnit || "kmh");
+    const params = new URLSearchParams(window.location.search);
+    const sharedDist = params.get("dist");
+
+    if (sharedDist !== null) {
+      setDistance(sharedDist);
+      setDistUnit(params.get("distUnit") || "km");
+      setTimeHours(params.get("h") || "0");
+      setTimeMinutes(params.get("m") || "0");
+      setTimeSeconds(params.get("s") || "0");
+      setOutputUnit((params.get("out") as OutputUnitKey) || "kmh");
+      setShowResults(true);
+      setTrigger((v) => v + 1);
+    } else {
+      const history = getCalculatorHistory();
+      if (history["speed-adv-calc"]?.data) {
+        const data = history["speed-adv-calc"].data;
+        setDistance(data.distance || "10");
+        setDistUnit(data.distUnit || "km");
+        setTimeHours(data.timeHours || "1");
+        setTimeMinutes(data.timeMinutes || "0");
+        setTimeSeconds(data.timeSeconds || "0");
+        setOutputUnit(data.outputUnit || "kmh");
+      }
     }
 
     const savedTools = getSavedCalculators();
@@ -232,6 +256,34 @@ export default function SpeedCalculator() {
       pace: (60 / (speedMPS * 3.6)).toFixed(2), // min/km
     };
   }, [trigger, distance, distUnit, timeHours, timeMinutes, timeSeconds]);
+
+  // --- Build the shareable link once a valid result exists ---
+  useEffect(() => {
+    if (!showResults || !results || "error" in results) {
+      setShareUrl("");
+      return;
+    }
+    const params = new URLSearchParams();
+    params.set("dist", distance);
+    params.set("distUnit", distUnit);
+    params.set("h", timeHours || "0");
+    params.set("m", timeMinutes || "0");
+    params.set("s", timeSeconds || "0");
+    params.set("out", outputUnit);
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+  }, [showResults, results, distance, distUnit, timeHours, timeMinutes, timeSeconds, outputUnit]);
+
+  const handleCopyShareLink = useCallback(async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      // Clipboard API can fail (older browsers, permissions). The link is
+      // still visible and selectable in the input, so this fails quietly.
+    }
+  }, [shareUrl]);
 
   // --- Scroll results into view after Calculate, mobile/tablet only ---
   // Runs after `results` (re)computes so the results block has already
@@ -355,6 +407,8 @@ export default function SpeedCalculator() {
                       setTimeSeconds("");
                       setShowResults(false);
                       setTrigger(0);
+                      setShareUrl("");
+                      window.history.replaceState(null, "", window.location.pathname);
                     }}
                     className="flex-1 py-4 bg-secondary text-gray-200 rounded-2xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
@@ -396,6 +450,46 @@ export default function SpeedCalculator() {
                   ))}
                   <StatCard label="Pace (min/km)" value={results.pace} />
                 </div>
+
+                {/* Share Results */}
+                {shareUrl && (
+                  <div className="bg-card border rounded-3xl p-6 md:p-8 shadow-sm">
+                    <p className="text-[10px] font-black uppercase text-gray-300 tracking-widest flex items-center gap-2 mb-4">
+                      <Share2 size={14} className="text-blue-600" />
+                      Share This Result
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={shareUrl}
+                        onFocus={(e) => e.target.select()}
+                        className="flex-1 px-4 py-3 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none text-xs font-medium truncate"
+                      />
+                      <button
+                        onClick={handleCopyShareLink}
+                        className={`px-5 py-3 rounded-xl font-black text-xs flex items-center justify-center gap-2 transition-all ${
+                          linkCopied
+                            ? "bg-green-600 text-white"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
+                        }`}
+                      >
+                        {linkCopied ? (
+                          <>
+                            <Check size={16} /> COPIED
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={16} /> COPY LINK
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-xs text-gray-300 mt-3">
+                      Anyone who opens this link sees the same distance, time, and result.
+                    </p>
+                  </div>
+                )}
               </div>
             ) : showResults && results && "error" in results ? (
               <div
@@ -418,43 +512,7 @@ export default function SpeedCalculator() {
         {/* SPEED CONVERTER */}
         <SpeedUnitConverter />
 
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-10">
-          <div className="p-8 bg-card border rounded-3xl space-y-4">
-            <h3 className="font-black uppercase text-sm flex items-center gap-2 text-blue-600">
-              <BarChart3 size={20} /> What is Speed?
-            </h3>
-            <p className="text-sm text-gray-300 leading-relaxed">
-             
-              <Link
-                href="/info/physics/speed"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Speed
-              </Link>{" "}
-              is how fast an object moves. It is the rate at which an object covers distance. The standard formula is speed equals distance divided by time. Its standard SI unit is meters per second (m/s)
-            </p>
-            <div className="p-4 bg-secondary/50 rounded-xl font-mono text-xs font-bold border">
-              Speed = Total Distance / Total Time
-            </div>
-          </div>
-          <div className="p-8 bg-card border rounded-3xl space-y-4 text-sm">
-            <h3 className="font-black uppercase text-sm text-blue-600">
-              Common Speed Conversions
-            </h3>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex justify-between border-b pb-2">
-                <span>1 km/h</span> <span>0.621 mph</span>
-              </li>
-              <li className="flex justify-between border-b pb-2">
-                <span>1 m/s</span> <span>3.6 km/h</span>
-              </li>
-              <li className="flex justify-between">
-                <span>1 Knot</span> <span>1.151 mph</span>
-              </li>
-            </ul>
-          </div>
-        </div>
+     
 
         <RelatedCalculators calculators={relatedCalculators} />
       </section>

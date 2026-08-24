@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import {
   RotateCcw,
   Layers,
@@ -10,6 +10,9 @@ import {
   Box,
   Weight,
   Heart,
+  Share2,
+  Copy,
+  Check,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
@@ -91,7 +94,8 @@ export default function DensityCalculator() {
   // the #1 cause of your 0.59 CLS score, because the whole calculator used
   // to pop into existence after hydration. Instead we render the full layout
   // immediately with sane defaults, then quietly upgrade values from history
-  // in an effect (a value changing inside an input does not shift layout).
+  // (or a shared link) in an effect (a value changing inside an input does
+  // not shift layout).
   const [mass, setMass] = useState<string>("100");
   const [massUnit, setMassUnit] = useState<string>("kg");
   const [volume, setVolume] = useState<string>("1");
@@ -101,6 +105,10 @@ export default function DensityCalculator() {
   const [showResults, setShowResults] = useState(false);
   const [trigger, setTrigger] = useState(0);
   const [isSaved, setIsSaved] = useState(false);
+
+  // --- Share Results state ---
+  const [shareUrl, setShareUrl] = useState<string>("");
+  const [linkCopied, setLinkCopied] = useState(false);
 
   // --- Auto-scroll-to-results (mobile only) ---
   // Results sit beside the inputs in a 2-column grid at the `lg` breakpoint
@@ -118,16 +126,32 @@ export default function DensityCalculator() {
     category: "Physics",
   };
 
-  // --- Load persisted state (does NOT block first paint) ---
+  // --- Load a shared link or persisted state on first mount ---
+  // A shared link (?mass=...&massUnit=...&volume=...&volumeUnit=...&densityUnit=...)
+  // always wins over locally saved history, since the whole point of sharing
+  // is to reproduce someone else's exact result.
   useEffect(() => {
-    const history = getCalculatorHistory();
-    if (history["density-calc"]?.data) {
-      const data = history["density-calc"].data;
-      setMass(data.mass || "100");
-      setMassUnit(data.massUnit || "kg");
-      setVolume(data.volume || "1");
-      setVolumeUnit(data.volumeUnit || "m3");
-      setDensityUnit(data.densityUnit || "kg_m3");
+    const params = new URLSearchParams(window.location.search);
+    const sharedMass = params.get("mass");
+
+    if (sharedMass !== null) {
+      setMass(sharedMass);
+      setMassUnit(params.get("massUnit") || "kg");
+      setVolume(params.get("volume") || "1");
+      setVolumeUnit(params.get("volumeUnit") || "m3");
+      setDensityUnit(params.get("densityUnit") || "kg_m3");
+      setShowResults(true);
+      setTrigger((v) => v + 1);
+    } else {
+      const history = getCalculatorHistory();
+      if (history["density-calc"]?.data) {
+        const data = history["density-calc"].data;
+        setMass(data.mass || "100");
+        setMassUnit(data.massUnit || "kg");
+        setVolume(data.volume || "1");
+        setVolumeUnit(data.volumeUnit || "m3");
+        setDensityUnit(data.densityUnit || "kg_m3");
+      }
     }
 
     const savedTools = getSavedCalculators();
@@ -177,6 +201,33 @@ export default function DensityCalculator() {
       volume: vVal,
     };
   }, [trigger, mass, massUnit, volume, volumeUnit, densityUnit]);
+
+  // --- Build the shareable link once a valid result exists ---
+  useEffect(() => {
+    if (!showResults || !results || "error" in results) {
+      setShareUrl("");
+      return;
+    }
+    const params = new URLSearchParams();
+    params.set("mass", mass);
+    params.set("massUnit", massUnit);
+    params.set("volume", volume);
+    params.set("volumeUnit", volumeUnit);
+    params.set("densityUnit", densityUnit);
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+  }, [showResults, results, mass, massUnit, volume, volumeUnit, densityUnit]);
+
+  const handleCopyShareLink = useCallback(async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      // Clipboard API can fail (older browsers, permissions). The link is
+      // still visible and selectable in the input, so this fails quietly.
+    }
+  }, [shareUrl]);
 
   // --- Scroll results into view after Calculate, mobile/tablet only ---
   // Runs after `results` (re)computes so the results block has already
@@ -293,6 +344,8 @@ export default function DensityCalculator() {
                       setVolume("");
                       setShowResults(false);
                       setTrigger(0);
+                      setShareUrl("");
+                      window.history.replaceState(null, "", window.location.pathname);
                     }}
                     className="flex-1 py-4 bg-secondary text-gray-200 rounded-xl font-black text-sm hover:bg-secondary/80 transition-all flex items-center justify-center gap-2"
                   >
@@ -306,45 +359,87 @@ export default function DensityCalculator() {
           {/* Results Section */}
           <div className="lg:col-span-7" ref={resultsRef}>
             {showResults && results && !("error" in results) ? (
-              <div className="bg-card border-2 border-blue-600/20 rounded-3xl p-6 md:p-12 shadow-sm animate-in fade-in zoom-in-95 duration-300">
-                <div className="space-y-2 text-center">
-                  <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.3em]">
-                    Resultant Density
-                  </p>
-                  <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter break-all">
-                    {results.density.toLocaleString(undefined, {
-                      maximumFractionDigits: 6,
-                    })}
-                  </h2>
-                  <div className="inline-block px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mt-4">
-                    {UNITS.density.find((u) => u.value === densityUnit)?.label}
+              <div className="space-y-6 animate-in fade-in zoom-in-95 duration-300">
+                <div className="bg-card border-2 border-blue-600/20 rounded-3xl p-6 md:p-12 shadow-sm">
+                  <div className="space-y-2 text-center">
+                    <p className="text-[10px] font-black uppercase text-blue-600 tracking-[0.3em]">
+                      Resultant Density
+                    </p>
+                    <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tighter break-all">
+                      {results.density.toLocaleString(undefined, {
+                        maximumFractionDigits: 6,
+                      })}
+                    </h2>
+                    <div className="inline-block px-4 py-2 bg-blue-50 text-blue-700 rounded-full text-xs font-bold mt-4">
+                      {UNITS.density.find((u) => u.value === densityUnit)?.label}
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 pt-8 border-t border-dashed">
+                    <div className="p-4 bg-secondary/50 rounded-2xl text-center">
+                      <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
+                        Total Mass
+                      </p>
+                      <p className="text-xl font-black">
+                        {results.mass}{" "}
+                        <span className="text-sm font-medium text-gray-300">
+                          {massUnit}
+                        </span>
+                      </p>
+                    </div>
+                    <div className="p-4 bg-secondary/50 rounded-2xl text-center">
+                      <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
+                        Total Volume
+                      </p>
+                      <p className="text-xl font-black">
+                        {results.volume}{" "}
+                        <span className="text-sm font-medium text-gray-300">
+                          {volumeUnit}
+                        </span>
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-10 pt-8 border-t border-dashed">
-                  <div className="p-4 bg-secondary/50 rounded-2xl text-center">
-                    <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
-                      Total Mass
+                {/* Share Results */}
+                {shareUrl && (
+                  <div className="bg-card border rounded-3xl p-6 md:p-8 shadow-sm">
+                    <p className="text-[10px] font-black uppercase text-gray-300 tracking-widest flex items-center gap-2 mb-4">
+                      <Share2 size={14} className="text-blue-600" />
+                      Share This Result
                     </p>
-                    <p className="text-xl font-black">
-                      {results.mass}{" "}
-                      <span className="text-sm font-medium text-gray-300">
-                        {massUnit}
-                      </span>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={shareUrl}
+                        onFocus={(e) => e.target.select()}
+                        className="flex-1 px-4 py-3 bg-secondary rounded-xl border-2 border-transparent focus:border-blue-600 outline-none text-xs font-medium truncate"
+                      />
+                      <button
+                        onClick={handleCopyShareLink}
+                        className={`px-5 py-3 rounded-xl font-black text-xs flex items-center justify-center gap-2 transition-all ${
+                          linkCopied
+                            ? "bg-green-600 text-white"
+                            : "bg-blue-600 text-white hover:bg-blue-700"
+                        }`}
+                      >
+                        {linkCopied ? (
+                          <>
+                            <Check size={16} /> COPIED
+                          </>
+                        ) : (
+                          <>
+                            <Copy size={16} /> COPY LINK
+                          </>
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-xs text-gray-300 mt-3">
+                      Anyone who opens this link sees the same mass, volume, and result.
                     </p>
                   </div>
-                  <div className="p-4 bg-secondary/50 rounded-2xl text-center">
-                    <p className="text-[10px] font-bold uppercase text-gray-300 mb-1">
-                      Total Volume
-                    </p>
-                    <p className="text-xl font-black">
-                      {results.volume}{" "}
-                      <span className="text-sm font-medium text-gray-300">
-                        {volumeUnit}
-                      </span>
-                    </p>
-                  </div>
-                </div>
+                )}
               </div>
             ) : showResults && results && "error" in results ? (
               <div

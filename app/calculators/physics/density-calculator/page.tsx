@@ -1,9 +1,11 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import DensityCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
+import AuthorBio from "@/components/AuthorBio";
 
 export const metadata: Metadata = {
   title: "Density Calculator - Density in Multiple Units",
@@ -15,6 +17,10 @@ export const metadata: Metadata = {
     "density mass volume calculator",
     "density formula calculator",
     "physics density calculator",
+    "how to calculate density from mass and volume",
+    "how to calculate volume with mass and density",
+    "how to calculate mass from density and volume",
+    "how to calculate weight from volume and density",
   ],
 
   alternates: {
@@ -65,15 +71,41 @@ const structuredData = {
       description: "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-20",
+      dateModified: "2026-08-25",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/physics/density-calculator#breadcrumb" },
     },
   ],
 };
 
+// Small reusable "textbook style" fraction — numerator over denominator,
+// used instead of the ÷ sign wherever the source content divides.
+function Fraction({ numerator, denominator }: { numerator: string; denominator: string }) {
+  return (
+    <span className="inline-flex flex-col items-center mx-1.5 align-middle text-green-300 leading-tight">
+      <span className="px-1.5 pb-0.5 border-b-2 border-green-300">{numerator}</span>
+      <span className="px-1.5 pt-0.5">{denominator}</span>
+    </span>
+  );
+}
+
+const tocItems = [
+  { id: "what-is-density", label: "What Is Density" },
+  { id: "density-formula", label: "The Density Formula" },
+  { id: "density-from-mass-volume", label: "Density from Mass & Volume" },
+  { id: "volume-from-density-mass", label: "Volume from Density & Mass" },
+  { id: "mass-from-density-volume", label: "Mass from Density & Volume" },
+  { id: "weight-from-volume-density", label: "Weight from Volume & Density" },
+  { id: "density-units", label: "Common Units for Density" },
+  { id: "material-densities", label: "Common Material Densities" },
+  { id: "density-liquids-gases", label: "Density in Liquids & Gases" },
+];
+
 export default function DensityPage() {
   return (
     <main className="min-h-screen bg-background">
+      {/* Smooth-scroll for the in-page jump links below */}
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
      <script
   id="structured-data-density-calculator"
@@ -102,10 +134,54 @@ export default function DensityPage() {
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
 
-        <section className="mt-16">
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A <strong>density calculator</strong> finds how tightly matter is
+          packed into an object using its mass and volume. The logic is
+          simple once you know the right formula — the sections below walk
+          through the formula itself, how to rearrange it for volume, mass,
+          or weight, and a set of worked examples using the kind of numbers
+          people actually plug in.
+        </p>
+
+        {/* Jump-to-section navigation block */}
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
+          </h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <section id="what-is-density" className="scroll-mt-24 mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             What Is Density?
           </h2>
+
+          <div className="md:float-right md:ml-8 mb-6 w-full max-w-[260px] mx-auto md:mx-0">
+            <Image
+              src="/images/physics/density-calculator-img.webp"
+              alt="Density calculator diagram"
+              width={400}
+              height={400}
+              className="w-full h-auto rounded-xl border border-gray-700"
+            />
+          </div>
+
           <p className="text-gray-200 leading-relaxed text-base">
             <Link
               href="/info/physics/density"
@@ -122,14 +198,14 @@ export default function DensityPage() {
           </p>
         </section>
 
-        <section className="mt-16">
+        <section id="density-formula" className="scroll-mt-24 mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             The Density Formula
           </h2>
           <p className="text-center text-3xl font-mono text-green-300 my-6">
             Density (ρ) = Mass (m) ÷ Volume (V)
           </p>
-          <p className="text-gray-200 leading-relaxed text-base">
+          <p className="text-gray-200 leading-relaxed text-base clear-none">
             That&apos;s the whole equation, but the useful part is how you
             can flip it around depending on what you&apos;re missing. Know
             the density and the volume, you can back into the mass. Know the
@@ -143,6 +219,164 @@ export default function DensityPage() {
             </Link>
             , the calculator above just becomes a shortcut for algebra you
             already understand.
+          </p>
+        </section>
+
+        {/* How to calculate density from mass and volume — worked examples */}
+        <section id="density-from-mass-volume" className="scroll-mt-24 mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Calculate Density from Mass and Volume
+          </h2>
+
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-8">
+            <h3 className="text-lg font-semibold text-blue-300 mb-4">
+              Steps:
+            </h3>
+            <ol className="list-decimal list-inside text-gray-200 space-y-3 text-base">
+              <li>Weigh the object (or look up its mass) and note the unit — grams or kilograms are most common.</li>
+              <li>Find its volume, either by measuring it directly or by calculating it from its dimensions.</li>
+              <li>Make sure both units belong to the same system (grams with cm³, or kilograms with m³), then divide mass by volume.</li>
+            </ol>
+          </div>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            A few worked examples of exactly this question, using the kind
+            of numbers people usually plug in:
+          </p>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-base font-semibold text-blue-300 mb-3">
+                A spoon&apos;s mass and volume
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                A spoon has a mass of 134.8 g and a volume of 17.42 cm³.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg flex items-center justify-center flex-wrap">
+                ρ&nbsp;=&nbsp;
+                <Fraction numerator="134.8 g" denominator="17.42 cm³" />
+                &nbsp;≈ 7.74 g/cm³
+              </p>
+              <p className="text-gray-400 text-xs leading-relaxed mt-3">
+                That&apos;s in the range of stainless steel, which is what
+                most flatware is actually made from.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-base font-semibold text-blue-300 mb-3">
+                A block of wood
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                A block of wood has a volume of 100 cm³ and a mass of 200 g.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg flex items-center justify-center flex-wrap">
+                ρ&nbsp;=&nbsp;
+                <Fraction numerator="200 g" denominator="100 cm³" />
+                &nbsp;= 2 g/cm³
+              </p>
+              <p className="text-gray-400 text-xs leading-relaxed mt-3">
+                Worth a second look: real wood usually sits around 0.4–0.9
+                g/cm³, so double-check the mass and volume if this is a lab
+                measurement rather than a textbook problem.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-base font-semibold text-blue-300 mb-3">
+                A sample of water
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                18 mL of a liquid has a mass of 96.789 g.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg flex items-center justify-center flex-wrap">
+                ρ&nbsp;=&nbsp;
+                <Fraction numerator="96.789 g" denominator="18 mL" />
+                &nbsp;≈ 5.38 g/mL
+              </p>
+              <p className="text-gray-400 text-xs leading-relaxed mt-3">
+                Pure water is about 1 g/mL, so a result this high usually
+                means the sample isn&apos;t plain water, or one of the two
+                numbers was mistyped — worth re-checking against your scale
+                and measuring cylinder.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* How to calculate volume from density and mass */}
+        <section id="volume-from-density-mass" className="scroll-mt-24 mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Calculate Volume from Density and Mass
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Rearrange the density formula to solve for volume instead:
+          </p>
+
+          <p className="text-green-300 font-mono text-center text-lg flex items-center justify-center flex-wrap mb-6">
+            V&nbsp;=&nbsp;
+            <Fraction numerator="Mass (m)" denominator="Density (ρ)" />
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: a metal bar has a mass of 350 g and is made of nickel,
+            with a density of about 8.9 g/cm³.
+          </p>
+          <p className="text-gray-200 font-mono text-lg">
+            V = 350 ÷ 8.9 ≈ 39.33 cm³
+          </p>
+        </section>
+
+        {/* How to calculate mass from density and volume */}
+        <section id="mass-from-density-volume" className="scroll-mt-24 mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Calculate Mass from Density and Volume
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            This time the formula is used in its original direction —
+            multiply instead of divide:
+          </p>
+
+          <p className="text-green-300 font-mono text-center text-lg my-6">
+            Mass (m) = Density (ρ) × Volume (V)
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: a brick has a density of 1,800 kg/m³ and a volume of
+            0.002 m³.
+          </p>
+          <p className="text-gray-200 font-mono text-lg">
+            m = 1,800 × 0.002 = 3.6 kg
+          </p>
+        </section>
+
+        {/* How to calculate weight from volume and density */}
+        <section id="weight-from-volume-density" className="scroll-mt-24 mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Calculate Weight from Volume and Density
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Weight isn&apos;t the same thing as mass — weight is the force
+            gravity exerts on that mass. Once you have mass from density and
+            volume, bring in gravitational acceleration (about 9.81 m/s² on
+            Earth) to get weight in newtons:
+          </p>
+
+          <p className="text-green-300 font-mono text-center text-lg my-6">
+            Weight (W) = Density (ρ) × Volume (V) × g
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: 0.05 m³ of water, with a density of 1,000 kg/m³.
+          </p>
+          <p className="text-gray-200 font-mono text-lg mb-2">
+            m = 1,000 × 0.05 = 50 kg
+          </p>
+          <p className="text-gray-200 font-mono text-lg">
+            W = 50 × 9.81 = 490.5 N
           </p>
         </section>
 
@@ -174,7 +408,7 @@ export default function DensityPage() {
           </p>
         </section>
 
-        <section className="mt-20">
+        <section id="density-units" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Some Common Units for Density
           </h2>
@@ -282,7 +516,7 @@ export default function DensityPage() {
           </p>
         </section>
 
-        <section className="mt-20">
+        <section id="material-densities" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Some Common Material Densities
           </h2>
@@ -386,7 +620,7 @@ export default function DensityPage() {
           </p>
         </section>
 
-        <section className="mt-20">
+        <section id="density-liquids-gases" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Density in Liquids and Gases
           </h2>
@@ -462,57 +696,6 @@ export default function DensityPage() {
           </p>
         </section>
 
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Related Calculators
-          </h2>
-          <p className="text-gray-200 text-base mb-6">
-            Pair your density practice with these other free calculators:
-          </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-           
-           
-           
-            <li>
-              <Link
-                href="/calculators/math/conversion-calculator"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Conversion Calculator
-              </Link>{" "}
-              — convert between metric and imperial units in one place
-            </li>
-          </ul>
-        </section>
-
-        {/* ── BYLINE ── */}
-        <div className="flex items-center gap-4 mt-12 mb-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-            RA
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm">
-              Written by Rana Muhammad Abdullah
-            </p>
-            <p className="text-gray-300 text-xs">
-              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
-              Control Engineering Student ·{" "}
-              <a
-                href="https://www.linkedin.com/in/abdullahsajjad06/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                LinkedIn
-              </a>
-            </p>
-          </div>
-          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
-            <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: Aug 20, 2026</span>
-            <span>✅ Verified accurate</span>
-          </div>
-        </div>
       </article>
 
       <Footer />
