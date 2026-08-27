@@ -49,12 +49,19 @@ export const calculators: Calculator[] = [
   { slug: 'date-calculator', category: 'time' },
   { slug: 'time-calculator', category: 'time' },
   { slug: 'hours-calculator', category: 'time' },
+  { slug: 'day-of-week-calculator', category: 'time' },
+  { slug: 'days-from-today-calculator', category: 'time' },
+  { slug: 'days-between-dates-calculator', category: 'time' },
+  { slug: 'business-days-calculator', category: 'time' },
+  { slug: 'months-from-today-calculator', category: 'time' },
+
+
+
 
 //Physics calculator
   { slug: 'density-calculator', category: 'physics' },
   { slug: 'speed-calculator', category: 'physics' },
   { slug: 'mass-calculator', category: 'physics' },
-  { slug: 'weight-calculator', category: 'physics' },
 
 //Education Calculators
    { slug: 'gpa-calculator', category: 'education' },

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
   title: {
     default: "LizoCalc - Free Online Calculators for Finance, Fitness & Math",
-    template: "%s | LizoCalc",
+    template: "%s - LizoCalc",
   },
 
   description:

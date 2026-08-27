@@ -263,6 +263,46 @@ const allCalculators = [
     category: "Time",
     icon: Clock,
   },
+  {
+    name: "Business Days Calculator",
+    description: "Calculate working days between two dates",
+    href: "/calculators/time/business-days-calculator",
+    category: "Time",
+    icon: Clock,
+  },
+  {
+    name: "Day Of Week Calculator",
+    description: "Calculate the day of the week for a given date",
+    href: "/calculators/time/day-of-week-calculator",
+    category: "Time",
+    icon: Clock,
+  },
+  {
+    name: "Days Between Dates Calculator",
+    description: "Calculate the number of days between two dates",
+    href: "/calculators/time/days-between-dates-calculator",
+    category: "Time",
+    icon: Clock,
+  },
+  {
+    name: "Days From Today Calculator",
+    description: "Calculate the number of days from today to a given date",
+    href: "/calculators/time/days-from-today-calculator",
+    category: "Time",
+    icon: Clock,
+  },
+  {
+    name: "Months From Today Calculator",
+    description: "Calculate the number of months from today to a given date",
+    href: "/calculators/time/months-from-today-calculator",
+    category: "Time",
+    icon: Clock,
+  },
+  
+  
+  
+  
+  
 
   // Education
   {

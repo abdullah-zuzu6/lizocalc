@@ -31,7 +31,36 @@ const calculators = [
     href: "/calculators/time/hours-calculator",
     category: "Time",
   },
-  
+  {
+    name: "Business Days Calculator",
+    description: "Calculate working days, excluding weekends and holidays",
+    href: "/calculators/time/business-days-calculator",
+    category: "Time",
+  },
+  {
+    name: "Days From Today Calculator",
+    description: "Calculate the number of days from today to a specific date",
+    href: "/calculators/time/days-from-today-calculator",
+    category: "Time",
+  },
+  {
+    name: "Days Between Dates  Calculator",
+    description: "Calculate the number of days between two specific dates",
+    href: "/calculators/time/days-between-dates-calculator",
+    category: "Time",
+  },
+  {
+    name: "Day Of Week Calculator",
+    description: "Calculate the day of the week for a specific date",
+    href: "/calculators/time/day-of-week-calculator",
+    category: "Time",
+  },
+  {
+    name: "Months From Today Calculator",
+    description: "Calculate the number of months from today to a specific date",
+    href: "/calculators/time/months-from-today-calculator",
+    category: "Time",
+  },
 ];
 
 export default function TimeCalculators() {

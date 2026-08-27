@@ -31,20 +31,10 @@ function ProfileIcon() {
   );
 }
 
-/**
- * Author byline with a hover/click bio card, e.g. "By RMA".
- * Drop it under any article heading:
- *
- *   <AuthorBio />
- *
- * or override any field:
- *
- *   <AuthorBio name="RMA" bio="Custom bio text..." />
- */
 export default function AuthorBio({
   name = "RMA",
   avatarSrc = "/about/authorpic.webp",
-  bio = "Rana Muhammad Abdullah has 3+ years of experience in web development and building research and calculator tool sites. He studies Mechatronics and Control Engineering at UET.",
+  bio = "Rana Muhammad Abdullah Is the creator of LizoCalc and  has 3+ years of experience in web development and building research and calculator tool sites. He studies Mechatronics and Control Engineering at UET.",
   fullBioHref = "https://www.linkedin.com/in/abdullahsajjad06/",
 }: AuthorBioProps) {
   const [open, setOpen] = useState(false);
