@@ -4,48 +4,49 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import DateCalculatorClient from "./clientside";
-import DaysFromTodayWidget from "@/components/DaysFromTodayWidget";
-import Image from "next/image";
 import ShareBar from "@/components/Sharebar";
+import SimilarCalculators from "@/components/Similarcalculator";
+import AuthorBio from "@/components/AuthorBio";
+
 
 // ─────────────────────────────────────────────
-//  FAQ DATA  (simplified wording, kept keyword coverage)
+//  FAQ DATA
 // ─────────────────────────────────────────────
 const faqData = [
   {
-    question: "What is 90 days from today?",
+    question: "How do I find the number of days between two dates?",
     answer:
-      "It depends on today's date, so the calculator above works it out for you automatically. For example: 90 days from March 23, 2026 lands on June 21, 2026 (a Sunday). 90 days from March 31, 2026 lands on June 29, 2026 (a Monday). If you want an exact answer for your own date, just type it into the 'Add Days' box above.",
+      "Switch to the Difference tab, enter a start date and an end date, then hit Calculate. You'll get the total day count plus a breakdown in years, months, weeks, and days. If the end date is earlier than the start date, the calculator swaps them and tells you it did.",
   },
   {
-    question: "What is 60 days from today?",
+    question: "What's the difference between inclusive and exclusive counting?",
     answer:
-      "This changes every day, so here are a few quick examples: 60 days from March 23, 2026 is May 22, 2026 (Friday). 60 days from March 31, 2026 is May 30, 2026 (Saturday). Type your own start date into the calculator above for an instant answer.",
+      "Exclusive counting is the default: March 23 to March 25 is 2 days, since only the gap between the dates counts. Inclusive counting adds 1 and counts both endpoints, so the same range becomes 3 days. Rent periods, notice periods, and contracts usually use inclusive counting, so turn on \"Include end date\" for those.",
   },
   {
-    question: "What is 28 days from today?",
+    question: "How do I add months to a date without it landing on the wrong day?",
     answer:
-      "28 days is exactly 4 weeks. For example, 28 days from March 23, 2026 is April 20, 2026 (Monday). This is a common time frame for things like monthly bills, prescription refills, or a 4-week work sprint.",
+      "The Add & Subtract tab handles this for you. January 31 plus 1 month lands on February 28 in a normal year, or February 29 in a leap year, never March. The calculator clamps the day to the real length of the target month instead of just tacking on 30 days.",
   },
   {
-    question: "How do I calculate the number of days between two dates?",
+    question: "Can I add or subtract years, months, weeks, and days at once?",
     answer:
-      "Subtract the earlier date from the later date. For example, from January 1 to January 10 is 9 days. If you want to count both the first and last day (say, for a rent period or a legal notice), just add 1 to that number. The calculator above does this for you and also shows the answer in years, months, and weeks.",
+      "Yes. Fill in any combination of the four fields and pick Add or Subtract. Years and months are applied first using the real calendar, then weeks and days are added on top.",
   },
   {
-    question: "How can I add or subtract days from a specific date?",
+    question: "How does the calculator handle leap years?",
     answer:
-      "Switch to 'Add/Subtract Days' mode above. Enter your starting date, choose Add or Subtract, then enter how many days, weeks, months, or years. The tool follows the real calendar — so adding 1 month to January 31 correctly gives February 28 (or 29 in a leap year), not March 2.",
+      "It follows the standard rule: a year is a leap year if it divides evenly by 4, unless it also divides by 100, in which case it needs to divide by 400 too. So 2024 and 2028 are leap years, 1900 wasn't, and 2000 was. Any range that crosses February 29 counts that day correctly.",
   },
   {
-    question: "What is the difference between calendar days and business days?",
+    question: "Why do date formats like 08/09/2026 cause confusion?",
     answer:
-      "Calendar days count every day, including weekends. Business days only count weekdays (Monday to Friday) and skip weekends and holidays. As a rough example, a 90-day period usually works out to around 64 business days once you remove the weekends.",
+      "Because the same string is read differently depending on the country, software, or system. MM/DD/YYYY, DD/MM/YYYY, and YYYY-MM-DD can all produce a different date from the same digits, which is why it's worth checking the expected format before entering dates into a form, spreadsheet, or database.",
   },
   {
-    question: "How does the date calculator handle leap years?",
+    question: "Can I share a calculation with someone else?",
     answer:
-      "It follows the same rule your calendar does: a year is a leap year if it divides evenly by 4, unless it also divides by 100 — in which case it's only a leap year if it also divides by 400. So 2024 is a leap year, 1900 was not, and 2000 was. If your date range crosses February 29, the calculator counts that extra day correctly.",
+      "Yes. After you calculate a result, use Copy Link under Share This Result. The link carries your dates and settings, so whoever opens it sees the exact same inputs and result you did.",
   },
 ];
 
@@ -53,48 +54,42 @@ const faqData = [
 //  METADATA
 // ─────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: "Date Calculator — Days Between Dates, 90/60/30 Days From Today",
+  title: "Date Calculator – Difference or Add & Subtract Time",
   description:
-    "Free date calculator: find days between two dates, calculate 90, 60, 45, 30, or 28 days from any date, or count days since a past event. Instant results with leap year accuracy.",
+    "Free date calculator. Find the exact difference between two dates, or add or subtract years, months, weeks, and days from any date. Leap-year accurate, no sign-up.",
   keywords: [
     "date calculator",
     "days between dates",
-    "90 days from today",
-    "180 days from today",
-    "60 days from today",
-    "30 days from today",
-    "28 days from today",
-    "days from date calculator",
     "date difference calculator",
-    "how many days since",
     "add days to date",
     "subtract days from date",
+    "add months to date",
     "date to date calculator",
-    "calendar day counter",
-    "business days calculator",
+    "years months days calculator",
+    "date format calculator",
   ],
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/time/date-calculator",
   },
   robots: { index: true, follow: true },
   openGraph: {
-    title: "Date Calculator — Days Between Dates & Days From Today | LizoCalc",
+    title: "Date Calculator | LizoCalc",
     description:
-      "Calculate the exact number of days between two dates, find 90/60/30 days from any date, or count days since a past event. Free, instant, leap-year accurate.",
+      "Find the exact difference between two dates, or add or subtract years, months, weeks, and days from any date. Free, instant, and leap-year accurate.",
     url: "https://www.lizocalc.com/calculators/time/date-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Date Calculator — 90/60/30 Days From Today & Date Difference",
+    title: "Date Calculator | LizoCalc",
     description:
-      "Instantly find 90, 60, 45, or 30 days from any date — or calculate the exact days between two dates. Free tool with full Gregorian calendar logic.",
+      "Find the difference between two dates, or add or subtract years, months, weeks, and days from any date.",
   },
 };
 
 // ─────────────────────────────────────────────
-//  STRUCTURED DATA (kept out of the render path)
+//  STRUCTURED DATA
 // ─────────────────────────────────────────────
 const structuredData = {
   "@context": "https://schema.org",
@@ -105,7 +100,7 @@ const structuredData = {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
         { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 3, name: "Date & Time", item: "https://www.lizocalc.com/calculators/time" },
         { "@type": "ListItem", position: 4, name: "Date Calculator", item: "https://www.lizocalc.com/calculators/time/date-calculator" },
       ],
     },
@@ -113,15 +108,49 @@ const structuredData = {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/time/date-calculator",
       url: "https://www.lizocalc.com/calculators/time/date-calculator",
-      name: "Date to Date Calculator — Days Between Dates, 90/60/30 Days From Today",
-      description: "Free date calculator: find days between two dates, calculate 90, 60, 45, 30, or 28 days from any date, or count days since a past event.",
+      name: "Date Calculator | LizoCalc",
+      description: "Free date calculator. Find the difference between two dates, or add or subtract years, months, weeks, and days from any date.",
       inLanguage: "en",
       datePublished: "2026-04-04",
-      dateModified: "2026-08-20",
+      dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator#breadcrumb" },
     },
   ],
 };
+
+const tocItems = [
+  { id: "how-its-calculated", label: "How Date is Calculated" },
+  { id: "date-calculator-examples", label: "Date Calculator Examples" },
+  { id: "difference-vs-add-subtract", label: "Camparison Of Date Difference vs Add & Subtract" },
+  { id: "date-formats-usecase", label: "Date Formates and usecase" },
+  { id: "where-to-use", label: "Where to Use a Date Calculator" },
+];
+
+const modeComparisonRows = [
+  { metric: "What it answers", difference: "How many days between two dates", addSubtract: "What date you land on after a shift" },
+  { metric: "Inputs", difference: "A start date and an end date", addSubtract: "A date, a direction, and years/months/weeks/days" },
+  { metric: "Typical output", difference: "Total days, plus years/months/weeks/days", addSubtract: "A single resulting date" },
+  { metric: "Used for", difference: "Deadlines, ages, time since an event", addSubtract: "Due dates, renewal dates, expiry dates" },
+  { metric: "Example", difference: "Jan 1 to Apr 24 is 113 days", addSubtract: "Jan 31 + 1 month is Feb 28" },
+];
+
+const dateFormatRows = [
+  { format: "MM/DD/YYYY", example: "08/30/2026", use: "United States, online forms" },
+  { format: "DD/MM/YYYY", example: "30/08/2026", use: "Pakistan, UK, India, many other countries" },
+  { format: "YYYY-MM-DD", example: "2026-08-30", use: "Databases, programming, international systems" },
+  { format: "DD-MM-YYYY", example: "30-08-2026", use: "Forms and documents in many countries" },
+  { format: "DD Month YYYY", example: "30 August 2026", use: "Letters, official documents, readable text" },
+  { format: "Month DD, YYYY", example: "August 30, 2026", use: "Common in American English" },
+];
+
+const leapYearRows = [
+  { year: "2024", isLeap: "Yes", why: "Divides evenly by 4" },
+  { year: "2025", isLeap: "No", why: "Regular 365-day year" },
+  { year: "2026", isLeap: "No", why: "Regular 365-day year" },
+  { year: "2028", isLeap: "Yes", why: "Divides evenly by 4" },
+  { year: "1900", isLeap: "No", why: "Divides by 100 but not by 400" },
+  { year: "2000", isLeap: "Yes", why: "Divides by 400" },
+];
 
 // ─────────────────────────────────────────────
 //  PAGE
@@ -129,421 +158,161 @@ const structuredData = {
 export default function DateCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
 
-      {/* Plain <script> tag instead of next/script "beforeInteractive" —
-          this JSON never blocks paint or hydration, it's only for crawlers. */}
       <script
         id="structured-data-date-calculator"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* ─── Hero ─── */}
+      {/* Hero */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold">
-            Date Calculator: Days Between Dates, Add Days &amp; Days From Today
-          </h1>
-          <ShareBar/>
-                  
+          <h1 className="text-3xl md:text-4xl font-bold">Date Calculator</h1>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Find the exact difference between two dates, or add or subtract years, months, weeks, and days from any date.
+          </p>
+          <ShareBar />
         </div>
       </section>
 
-      {/* ─── Calculator Tool ─── */}
-      <section className="px-4 py-8">
+      {/* Calculator Tool */}
+      <section className="px-4 py-8" aria-label="Date difference and add/subtract calculator">
         <DateCalculatorClient />
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <div className="bg-blue-900/30 border border-blue-600 rounded-2xl p-6 mb-10">
-          <p className="text-white font-semibold text-lg mb-2">
-            ⚡ Quick Answer: Days From Today &amp; Date Calculator
-          </p>
-          <p className="text-gray-200 text-base leading-relaxed">
-            To find a future or past date, just add or subtract the days from today. For example,
-            if today is April 24 and you need to know <strong>90 days from today</strong>, the
-            calculator above works it out the moment you click Calculate — same for{" "}
-            <strong>60 days from today</strong> or <strong>30 days from today</strong>.
-            <br /><br />
-            You can also find the <strong>exact number of days between two dates</strong>, like how
-            many days are left until a deadline, or work out a date like{" "}
-            <em>"45 days from March 10"</em>. Just type in your start date and the number of days.
-          </p>
-        </div>
-      </section>
-
-      {/* ─── Dynamic "X Days From Today" Widget ─── */}
-      <DaysFromTodayWidget />
-
-      {/* ═══════════════════════════════════════
-          ARTICLE
-      ═══════════════════════════════════════ */}
+      {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-
-        {/* ── INTRO ── */}
-        <p className="text-gray-200 leading-relaxed mb-4 text-lg">
-          A <strong>date calculator</strong> answers a simple question in different forms: how many
-          days are between two dates, or what date do you land on if you add or subtract a number of
-          days? People use it for a lot of everyday things — checking a{" "}
-          <strong>visa deadline</strong>, working out a <strong>90-day tax window</strong>, or just
-          finding out <strong>how many days since</strong> something happened, like a wedding or a
-          job start date.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A <strong>date calculator</strong> does one of two things , it tells you how many
+          days between two dates, or it can find what date will be after adding or
+          subtracting time from a starting point. Pick Difference for the first
+          job and Add &amp; Subtract for the second. Both handle leap years and real
+          month lengths automatically, and any result you calculate can be turned
+          into a link so someone else sees the same numbers.
         </p>
 
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          This tool is free, needs no sign-up, and works on any phone or computer. It handles the
-          tricky parts automatically — leap years, months with different lengths, all of it — so you
-          don't have to count on your fingers or double-check with a paper calendar. It's built for
-          everyday people: students counting days to an exam, freelancers tracking a contract
-          deadline, or anyone who just typed <em>"what is 90 days from today"</em> into Google.
-        </p>
-
-        <figure className="my-10">
-          <Image
-            src="/images/time/date-calculator-days-between-dates.webp"
-            alt="Date calculator interface showing Starting Date and Ending Date calendars with a double-headed arrow labeled Days Between Dates, and quick buttons for 30 Days, 60 Days, and 90 Days From Today"
-            width={1390}
-            height={783}
-            className="rounded-2xl border border-gray-700 shadow-xl w-full h-auto"
-            priority
-            sizes="(max-width: 768px) 100vw, 1200px"
-          />
-          <figcaption className="text-sm text-gray-300 text-center mt-3 italic">
-            <strong>Figure 1:</strong> Pick a Starting Date and Ending Date to see the exact days
-            between them, or use the quick buttons for 30, 60, or 90 days from today.
-          </figcaption>
-        </figure>
-
-        {/* ══════════════════════════════════════════════
-            SECTION 1 — DAYS BETWEEN DATES
-        ══════════════════════════════════════════════ */}
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Days Between Two Dates
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
-
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            Pick a start date and an end date and the calculator gives you the exact number of days
-            between them — plus a breakdown in years, months, weeks, and a plain day count. For
-            example, from January 1, 2026 to April 24, 2026 is 113 days, or about 3 months and 23
-            days.
-          </p>
-
-          <div className="overflow-x-auto mb-8">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">From Date</th>
-                  <th className="p-4 text-left font-semibold">To Date</th>
-                  <th className="p-4 text-left font-semibold">Total Days</th>
-                  <th className="p-4 text-left font-semibold">Weeks</th>
-                  <th className="p-4 text-left font-semibold">Y / M / D</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                {[
-                  ["15 Mar 2000", "24 Apr 2026", "9,537", "1,362.43", "26y 1m 9d"],
-                  ["1 Jan 2026", "24 Apr 2026", "113", "16.14", "0y 3m 23d"],
-                  ["23 Mar 2026", "24 Apr 2026", "32", "4.57", "0y 1m 1d"],
-                  ["1 Apr 2025", "24 Apr 2026", "388", "55.43", "1y 0m 23d"],
-                ].map(([from, to, days, weeks, ymd]) => (
-                  <tr key={from + to}>
-                    <td className="p-4">{from}</td>
-                    <td className="p-4">{to}</td>
-                    <td className="p-4 font-bold text-green-400">{days}</td>
-                    <td className="p-4">{weeks}</td>
-                    <td className="p-4">{ymd}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Should You Count the Last Day or Not?
-          </h3>
-          <div className="grid md:grid-cols-2 gap-6 mb-6">
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-lg font-bold text-blue-300 mb-2">Exclusive (Default)</h4>
-              <p className="text-gray-200 text-sm">March 23 → March 25 = <strong>2 days</strong><br />You don't count the last day. This is how most software and timestamps count.</p>
-            </div>
-            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-lg font-bold text-blue-300 mb-2">Inclusive (Real-life)</h4>
-              <p className="text-gray-200 text-sm">March 23 → March 25 = <strong>3 days</strong><br />Both the first and last day count. This is how rent, notice periods, and contracts are usually counted.</p>
-            </div>
-          </div>
-          <p className="text-gray-200 text-sm">
-            Flip the "Include end day" switch in the calculator to choose which one you need. Most
-            real-life deadlines — like a legal notice or a rental period — use the inclusive count.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════════
-            SECTION 2 — 90 / 180 / 60 / 45 / 30 / 28 DAYS FROM DATE
-        ══════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            90, 180, 60, 45, 30 &amp; 28 Days From a Date
-          </h2>
-
-          <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            Most people land on this page wanting one specific answer, like "what's 90 days from
-            March 23?" Here's a quick lookup table with the most common ones, worked out using the
-            real calendar — no rounding or guessing.
-          </p>
-
-          <div className="overflow-x-auto mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Query</th>
-                  <th className="p-4 text-left font-semibold">Start Date</th>
-                  <th className="p-4 text-left font-semibold">Days</th>
-                  <th className="p-4 text-left font-semibold">Result Date</th>
-                  <th className="p-4 text-left font-semibold">Day of Week</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                {[
-                  ["90 days from 3/23/26", "Mar 23, 2026", "90", "Jun 21, 2026", "Sunday"],
-                  ["180 days from 3/23/26", "Mar 23, 2026", "180", "Sep 19, 2026", "Saturday"],
-                  ["60 days from 3/23/26", "Mar 23, 2026", "60", "May 22, 2026", "Friday"],
-                  ["56 days from 3/20/26", "Mar 20, 2026", "56", "May 15, 2026", "Friday"],
-                  ["90 days from 3/31/26", "Mar 31, 2026", "90", "Jun 29, 2026", "Monday"],
-                  ["60 days from 3/31/26", "Mar 31, 2026", "60", "May 30, 2026", "Saturday"],
-                  ["45 days from 3/31/26", "Mar 31, 2026", "45", "May 15, 2026", "Friday"],
-                  ["90 days from 4/20/26", "Apr 20, 2026", "90", "Jul 19, 2026", "Sunday"],
-                  ["90 days from 5/7/26", "May 7, 2026", "90", "Aug 5, 2026", "Wednesday"],
-                  ["180 days from 5/7/26", "May 7, 2026", "180", "Nov 3, 2026", "Tuesday"],
-                  ["45 days before 5/7/26", "May 7, 2026", "−45", "Mar 23, 2026", "Monday"],
-                  ["90 days from 5/22/26", "May 22, 2026", "90", "Aug 20, 2026", "Thursday"],
-                  ["60 days before 5/22/26", "May 22, 2026", "−60", "Mar 23, 2026", "Monday"],
-                  ["180 days from 4/30/2026", "Apr 30, 2026", "180", "Oct 27, 2026", "Tuesday"],
-                  ["60 days prior to 4/30/26", "Apr 30, 2026", "−60", "Mar 1, 2026", "Sunday"],
-                  ["180 days from 04/13/2026", "Apr 13, 2026", "180", "Oct 10, 2026", "Saturday"],
-                  ["90 days from 4/1/2025", "Apr 1, 2025", "90", "Jun 30, 2025", "Monday"],
-                  ["45 days from 4/1/25", "Apr 1, 2025", "45", "May 16, 2025", "Friday"],
-                  ["90 days from 6/30/2025", "Jun 30, 2025", "90", "Sep 28, 2025", "Sunday"],
-                  ["90 days before 5/30/26", "May 30, 2026", "−90", "Mar 1, 2026", "Sunday"],
-                  ["90 days before 6/29/26", "Jun 29, 2026", "−90", "Mar 31, 2026", "Tuesday"],
-                ].map(([query, start, days, result, dow]) => (
-                  <tr key={query}>
-                    <td className="p-4 font-semibold text-yellow-300 text-xs">{query}</td>
-                    <td className="p-4 text-gray-300">{start}</td>
-                    <td className="p-4 text-gray-300">{days}</td>
-                    <td className="p-4 font-bold text-green-400">{result}</td>
-                    <td className="p-4 text-gray-300">{dow}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════
-            SECTION 3 — DAYS SINCE
-        ══════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How Many Days Since a Past Date
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Want to know how long ago something happened? Set your start date to the past event and
-            the end date to today. It works well for tracking anniversaries, how long you've had a
-            subscription, or how many days it's been since a specific milestone.
-          </p>
-
-          <div className="overflow-x-auto mb-8">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Past Event</th>
-                  <th className="p-4 text-left font-semibold">Start Date</th>
-                  <th className="p-4 text-left font-semibold">Days Since (as of Apr 24, 2026)</th>
-                  <th className="p-4 text-left font-semibold">Weeks</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                {[
-                  ["New Year 2026", "Jan 1, 2026", "113", "16.14"],
-                  ["Pakistan Day", "Mar 23, 2026", "32", "4.57"],
-                  ["Eid-ul-Fitr 2025", "Apr 1, 2025", "388", "55.43"],
-                  ["Independence Day 2025", "Aug 14, 2025", "253", "36.14"],
-                  ["New Year 2025", "Jan 1, 2025", "478", "68.29"],
-                ].map(([event, start, days, weeks]) => (
-                  <tr key={event}>
-                    <td className="p-4">{event}</td>
-                    <td className="p-4">{start}</td>
-                    <td className="p-4 font-bold text-green-400">{days}</td>
-                    <td className="p-4 text-gray-300">{weeks}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════
-            SECTION 4 — HOW IT WORKS
-        ══════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How the Calculator Works
-          </h2>
-
-          <h3 className="text-xl font-semibold text-blue-300 mb-4">
-            Finding the Days Between Two Dates
-          </h3>
-          <p className="text-gray-200 text-sm mb-3">
-            It takes the two dates, converts them into a raw time value, and finds the difference in
-            whole days. In plain terms: it's the same as counting every square on a calendar between
-            the two dates.
-          </p>
-
-          <h3 className="text-xl font-semibold text-blue-300 mb-4 mt-8">
-            Turning Days Into Weeks, Months, and Years
-          </h3>
-          <p className="text-gray-200 text-sm mb-3">
-            Once it has the total number of days, it divides that by 7 for weeks, and uses the real
-            length of each month (28 to 31 days) to work out an accurate years/months/days
-            breakdown — not just a rough average.
-          </p>
-
-          <h3 className="text-xl font-semibold text-blue-300 mb-4 mt-8">
-            Leap Years, Handled Automatically
-          </h3>
-          <div className="overflow-x-auto mb-6">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Year</th>
-                  <th className="p-4 text-left font-semibold">Leap Year?</th>
-                  <th className="p-4 text-left font-semibold">Why</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                {[
-                  ["2024", "✅ Yes", "Divides evenly by 4"],
-                  ["2025", "❌ No", "Regular 365-day year"],
-                  ["2026", "❌ No", "Regular 365-day year"],
-                  ["2028", "✅ Yes", "Divides evenly by 4"],
-                  ["1900", "❌ No", "Divides by 100 but not by 400"],
-                  ["2000", "✅ Yes", "Divides by 400"],
-                ].map(([y, l, r]) => (
-                  <tr key={y}>
-                    <td className="p-4 font-bold">{y}</td>
-                    <td className="p-4">{l}</td>
-                    <td className="p-4 text-gray-300">{r}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-xl font-semibold text-blue-300 mb-4">
-            Adding Days Across Different Month Lengths
-          </h3>
-          <p className="text-gray-200 text-sm mb-2">
-            For example: January 31 plus 1 month lands on February 28 (or 29 in a leap year) —
-            not March 2. And April 30 plus 1 month lands on May 30, not May 31.
-          </p>
-          <p className="text-gray-300 text-sm">
-            The calculator follows the real calendar month by month, instead of just adding "30
-            days" every time — so the result is always correct, no matter which months are involved.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════════
-            SECTION 5 — REAL-WORLD USES
-        ══════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Where 90, 180, 60 &amp; 30-Day Windows Show Up in Real Life
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-            {[
-              {
-                icon: "🛂",
-                title: "Visa Stay Limits",
-                body: "Many tourist visas allow you to stay for up to 90 days. Even one extra day can mean a fine. Use the calculator to work out your exact exit date from the day you arrived."
-              },
-              {
-                icon: "📋",
-                title: "180-Day Filing Deadlines",
-                body: "Some tax and company filings give you 180 days from a set date — for example, from the end of the financial year."
-              },
-              {
-                icon: "🏥",
-                title: "Follow-Up Appointments",
-                body: "Doctors often ask you to come back in 30, 60, or 90 days for a check-up or to renew a prescription."
-              },
-              {
-                icon: "⚖️",
-                title: "Legal Deadlines",
-                body: "Notice periods and appeal windows are usually counted in exact days — courts don't accept 'about 3 months', they want the real number."
-              },
-              {
-                icon: "💼",
-                title: "Job Probation Periods",
-                body: "A new employee's 60, 90, or 180-day probation period decides when they become eligible for full benefits."
-              },
-              {
-                icon: "💳",
-                title: "Banking Deadlines",
-                body: "Things like cheque validity (usually 180 days) or a billing cycle (about 28 to 30 days) depend on exact date math."
-              },
-            ].map(({ icon, title, body }) => (
-              <div key={title} className="bg-gray-800/40 p-5 rounded-2xl border border-gray-700">
-                <h3 className="text-base font-semibold text-blue-300 mb-2 flex items-center gap-2">
-                  <span>{icon}</span> {title}
-                </h3>
-                <p className="text-gray-200 text-sm leading-relaxed">{body}</p>
-              </div>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
             ))}
-          </div>
-        </section>
+          </ul>
+        </nav>
 
-        {/* ══════════════════════════════════════════════
-            SECTION 6 — WEEKS & MONTHS TABLE
-        ══════════════════════════════════════════════ */}
-        <section className="mt-20">
+      
+
+        {/* How Date is Calculated */}
+        <section id="how-its-calculated" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Quick Reference: Days, Weeks &amp; Weekdays
+            How Date is Calculated
           </h2>
 
           <p className="text-gray-200 leading-relaxed mb-6 text-base">
-            If you think in weeks or months instead of raw day counts, here's a simple lookup table
-            for the most common durations:
+            In Difference mode, the calculator subtracts the earlier date
+            from the later one to get a raw day count, then works out an
+            accurate years/months/days breakdown by walking the real
+            calendar rather than assuming every month is 30 days.
           </p>
 
-          <div className="overflow-x-auto mb-6">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            In Add &amp; Subtract mode, years and months are applied first.
+            If that step would land on a day that doesn&apos;t exist in the
+            target month, the day gets pulled back to the last real day of
+            that month. Weeks and days are then added on top of that
+            result.
+          </p>
+
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-6">
+            <p className="text-gray-200 text-sm leading-relaxed">
+              Example: April 30 plus 1 month lands on May 30, not May 31,
+              because April only has 30 days to begin with. January 31 plus
+              1 month lands on February 28, or February 29 in a leap year.
+            </p>
+          </div>
+        </section>
+
+        {/* Examples */}
+        <section id="date-calculator-examples" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Date Calculator Examples
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">Example 1: Finding a gap</h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                Start date: January 1. End date: April 24, same year. A
+                straightforward difference with no rollover involved.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">113 days</p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">Example 2: Adding months</h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                Starting date: January 31. Add 1 month. February doesn't
+                have a 31st, so the result is clamped to the last day of
+                February.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">February 28</p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">Example 3: Subtracting weeks</h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                Starting date: June 15. Subtract 6 weeks to find when a
+                6-week countdown began.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">May 4</p>
+            </div>
+          </div>
+        </section>
+
+       
+        {/* Comparison Of Date Difference vs Add & Subtract */}
+        <section id="difference-vs-add-subtract" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Camparison Of Date Difference vs Add &amp; Subtract
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            The two modes answer different questions, so it&apos;s worth knowing
+            which one fits before you start entering dates.
+          </p>
+
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[560px]">
               <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Duration</th>
-                  <th className="p-4 text-left font-semibold">Total Days</th>
-                  <th className="p-4 text-left font-semibold">Full Weeks</th>
-                  <th className="p-4 text-left font-semibold">Weekdays</th>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Metric</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Difference</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Add &amp; Subtract</th>
                 </tr>
               </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                {[
-                  ["28 days (4 weeks)", "28", "4", "~20"],
-                  ["30 days (1 month)", "30", "4.29", "~22"],
-                  ["45 days", "45", "6.43", "~32"],
-                  ["60 days (2 months)", "60", "8.57", "~43"],
-                  ["90 days (3 months)", "90", "12.86", "~65"],
-                  ["180 days (6 months)", "180", "25.71", "~130"],
-                  ["365 days (1 year)", "365", "52.14", "~261"],
-                ].map(([d, td, fw, wd]) => (
-                  <tr key={d}>
-                    <td className="p-4 font-semibold text-blue-300">{d}</td>
-                    <td className="p-4">{td}</td>
-                    <td className="p-4">{fw}</td>
-                    <td className="p-4 text-green-400">{wd}</td>
+              <tbody>
+                {modeComparisonRows.map((row, index) => (
+                  <tr key={row.metric} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-medium">{row.metric}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.difference}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.addSubtract}</td>
                   </tr>
                 ))}
               </tbody>
@@ -551,69 +320,171 @@ export default function DateCalculatorPage() {
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════
-            SECTION 7 — INTERNAL LINKS
-        ══════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-6">
-            More Free Time &amp; Date Tools
+        {/* Date Formates and usecase */}
+        <section id="date-formats-usecase" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Date Formates and usecase
           </h2>
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            <li>
-              <Link href="/calculators/time/age-calculator" className="text-blue-300 underline underline-offset-2 hover:text-blue-200">
-                Age Calculator
-              </Link>{" "}
-              — your exact age in years, months, and days, plus total days lived
-            </li>
-            <li>
-              <Link href="/calculators/time/hours-calculator" className="text-blue-300 underline underline-offset-2 hover:text-blue-200">
-                Hours Calculator
-              </Link>{" "}
-              — time between two clock times, and decimal hours for payroll
-            </li>
-            <li>
-              <Link href="/calculators/time/time-calculator" className="text-blue-300 underline underline-offset-2 hover:text-blue-200">
-                Time Calculator
-              </Link>{" "}
-              — convert between hours, minutes, and seconds
-            </li>
-          </ul>
 
-          <p className="text-gray-200 italic text-center mt-16 text-lg font-medium leading-relaxed">
-            Never miscalculate a deadline again — whether it's a visa window, an exam date, a legal
-            notice, or a project milestone, LizoCalc's Date Calculator gets it right every time.
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Dates look simple but the way they are written can change from
+            one country, software, or situation to another. For example,
+            08/09/2026 could mean August 9, 2026 in one place and September
+            8, 2026 in another.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            That is why choosing the right date format matters, especially
+            when working with forms, spreadsheets, websites, databases,
+            travel documents, or international teams.Use{" "}
+            <Link
+              href="/calculators/time/days-between-dates-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200 font-semibold"
+            >
+              Days between two dates calculator
+            </Link>{" "}
+            to find the time duration between two dates
+          </p>
+
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[560px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Date Format</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Example</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Common Use</th>
+                </tr>
+              </thead>
+              <tbody>
+                {dateFormatRows.map((row, index) => (
+                  <tr key={row.format} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-bold">{row.format}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-mono">{row.example}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.use}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Where to Use a Date Calculator */}
+        <section id="where-to-use" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Where to Use a Date Calculator
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            A date calculator can be useful whenever you need to add or
+            subtract days, weeks, or months from a specific date. Instead
+            of counting days on a calendar by hand, you can enter the dates
+            and get the result in seconds. Here are some common situations
+            where a date calculator can help.
+          </p>
+
+          <div className="space-y-6">
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                💼 Project Management and Billing
+              </h3>
+              <p className="text-gray-200 leading-relaxed mb-4 text-base">
+                Dates are very important when you are working on projects
+                or managing contracts. A small mistake can sometimes lead
+                to a missed deadline or late payment.
+              </p>
+              <p className="text-gray-200 leading-relaxed mb-3 text-base">
+                So you can use this calculator for :
+              </p>
+              <ol className="list-decimal list-inside text-gray-200 space-y-2 text-base">
+                <li>Project planning.</li>
+                <li>Payment deadlines.</li>
+                <li>Contract dates.</li>
+              </ol>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                👶 Pregnancy and Medical Tracking
+              </h3>
+              <p className="text-gray-200 leading-relaxed mb-4 text-base">
+                Date calculations can also be useful for tracking important
+                medical or pregnancy-related dates fastely. Many healthcare
+                professionals use different methods depending on the
+                situation, so a calculator should be treated as a planning
+                tool rather than a medical diagnosis.You can also{" "}
+                <Link
+                  href="/calculators/time/days-from-today-calculator"
+                  className="text-blue-300 underline underline-offset-2 hover:text-blue-200 font-semibold"
+                >
+                  use days from today calculator
+                </Link>{" "}
+                to calculate days from specific date.
+              </p>
+              <ol className="list-decimal list-inside text-gray-200 space-y-2 text-base">
+                <li>Estimated due date.</li>
+                <li>Pregnancy milestones.</li>
+                <li>Appointments.</li>
+              </ol>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                🏛 Legal and Regulatory Deadlines
+              </h3>
+              <p className="text-gray-200 leading-relaxed mb-4 text-base">
+                Legal and government matters often come with strict
+                deadlines. A date calculator can make it easier to work out
+                a date without manually counting every day.
+              </p>
+              <ol className="list-decimal list-inside text-gray-200 space-y-2 text-base mb-4">
+                <li>Filing deadlines.</li>
+                <li>Visa and travel records.</li>
+                <li>Record checks.</li>
+              </ol>
+              <p className="text-gray-200 leading-relaxed text-base">
+                Always check the specific rules that apply to your case
+                because some legal deadlines exclude weekends, holidays, or
+                the starting day.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-2">
+                ✈️ Personal Plans and Milestones
+              </h3>
+              <p className="text-gray-200 leading-relaxed mb-4 text-base">
+                You don&apos;t need to use a date calculator only for work.
+                It can be handy for everyday plans too.
+              </p>
+              <ol className="list-decimal list-inside text-gray-200 space-y-2 text-base">
+                <li>Vacation planning.</li>
+                <li>Age calculations.</li>
+                <li>Personal goals.</li>
+              </ol>
+            </div>
+          </div>
+
+          <p className="text-gray-200 leading-relaxed mt-8 text-base">
+            Whether you are planning a project, checking a deadline, or
+            simply counting down to an important day, a date calculator can
+            save time and reduce the chance of making a simple counting
+            mistake.
           </p>
         </section>
 
-        {/* ── BYLINE ── */}
-        <div className="flex items-center gap-4 mt-12 mb-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-            RA
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm">
-              Written by Rana Muhammad Abdullah
-            </p>
-            <p className="text-gray-300 text-xs">
-              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
-              Control Engineering Student ·{" "}
-              <a
-                href="https://www.linkedin.com/in/abdullahsajjad06/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                LinkedIn
-              </a>
-            </p>
-          </div>
-          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
-            <span>📅 Published: Apr 4, 2026</span>
-            <span>🔄 Updated: Aug 20, 2026</span>
-            <span>✅ Verified accurate</span>
-          </div>
-        </div>
-
+      
+        <section className="px-4 mb-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Time Calculators"
+            links={[
+              { label: "Age Calculator", href: "/calculators/time/age-calculator" },
+              { label: "Hours Calculator", href: "/calculators/time/hours-calculator" },
+              { label: "Time Calculator", href: "/calculators/time/time-calculator" },
+              { label: "Business Days Calculator", href: "/calculators/time/business-days-calculator" },
+            ]}
+            seeAllHref="/calculators/time"
+          />
+        </section>
       </article>
 
       <FAQ items={faqData} />

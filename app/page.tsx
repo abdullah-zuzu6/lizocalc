@@ -62,7 +62,7 @@ export default function Home() {
     { slug: 'mortgage-calculator' }, { slug: 'loan-calculator' },
     { slug: 'auto-loan-calculator' }, { slug: 'salary-calculator' },
     { slug: 'interest-calculator' }, { slug: 'inflation-calculator' },
-    { slug: 'payment-calculator' }, { slug: 'compound-interest-calculator' }
+    { slug: 'payment-calculator' },
   ].map(c => ({ name: formatName(c.slug), href: `/calculators/financial/${c.slug}` }))
 
   const health = [
@@ -80,15 +80,14 @@ export default function Home() {
   ].map(c => ({ name: formatName(c.slug), href: `/calculators/math/${c.slug}` }))
 
   const time = [
-    { slug: 'age-calculator' }, { slug: 'date-calculator' },
+    { slug: 'age-calculator' },
+    { slug: 'business-days-calculator' } ,{ slug: 'days-between-dates-calculator' },
+    { slug: 'days-from-today-calculator' },
+     { slug: 'date-calculator' },
     { slug: 'time-calculator' }, { slug: 'hours-calculator' },
   ].map(c => ({ name: formatName(c.slug), href: `/calculators/time/${c.slug}` }))
 
-  const physics = [
-    { slug: 'density-calculator' }, { slug: 'speed-calculator' },
-    { slug: 'mass-calculator' },
-  ].map(c => ({ name: formatName(c.slug), href: `/calculators/physics/${c.slug}` }))
-
+  
   const webPageStructuredData = {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -152,12 +151,12 @@ export default function Home() {
             calculators={math}
           />
 
-          <CalculatorGrid
+          {/* <CalculatorGrid
             title="Physics"
             Icon={Atom}
             variant="emerald"
             calculators={physics}
-          />
+          /> */}
 
           <CalculatorGrid
             title="Time"

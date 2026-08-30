@@ -4,81 +4,71 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import TimeCalculator from "./clientside";
-import Image from "next/image";
 import ShareBar from "@/components/Sharebar";
+import SimilarCalculators from "@/components/Similarcalculator";
+import AuthorBio from "@/components/AuthorBio";
 
-/* ─────────────────────────────────────────────
-   FAQ DATA
-───────────────────────────────────────────── */
+
 const faqData = [
   {
-    question: "How do I add hours and minutes together?",
+    question: "How do I find the time between two dates?",
     answer:
-      "To add time durations, sum the minutes and hours separately. If the minutes total 60 or more, divide the minutes by 60; add the quotient to your hours and keep the remainder as your minutes. Example: 2h 45m + 1h 30m = 3h 75m. Since 75m = 1h 15m, the final total is 4h 15m.",
+      "Switch to the Duration tab, enter a start date and time and an end date and time, then hit Calculate. You'll get the gap broken into days, hours, minutes, and seconds, plus totals in hours, minutes, and seconds if you need a single number for a timesheet or invoice.",
   },
   {
-    question: "How do I calculate decimal hours for payroll?",
+    question: "What does \"count only workdays\" do?",
     answer:
-      "To convert minutes to decimal hours for a timesheet, divide the number of minutes by 60. Formula: Decimal Hours = Hours + (Minutes / 60). For example, if you worked 8 hours and 15 minutes, the calculation is 8 + (15 / 60) = 8.25 hours.",
+      "It removes any time that falls on a Saturday or Sunday from the total. If your start or end time lands in the middle of a weekend day, only the Monday-to-Friday portion of that day counts, so the result still lines up with a normal work week.",
   },
   {
-    question: "How do I calculate the time elapsed between two points in time?",
+    question: "Can I leave out the time and just use dates?",
     answer:
-      "To find the duration, subtract the start time from the end time. If the end time's minutes are less than the start time's, borrow 60 minutes from the end hour. For instance, to find the gap between 1:45 PM and 4:15 PM: 4:15 becomes 3:75. Then, (3 - 1) hours and (75 - 45) minutes equals 2 hours and 30 minutes.",
+      "Yes. Leave both time fields at their default and the calculator treats each date as starting at midnight. If you only care about whole days between two dates rather than an exact duration, our days between dates calculator is built for that.",
   },
   {
-    question: "How does a time calculator handle crossing midnight?",
+    question: "How do I convert hours and minutes into decimal hours?",
     answer:
-      "When a time range crosses midnight, add 24 hours to the end time before subtracting. If you start at 10:00 PM (22:00) and end at 2:00 AM (02:00), the calculation is (2 + 24) - 22 = 4 hours. This ensures the duration is positive and accurate.",
+      "Switch to the Convert tab and enter your hours, minutes, and seconds. The result shows total hours as a decimal, for example 1 hour 30 minutes converts to 1.50 hours, which is the format most payroll and invoicing systems expect.",
   },
   {
-    question: "How do I convert military time to a 12-hour format?",
+    question: "What's the difference between 12-hour and 24-hour time?",
     answer:
-      "For military times from 13:00 to 23:59, subtract 12 to get the PM time. For 00:00 to 00:59, the time is 12:00 AM to 12:59 AM. For 01:00 to 12:00, the time remains the same but is labeled AM. Example: 17:30 - 12 = 5:30 PM.",
+      "The 12-hour clock repeats 1 through 12 twice a day and uses AM/PM to tell them apart. The 24-hour clock counts straight from 00:00 to 23:59, so 1:00 PM becomes 13:00 and there's no AM/PM to mix up. Enter times in either format and the calculator reads them correctly.",
   },
   {
-    question: "What is the formula for converting seconds into hours?",
+    question: "Why does my duration show a negative or reversed result?",
     answer:
-      "To convert seconds into a readable time format, use the formula: Hours = Total Seconds / 3600. To find the remaining minutes, take the remainder and divide by 60. For example, 7,260 seconds is 7,260 / 3,600 = 2 hours with 60 seconds (1 minute) left over, totaling 2 hours and 1 minute.",
+      "If the end date and time you entered come before the start, the calculator swaps them automatically and tells you it did so, so you still get a positive duration rather than an error.",
   },
   {
-    question: "How many seconds are in an hour?",
+    question: "Can I share a calculation with someone else?",
     answer:
-      "There are exactly 3,600 seconds in one hour. This comes from multiplying 60 minutes × 60 seconds per minute = 3,600. So 2 hours = 7,200 seconds, and 8 hours = 28,800 seconds.",
+      "Yes. After you calculate a result, use Copy Link under Share This Result. The link carries your dates, times, and settings, so whoever opens it sees the exact same inputs and result you did.",
   },
   {
-    question: "How do I convert hours to minutes quickly?",
+    question: "Does this calculator account for time zones?",
     answer:
-      "To convert hours to minutes, multiply the number of hours by 60. For example, 3 hours = 3 × 60 = 180 minutes. For decimal hours like 2.5 hours, the calculation is 2.5 × 60 = 150 minutes.",
-  },
-  {
-    question: "What is 1.5 hours in hours and minutes?",
-    answer:
-      "1.5 hours equals 1 hour and 30 minutes. The decimal 0.5 represents half of 60 minutes (0.5 × 60 = 30). This is the same as 90 total minutes or 5,400 total seconds.",
+      "No, it works entirely in your device's local time. If your start and end points are in different time zones, convert both to the same zone before entering them, or the duration will be off by the zone difference.",
   },
 ];
 
-/* ─────────────────────────────────────────────
-   METADATA
-───────────────────────────────────────────── */
 export const metadata: Metadata = {
-  title: "Time Calculator – Convert Hours, Minutes & Seconds Instantly",
+  title: "Time Calculator – Time Duration & Hours, Minutes, Seconds Converter",
+
   description:
-    "Free time calculator to convert hours to minutes, minutes to seconds, and calculate decimal hours for payroll. Instant results — no sign-up needed.",
+    "Free time calculator. Find the exact duration between two dates and times, or convert hours, minutes, and seconds into decimal hours and total seconds.",
 
   keywords: [
     "time calculator",
-    "convert hours to minutes",
-    "hours to seconds converter",
-    "decimal hours calculator",
-    "minutes to seconds",
     "time duration calculator",
-    "calculate total seconds",
-    "how many seconds in an hour",
-    "time conversion tool",
-    "time unit converter",
+    "time between two dates",
     "hours minutes seconds calculator",
-    "payroll time calculator",
+    "convert hours to minutes",
+    "decimal hours calculator",
+    "elapsed time calculator",
+    "workday time calculator",
+    "time difference calculator",
+    "12 hour to 24 hour converter",
   ],
 
   alternates: {
@@ -91,9 +81,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Time Calculator – Convert Hours, Minutes & Seconds | LizoCalc",
+    title: "Time Calculator | LizoCalc",
     description:
-      "Instantly convert between hours, minutes, and seconds. Get decimal hours for billing, total seconds for science, and hh:mm:ss for timesheets — free & ad-free.",
+      "Find the exact duration between two dates and times, or convert hours, minutes, and seconds. Free, with a workdays-only option and shareable results.",
     url: "https://www.lizocalc.com/calculators/time/time-calculator",
     siteName: "LizoCalc",
     type: "website",
@@ -101,14 +91,14 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Time Calculator — Convert & Calculate Durations Instantly",
+    title: "Time Calculator | LizoCalc",
     description:
-      "Convert hours to minutes, minutes to seconds, and get decimal hours for payroll — all in one free tool.",
+      "Find the duration between two dates and times, or convert hours, minutes, and seconds into decimal hours.",
   },
 };
 
 // ─────────────────────────────────────────────
-//  STRUCTURED DATA (kept out of the render path)
+//  STRUCTURED DATA
 // ─────────────────────────────────────────────
 const structuredData = {
   "@context": "https://schema.org",
@@ -119,7 +109,7 @@ const structuredData = {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
         { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 3, name: "Date & Time", item: "https://www.lizocalc.com/calculators/time" },
         { "@type": "ListItem", position: 4, name: "Time Calculator", item: "https://www.lizocalc.com/calculators/time/time-calculator" },
       ],
     },
@@ -127,727 +117,425 @@ const structuredData = {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/time/time-calculator",
       url: "https://www.lizocalc.com/calculators/time/time-calculator",
-      name: "Time Calculator – Convert Hours, Minutes & Seconds Instantly",
-      description: "Free time calculator to convert hours to minutes, minutes to seconds, and get decimal hours for payroll and billing.",
+      name: "Time Calculator | LizoCalc",
+      description: "Free time calculator. Find the duration between two dates and times, or convert hours, minutes, and seconds.",
       inLanguage: "en",
       datePublished: "2026-03-29",
-      dateModified: "2026-08-20",
+      dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb" },
     },
   ],
-}; 
+};
 
-/* ─────────────────────────────────────────────
-   PAGE
-───────────────────────────────────────────── */
+const tocItems = [
+  { id: "what-is-time", label: "What Is Time?" },
+  { id: "how-its-calculated", label: "How Time Is Calculated" },
+  { id: "time-calculator-examples", label: "Time Calculator Examples" },
+  { id: "duration-vs-conversion", label: "Duration vs Conversion" },
+  { id: "12-vs-24-hour", label: "12-Hour vs 24-Hour Time" },
+  { id: "quick-reference", label: "Quick Reference Table" },
+];
+
+const durationVsConversionRows = [
+  { metric: "What it answers", duration: "How much time sits between two moments", conversion: "What a set duration equals in other units" },
+  { metric: "Inputs", duration: "A start date and time, an end date and time", conversion: "Hours, minutes, and seconds" },
+  { metric: "Typical output", duration: "Days, hours, minutes, seconds, plus totals", conversion: "Total seconds, total minutes, decimal hours" },
+  { metric: "Used for", duration: "Elapsed time, deadlines, shift length", conversion: "Payroll, billing, video and audio length" },
+  { metric: "Example", duration: "9:00 AM to 5:45 PM is 8h 45m", conversion: "8h 45m equals 8.75 hours" },
+];
+
+const clockFormatRows = [
+  { twelve: "12:00 AM", twentyFour: "00:00" },
+  { twelve: "6:00 AM", twentyFour: "06:00" },
+  { twelve: "12:00 PM", twentyFour: "12:00" },
+  { twelve: "1:00 PM", twentyFour: "13:00" },
+  { twelve: "6:00 PM", twentyFour: "18:00" },
+  { twelve: "11:59 PM", twentyFour: "23:59" },
+];
+
+const referenceRows = [
+  { hms: "0:00:30", seconds: "30", minutes: "0.50", hours: "0.0083" },
+  { hms: "0:01:00", seconds: "60", minutes: "1.00", hours: "0.0167" },
+  { hms: "0:05:00", seconds: "300", minutes: "5.00", hours: "0.0833" },
+  { hms: "0:15:00", seconds: "900", minutes: "15.00", hours: "0.2500" },
+  { hms: "0:30:00", seconds: "1,800", minutes: "30.00", hours: "0.5000" },
+  { hms: "0:45:30", seconds: "2,730", minutes: "45.50", hours: "0.7583" },
+  { hms: "1:00:00", seconds: "3,600", minutes: "60.00", hours: "1.0000" },
+  { hms: "1:30:45", seconds: "5,445", minutes: "90.75", hours: "1.5125" },
+  { hms: "2:00:00", seconds: "7,200", minutes: "120.00", hours: "2.0000" },
+  { hms: "4:30:00", seconds: "16,200", minutes: "270.00", hours: "4.5000" },
+  { hms: "8:00:00", seconds: "28,800", minutes: "480.00", hours: "8.0000" },
+  { hms: "8:15:45", seconds: "29,745", minutes: "495.75", hours: "8.2625" },
+  { hms: "12:00:00", seconds: "43,200", minutes: "720.00", hours: "12.0000" },
+  { hms: "16:00:00", seconds: "57,600", minutes: "960.00", hours: "16.0000" },
+  { hms: "24:00:00", seconds: "86,400", minutes: "1,440.00", hours: "24.0000" },
+];
+
 export default function TimePage() {
   return (
     <main className="min-h-screen bg-background">
-      <Navbar />
-<script
-  id="structured-data-time-calculator"
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-/>
+      <style>{`html { scroll-behavior: smooth; }`}</style>
 
-      {/* ══════════════════════════════════════════
-          HERO SECTION
-      ══════════════════════════════════════════ */}
+      <Navbar />
+
+      <script
+        id="structured-data-time-calculator"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
+      {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-            Time Calculator — Convert Hours, Minutes &amp; Seconds Instantly
-          </h1>
-          <p className="mt-4 text-gray-300 text-lg max-w-5xl">
-            The fastest free online tool to convert hours to minutes, minutes to
-            seconds, get decimal hours for payroll, and calculate total seconds
-            for science — all in real time, no sign-up needed.
+          <div className="flex items-center gap-3">
+            <h1 className="text-3xl md:text-4xl font-bold">Time Calculator</h1>
+          </div>
+
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Find how much time sits between two dates and times, or convert hours, minutes, and seconds into decimal hours.
           </p>
-          <ShareBar/>
-    
+
+          <ShareBar />
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          CALCULATOR TOOL
-      ══════════════════════════════════════════ */}
-      <section
-        className="px-4 py-8"
-        aria-label="Time unit conversion calculator"
-      >
+      {/* Calculator Tool */}
+      <section className="px-4 py-8" aria-label="Time duration and conversion calculator">
         <TimeCalculator />
       </section>
 
-      {/* ══════════════════════════════════════════
-          QUICK ANSWER BOX — AI Overview trigger
-      ══════════════════════════════════════════ */}
-      <section className="max-w-6xl mx-auto px-6 pt-8">
-        <div className="bg-blue-900/30 border border-blue-600 rounded-2xl p-6">
-          <p className="text-white font-semibold text-lg mb-2">
-            ⚡ Quick Answer: How to Convert Hours, Minutes &amp; Seconds
-          </p>
-          <p className="text-gray-200 text-base leading-relaxed">
-            To convert a duration to total seconds use:{" "}
-            <strong>
-              Total Seconds = (Hours × 3,600) + (Minutes × 60) + Seconds
-            </strong>
-            . For decimal hours divide total seconds by 3,600. Example: 1 hour
-            30 minutes 45 seconds = <strong>5,445 seconds</strong> ={" "}
-            <strong>90.75 minutes</strong> ={" "}
-            <strong>1.5125 decimal hours</strong>. Our calculator below does
-            this for any duration instantly.
-          </p>
-        </div>
-      </section>
+      {/* SEO Content */}
+      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A <strong>time calculator</strong> does two related jobs. It tells
+          you how much time actually passed between a start point and an end
+          point, and it converts a duration you already know into whatever
+          unit you need next. Pick the Duration tab for the first job and the
+          Convert tab for the second. Both share your date and time settings,
+          and once you have a result you can copy a link that carries the
+          exact same inputs.
+        </p>
 
-      {/* ══════════════════════════════════════════
-          SEO ARTICLE CONTENT
-      ══════════════════════════════════════════ */}
-      <article
-        className="max-w-6xl mx-auto px-6 py-16 text-white"
-        itemScope
-        itemType="https://schema.org/Article"
-      >
-        {/* ── INTRO ── */}
-        <p
-          className="text-gray-200 leading-relaxed mb-6 text-lg"
-          itemProp="description"
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
         >
-          The <strong>Time Calculator</strong> — also known as a
-          hours-to-minutes converter, decimal time calculator, or total-seconds
-          tool — is an essential utility for students, professionals,
-          freelancers, video editors, researchers, and anyone who regularly
-          converts, adds up, or breaks down time durations. Whether you are a
-          student in Punjab calculating total study hours for board exam
-          preparation, a freelancer billing clients in decimal hours, a YouTuber
-          summing video lengths, or a lab technician converting experiment
-          run-times into seconds, precise time conversion saves hours of manual
-          arithmetic.
-        </p>
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
+          </h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          LizoCalc's completely free, no-registration-required{" "}
-          <strong>Time Calculator</strong> instantly converts any duration
-          between hours ↔ minutes ↔ seconds, decimal hours (e.g. 2.75 h) ↔
-          hh:mm:ss format, and total seconds for long durations. It features
-          real-time sliders, high-precision manual entry, a clean mobile-first
-          design, offline capability after first load, and remembers your last
-          inputs with consent. It never shows ads. Jump right in on our{" "}
-          <Link
-            href="/calculators/time/time-calculator"
-            className="text-blue-400 hover:underline font-semibold"
-          >
-            Time Calculator page
-          </Link>
-          .
-        </p>
+        {/* What Is Time */}
+        <section id="what-is-time" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            What Is Time?
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Time is how we measure the gap between one moment and another.
+            A clock splits that gap into hours, minutes, and seconds. A
+            calendar splits it into days, weeks, months, and years.
+            Both measure the same thing, just at a different resolution.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Most people reach for a time calculator for one of two reasons.
+            Either they need to know how long something took or will take,
+            like a flight, a shift, or a phone call, or they already have a
+            duration and need it written a different way, like turning 1
+            hour 22 minutes into 1.37 decimal hours for a client invoice.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            This tool covers both. Enter a start and end date and time to
+            get the exact gap, or enter hours, minutes, and seconds to
+            convert them. If you only need whole calendar days instead of
+            an exact duration, the{" "}
+            <Link
+              href="/calculators/time/days-between-dates-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              days between two dates calculator
+            </Link>{" "}
+            handles that. To add or subtract time from a single date instead
+            of comparing two, use the{" "}
+            <Link
+              href="/calculators/time/date-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              date calculator
+            </Link>
+            . Everything here runs in your browser on your device's local
+            clock, so nothing gets sent anywhere, and your last inputs are
+            remembered automatically.
+          </p>
+        </section>
 
-        {/* ══════════════════════════════════════════
-            SECTION 1 — INSTANT TIME CONVERSION
-        ══════════════════════════════════════════ */}
-        <section className="mt-16" aria-labelledby="section-instant-conversion">
-          <h2
-            id="section-instant-conversion"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            Instant Time Conversion for Any Duration
+        {/* How it's calculated */}
+        <section id="how-its-calculated" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How Time Is Calculated
           </h2>
 
-          {/* Convert Hours to Seconds */}
-          <div className="mt-8 space-y-10">
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Convert Hours to Total Seconds — Fast Reference
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            In Duration mode, the calculator subtracts your start moment from
+            your end moment and breaks the gap into days, hours, minutes, and
+            seconds. If you turn on "count only workdays," it steps through
+            the range one calendar day at a time and drops any portion that
+            falls on a Saturday or Sunday before adding up the rest.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            That day-by-day approach matters when a shift starts on a Friday
+            afternoon and ends on a Monday morning: only the Friday hours
+            before midnight and the Monday hours after midnight get counted,
+            and the whole weekend in between is dropped.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            In Convert mode, the math is simpler: total seconds equals hours
+            times 3,600, plus minutes times 60, plus seconds. Total minutes
+            and decimal hours come from dividing that number down.
+          </p>
+
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-6 font-mono text-green-300 text-sm">
+            <div>Total Seconds = (Hours × 3,600) + (Minutes × 60) + Seconds</div>
+            <div>Total Minutes = Total Seconds ÷ 60</div>
+            <div>Decimal Hours = Total Seconds ÷ 3,600</div>
+          </div>
+        </section>
+
+        {/* Examples */}
+        <section id="time-calculator-examples" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Time Calculator Examples
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">
+                Example 1: A work shift
               </h3>
-              <p className="text-gray-200 leading-relaxed text-base mb-4">
-                Need to know how many seconds are in 8 hours of work? Or how
-                many seconds long your podcast episode runs? Multiply hours by
-                3,600.
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                Start: 9:00 AM. End: 5:45 PM, same day. That's a straight
+                subtraction with no days involved.
               </p>
-              <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-base">
-                8 hours × 3,600 = <strong>28,800 seconds</strong>
-                <br />1 hour × 3,600 = <strong>3,600 seconds</strong>
-                <br />
-                0.5 hours × 3,600 = <strong>1,800 seconds</strong>
-              </div>
+              <p className="text-green-300 font-mono text-center text-lg">8h 45m</p>
             </div>
-          </div>
 
-          {/* Complex durations */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Breaking Down Complex Durations into Total Minutes
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Enter 2 hours 45 minutes 30 seconds — get total minutes instantly:
-          </p>
-          <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-base mb-6">
-            2 h 45 min 30 s = <strong>165.5 total minutes</strong>
-          </div>
-
-          {/* Decimal hours for payroll */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Calculating Decimal Hours for Payroll and Freelance Billing
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Many companies in Pakistan and internationally pay using decimal
-            hours rather than mm:ss format. Our{" "}
-            <strong>decimal hours calculator</strong> converts instantly:
-          </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-6 mb-3">
-            Why decimal hour precision matters for professional tracking
-          </h4>
-          <p className="text-gray-200 text-base">
-            1 hour 36 minutes = <strong>1.60 hours</strong> (not 1.6 — the
-            trailing zero matters). Rounding errors of even 0.01 hour can mean
-            ₹50–200 difference per task when multiplied across dozens of entries
-            in a month.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            SECTION 2 — HOW TO USE
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-how-to-use">
-          <h2
-            id="section-how-to-use"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            How to Use the LizoCalc Time Conversion Tool
-          </h2>
-
-          <div className="mt-8 space-y-10">
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Adjusting Parameters with Interactive Range Sliders
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">
+                Example 2: Crossing a weekend
               </h3>
-              <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-                <li>
-                  Drag the Hours, Minutes, or Seconds sliders — results update
-                  live in real time
-                </li>
-                <li>
-                  Watch decimal hours, total minutes, and total seconds change
-                  instantly with every move
-                </li>
-                <li>
-                  Perfect for quick estimates during meetings, study sessions,
-                  or client calls
-                </li>
-              </ol>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                Start: Friday 4:00 PM. End: Monday 9:00 AM. With "count only
+                workdays" on, Saturday and Sunday drop out of the total.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">17h</p>
             </div>
-          </div>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Understanding the Results: From Total Seconds to Decimal Hours
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            All four output formats update simultaneously so you never have to
-            do secondary conversions:
-          </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-2 text-base ml-5">
-            <li>hh:mm:ss format — for timesheets, video editors, and timers</li>
-            <li>Total seconds — for programming, science, and APIs</li>
-            <li>Total minutes (decimal) — for scheduling and meeting logs</li>
-            <li>
-              Decimal hours — most accurate format for payroll and billing
-            </li>
-          </ul>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-5">
-            Step-by-Step Example: Converting 1h 30m 45s to All Units
-          </h4>
-
-          {/* Image 2 — total seconds breakdown */}
-          <figure className="my-8">
-            <Image
-              src="/images/time/total-seconds-breakdown.webp"
-              width={800}
-              height={450}
-              alt="Step-by-step infographic showing how to convert 1 hour 30 minutes 45 seconds into total seconds: 3600 + 1800 + 45 = 5445 seconds, 90.75 minutes, and 1.5125 decimal hours"
-              className="rounded-2xl border border-gray-700 shadow-xl w-full h-auto"
-              loading="eager"
-              sizes="(max-width: 768px) 100vw, 800px"
-            />
-            <figcaption className="text-sm text-gray-400 text-center mt-3 italic">
-              <strong>Figure 1:</strong> Converting Time to Total Seconds — 1
-              hour × 3,600 + 30 minutes × 60 + 45 seconds ={" "}
-              <strong>5,445 total seconds</strong>. Also equals 90.75 total
-              minutes and 1.5125 decimal hours.
-            </figcaption>
-          </figure>
-
-          <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 text-sm space-y-3 font-mono text-green-300">
-            <div>1 hour → 3,600 s</div>
-            <div>30 minutes → 1,800 s</div>
-            <div>45 seconds → 45 s</div>
-            <div className="pt-3 border-t border-gray-600">
-              Total seconds = <strong>5,445</strong>
-            </div>
-            <div>
-              Total minutes = <strong>90.75 min</strong>
-            </div>
-            <div>
-              Decimal hours = <strong>1.5125 h</strong>
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-blue-300 mb-3">
+                Example 3: Converting for an invoice
+              </h3>
+              <p className="text-gray-200 text-sm leading-relaxed mb-4">
+                A task logged as 2 hours 45 minutes 30 seconds, converted to
+                decimal hours for billing.
+              </p>
+              <p className="text-green-300 font-mono text-center text-lg">2.7583 h</p>
             </div>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════
-            SECTION 3 — MATHEMATICS
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-math">
-          <h2
-            id="section-math"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            The Mathematics Behind Time Unit Conversion
+        {/* Duration vs Conversion */}
+        <section id="duration-vs-conversion" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Duration vs Conversion
           </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            The Standard Time Formula:{" "}
-            <span className="font-mono text-lg">
-              Total Seconds = (Hours × 3600) + (Minutes × 60) + Seconds
-            </span>
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The reverse formula — converting decimal hours back to hh:mm:ss — is
-            equally important for payroll and timesheets:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            <div className="text-gray-400 mb-2">
-              // Decimal hours → hh:mm:ss
-            </div>
-            totalSeconds = decimalHours × 3600
-            <br />
-            hours = Math.floor(totalSeconds / 3600)
-            <br />
-            remaining = totalSeconds % 3600
-            <br />
-            minutes = Math.floor(remaining / 60)
-            <br />
-            seconds = remaining % 60
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Why 60 Is the Magic Number: The Sexagesimal System Explained
-          </h3>
-
-          {/* Image 1 — time unit conversion flow */}
-          <figure className="my-8 flex justify-center">
-            <div className="w-full max-w-2xl">
-              <Image
-                src="/images/time/time-unit-conversion-flow.webp"
-                alt="Time unit conversion flow diagram: 1 Hour multiplied by 60 equals 60 Minutes, multiplied by 60 again equals 3600 Seconds. Examples shown: 2 hours = 120 minutes, 1.5 hours = 90 minutes"
-                width={800}
-                height={450}
-                className="rounded-2xl border border-gray-700 shadow-lg w-full h-auto"
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 800px"
-              />
-              <figcaption className="text-sm text-gray-400 text-center mt-3 italic">
-                <strong>Figure 2:</strong> The sexagesimal (base-60) conversion
-                chain — Hours × 60 = Minutes × 60 = Seconds. This ancient
-                Babylonian system is why there are exactly 3,600 seconds in an
-                hour and 86,400 seconds in a day.
-              </figcaption>
-            </div>
-          </figure>
-
-          <p className="text-gray-200 text-base leading-relaxed">
-            The base-60 (sexagesimal) system for minutes and seconds comes from
-            ancient Babylonian mathematics, adopted by Greek astronomers, and
-            preserved through modern timekeeping. That is why the conversion
-            factors are always multiples of 60:
-          </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base ml-5 mt-4">
-            <li>1 minute = 60 seconds</li>
-            <li>1 hour = 60 minutes = 3,600 seconds</li>
-            <li>1 day = 24 hours = 1,440 minutes = 86,400 seconds</li>
-          </ul>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Accuracy Check: Handling High-Precision Decimal Fractions
-          </h3>
-          <p className="text-gray-200 text-base">
-            Our calculator preserves full precision (up to 4–5 decimal places in
-            decimal hours) so 1 hour 22.5 minutes shows correctly as{" "}
-            <strong>1.3750 hours</strong> — critical for scientific logging and
-            accurate invoicing.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            SECTION 4 — KEY FEATURES
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-features">
-          <h2
-            id="section-features"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            Key Features of Our Professional Time Calculator
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Real-Time Results with High-Performance Logic
-          </h3>
-          <p className="text-gray-200 text-base">
-            Every slider movement or keystroke updates all output values
-            instantly — no "Calculate" button needed. The tool runs entirely in
-            your browser for maximum speed.
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            The two tabs answer different questions, so it helps to know
+            which one you actually need before you start typing dates.
           </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Mobile-Optimized Interface for Fast Field Calculations
-          </h3>
-          <p className="text-gray-200 text-base">
-            Large touch-friendly sliders and number inputs work perfectly on
-            low-end Android phones common across Pakistan and South Asia. The
-            layout adapts cleanly to any screen size.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            One-Click Reset for Multiple Time-Shift Calculations
-          </h3>
-          <p className="text-gray-200 text-base">
-            Clear everything instantly when switching between tasks — from study
-            time to video editing to workout tracking. Each reset is a clean
-            slate with no residual values.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            SECTION 5 — PRACTICAL APPLICATIONS
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-applications">
-          <h2
-            id="section-applications"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            Practical Applications for Time Calculation
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Media Production: Calculating Total Video Run-Times
-          </h3>
-          <p className="text-gray-200 text-base">
-            YouTube and TikTok creators: add up clips (3:45, 1:22, 4:58…) to get
-            total runtime in hh:mm:ss and decimal hours for ad revenue estimates
-            and content scheduling.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Academic Science: Converting Experimental Data into Seconds
-          </h3>
-          <p className="text-gray-200 text-base">
-            Physics and Chemistry students at colleges across Pakistan: convert
-            reaction times, pendulum periods, or titration durations into total
-            seconds for graphing, data tables, and lab report calculations.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Daily Productivity: Tracking Task Durations and Deadlines
-          </h3>
-          <ul className="list-disc list-inside text-gray-200 space-y-2 text-base ml-5">
-            <li>
-              Pomodoro / time-blocking: convert focused sessions to decimal
-              hours for daily logs
-            </li>
-            <li>
-              Freelance billing: 3 h 40 min = 3.67 billable hours at your hourly
-              rate
-            </li>
-            <li>
-              Workout logging: total weekly gym time in minutes for fitness
-              tracking apps
-            </li>
-            <li>
-              Exam preparation: how many total hours studied this month toward
-              board exams
-            </li>
-            <li>
-              Sleep tracking: convert bedtime to wake-up time into decimal hours
-              for health apps
-            </li>
-          </ul>
-        </section>
-
-        {/* ══════════════════════════════════════════
-            SECTION 6 — QUICK REFERENCE TABLE
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-reference-table">
-          <h2
-            id="section-reference-table"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            Quick Reference: Time Conversion Table (Hours, Minutes, Seconds)
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Use this table to quickly look up the most common time conversions —
-            from hh:mm:ss to decimal hours and total seconds — without typing a
-            single value into the calculator:
-          </p>
-
-          <div className="overflow-x-auto mt-8 mb-12">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <caption className="text-gray-400 text-xs text-left mb-2 pb-2">
-                Time conversion reference table: hh:mm:ss format → total
-                seconds, total minutes, and decimal hours.
-              </caption>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[560px]">
               <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold" scope="col">
-                    hh:mm:ss
-                  </th>
-                  <th className="p-4 text-left font-semibold" scope="col">
-                    Total Seconds
-                  </th>
-                  <th className="p-4 text-left font-semibold" scope="col">
-                    Total Minutes
-                  </th>
-                  <th className="p-4 text-left font-semibold" scope="col">
-                    Decimal Hours
-                  </th>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Metric</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Duration</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Conversion</th>
                 </tr>
               </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">0:01:00</td>
-                  <td className="p-4">60</td>
-                  <td className="p-4">1.00</td>
-                  <td className="p-4 font-bold text-green-400">0.0167</td>
-                </tr>
-                <tr>
-                  <td className="p-4">0:15:00</td>
-                  <td className="p-4">900</td>
-                  <td className="p-4">15.00</td>
-                  <td className="p-4 font-bold text-green-400">0.2500</td>
-                </tr>
-                <tr>
-                  <td className="p-4">0:30:00</td>
-                  <td className="p-4">1,800</td>
-                  <td className="p-4">30.00</td>
-                  <td className="p-4 font-bold text-green-400">0.5000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">0:45:30</td>
-                  <td className="p-4">2,730</td>
-                  <td className="p-4">45.50</td>
-                  <td className="p-4 font-bold text-green-400">0.7583</td>
-                </tr>
-                <tr>
-                  <td className="p-4">1:00:00</td>
-                  <td className="p-4">3,600</td>
-                  <td className="p-4">60.00</td>
-                  <td className="p-4 font-bold text-green-400">1.0000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">1:22:30</td>
-                  <td className="p-4">4,950</td>
-                  <td className="p-4">82.50</td>
-                  <td className="p-4 font-bold text-green-400">1.3750</td>
-                </tr>
-                <tr>
-                  <td className="p-4">1:30:45</td>
-                  <td className="p-4">5,445</td>
-                  <td className="p-4">90.75</td>
-                  <td className="p-4 font-bold text-green-400">1.5125</td>
-                </tr>
-                <tr>
-                  <td className="p-4">2:30:00</td>
-                  <td className="p-4">9,000</td>
-                  <td className="p-4">150.00</td>
-                  <td className="p-4 font-bold text-green-400">2.5000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">4:00:00</td>
-                  <td className="p-4">14,400</td>
-                  <td className="p-4">240.00</td>
-                  <td className="p-4 font-bold text-green-400">4.0000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">8:00:00</td>
-                  <td className="p-4">28,800</td>
-                  <td className="p-4">480.00</td>
-                  <td className="p-4 font-bold text-green-400">8.0000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">8:15:45</td>
-                  <td className="p-4">29,745</td>
-                  <td className="p-4">495.75</td>
-                  <td className="p-4 font-bold text-green-400">8.2625</td>
-                </tr>
-                <tr>
-                  <td className="p-4">24:00:00</td>
-                  <td className="p-4">86,400</td>
-                  <td className="p-4">1,440.00</td>
-                  <td className="p-4 font-bold text-green-400">24.0000</td>
-                </tr>
+              <tbody>
+                {durationVsConversionRows.map((row, index) => (
+                  <tr key={row.metric} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-medium">{row.metric}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.duration}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.conversion}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
+
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            A rough rule: if you're staring at two dates on a calendar, use
+            Duration. If you're staring at a number like "3h 20m" and need it
+            in a different shape, use Convert.
+          </p>
         </section>
 
-        {/* ══════════════════════════════════════════
-            SECTION 7 — COMMON CONVERSIONS (high-volume queries)
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-common-conversions">
-          <h2
-            id="section-common-conversions"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            Most Searched Time Conversions — Answered Instantly
+        {/* 12-Hour vs 24-Hour Time */}
+        <section id="12-vs-24-hour" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            12-Hour vs 24-Hour Time
           </h2>
 
-          <p className="text-gray-200 text-base mb-8">
-            Below are direct answers to the most-searched time conversion
-            questions — verified with the same formula our calculator uses:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The 12-hour clock splits the day into two 12-hour blocks, AM
+            and PM, and repeats 1 through 12 twice. The 24-hour clock
+            counts straight through from 00:00 to 23:59, so every hour of
+            the day gets its own number and there's no AM/PM to track.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              {
-                q: "How many minutes in an hour?",
-                a: "1 hour = 60 minutes. Formula: Hours × 60 = Minutes.",
-              },
-              {
-                q: "How many seconds in an hour?",
-                a: "1 hour = 3,600 seconds. Formula: Hours × 3,600 = Seconds.",
-              },
-              {
-                q: "How many seconds in a minute?",
-                a: "1 minute = 60 seconds. Formula: Minutes × 60 = Seconds.",
-              },
-              {
-                q: "How many minutes in a day?",
-                a: "1 day = 1,440 minutes (24 hours × 60 minutes per hour).",
-              },
-              {
-                q: "How many seconds in a day?",
-                a: "1 day = 86,400 seconds (24 hours × 3,600 seconds per hour).",
-              },
-              {
-                q: "What is 1.5 hours in minutes?",
-                a: "1.5 hours = 90 minutes. Formula: 1.5 × 60 = 90.",
-              },
-              {
-                q: "What is 2.5 hours in minutes?",
-                a: "2.5 hours = 150 minutes. Formula: 2.5 × 60 = 150.",
-              },
-              {
-                q: "What is 45 minutes in decimal hours?",
-                a: "45 minutes = 0.75 decimal hours. Formula: 45 ÷ 60 = 0.75.",
-              },
-            ].map(({ q, a }) => (
-              <div
-                key={q}
-                className="bg-gray-800/50 p-5 rounded-xl border border-gray-700"
-                itemScope
-                itemType="https://schema.org/Question"
-              >
-                <p className="font-semibold text-blue-300 mb-2" itemProp="name">
-                  {q}
-                </p>
-                <p
-                  className="text-gray-200 text-sm"
-                  itemScope
-                  itemType="https://schema.org/Answer"
-                  itemProp="acceptedAnswer"
-                >
-                  <span itemProp="text">{a}</span>
-                </p>
-              </div>
-            ))}
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            To convert PM to 24-hour time, add 12 to the hour, except for
+            12 PM, which stays 12:00. Midnight is 12:00 AM in 12-hour
+            format and 00:00 in 24-hour format.
+          </p>
+
+          <div className="overflow-x-auto rounded-xl border border-gray-700 mb-6">
+            <table className="w-full text-left border-collapse min-w-[320px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">12-Hour</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">24-Hour</th>
+                </tr>
+              </thead>
+              <tbody>
+                {clockFormatRows.map((row, index) => (
+                  <tr key={row.twelve} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-mono">{row.twelve}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-mono">{row.twentyFour}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
-          {/* E-E-A-T BYLINE */}
-          <div className="flex items-center gap-4 mt-12 mb-4 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-            <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-              RA
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">
-                Written by Rana Muhammad Abdullah
-              </p>
-              <p className="text-gray-400 text-xs">
-                MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
-                Control Engineering Student ·{" "}
-                <a
-                  href="https://www.linkedin.com/in/abdullahsajjad06/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline"
-                >
-                  LinkedIn
-                </a>
-              </p>
-            </div>
-            <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
-              <span>📅 Published: Mar 29, 2026</span>
-              <span>🔄 Updated: Aug 20, 2026</span>
-              <span>✅ Verified accurate</span>
-            </div>
-          </div>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The US, UK, Canada, and Australia default to 12-hour time in
+            daily conversation. Most of Europe, Latin America, and Asia
+            print schedules, transport timetables, and official documents
+            in 24-hour time, even in places where people say "6 o'clock"
+            out loud. Military and aviation systems use 24-hour time
+            everywhere, since mixing up 6 AM and 6 PM on a flight schedule
+            is the kind of mistake that actually costs something.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed text-base">
+            This calculator reads either format. If a project deadline is
+            written as a specific time and date and you need to know your
+            exact age or a target date on a certain day, the{" "}
+            <Link
+              href="/calculators/time/age-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              age calculator
+            </Link>{" "}
+            and{" "}
+            <Link
+              href="/calculators/time/hours-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              hours calculator
+            </Link>{" "}
+            cover the date and clock-time side of that separately.
+          </p>
         </section>
 
-        {/* ══════════════════════════════════════════
-            SECTION 8 — MORE TOOLS
-        ══════════════════════════════════════════ */}
-        <section className="mt-20" aria-labelledby="section-more-tools">
-          <h2
-            id="section-more-tools"
-            className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8"
-          >
-            More Time &amp; Productivity Tools to Explore
+        {/* Quick reference table */}
+        <section id="quick-reference" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+          Time Conversion Table
           </h2>
 
-          <p className="text-gray-200 text-base mb-6">
-            Pair your time conversions with these other free LizoCalc
-            calculators for a complete productivity toolkit:
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            A few common durations and what they equal in seconds, minutes,
+            and decimal hours, for a quick check without touching the
+            calculator above.
           </p>
 
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            <li>
-              <Link
-                href="/calculators/time/hours-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Hours Calculator
-              </Link>{" "}
-              — find the exact duration between any two clock times, with AM/PM
-              support and midnight crossover
-            </li>
-            <li>
-              <Link
-                href="/calculators/time/date-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Date Calculator
-              </Link>{" "}
-              — days, weeks, and months between any two calendar dates
-            </li>
-            <li>
-              <Link
-                href="/calculators/time/age-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Age Calculator
-              </Link>{" "}
-              — exact age in years, months, days, and total lifetime hours
-            </li>
-          </ul>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[480px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">hh:mm:ss</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Total Seconds</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Total Minutes</th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Decimal Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                {referenceRows.map((row, index) => (
+                  <tr key={row.hms} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-mono">{row.hms}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.seconds}</td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.minutes}</td>
+                    <td className="p-4 text-sm sm:text-base border-b border-gray-800 font-bold text-green-400">{row.hours}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Stop wasting time on manual calculations. LizoCalc Time Calculator
-            gives you instant, accurate time conversions every time — whether
-            you need seconds for science, decimal hours for billing, or minutes
-            for scheduling. Bookmark it today and make every minute count!
+          <p className="text-gray-200 leading-relaxed mt-8 text-base">
+            Need the number of whole calendar days instead of hours and
+            minutes? Try the{" "}
+            <Link
+              href="/calculators/time/days-between-dates-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              days between two dates calculator
+            </Link>
+            , or check{" "}
+            <Link
+              href="/calculators/time/business-days-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              business days calculator
+            </Link>{" "}
+            if weekends need to be excluded from the count.
           </p>
+        </section>
+
+        <section className="px-4 mb-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Time Calculators"
+            links={[
+              { label: "Hours Calculator", href: "/calculators/time/hours-calculator" },
+              { label: "Date Calculator", href: "/calculators/time/date-calculator" },
+              { label: "Days Between Dates Calculator", href: "/calculators/time/days-between-dates-calculator" },
+              { label: "Age Calculator", href: "/calculators/time/age-calculator" },
+            ]}
+            seeAllHref="/calculators/time"
+          />
         </section>
       </article>
 
       <FAQ items={faqData} />
+
       <Footer />
     </main>
   );

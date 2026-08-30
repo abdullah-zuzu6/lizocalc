@@ -47,12 +47,19 @@ const allCalculators = [
   { name: 'Date Calculator', href: '/calculators/time/date-calculator', category: 'Time' },
   { name: 'Time Calculator', href: '/calculators/time/time-calculator', category: 'Time' },
   { name: 'Hours Calculator', href: '/calculators/time/hours-calculator', category: 'Time' },
+  { name: 'Days Between Dates Calculator', href: '/calculators/time/days-between-dates-calculator', category: 'Time' },
+  { name: 'Day of Week Calculator', href: '/calculators/time/day-of-week-calculator', category: 'Time' },
+  { name: 'Business Days Calculator', href: '/calculators/time/business-days-calculator', category: 'Time' },
+  { name: 'Days From Today Calculator', href: '/calculators/time/days-from-today-calculator', category: 'Time' },
+  { name: 'Months From Today Calculator', href: '/calculators/time/months-from-today-calculator', category: 'Time' },
+
 
   { name: 'GPA Calculator', href: '/calculators/education/gpa-calculator', category: 'Education' },
   { name: 'Grade Calculator', href: '/calculators/education/grade-calculator', category: 'Education' },
   { name: 'CGPA Calculator', href: '/calculators/education/cgpa-calculator', category: 'Education' },
   {name:  'weighted grade calculator', href:'/calculators/education/weighted-grade-calculator', category:'Education'},
   { name: 'Final Grade Calculator', href: '/calculators/education/final-grade-calculator', category: 'Education' },
+  
   { name: 'Density Calculator', href: '/calculators/physics/density-calculator', category: 'Physics' },
   { name: 'Mass Calculator', href: '/calculators/physics/mass-calculator', category: 'Physics' },
   { name: 'Speed Calculator', href: '/calculators/physics/speed-calculator', category: 'Physics' },

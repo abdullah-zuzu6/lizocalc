@@ -4,62 +4,58 @@ import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import HoursCalculator from "./clientside";
-import Image from "next/image";
 import ShareBar from "@/components/Sharebar";
+import SimilarCalculators from "@/components/Similarcalculator";
+import AuthorBio from "@/components/AuthorBio";
+
 
 const faqData = [
   {
-    question: "How do I calculate total hours worked in a day?",
+    question: "How do I calculate the number of hours between two times?",
     answer:
-      "To find your daily total, subtract your start time from your end time and then subtract any unpaid break duration. For example, if you start at 8:30 AM and finish at 5:00 PM with a 30-minute lunch break: (5:00 PM - 8:30 AM) = 8 hours 30 minutes. Subtracting the 30-minute break leaves you with exactly 8.00 hours worked.",
+      "Subtract the start time from the end time. 9:00 AM to 5:30 PM is 8 hours 30 minutes. If the end time is earlier than the start time, such as a night shift running from 10:00 PM to 6:00 AM, treat the end time as landing the next day: add 24 hours to it before subtracting. This calculator handles that automatically, so you can enter either a same-day or overnight pair of times without doing the adjustment yourself.",
   },
   {
-    question: "How do I subtract a 30-minute lunch break from my total hours?",
+    question: "How do I convert minutes into decimal hours?",
     answer:
-      "To subtract a break accurately, convert the break into a fraction of an hour or subtract the minutes directly from your total. Since 30 minutes is 0.5 hours (30 / 60 = 0.5), if your raw time is 8 hours and 15 minutes (8.25), your net time is 8.25 - 0.5 = 7.75 hours, which equals 7 hours and 45 minutes.",
+      "Divide the minutes by 60 and add the result to the whole hours. 45 minutes is 45 ÷ 60 = 0.75, so 6 hours 45 minutes becomes 6.75. The mistake people make most often is reading the minutes straight off the clock, 30 minutes as 0.30 rather than 0.50. That 0.20 gap sounds small until it's multiplied by an hourly rate across a month of timesheets.",
   },
   {
-    question:
-      "How can I convert my total hours and minutes into a decimal format?",
+    question: "Why is 7:30 equal to 7.50 hours and not 7.30?",
     answer:
-      "To convert time to a decimal for billing or payroll, divide the minutes by 60 and add the result to the whole hours. The formula is: Total Hours + (Minutes / 60). For example, 6 hours and 36 minutes becomes 6 + (36 / 60) = 6.6 hours. This format is standard for most digital invoicing and payroll systems.",
+      "Because an hour has 60 minutes, not 100. Converting 30 minutes to a decimal means 30 ÷ 60, which is 0.50, not 0.30. The same logic applies to any minute value: 15 minutes is 0.25, 20 minutes is about 0.33, 45 minutes is 0.75. Treating the minutes as if the clock ran on a 100-minute hour is the single most common error in manual payroll math.",
   },
   {
     question: "How do I calculate overtime hours?",
     answer:
-      "Overtime is typically any time worked beyond 40 hours in a standard 7-day work week. To calculate it, use the formula: Total Hours - 40 = Overtime Hours. If you worked 47.5 hours this week, you have 7.5 hours of overtime. Depending on local laws, these 7.5 hours are often paid at a 'time-and-a-half' rate (1.5x your hourly wage).",
+      "In most standard workweeks, overtime is whatever's worked beyond 40 hours: Total Hours − 40 = Overtime Hours. Someone who logs 46.5 hours in a week has 6.5 hours of overtime. Overtime rules and pay multipliers vary by country, industry, and employment contract, so check your specific agreement for the rate that applies once you have the hour count.",
   },
   {
-    question: "What is the best way to add multiple time shifts together?",
+    question: "How do I find a percentage of a number of hours?",
     answer:
-      "The most efficient way is to sum all minutes first, then all hours. Convert every 60 minutes into 1 additional hour. For example, two shifts of 4h 45m and 3h 25m total 7h 70m. Since 70 minutes is 1h 10m, the combined total is 8 hours and 10 minutes.",
+      "Multiply the hours by the percentage as a decimal. 75% of 8 hours is 8 × 0.75 = 6 hours. To convert that decimal result back into hours and minutes, take the fractional part and multiply by 60: 0.4 hours × 60 = 24 minutes, so 8.4 hours is 8 hours 24 minutes. This comes up often in attendance tracking and partial-day pay calculations.",
   },
   {
-    question: "How do I calculate hours if my shift crosses midnight?",
+    question: "How many hours are in a month or a year?",
     answer:
-      "When a shift starts one day and ends the next, add 24 to the end time to make the subtraction possible. If you start at 9:00 PM (21:00) and end at 5:00 AM (05:00), calculate: (5 + 24) - 21 = 8 hours. This adjustment ensures your duration remains a positive number despite the date change.",
+      "It depends on the length of the month or year. A month runs from 672 hours (28 days) to 744 hours (31 days), averaging around 730.5. A year is 8,760 hours in a regular 365-day year or 8,784 hours in a 366-day leap year, averaging about 8,766.",
   },
   {
-    question: "How many hours is 9 to 5?",
+    question: "What's the difference between total hours and decimal hours?",
     answer:
-      "A 9 AM to 5 PM shift is exactly 8 hours (480 minutes). In decimal format this is 8.00 hours. If a 30-minute unpaid lunch break is deducted, the paid duration becomes 7.5 hours (7 hours 30 minutes).",
+      "Total hours is a whole number, the number of complete 60-minute blocks in the span, with any leftover minutes dropped. Decimal hours keeps that leftover time as a fraction, so 8 hours 30 minutes shows as a total of 8 whole hours but as 8.50 decimal hours. Payroll and invoicing systems almost always want the decimal figure, since it can be multiplied directly by an hourly rate.",
   },
   {
-    question: "What is 7.5 hours in hours and minutes?",
+    question: "Can I share a calculated result with someone else?",
     answer:
-      "7.5 hours equals 7 hours and 30 minutes. The decimal 0.5 represents half of 60 minutes (0.5 × 60 = 30 minutes). This is a common payroll duration for a standard half-day shift.",
-  },
-  {
-    question: "How do I calculate hours worked for payroll in Pakistan?",
-    answer:
-      "For Pakistani payroll, convert your worked time into decimal hours by dividing minutes by 60 and adding to full hours. Multiply decimal hours by your hourly rate. For example, 8 hours 45 minutes = 8.75 hours. At Rs 1,200/hour, earnings = Rs 10,500.",
+      "Yes. Once you've calculated a result, hit \"Copy Link\" under Share This Result. That link carries your exact start and end times (or dates, in Dates & Times mode), so anyone who opens it sees the same result without re-entering anything.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Hours Calculator: Find the Exact Time Between Two Times",
+  title: "Hours Calculator – Find the Exact Time Between Two Times",
   description:
-    "Calculate the exact hours and minutes between two times. Features AM/PM support, midnight crossover, and total decimal hours for easy payroll tracking.",
+    "Free hours calculator. Find the exact duration between two times or two full dates, with decimal hours, total minutes, and overnight shift support.",
 
   keywords: [
     "hours calculator",
@@ -67,10 +63,10 @@ export const metadata: Metadata = {
     "calculate hours between times",
     "duration calculator",
     "shift hours calculator",
-    "work hours counter",
-    "elapsed time calculator",
     "decimal hours converter",
-    "time duration tool",
+    "hours between two dates",
+    "overtime calculator",
+    "percentage of hours calculator",
   ],
 
   alternates: {
@@ -83,9 +79,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Hours & Time Duration Calculator | LizoCalc",
+    title: "Hours Calculator – Find the Exact Time Between Two Times | LizoCalc",
     description:
-      "Find the exact time difference between two points. Perfect for shift tracking, project management, and daily duration calculations.",
+      "Find the exact duration between two times or two full dates, with decimal hours, total minutes, and overnight shift support.",
     url: "https://www.lizocalc.com/calculators/time/hours-calculator",
     siteName: "LizoCalc",
     type: "website",
@@ -93,13 +89,14 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Hours Calculator - Accurate Time Difference",
+    title: "Hours Calculator | LizoCalc",
     description:
-      "Quickly calculate elapsed time and total hours between any two times with our free, professional calculator.",
+      "Free hours calculator with decimal hours, total minutes, and support for shifts that cross midnight or span multiple days.",
   },
 };
+
 // ─────────────────────────────────────────────
-//  STRUCTURED DATA (kept out of the render path)
+//  STRUCTURED DATA
 // ─────────────────────────────────────────────
 const structuredData = {
   "@context": "https://schema.org",
@@ -110,7 +107,7 @@ const structuredData = {
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
         { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 3, name: "Date & Time", item: "https://www.lizocalc.com/calculators/time" },
         { "@type": "ListItem", position: 4, name: "Hours Calculator", item: "https://www.lizocalc.com/calculators/time/hours-calculator" },
       ],
     },
@@ -118,35 +115,129 @@ const structuredData = {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/time/hours-calculator",
       url: "https://www.lizocalc.com/calculators/time/hours-calculator",
-      name: "Hours Calculator: Find the Exact Duration Between Two Times",
-      description: "Use our hours calculator to find the exact duration between two times, including AM/PM support and midnight crossover calculation.",
+      name: "Hours Calculator – Find the Exact Time Between Two Times | LizoCalc",
+      description: "Free hours calculator. Find the exact duration between two times or two full dates, with decimal hours, total minutes, and overnight shift support.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-20",
+      dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb" },
     },
   ],
 };
 
+const tocItems = [
+  { id: "what-is-hours-calculator", label: "What is an hour ?" },
+  { id: "how-hours-are-calculated", label: "How Hours Between Two Times Are Calculated" },
+  { id: "hours-in-different-periods", label: "Whart are hours in different time periods ?" },
+  { id: "decimal-hours-conversion", label: "Converting Minutes to Decimal Hours" },
+  { id: "overtime-and-percentages", label: "Overtime and Percentages of Hours" },
+  { id: "percentage-examples", label: "Some Examples" },
+  { id: "total-hours-table", label: "Total Hours Between Two Times" },
+];
+
+const timePeriodsTable = [
+  { description: "Hours in a day", hours: ["24"] },
+  { description: "Hours in a week", hours: ["168"] },
+  {
+    description: "Hours in a month",
+    hours: [
+      "672 h is equal to 28-day month",
+      "696 h is equal to 29-day month",
+      "720 h is equal to 30-day month",
+      "744 h is equal to 31-day month",
+      "730.5 h on average",
+    ],
+  },
+  {
+    description: "Hours in a year",
+    hours: ["8,760 h for a 365-day year", "8,784 h for a 366-day year", "8,766 h on average"],
+  },
+  {
+    description: "Hours in a decade",
+    hours: [
+      "87,648 h  for a 2-leap-year decade",
+      "87,672 h for a 3-leap-year decade",
+      "87,660 h on average",
+    ],
+  },
+  { description: "Hours in a century", hours: ["876,600"] },
+];
+
+const decimalTable = [
+  { minutes: "5 min", decimal: "0.08" },
+  { minutes: "10 min", decimal: "0.17" },
+  { minutes: "15 min", decimal: "0.25" },
+  { minutes: "20 min", decimal: "0.33" },
+  { minutes: "30 min", decimal: "0.50" },
+  { minutes: "36 min", decimal: "0.60" },
+  { minutes: "45 min", decimal: "0.75" },
+  { minutes: "50 min", decimal: "0.83" },
+];
+
+// 4-column layout: two "Examples / Total Time" pairs side by side
+const percentageExampleRows = [
+  { leftExample: "70% of 3 hours", leftTotal: "2 hours 6 minutes", rightExample: "85% of 5 hours", rightTotal: "4 hours 15 minutes" },
+  { leftExample: "70% of 4 hours", leftTotal: "2 hours 48 minutes", rightExample: "85% of 6 hours", rightTotal: "5 hours 6 minutes" },
+  { leftExample: "70% of 5 hours", leftTotal: "3 hours 30 minutes", rightExample: "85% of 7 hours", rightTotal: "5 hours 57 minutes" },
+  { leftExample: "70% of 6 hours", leftTotal: "4 hours 12 minutes", rightExample: "85% of 8 hours", rightTotal: "6 hours 48 minutes" },
+  { leftExample: "70% of 7 hours", leftTotal: "4 hours 54 minutes", rightExample: "85% of 12 hours", rightTotal: "10 hours 12 minutes" },
+  { leftExample: "70% of 7.5 hours", leftTotal: "5 hours 15 minutes", rightExample: "94% of 2 hours", rightTotal: "1 hour 52 minutes 48 seconds" },
+  { leftExample: "70% of 8 hours", leftTotal: "5 hours 36 minutes", rightExample: "94% of 3 hours", rightTotal: "2 hours 49 minutes 12 seconds" },
+  { leftExample: "70% of 12 hours", leftTotal: "8 hours 24 minutes", rightExample: "94% of 4 hours", rightTotal: "3 hours 45 minutes 36 seconds" },
+  { leftExample: "80% of 7.5 hours", leftTotal: "6 hours", rightExample: "94% of 5 hours", rightTotal: "4 hours 42 minutes" },
+  { leftExample: "84% of 4 hours", leftTotal: "3 hours 21 minutes 36 seconds", rightExample: "94% of 6 hours", rightTotal: "5 hours 38 minutes 24 seconds" },
+  { leftExample: "84% of 6 hours", leftTotal: "5 hours 2 minutes 24 seconds", rightExample: "94% of 7 hours", rightTotal: "6 hours 34 minutes 48 seconds" },
+  { leftExample: "84% of 7 hours", leftTotal: "5 hours 52 minutes 48 seconds", rightExample: "94% of 8 hours", rightTotal: "7 hours 31 minutes 12 seconds" },
+  { leftExample: "84% of 8 hours", leftTotal: "6 hours 43 minutes 12 seconds", rightExample: "94% of 12 hours", rightTotal: "11 hours 16 minutes 48 seconds" },
+  { leftExample: "84% of 15 hours", leftTotal: "12 hours 36 minutes", rightExample: "94% of 15 hours", rightTotal: "14 hours 6 minutes" },
+];
+
+// 6-column layout: two "Start / End / Total" triples side by side
+const totalHoursRows = [
+  { lStart: "7:00 AM", lEnd: "2:00 PM", lTotal: "7 hours", rStart: "9:00 AM", rEnd: "7:00 PM", rTotal: "10 hours" },
+  { lStart: "7:00 AM", lEnd: "3:00 PM", lTotal: "8 hours", rStart: "9:00 AM", rEnd: "8:00 PM", rTotal: "11 hours" },
+  { lStart: "7:00 AM", lEnd: "4:00 PM", lTotal: "9 hours", rStart: "10:00 AM", rEnd: "4:00 PM", rTotal: "6 hours" },
+  { lStart: "7:00 AM", lEnd: "5:00 PM", lTotal: "10 hours", rStart: "10:00 AM", rEnd: "5:00 PM", rTotal: "7 hours" },
+  { lStart: "7:00 AM", lEnd: "6:00 PM", lTotal: "11 hours", rStart: "10:00 AM", rEnd: "6:00 PM", rTotal: "8 hours" },
+  { lStart: "8:00 AM", lEnd: "3:00 PM", lTotal: "7 hours", rStart: "10:00 AM", rEnd: "7:00 PM", rTotal: "9 hours" },
+  { lStart: "8:00 AM", lEnd: "4:00 PM", lTotal: "8 hours", rStart: "10:00 AM", rEnd: "8:00 PM", rTotal: "10 hours" },
+  { lStart: "8:00 AM", lEnd: "5:00 PM", lTotal: "9 hours", rStart: "11:00 AM", rEnd: "5:00 PM", rTotal: "6 hours" },
+  { lStart: "8:00 AM", lEnd: "6:00 PM", lTotal: "10 hours", rStart: "11:00 AM", rEnd: "6:00 PM", rTotal: "7 hours" },
+  { lStart: "8:00 AM", lEnd: "7:00 PM", lTotal: "11 hours", rStart: "11:00 AM", rEnd: "7:00 PM", rTotal: "8 hours" },
+  { lStart: "9:00 AM", lEnd: "3:00 PM", lTotal: "6 hours", rStart: "11:00 AM", rEnd: "8:00 PM", rTotal: "9 hours" },
+  { lStart: "9:00 AM", lEnd: "4:00 PM", lTotal: "7 hours", rStart: "12:00 PM", rEnd: "5:00 PM", rTotal: "5 hours" },
+  { lStart: "9:00 AM", lEnd: "5:00 PM", lTotal: "8 hours", rStart: "12:00 PM", rEnd: "6:00 PM", rTotal: "6 hours" },
+  { lStart: "9:00 AM", lEnd: "6:00 PM", lTotal: "9 hours", rStart: "12:00 PM", rEnd: "7:00 PM", rTotal: "7 hours" },
+  { lStart: "9:00 AM", lEnd: "7:00 PM", lTotal: "10 hours", rStart: "12:00 PM", rEnd: "8:00 PM", rTotal: "8 hours" },
+];
+
 export default function HoursPage() {
   return (
     <main className="min-h-screen bg-background">
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
-<script
-  id="structured-data-hours-calculator"
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-/>
+
+      <script
+        id="structured-data-hours-calculator"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <h1 className="text-3xl md:text-4xl font-bold">
-              Hours Calculator: Find the Exact Duration Between Two Times
+              Hours Calculator
             </h1>
           </div>
-          <ShareBar/>
+
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Find the exact duration between two times in hours , minutes and decimal hours.
+          </p>
+
+          <ShareBar />
         </div>
       </section>
 
@@ -157,845 +248,294 @@ export default function HoursPage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        {/* ── DIRECT ANSWER BOX (AI Overview trigger) ── */}
-        <div className="bg-blue-900/30 border border-blue-600 rounded-2xl p-6 mb-10">
-          <p className="text-white font-semibold text-lg mb-2">
-            ⚡ Quick Answer: How to Calculate Hours Between Two Times
-          </p>
-          <p className="text-gray-200 text-base leading-relaxed">
-            To calculate hours between two times, subtract the start time from
-            the end time. For example, <strong>9:00 AM to 5:30 PM</strong> = 8
-            hours 30 minutes (<strong>8.50 decimal hours</strong>). For
-            overnight shifts, add 24 hours to the end time before subtracting.
-            To get decimal format for payroll, divide remaining minutes by 60
-            and add to the whole hours.
-          </p>
-        </div>
-
-        {/* ── INTRO ── */}
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Hours Calculator</strong> — also called an elapsed time
-          calculator, <strong>hours between two times calculator</strong>, work
-          hours calculator, or <strong>hourly time converter</strong> — is one
-          of the most practical time-tracking tools available. Whether you're a
-          freelancer calculating billable hours, an office employee preparing
-          monthly timesheets, a student logging study sessions for board exams,
-          a project manager tracking task durations, or a small business owner
-          computing employee wages, getting the math right every time prevents
-          underbilling, overworking, and disputes. Our tool works as a complete{" "}
-          <strong>time calculator between hours</strong>,{" "}
-          <strong>hours converter</strong>, and decimal time tool all in one
-          place.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          An <strong>hours calculator</strong> works out the exact gap
+          between a start time and an end time, in hours, minutes, and
+          decimal format. Use Time Only mode for a same-day or overnight
+          shift, or switch to Dates &amp; Times mode when the span crosses
+          more than one day.
         </p>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 1 — HOURS BETWEEN TWO TIMES
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Hours Between Two Times — Calculate Elapsed Time Instantly
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm mt-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              How to Calculate Hours and Minutes Between AM and PM Times
-            </h3>
-            <p className="text-gray-200 leading-relaxed text-base mb-4">
-              Select start time (e.g., 9:30 AM) and end time (e.g., 6:15 PM) —
-              the <strong>hours between two times</strong> calculator
-              automatically handles AM/PM crossover and gives you{" "}
-              <strong>8 hours 45 minutes</strong>. It works as a full{" "}
-              <strong>time calculator with hours and minutes</strong>, showing
-              total duration, total minutes, and decimal hours simultaneously.
-            </p>
-            <p className="text-gray-200 text-base">
-              Use it as an <strong>hours in between calculator</strong> for any
-              shift pattern — standard office hours, split shifts, tutoring
-              sessions, or freelance work blocks.
-            </p>
-          </div>
-
-          {/* Popular "how many hours from X to Y" reference table */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            How Many Hours Between Common Time Pairs — Quick Reference
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Below are the most-searched <strong>hour to hour</strong> duration
-            questions answered instantly. Use these as a reference or enter any
-            custom time in our <strong>hours between calculator</strong> above:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Start Time</th>
-                  <th className="p-4 text-left font-semibold">End Time</th>
-                  <th className="p-4 text-left font-semibold">
-                    Hours &amp; Minutes
-                  </th>
-                  <th className="p-4 text-left font-semibold">Decimal Hours</th>
-                  <th className="p-4 text-left font-semibold">Total Minutes</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">8:00 AM</td>
-                  <td className="p-4 font-semibold text-yellow-300">3:36 PM</td>
-                  <td className="p-4 font-bold text-green-400">7 h 36 min</td>
-                  <td className="p-4 font-bold text-blue-300">7.60 h</td>
-                  <td className="p-4">456 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4">8:30 AM</td>
-                  <td className="p-4">6:30 PM</td>
-                  <td className="p-4 font-bold text-green-400">10 h 0 min</td>
-                  <td className="p-4 font-bold text-blue-300">10.00 h</td>
-                  <td className="p-4">600 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">8:00 AM</td>
-                  <td className="p-4 font-semibold text-yellow-300">3:36 PM</td>
-                  <td className="p-4 font-bold text-green-400">7 h 36 min</td>
-                  <td className="p-4 font-bold text-blue-300">7.60 h</td>
-                  <td className="p-4">456 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4">9:00 AM</td>
-                  <td className="p-4">6:00 PM</td>
-                  <td className="p-4 font-bold text-green-400">9 h 0 min</td>
-                  <td className="p-4 font-bold text-blue-300">9.00 h</td>
-                  <td className="p-4">540 min</td>
-                </tr>
-                {/* Target: "7.6 hours from 9am" */}
-                <tr>
-                  <td className="p-4">9:00 AM</td>
-                  <td className="p-4">4:36 PM</td>
-                  <td className="p-4 font-bold text-green-400">7 h 36 min</td>
-                  <td className="p-4 font-bold text-blue-300">7.60 h</td>
-                  <td className="p-4">456 min</td>
-                </tr>
-                {/* Target: "10:00 am to 6:30 pm" & "8:30 to 6:30" */}
-                <tr>
-                  <td className="p-4 text-yellow-300">10:00 AM</td>
-                  <td className="p-4 text-yellow-300">6:30 PM</td>
-                  <td className="p-4 font-bold text-green-400">8 h 30 min</td>
-                  <td className="p-4 font-bold text-blue-300">8.50 h</td>
-                  <td className="p-4">510 min</td>
-                </tr>
-                {/* Target: "9.167 hours in hours and minutes" */}
-                <tr>
-                  <td className="p-4 italic">Conversion</td>
-                  <td className="p-4">9.167 Decimal</td>
-                  <td className="p-4 font-bold text-green-400">9 h 10 min</td>
-                  <td className="p-4 font-bold text-blue-300">9.167 h</td>
-                  <td className="p-4">550 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">6:30 AM</td>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    10:30 AM
-                  </td>
-                  <td className="p-4 font-bold text-green-400">4 h 0 min</td>
-                  <td className="p-4 font-bold text-blue-300">4.00 h</td>
-                  <td className="p-4">240 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">8:45 AM</td>
-                  <td className="p-4 font-semibold text-yellow-300">4:45 PM</td>
-                  <td className="p-4 font-bold text-green-400">8 h 0 min</td>
-                  <td className="p-4 font-bold text-blue-300">8.00 h</td>
-                  <td className="p-4">480 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">1:30 AM</td>
-                  <td className="p-4 font-semibold text-yellow-300">9:30 AM</td>
-                  <td className="p-4 font-bold text-green-400">8 h 0 min</td>
-                  <td className="p-4 font-bold text-blue-300">8.00 h</td>
-                  <td className="p-4">480 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4">9:15 AM</td>
-                  <td className="p-4">5:40 PM</td>
-                  <td className="p-4 font-bold text-green-400">8 h 25 min</td>
-                  <td className="p-4 font-bold text-blue-300">8.42 h</td>
-                  <td className="p-4">505 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4">10:00 PM</td>
-                  <td className="p-4">6:30 AM</td>
-                  <td className="p-4 font-bold text-green-400">8 h 30 min</td>
-                  <td className="p-4 font-bold text-blue-300">8.50 h</td>
-                  <td className="p-4">510 min</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 mb-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-              7.6 Hours From 8 AM — What Time Is That?
-            </h3>
-            <p className="text-gray-200 text-base leading-relaxed mb-3">
-              A frequently searched query: <strong>7.6 hours from 8 AM</strong>.
-              Here's the step-by-step answer:
-            </p>
-            <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-              Start: 8:00 AM
-              <br />
-              7.6 hours = 7 hours + (0.6 × 60) = 7 hours 36 minutes
-              <br />
-              8:00 AM + 7h 36min = <strong>3:36 PM</strong>
-            </div>
-            <p className="text-gray-200 text-base mt-4">
-              So <strong>7.6 hours from 8 AM = 3:36 PM</strong>. Our{" "}
-              <strong>time calculator in hours</strong> handles this conversion
-              automatically in both directions — forward (start + duration = end
-              time) and backward (end − start = duration).
-            </p>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 2 — DECIMAL HOURS / CONVERT TIME TO HOURS
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Convert Time to Hours — Decimal Hours Formula &amp; Common Mistakes
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            The Formula: How to Convert Time Into Hours (Decimal Format)
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Our <strong>time to hours converter</strong> uses this exact formula
-            to <strong>convert time into hours</strong> decimal format:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            decimalHours = fullHours + (extraMinutes ÷ 60)
-            <br />
-            <br />
-            Example: 7 hours 36 minutes
-            <br />
-            36 ÷ 60 = 0.6
-            <br />→ <strong>7.60 hours</strong>
-          </div>
-          <p className="text-gray-200 text-base leading-relaxed">
-            This is how to <strong>time convert to hours</strong> for any
-            duration. The same logic applies whether you're using a{" "}
-            <strong>time calculator to hours</strong> for payroll, billing, or
-            study tracking. For related unit conversions, see our{" "}
-            <Link
-              href="/calculators/time/time-calculator"
-              className="text-blue-400 hover:underline"
-            >
-              Time Calculator
-            </Link>{" "}
-            which handles hours ↔ minutes ↔ seconds conversions.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Why 7:30 is 7.50 Hours — Common Time Conversion Mistakes
-          </h3>
-
-          {/* Image 2: Decimal Precision Visual */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-10">
-            <div className="rounded-2xl overflow-hidden border border-gray-700">
-              <Image
-                src="/images/time/alarm-clock-minimal.webp"
-                alt="Minimalist alarm clock showing 7:30 — illustrating that 7 hours 30 minutes equals 7.50 decimal hours, not 7.30, a common payroll mistake"
-                className="w-full h-64 object-cover"
-                width={600}
-                height={400}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-            <p className="text-gray-200 text-base leading-relaxed">
-              Common error: thinking 30 minutes = 0.3 hours (wrong!)
-              <br />
-              Correct: 30 ÷ 60 ={" "}
-              <span className="text-green-400 font-bold text-xl">0.50</span>
-              <br />
-              <br />
-              This is the single most common mistake people make when doing
-              manual decimal conversion — and why a dedicated{" "}
-              <strong>hours duration calculator</strong> pays for itself
-              immediately.
-            </p>
-          </div>
-
-          {/* Decimal conversion table */}
-          <div className="overflow-x-auto mt-8 mb-12">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Clock Time</th>
-                  <th className="p-4 text-left font-semibold">Minutes</th>
-                  <th className="p-4 text-left font-semibold">Decimal Hours</th>
-                  <th className="p-4 text-left font-semibold">
-                    Correct / Wrong
-                  </th>
-                  <th className="p-4 text-left font-semibold">
-                    At Rs 1,200/hr
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">7:15</td>
-                  <td className="p-4">15 min</td>
-                  <td className="p-4 font-bold text-green-400">7.25 h</td>
-                  <td className="p-4">✅ Correct</td>
-                  <td className="p-4">Rs 8,700</td>
-                </tr>
-                <tr>
-                  <td className="p-4">7:30</td>
-                  <td className="p-4">30 min</td>
-                  <td className="p-4 font-bold text-green-400">7.50 h</td>
-                  <td className="p-4">✅ Correct</td>
-                  <td className="p-4">Rs 9,000</td>
-                </tr>
-                <tr>
-                  <td className="p-4">7:45</td>
-                  <td className="p-4">45 min</td>
-                  <td className="p-4 font-bold text-green-400">7.75 h</td>
-                  <td className="p-4">✅ Correct</td>
-                  <td className="p-4">Rs 9,300</td>
-                </tr>
-                <tr>
-                  <td className="p-4">7:36</td>
-                  <td className="p-4">36 min</td>
-                  <td className="p-4 font-bold text-green-400">7.60 h</td>
-                  <td className="p-4">✅ Correct</td>
-                  <td className="p-4">Rs 9,120</td>
-                </tr>
-                <tr>
-                  <td className="p-4">7:36</td>
-                  <td className="p-4">36 min</td>
-                  <td className="p-4 text-red-400">7.36 h</td>
-                  <td className="p-4">❌ Common mistake</td>
-                  <td className="p-4 text-red-400">Rs 8,832 (wrong!)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Percentage of Hours — What 70%, 84%, 85%, 94% of 7 Hours Equals
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            A lesser-known use of the <strong>how many hours calculator</strong>{" "}
-            is computing a percentage of a work period — common in productivity
-            tracking, attendance records, and partial-day pay calculations:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Query</th>
-                  <th className="p-4 text-left font-semibold">Calculation</th>
-                  <th className="p-4 text-left font-semibold">Decimal Hours</th>
-                  <th className="p-4 text-left font-semibold">
-                    Hours &amp; Minutes
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    70% of 7 hours
-                  </td>
-                  <td className="p-4">7 × 0.70</td>
-                  <td className="p-4 font-bold text-green-400">4.90 h</td>
-                  <td className="p-4">4 h 54 min</td>
-                </tr>
-                {/* Target: "94% of 6 hours" (Top Query) */}
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    94% of 6 hours
-                  </td>
-                  <td className="p-4">6 × 0.94</td>
-                  <td className="p-4 font-bold text-green-400">5.64 h</td>
-                  <td className="p-4">5 h 38 min</td>
-                </tr>
-                {/* Target: "85% of 12 hours" & "70% of 8 hours" */}
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    85% of 12 hours
-                  </td>
-                  <td className="p-4">12 × 0.85</td>
-                  <td className="p-4 font-bold text-green-400">10.20 h</td>
-                  <td className="p-4">10 h 12 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    70% of 8 hours
-                  </td>
-                  <td className="p-4">8 × 0.70</td>
-                  <td className="p-4 font-bold text-green-400">5.60 h</td>
-                  <td className="p-4">5 h 36 min</td>
-                </tr>
-                {/* Target: "7.6 times 90" (Top Multiplier) */}
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    7.6 times 90
-                  </td>
-                  <td className="p-4">7.6 × 90</td>
-                  <td className="p-4 font-bold text-green-400">684.00</td>
-                  <td className="p-4 italic text-gray-400">Payroll Result</td>
-                </tr>
-                {/* Target: "7.25 times 80" */}
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    7.25 times 80
-                  </td>
-                  <td className="p-4">7.25 × 80</td>
-                  <td className="p-4 font-bold text-green-400">580.00</td>
-                  <td className="p-4 italic text-gray-400">Units Total</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    70% of 7.5 hours
-                  </td>
-                  <td className="p-4">7.5 × 0.70</td>
-                  <td className="p-4 font-bold text-green-400">5.25 h</td>
-                  <td className="p-4">5 h 15 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    84% of 7 hours
-                  </td>
-                  <td className="p-4">7 × 0.84</td>
-                  <td className="p-4 font-bold text-green-400">5.88 h</td>
-                  <td className="p-4">5 h 53 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    85% of 7 hours
-                  </td>
-                  <td className="p-4">7 × 0.85</td>
-                  <td className="p-4 font-bold text-green-400">5.95 h</td>
-                  <td className="p-4">5 h 57 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    94% of 7 hours
-                  </td>
-                  <td className="p-4">7 × 0.94</td>
-                  <td className="p-4 font-bold text-green-400">6.58 h</td>
-                  <td className="p-4">6 h 35 min</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">
-                    7.25 × 30 (rate)
-                  </td>
-                  <td className="p-4">7.25 × 30</td>
-                  <td className="p-4 font-bold text-green-400">Rs/$ 217.50</td>
-                  <td className="p-4">Billing result</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Precision Logic: 100% Accuracy for Payroll and Tax Audits
-          </h3>
-          <p className="text-gray-200 text-base">
-            We use millisecond-precision internally and round decimal hours to 4
-            places — accurate enough for even the strictest payroll or tax
-            audits in Pakistan. Many Pakistani companies, Upwork clients, and
-            FBR-compliant invoicing systems require decimal hours. A small
-            rounding error (7:36 → 7.6 instead of 7.60) can mean hundreds of
-            rupees difference per month.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 3 — HOW TO USE / FEATURES
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Use the Time Calculator Between Hours and Minutes
-          </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm mt-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Setting Start and End Times — Step-by-Step Guide
-            </h3>
-            <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-              <li>Choose 12-hour or 24-hour format from the toggle</li>
-              <li>Select hours (1–12), minutes (00–59), and AM/PM</li>
-              <li>Repeat for end time</li>
-              <li>
-                Results appear instantly — the{" "}
-                <strong>time calculator between hours and minutes</strong> shows
-                duration, decimal hours, and total minutes with no calculate
-                button needed
-              </li>
-            </ol>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Understanding Total Duration vs. Total Minutes in Our Hours Elapsed
-            Calculator
-          </h3>
-          <p className="text-gray-200 text-base mb-4">
-            The <strong>hours elapsed calculator</strong> returns three output
-            formats simultaneously — because different use cases need different
-            formats:
-          </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-2 text-base ml-5 mb-6">
-            <li>Human-readable: 8 hours 45 minutes</li>
-            <li>Total minutes: 525 minutes</li>
-            <li>Decimal hours: 8.75 h</li>
-          </ul>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Using &quot;Set to Now&quot; for Real-Time Duration Tracking
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Click &quot;Set Start to Now&quot; when you begin work/study, then
-            later click &quot;Set End to Now&quot; — perfect for tracking live
-            sessions, freelance calls, or Pomodoro-style focus blocks. The{" "}
-            <strong>time between hours</strong> is calculated from your device
-            clock with zero manual entry.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Calculate No. of Hours Across 12-Hour and 24-Hour Formats
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed">
-            Toggle between 12-hour (AM/PM) and 24-hour (military) time. When you
-            need to <strong>calculate no of hours</strong> for government
-            timesheets or medical records in Pakistan, 24-hour format removes
-            any ambiguity about AM/PM. The tool handles both with identical
-            accuracy. For exact date-based durations, pair this with our{" "}
-            <Link
-              href="/calculators/time/date-calculator"
-              className="text-blue-400 hover:underline"
-            >
-              Date Calculator
-            </Link>
-            .
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Smart Memory, Mobile-First Design &amp; 100% Private
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed">
-            Your most recent start/end times are saved locally so you can
-            continue tracking across tabs or phone sessions. Large touch
-            targets, clear AM/PM toggle, and instant feedback make this{" "}
-            <strong>duration hours calculator</strong> perfect for field
-            workers, tuition teachers, and students on budget Android phones.
-            All calculations happen in your browser — no data leaves your
-            device.
-          </p>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 4 — AVERAGE HOURS / MULTI-SESSION
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Average Hours Calculator — Track Multiple Sessions &amp; Weekly
-            Totals
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            How to Calculate Average Hours Worked Per Day
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            To <strong>calculate average hours</strong> across a work week, add
-            up each day's decimal hours and divide by the number of days worked.
-            Our <strong>average hours calculator</strong> logic:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Day 1: 9:00 AM → 5:30 PM = 8.50 h
-            <br />
-            Day 2: 8:45 AM → 5:15 PM = 8.50 h
-            <br />
-            Day 3: 9:15 AM → 6:00 PM = 8.75 h
-            <br />
-            Day 4: 8:30 AM → 4:45 PM = 8.25 h
-            <br />
-            Day 5: 9:00 AM → 5:00 PM = 8.00 h
-            <br />
-            ─────────────────────────────
-            <br />
-            Total: 42.00 h ÷ 5 days = <strong>8.40 h average per day</strong>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Calculating 9.167 Hours in Hours and Minutes
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Another common query:{" "}
-            <strong>9.167 hours in hours and minutes</strong>. Converting a
-            decimal back to clock format:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            9.167 hours
-            <br />
-            Full hours: 9
-            <br />
-            Remaining: 0.167 × 60 = 10.02 minutes ≈ <strong>10 minutes</strong>
-            <br />
-            Result: <strong>9 hours 10 minutes</strong>
-          </div>
-          <p className="text-gray-200 text-base leading-relaxed">
-            This reverse conversion — <strong>calculate hours from time</strong>{" "}
-            back to clock format — is just as important as the forward
-            direction. Our tool handles both automatically. To also compute how
-            many years, months, and days that spans, try our{" "}
-            <Link
-              href="/calculators/time/age-calculator"
-              className="text-blue-400 hover:underline"
-            >
-              Age Calculator
-            </Link>
-            .
-          </p>
-
-          {/* Multi-session table */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Real-World Applications — Time Duration Calculator for Every Use
-            Case
-          </h3>
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Use Case</th>
-                  <th className="p-4 text-left font-semibold">Start → End</th>
-                  <th className="p-4 text-left font-semibold">Duration</th>
-                  <th className="p-4 text-left font-semibold">Decimal</th>
-                  <th className="p-4 text-left font-semibold">
-                    Billing / Outcome
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">Freelance project</td>
-                  <td className="p-4">9:30 AM → 6:15 PM</td>
-                  <td className="p-4 font-bold text-green-400">8 h 45 min</td>
-                  <td className="p-4">8.75 h</td>
-                  <td className="p-4">Rs 10,500 @ Rs 1,200/h</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Office shift</td>
-                  <td className="p-4">8:00 AM → 5:00 PM</td>
-                  <td className="p-4 font-bold text-green-400">9 h 0 min</td>
-                  <td className="p-4">9.00 h</td>
-                  <td className="p-4">Standard workday log</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Night shift</td>
-                  <td className="p-4">10:40 PM → 9:20 AM</td>
-                  <td className="p-4 font-bold text-green-400">10 h 40 min</td>
-                  <td className="p-4">10.67 h</td>
-                  <td className="p-4">Overtime pay calculation</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Study session (Math)</td>
-                  <td className="p-4">2:25 PM → 4:50 PM</td>
-                  <td className="p-4 font-bold text-green-400">2 h 25 min</td>
-                  <td className="p-4">2.42 h</td>
-                  <td className="p-4">Board exam prep log</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Study session (Physics)</td>
-                  <td className="p-4">5:00 PM → 6:40 PM</td>
-                  <td className="p-4 font-bold text-green-400">1 h 40 min</td>
-                  <td className="p-4">1.67 h</td>
-                  <td className="p-4">Combined: 4.09 h today</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Pomodoro block (25 min)</td>
-                  <td className="p-4">3:00 PM → 3:25 PM</td>
-                  <td className="p-4 font-bold text-green-400">0 h 25 min</td>
-                  <td className="p-4">0.42 h</td>
-                  <td className="p-4">Focus session unit</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Tuition class</td>
-                  <td className="p-4">4:00 PM → 7:30 PM</td>
-                  <td className="p-4 font-bold text-green-400">3 h 30 min</td>
-                  <td className="p-4">3.50 h</td>
-                  <td className="p-4">Monthly fee calculation</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 5 — QUICK REFERENCE DECIMAL TABLE
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Quick Reference: Common Durations in Decimal Hours — Time Duration
-            Calculator
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Use this table to quickly <strong>calculate how many hours</strong>{" "}
-            any common work or study period represents in decimal format — ready
-            for payroll, billing, or timesheet entry:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-12">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">
-                    Clock Duration
-                  </th>
-                  <th className="p-4 text-left font-semibold">Total Minutes</th>
-                  <th className="p-4 text-left font-semibold">Decimal Hours</th>
-                  <th className="p-4 text-left font-semibold">
-                    Use Case Example
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">8 hours</td>
-                  <td className="p-4">480</td>
-                  <td className="p-4 font-bold text-green-400">8.00 h</td>
-                  <td className="p-4">Full office day</td>
-                </tr>
-                <tr>
-                  <td className="p-4">7 h 30 min</td>
-                  <td className="p-4">450</td>
-                  <td className="p-4 font-bold text-green-400">7.50 h</td>
-                  <td className="p-4">Standard school + tuition</td>
-                </tr>
-                <tr>
-                  <td className="p-4">9 h 15 min</td>
-                  <td className="p-4">555</td>
-                  <td className="p-4 font-bold text-green-400">9.25 h</td>
-                  <td className="p-4">Long freelance session</td>
-                </tr>
-                <tr>
-                  <td className="p-4">4 h 45 min</td>
-                  <td className="p-4">285</td>
-                  <td className="p-4 font-bold text-green-400">4.75 h</td>
-                  <td className="p-4">Exam preparation block</td>
-                </tr>
-                <tr>
-                  <td className="p-4">10 h 40 min</td>
-                  <td className="p-4">640</td>
-                  <td className="p-4 font-bold text-green-400">10.67 h</td>
-                  <td className="p-4">Night shift example</td>
-                </tr>
-                <tr>
-                  <td className="p-4">5 h 20 min</td>
-                  <td className="p-4">320</td>
-                  <td className="p-4 font-bold text-green-400">5.33 h</td>
-                  <td className="p-4">Half-day freelance</td>
-                </tr>
-                <tr>
-                  <td className="p-4">6 h 10 min</td>
-                  <td className="p-4">370</td>
-                  <td className="p-4 font-bold text-green-400">6.17 h</td>
-                  <td className="p-4">Short office shift</td>
-                </tr>
-                <tr>
-                  <td className="p-4">12 h 0 min</td>
-                  <td className="p-4">720</td>
-                  <td className="p-4 font-bold text-green-400">12.00 h</td>
-                  <td className="p-4">Double shift / event day</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          {/* ── TRUST / E-E-A-T BYLINE ── */}
-          <div className="flex items-center gap-4 mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-            <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-              RA
-            </div>
-            <div>
-              <p className="text-white font-semibold text-sm">
-                Written by Rana Muhammad Abdullah
-              </p>
-              <p className="text-gray-400 text-xs">
-                MERN Stack Developer &amp; Tool Maker · Mechatronics &amp;
-                Control Engineering Student ·{" "}
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
                 <a
-                  href="https://www.linkedin.com/in/abdullahsajjad06/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline"
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
                 >
-                  LinkedIn
+                  <span aria-hidden="true">→</span>
+                  {item.label}
                 </a>
-              </p>
-            </div>
-            <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
-              <span>📅 Published: Apr 1, 2026</span>
-              <span>🔄 Updated: Aug 20, 2026</span>
-              <span>✅ Verified accurate</span>
-            </div>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* What is an hour */}
+        <section id="what-is-hours-calculator" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            What is an hour?
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            An hour is a unit of time used to measure how long something takes. One hour has 60 minutes, and each minute has 60 seconds. This means one hour contains 3,600 seconds.
+
+We use hours every day to talk about time and duration. For example, you might work for 8 hours, sleep for 7 hours, travel for 3 hours, or wait for 2 hours.
+
+An hour is also one of the main parts of a day. A full day has 24 hours. The first 12 hours are usually written as AM, from midnight until noon, while the next 12 hours are written as PM, from noon until midnight.
+          </p>
+         
+        </section>
+
+        {/* How hours are calculated */}
+        <section id="how-hours-are-calculated" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How Hours Between Two Times Are Calculated
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            For a same-day span, it's a direct subtraction. 9:00 AM to 5:30
+            PM is 8 hours 30 minutes, no adjustment needed.
+          </p>
+
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-6">
+            <h3 className="text-lg font-semibold text-blue-300 mb-4">
+              When the shift crosses midnight:
+            </h3>
+            <p className="text-gray-200 leading-relaxed mb-3 text-base">
+              A night shift running from 10:00 PM to 6:00 AM can't be
+              subtracted directly, since 6:00 AM comes before 10:00 PM on
+              the clock. The fix is to treat the end time as landing on
+              the next day by adding 24 hours before subtracting:
+            </p>
+            <p className="text-gray-200 font-mono text-base">
+              (6:00 AM + 24h) − 10:00 PM = 8 hours
+            </p>
+          </div>
+
+          <p className="text-gray-200 leading-relaxed text-base">
+            This calculator applies that adjustment automatically whenever
+            the end time you enter is earlier than the start time, so
+            overnight shifts don't need any special handling on your end.
+          </p>
+        </section>
+
+        {/* Hours in different time periods */}
+        <section id="hours-in-different-periods" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Whart are hours in different time periods ?
+          </h2>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[420px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">
+                    Description
+                  </th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">
+                    Hours
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {timePeriodsTable.map((row, index) => (
+                  <tr key={row.description} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-medium align-top">
+                      {row.description}
+                    </td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">
+                      {row.hours.map((line, i) => (
+                        <span key={line} className="block">
+                          {line}
+                        </span>
+                      ))}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 6 — MORE TOOLS
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* Decimal hours conversion */}
+        <section id="decimal-hours-conversion" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Time &amp; Productivity Tools to Explore
+            Converting Minutes to Decimal Hours
           </h2>
 
-          <p className="text-gray-200 text-base mb-6">
-            Combine with these other free LizoCalc tools:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Divide the minutes by 60 and add the result to the whole
+            hours. 6 hours 36 minutes becomes 6 + (36 ÷ 60) = 6.60. The
+            error that trips people up most: reading the minutes straight
+            off the clock, treating 30 minutes as 0.30 instead of 0.50,
+            because an hour has 60 minutes, not 100.
           </p>
 
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            <li>
-              <Link
-                href="/calculators/time/time-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Time Calculator
-              </Link>{" "}
-              — hours ↔ minutes ↔ seconds conversions
-            </li>
-            <li>
-              <Link
-                href="/calculators/time/date-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Date Calculator
-              </Link>{" "}
-              — days between dates &amp; add/subtract time
-            </li>
-            <li>
-              <Link
-                href="/calculators/time/age-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Age Calculator
-              </Link>{" "}
-              — exact age in years + total days/hours lived
-            </li>
-          </ul>
+          <div className="overflow-x-auto rounded-xl border border-gray-700 mb-6">
+            <table className="w-full text-left border-collapse min-w-[320px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">
+                    Minutes
+                  </th>
+                  <th className="p-4 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">
+                    Decimal Hours
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {decimalTable.map((row, index) => (
+                  <tr key={row.minutes} className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-medium">
+                      {row.minutes}
+                    </td>
+                    <td className="p-4 text-sm sm:text-base text-gray-200 border-b border-gray-800">
+                      {row.decimal}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Accurate time tracking is the foundation of productivity, fair
-            billing, and effective study habits. Whether you're freelancing,
-            managing projects, or preparing for board exams — LizoCalc Hours
-            Calculator gives you precise, decimal-ready results every single
-            time. Bookmark it today and take control of every hour!
+          <p className="text-gray-200 leading-relaxed text-base">
+            Going the other way, from a decimal back to a clock time,
+            works the same in reverse: multiply the fractional part by 60.
+            9.167 hours is 9 whole hours plus 0.167 × 60 ≈ 10 minutes, so
+            9 hours 10 minutes. This calculator gives you both directions
+            at once, so neither conversion needs to be done by hand.Use{" "}
+            <Link
+              href="/calculators/time/business-days-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200 font-semibold"
+            >
+              business days calculator
+            </Link>{" "}
+            to find working daye between two dates.
           </p>
+        </section>
+
+        {/* Overtime and percentages */}
+        <section id="overtime-and-percentages" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Overtime and Percentages of Hours
+          </h2>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            In most standard workweeks, overtime is whatever's worked past
+            40 hours:
+          </p>
+          <p className="text-gray-200 font-mono text-lg mb-4">
+            Total Hours − 40 = Overtime Hours
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Someone who logs 46.5 hours in a week has 6.5 hours of
+            overtime. Overtime thresholds and pay multipliers vary by
+            country, industry, and contract, so check your specific
+            agreement for the rate once you have the hour count.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            A related calculation, less common but still frequent in
+            attendance and partial-day pay records, is finding a
+            percentage of a number of hours. Multiply the hours by the
+            percentage as a decimal:
+          </p>
+          <p className="text-gray-200 font-mono text-lg">
+            8 hours × 0.75 = 6 hours (75% of 8 hours)
+          </p>
+        </section>
+
+        {/* Some examples table - 4 columns */}
+        <section id="percentage-examples" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Some examples are given in below table
+          </h2>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[640px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Examples</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Total Time</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Examples</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Total Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {percentageExampleRows.map((row, index) => (
+                  <tr
+                    key={`${row.leftExample}-${row.rightExample}`}
+                    className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}
+                  >
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-semibold">{row.leftExample}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-semibold">{row.leftTotal}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-semibold">{row.rightExample}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800 font-semibold">{row.rightTotal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* Total hours between two times - 6 columns */}
+        <section id="total-hours-table" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Total hours between two times
+          </h2>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse min-w-[720px]">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Start Time</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">End Time</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Total Hours</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Start Time</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">End Time</th>
+                  <th className="p-3 text-sm sm:text-base font-semibold text-blue-300 border-b border-gray-700">Total Hours</th>
+                </tr>
+              </thead>
+              <tbody>
+                {totalHoursRows.map((row, index) => (
+                  <tr
+                    key={`${row.lStart}-${row.lEnd}-${row.rStart}-${row.rEnd}`}
+                    className={index % 2 === 0 ? "bg-gray-800/20" : "bg-transparent"}
+                  >
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.lStart}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.lEnd}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.lTotal}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.rStart}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.rEnd}</td>
+                    <td className="p-3 text-sm sm:text-base text-gray-200 border-b border-gray-800">{row.rTotal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section className="px-4 mb-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Time Calculators"
+            links={[
+              { label: "Hours Calculator", href: "/calculators/time/hours-calculator" },
+              { label: "Days Between Dates Calculator", href: "/calculators/time/days-between-dates-calculator" },
+              { label: "Time Calculator", href: "/calculators/time/time-calculator" },
+              { label: "Age Calculator", href: "/calculators/time/age-calculator" },
+            ]}
+            seeAllHref="/calculators/time"
+          />
         </section>
       </article>
 
       <FAQ items={faqData} />
+
       <Footer />
     </main>
   );
