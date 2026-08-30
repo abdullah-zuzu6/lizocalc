@@ -53,7 +53,7 @@ const faqData = [
 ];
 
 export const metadata: Metadata = {
-  title: "Time Calculator – Time Duration & Hours, Minutes, Seconds Converter",
+  title: "Time Calculator – Time Duration & Time Converter",
 
   description:
     "Free time calculator. Find the exact duration between two dates and times, or convert hours, minutes, and seconds into decimal hours and total seconds.",
