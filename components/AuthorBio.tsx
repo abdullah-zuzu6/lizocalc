@@ -33,8 +33,8 @@ function ProfileIcon() {
 
 export default function AuthorBio({
   name = "RMA",
-  avatarSrc = "/about/authorpic.webp",
-  bio = "Rana Muhammad Abdullah Is the creator of LizoCalc and  has 3+ years of experience in web development and building research and calculator tool sites. He studies Mechatronics and Control Engineering at UET.",
+  avatarSrc = "/about/authorpic-rma.webp",
+  bio = "Rana Muhammad Abdullah Is the creator of LizoCalc and  has 3+ years of experience in web development and building research and free calculator tool sites. He studies Mechatronics and Control Engineering at UET.",
   fullBioHref = "https://www.linkedin.com/in/abdullahsajjad06/",
 }: AuthorBioProps) {
   const [open, setOpen] = useState(false);
@@ -114,6 +114,7 @@ export default function AuthorBio({
 
         <Link
           href={fullBioHref}
+          target="black"
           className="mt-4 inline-flex items-center gap-1 text-blue-300 hover:text-blue-200 hover:gap-1.5 text-sm font-medium transition-all"
         >
           Full bio

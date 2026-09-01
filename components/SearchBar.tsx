@@ -54,6 +54,21 @@ const allCalculators = [
   { name: 'Months From Today Calculator', href: '/calculators/time/months-from-today-calculator', category: 'Time' },
 
 
+{ name: '7 Days From Today', href: '/info/days/7-days-from-today', category: 'Time and Date' },
+{ name: '14 Days From Today', href: '/info/days/14-days-from-today', category: 'Time and Date' },
+{ name: '21 Days From Today', href: '/info/days/21-days-from-today', category: 'Time and Date' },
+{ name: '28 Days From Today', href: '/info/days/28-days-from-today', category: 'Time and Date' },
+{ name: '30 Days From Today', href: '/info/days/30-days-from-today', category: 'Time and Date' },
+{ name: '45 Days From Today', href: '/info/days/45-days-from-today', category: 'Time and Date' },
+{ name: '60 Days From Today', href: '/info/days/60-days-from-today', category: 'Time and Date' },
+{ name: '90 Days From Today', href: '/info/days/90-days-from-today', category: 'Time and Date' },
+{ name: '120 Days From Today', href: '/info/days/120-days-from-today', category: 'Time and Date' },
+{ name: '150 Days From Today', href: '/info/days/150-days-from-today', category: 'Time and Date' },
+{ name: '180 Days From Today', href: '/info/days/180-days-from-today', category: 'Time and Date' },
+{ name: 'what is today date', href: '/info/days/what-is-today-date', category: 'Time and Date' },
+{ name: 'Days Left In Year', href: '/info/days/days-left-in-the-year', category: 'Time and Date' },
+
+
   { name: 'GPA Calculator', href: '/calculators/education/gpa-calculator', category: 'Education' },
   { name: 'Grade Calculator', href: '/calculators/education/grade-calculator', category: 'Education' },
   { name: 'CGPA Calculator', href: '/calculators/education/cgpa-calculator', category: 'Education' },
