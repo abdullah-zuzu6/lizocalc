@@ -13,5 +13,5 @@ export const daysInfo = [
   { category: 'days', subcategory: '150-days-from-today', slug: '', lastModified: '2026-09-01' },
   { category: 'days', subcategory: '180-days-from-today', slug: '', lastModified: '2026-09-01' },
   { category: 'days', subcategory: 'days-left-in-the-year', slug: '', lastModified: '2026-09-01' },
-  { category: 'days', subcategory: 'what-is-todays-date', slug: '', lastModified: '2026-09-01' },
+  { category: 'days', subcategory: 'what-is-today-date', slug: '', lastModified: '2026-09-01' },
 ];
