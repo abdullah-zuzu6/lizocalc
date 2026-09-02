@@ -109,6 +109,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb",
       itemListElement: [
@@ -123,11 +136,14 @@ const structuredData = {
       "@id": "https://www.lizocalc.com/calculators/time/age-calculator",
       url: "https://www.lizocalc.com/calculators/time/age-calculator",
       name: "Age Calculator – Exact Age in Years, Months, and Days | LizoCalc",
-      description: "Free online age calculator. Get your exact age in years, months, and days, plus total days, hours, minutes, and a countdown to your next birthday.",
+      description:
+        "Free online age calculator. Get your exact age in years, months, and days, plus total days, hours, minutes, and a countdown to your next birthday.",
       inLanguage: "en",
       datePublished: "2025-04-01",
       dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/age-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
   ],
 };

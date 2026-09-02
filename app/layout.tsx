@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   publisher: "LizoCalc",
 
   alternates: {
-    canonical:"/",
+    canonical: "/",
   },
 
   icons: {
@@ -82,8 +82,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-
-  
 };
 
 export const viewport: Viewport = {
@@ -95,33 +93,40 @@ export const viewport: Viewport = {
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-
-  const organizationStructuredData = {
+  // Single graph: Organization + WebSite, cross-referenced by @id.
+  // These two nodes are the canonical, site-wide entities.
+  // Every page's own JSON-LD should reference them via
+  // { "@id": "https://www.lizocalc.com/#organization" } and
+  // { "@id": "https://www.lizocalc.com/#website" } — never re-declare them.
+  const siteStructuredData = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${BASE_URL}/#organization`,
-    name: "LizoCalc",
-    alternateName: "Lizo Calc",
-    url: BASE_URL,
-    logo: `${BASE_URL}/logo.png`,
-    sameAs: [
-      "https://www.facebook.com/lizocalc",
-      "https://x.com/lizocalc",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": `${BASE_URL}/#organization`,
+        name: "LizoCalc",
+        alternateName: "Lizo Calc",
+        url: BASE_URL,
+        logo: `${BASE_URL}/logo.png`,
+        sameAs: [
+          "https://www.facebook.com/lizocalc",
+          "https://x.com/lizocalc",
+        ],
+      },
+      {
+        "@type": "WebSite",
+        "@id": `${BASE_URL}/#website`,
+        name: "LizoCalc",
+        url: BASE_URL,
+        inLanguage: "en",
+        publisher: { "@id": `${BASE_URL}/#organization` },
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${BASE_URL}/search?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
+      },
     ],
-  };
-
-  const websiteStructuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "@id": `${BASE_URL}/#website`,
-    name: "LizoCalc",
-    url: BASE_URL,
-    publisher: { "@id": `${BASE_URL}/#organization` },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${BASE_URL}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 
   return (
@@ -132,13 +137,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(organizationStructuredData),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(websiteStructuredData),
+            __html: JSON.stringify(siteStructuredData),
           }}
         />
       </head>

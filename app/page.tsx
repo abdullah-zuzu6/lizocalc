@@ -4,7 +4,7 @@ import Footer from '@/components/Footer'
 import CalculatorGrid from '@/components/CalculatorGrid'
 import FAQ from '@/components/FAQ'
 import Link from 'next/link'
-import { BarChart3, Heart, Sigma, Timer, Atom,} from 'lucide-react'
+import { BarChart3, Heart, Sigma, Timer, Atom } from 'lucide-react'
 import type { Metadata } from 'next'
 import FollowUs from '@/components/FollowUs'
 
@@ -81,47 +81,51 @@ export default function Home() {
 
   const time = [
     { slug: 'age-calculator' },
-    { slug: 'business-days-calculator' } ,{ slug: 'days-between-dates-calculator' },
+    { slug: 'business-days-calculator' }, { slug: 'days-between-dates-calculator' },
     { slug: 'days-from-today-calculator' },
-     { slug: 'date-calculator' },
+    { slug: 'date-calculator' },
     { slug: 'time-calculator' }, { slug: 'hours-calculator' },
   ].map(c => ({ name: formatName(c.slug), href: `/calculators/time/${c.slug}` }))
 
-  
-  const webPageStructuredData = {
+  // Single graph for this page: WebPage + FAQPage, cross-referenced.
+  // WebPage.@id uses the canonical URL (matches the convention used on
+  // calculator/info pages), and references the global WebSite/Organization
+  // nodes declared once in layout.tsx by @id — never re-declared here.
+  const homeStructuredData = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    '@id': `${BASE_URL}/#webpage`,
-    url: BASE_URL,
-    name: 'LizoCalc - Free Online Calculators',
-    description:
-      "Use LizoCalc's free online calculators for health, math, finance, physics and time. Fast, accurate, no signup required.",
-    isPartOf: { '@id': `${BASE_URL}/#website` },
-    about: { '@id': `${BASE_URL}/#organization` },
-  }
-
-  const faqJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqItems.map(item => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
+    '@graph': [
+      {
+        '@type': 'WebPage',
+        '@id': BASE_URL,
+        url: BASE_URL,
+        name: 'LizoCalc - Free Online Calculators',
+        description:
+          "Use LizoCalc's free online calculators for health, math, finance, physics and time. Fast, accurate, no signup required.",
+        inLanguage: 'en',
+        isPartOf: { '@id': `${BASE_URL}/#website` },
+        about: { '@id': `${BASE_URL}/#organization` },
+        mainEntity: { '@id': `${BASE_URL}/#faq` },
       },
-    })),
+      {
+        '@type': 'FAQPage',
+        '@id': `${BASE_URL}/#faq`,
+        mainEntity: faqItems.map(item => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer,
+          },
+        })),
+      },
+    ],
   }
 
   return (
     <main className="min-h-screen bg-background">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageStructuredData) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }}
       />
 
       <Navbar />
@@ -227,9 +231,7 @@ export default function Home() {
         </ol>
       </section>
 
-
-
-<FollowUs/>
+      <FollowUs />
 
       <FAQ title="About LizoCalc" items={faqItems} />
 

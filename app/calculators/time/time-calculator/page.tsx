@@ -104,6 +104,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb",
       itemListElement: [
@@ -118,11 +131,14 @@ const structuredData = {
       "@id": "https://www.lizocalc.com/calculators/time/time-calculator",
       url: "https://www.lizocalc.com/calculators/time/time-calculator",
       name: "Time Calculator | LizoCalc",
-      description: "Free time calculator. Find the duration between two dates and times, or convert hours, minutes, and seconds.",
+      description:
+        "Free time calculator. Find the duration between two dates and times, or convert hours, minutes, and seconds.",
       inLanguage: "en",
       datePublished: "2026-03-29",
       dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/time-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
   ],
 };

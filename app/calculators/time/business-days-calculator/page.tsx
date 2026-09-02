@@ -93,6 +93,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/time/business-days-calculator#breadcrumb",
       itemListElement: [
@@ -107,11 +120,14 @@ const structuredData = {
       "@id": "https://www.lizocalc.com/calculators/time/business-days-calculator",
       url: "https://www.lizocalc.com/calculators/time/business-days-calculator",
       name: "Business Days Calculator | LizoCalc",
-      description: "Free business days calculator. Find working days between two dates, or the date after adding or subtracting business days, excluding weekends and U.S. holidays.",
+      description:
+        "Free business days calculator. Find working days between two dates, or the date after adding or subtracting business days, excluding weekends and U.S. holidays.",
       inLanguage: "en",
       datePublished: "2026-08-28",
       dateModified: "2026-08-28",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/business-days-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
   ],
 };

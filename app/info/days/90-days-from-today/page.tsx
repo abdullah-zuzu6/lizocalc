@@ -116,60 +116,47 @@ export default function NinetyDaysFromTodayPage() {
   const weekdayTarget = addWeekdays(today, 90);
 
   const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "@id":
-          "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator#breadcrumb",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Calculators",
-            item: "https://www.lizocalc.com/calculators",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Time",
-            item: "https://www.lizocalc.com/calculators/time",
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: "90 Days From Today Calculator",
-            item: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
-          },
-        ],
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
-        url: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
-        name: "90 Days From Today | LizoCalc",
-        description:
-          "Calculate the date 90 days from today instantly, with a live countdown, every common date format, and a calendar view.",
-        inLanguage: "en",
-        datePublished: "2026-09-01",
-        dateModified: todayISO,
-        breadcrumb: {
-          "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator#breadcrumb",
-        },
-        isPartOf: {
-          "@type": "WebSite",
-          name: "LizoCalc",
-          url: "https://www.lizocalc.com",
-        },
-        author: {
-          "@type": "Person",
-          name: "Rana Muhammad Abdullah",
-          url: "https://www.linkedin.com/in/abdullahsajjad06/",
-        },
-      },
-    ],
-  };
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
+        { "@type": "ListItem", position: 4, name: "90 Days From Today Calculator", item: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
+      url: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
+      name: "90 Days From Today | LizoCalc",
+      description:
+        "Calculate the date 90 days from today instantly, with a live countdown, every common date format, and a calendar view.",
+      inLanguage: "en",
+      datePublished: "2026-09-01",
+      dateModified: todayISO,
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+  ],
+};
 
   return (
     <main className="min-h-screen bg-background">

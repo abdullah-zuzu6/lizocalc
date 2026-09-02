@@ -148,67 +148,57 @@ export default function WhatIsTodayDatePage() {
     },
   ];
 
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://www.lizocalc.com/info/days/what-is-today-date#breadcrumb",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Info",
-            item: "https://www.lizocalc.com/info",
-          },
-          {
-            "@type": "ListItem",
-            position: 3,
-            name: "Days",
-            item: "https://www.lizocalc.com/info/days",
-          },
-          {
-            "@type": "ListItem",
-            position: 4,
-            name: "What Is Today's Date?",
-            item: "https://www.lizocalc.com/info/days/what-is-today-date",
-          },
-        ],
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://www.lizocalc.com/info/days/what-is-today-date",
-        url: "https://www.lizocalc.com/info/days/what-is-today-date",
-        name: "What Is Today's Date? | LizoCalc",
-        description:
-          "See today's date in every common format, the day of the week, day of the year, current week number, and days left in the year.",
-        inLanguage: "en",
-        datePublished: "2026-09-01",
-        dateModified: isoDateStr,
-        isPartOf: {
-          "@type": "WebSite",
-          name: "LizoCalc",
-          url: "https://www.lizocalc.com",
-        },
-        author: {
-          "@type": "Person",
-          name: "Rana Muhammad Abdullah",
-          url: "https://www.linkedin.com/in/abdullahsajjad06/",
-        },
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://www.lizocalc.com/info/days/what-is-today-date#faq",
-        mainEntity: faqs.map((f) => ({
-          "@type": "Question",
-          name: f.q,
-          acceptedAnswer: { "@type": "Answer", text: f.a },
-        })),
-      },
-    ],
-  };
-
+ const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/info/days/what-is-today-date#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Info", item: "https://www.lizocalc.com/info" },
+        { "@type": "ListItem", position: 3, name: "Days", item: "https://www.lizocalc.com/info/days" },
+        { "@type": "ListItem", position: 4, name: "What Is Today's Date?", item: "https://www.lizocalc.com/info/days/what-is-today-date" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/info/days/what-is-today-date",
+      url: "https://www.lizocalc.com/info/days/what-is-today-date",
+      name: "What Is Today's Date? | LizoCalc",
+      description:
+        "See today's date in every common format, the day of the week, day of the year, current week number, and days left in the year.",
+      inLanguage: "en",
+      datePublished: "2026-09-01",
+      dateModified: isoDateStr,
+      breadcrumb: { "@id": "https://www.lizocalc.com/info/days/what-is-today-date#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.lizocalc.com/info/days/what-is-today-date#faq",
+      mainEntity: faqs.map((f) => ({
+        "@type": "Question",
+        name: f.q,
+        acceptedAnswer: { "@type": "Answer", text: f.a },
+      })),
+    },
+  ],
+};
   return (
     <main className="min-h-screen bg-background">
       <Navbar />

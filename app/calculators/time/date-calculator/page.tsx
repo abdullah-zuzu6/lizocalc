@@ -95,6 +95,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/time/date-calculator#breadcrumb",
       itemListElement: [
@@ -109,11 +122,14 @@ const structuredData = {
       "@id": "https://www.lizocalc.com/calculators/time/date-calculator",
       url: "https://www.lizocalc.com/calculators/time/date-calculator",
       name: "Date Calculator | LizoCalc",
-      description: "Free date calculator. Find the difference between two dates, or add or subtract years, months, weeks, and days from any date.",
+      description:
+        "Free date calculator. Find the difference between two dates, or add or subtract years, months, weeks, and days from any date.",
       inLanguage: "en",
       datePublished: "2026-04-04",
       dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/date-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
   ],
 };

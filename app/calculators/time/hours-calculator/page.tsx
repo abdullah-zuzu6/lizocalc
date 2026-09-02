@@ -102,6 +102,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb",
       itemListElement: [
@@ -116,15 +129,17 @@ const structuredData = {
       "@id": "https://www.lizocalc.com/calculators/time/hours-calculator",
       url: "https://www.lizocalc.com/calculators/time/hours-calculator",
       name: "Hours Calculator – Find the Exact Time Between Two Times | LizoCalc",
-      description: "Free hours calculator. Find the exact duration between two times or two full dates, with decimal hours, total minutes, and overnight shift support.",
+      description:
+        "Free hours calculator. Find the exact duration between two times or two full dates, with decimal hours, total minutes, and overnight shift support.",
       inLanguage: "en",
       datePublished: "2026-04-01",
       dateModified: "2026-08-31",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
   ],
 };
-
 const tocItems = [
   { id: "what-is-hours-calculator", label: "What is an hour ?" },
   { id: "how-hours-are-calculated", label: "How Hours Between Two Times Are Calculated" },
