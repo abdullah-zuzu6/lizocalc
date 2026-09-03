@@ -57,7 +57,7 @@ const weeksLeftRemDays = daysLeft % 7;
 
 export const metadata: Metadata = {
   title: `How Many Days Are Left in ${year}? - Time Left in Year`,
-  description: `There are ${daysLeft} days left in ${year}. See the exact count, weeks remaining, percent of the year complete, and a month-by-month breakdown.`,
+  description: `See how many days left in ${year}. See the exact count, weeks remaining, percent of the year complete, and a month-by-month breakdown.`,
   keywords: [
     "days left in the year",
     `days left in ${year}`,
