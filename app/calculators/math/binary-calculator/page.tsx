@@ -42,9 +42,6 @@ export const metadata: Metadata = {
   },
 };
 
-// ─────────────────────────────────────────────
-//  STRUCTURED DATA
-// ─────────────────────────────────────────────
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
