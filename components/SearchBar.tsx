@@ -39,7 +39,6 @@ const allCalculators = [
   { name: 'GCF Calculator', href: '/calculators/math/gcf-calculator', category: 'Math' },
   { name: 'Permutation & Combination Calculator', href: '/calculators/math/permutation-combination-calculator', category: 'Math' },
   { name: 'Z-Score Calculator', href: '/calculators/math/z-score-calculator', category: 'Math' },
-  { name: 'Conversion Calculator', href: '/calculators/math/conversion-calculator', category: 'Math' },
 
 
 

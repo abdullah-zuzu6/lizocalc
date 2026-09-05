@@ -1,46 +1,15 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
-import Script from "next/script";
 import { Suspense } from "react";
 import BinaryCalculator from "./clientside";
 import Link from "next/link";
 import ShareBar from "@/components/Sharebar";
-export const faqData = [
-  {
-    question: "How do you add two binary numbers?",
-    answer:
-      "Binary addition follows four specific rules: 0+0=0, 0+1=1, 1+0=1, and 1+1=10 (write 0, carry 1). For example, to add 1010 (10) and 1100 (12): \n1. Rightmost bit: 0 + 0 = 0 \n2. Second bit: 1 + 0 = 1 \n3. Third bit: 0 + 1 = 1 \n4. Leftmost bit: 1 + 1 = 10 \nThe result is 10110 in binary, which equals 22 in decimal.",
-  },
-  {
-    question: "How can I convert Binary to Decimal manually?",
-    answer:
-      "To convert binary to decimal, multiply each digit by 2 raised to the power of its position (starting from 0 on the right) and sum the results. \nExample for 1011: \n(1 × 2³) + (0 × 2²) + (1 × 2¹) + (1 × 2⁰) \n= 8 + 0 + 2 + 1 = 11. \nOur binary calculator automates this process to ensure 100% accuracy for long strings.",
-  },
-  {
-    question: "What is the easiest way to convert Decimal to Binary?",
-    answer:
-      "The most reliable method is 'Short Division by 2'. \n1. Divide the decimal number by 2. \n2. Record the remainder (0 or 1). \n3. Divide the quotient by 2 again. \n4. Repeat until the quotient is 0. \nThe binary value is the list of remainders read from bottom to top. For instance, 13 becomes 1101 in binary.",
-  },
-  {
-    question: "How does a Binary Calculator handle negative numbers?",
-    answer:
-      "Most digital systems use 'Two’s Complement' for negative numbers. To find the negative of a binary number: \n1. Invert all bits (change 0s to 1s and 1s to 0s). \n2. Add 1 to the result. \nThis allows computers to perform subtraction using addition logic, making the hardware more efficient.",
-  },
-  {
-    question: "Why are binary calculations important in computing?",
-    answer:
-      "Binary is the fundamental language of computers because electronic circuits use logic gates representing two states: On (1) and Off (0). Every piece of data, from HD videos to complex software, is processed as a series of binary digits (bits). Using a binary calculator helps developers and mechatronics students verify low-level logic.",
-  },
-  {
-    question: "Can I convert Binary directly to Hexadecimal?",
-    answer:
-      "Yes! Since 2⁴ = 16, one hex digit represents exactly four binary bits. \nStep 1: Split the binary string into groups of four (e.g., 1011 0101). \nStep 2: Convert each group: 1011 = B and 0101 = 5. \nResult: 10110101 in binary = B5 in Hexadecimal.",
-  },
-];
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
+
 export const metadata: Metadata = {
-  title: "Binary Calculator Online – Free Online Tool to Convert & Calculate",
+  title: "Binary Calculator Online – Convert Binary Values",
   description:
     "Use our free online binary calculator to convert binary to decimal and decimal to binary, perform fast addition, subtraction, multiplication, and division, and view results instantly. Perfect for students, developers, and anyone learning binary arithmetic",
   keywords: [
@@ -73,644 +42,558 @@ export const metadata: Metadata = {
   },
 };
 
+// ─────────────────────────────────────────────
+//  STRUCTURED DATA
+// ─────────────────────────────────────────────
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/math/binary-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Math", item: "https://www.lizocalc.com/calculators/math" },
+        { "@type": "ListItem", position: 4, name: "Binary Calculator", item: "https://www.lizocalc.com/calculators/math/binary-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/math/binary-calculator",
+      url: "https://www.lizocalc.com/calculators/math/binary-calculator",
+      name: "Binary Calculator – Fast & Accurate Converter | LizoCalc",
+      description:
+        "Free online binary calculator for binary addition, subtraction, multiplication, division, and conversion between binary and decimal.",
+      inLanguage: "en",
+      datePublished: "2025-06-01",
+      dateModified: "2026-09-06",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/math/binary-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/math/binary-calculator#app",
+      name: "Binary Calculator",
+      url: "https://www.lizocalc.com/calculators/math/binary-calculator",
+      description:
+        "Free binary calculator for binary arithmetic and converting binary to decimal or decimal to binary.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Binary Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Binary addition",
+        "Binary subtraction",
+        "Binary multiplication",
+        "Binary division",
+        "Convert binary to decimal",
+        "Convert decimal to binary",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
+  ],
+};
+
+const tocItems = [
+  { id: "how-to-use", label: "How to Use the Binary Calculator" },
+  { id: "what-are-binary-numbers", label: "What Are Binary Numbers" },
+  { id: "binary-decimal-conversion-table", label: "Binary/Decimal Conversion Table" },
+  { id: "binary-to-decimal", label: "Binary to Decimal Conversion" },
+  { id: "decimal-to-binary", label: "Decimal to Binary Conversion" },
+  { id: "binary-addition", label: "Binary Addition" },
+  { id: "binary-subtraction", label: "Binary Subtraction" },
+  { id: "binary-multiplication", label: "Binary Multiplication" },
+  { id: "binary-division", label: "Binary Division" },
+];
+
+const conversionTable = [
+  { decimal: 1, binary: "1" },
+  { decimal: 2, binary: "10" },
+  { decimal: 3, binary: "11" },
+  { decimal: 4, binary: "100" },
+  { decimal: 5, binary: "101" },
+  { decimal: 6, binary: "110" },
+  { decimal: 7, binary: "111" },
+  { decimal: 8, binary: "1000" },
+  { decimal: 9, binary: "1001" },
+  { decimal: 10, binary: "1010" },
+  { decimal: 11, binary: "1011" },
+  { decimal: 12, binary: "1100" },
+  { decimal: 13, binary: "1101" },
+  { decimal: 14, binary: "1110" },
+  { decimal: 15, binary: "1111" },
+  { decimal: 16, binary: "10000" },
+  { decimal: 17, binary: "10001" },
+  { decimal: 18, binary: "10010" },
+  { decimal: 19, binary: "10011" },
+  { decimal: 20, binary: "10100" },
+];
+
 export default function BinaryCalculatorPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === SINGLE JSON-LD SCRIPT (BEST PRACTICE) === */}
-      <Script
-        id="structured-data"
+      <script
+        id="structured-data-binary-calculator"
         type="application/ld+json"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/binary-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Math",
-                    item: "https://www.lizocalc.com/calculators/math",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Binary Calculator",
-                    item: "https://www.lizocalc.com/calculators/math/binary-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/binary-calculator",
-                url: "https://www.lizocalc.com/calculators/math/binary-calculator",
-                name: "Binary Calculator",
-                description:
-                  "Use our binary calculator to perform binary arithmetic and convert binary numbers to decimal and decimal numbers to binary.",
-                inLanguage: "en",
-                isPartOf: {
-                  "@type": "WebSite",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/binary-calculator#app" }
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/binary-calculator#app",
-                name: "Binary Calculator",
-                url: "https://www.lizocalc.com/calculators/math/binary-calculator",
-                description:
-                  "Free binary calculator for performing binary arithmetic and converting binary to decimal or decimal to binary.",
-                applicationCategory: "UtilitiesApplication",
-                applicationSubCategory: "Binary Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Binary addition",
-                  "Binary subtraction",
-                  "Binary multiplication",
-                  "Binary division",
-                  "Convert binary to decimal",
-                  "Convert decimal to binary",
-                ],
-                offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-    "@type": "UseAction",
-    "target": ["https://www.lizocalc.com/calculators/math/binary-calculator"]
-  }
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: { "@type": "Answer", text: item.answer },
-                })),
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold">
-            Binary Calculator – Convert, Calculate & Analyze Binary Numbers
-            Instantly
+            Binary Calculator
           </h1>
-           <ShareBar/>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Add, subtract, multiply, and divide binary numbers, and convert between binary and decimal.
+          </p>
+          <ShareBar />
         </div>
       </section>
 
       {/* Calculator Tool */}
       <section className="px-4 py-8">
-  <Suspense fallback={<div className="text-center">Loading tool...</div>}>
-    <BinaryCalculator />
-  </Suspense>
-</section>
+        <Suspense fallback={<div className="text-center">Loading tool...</div>}>
+          <BinaryCalculator />
+        </Suspense>
+      </section>
 
+      {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <p className="text-gray-200 leading-relaxed mb-4">
-          Computers speak binary — the foundation of all digital logic,
-          programming, CPUs, memory addressing, and data representation. Our
-          completely free binary calculator lets you perform accurate binary
-          addition, subtraction, multiplication, division, plus instant
-          conversions to decimal (base-10) and hexadecimal (base-16). Save your
-          calculation history locally, enjoy a clean dark-mode UI, error-proof
-          inputs, and mobile responsiveness. Perfect for computer science
-          students, software developers, digital electronics learners,
-          competitive programmers, or anyone wanting to understand how machines
-          really calculate.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A binary calculator works out binary addition, subtraction, multiplication, and division,
+          and converts values between binary and decimal. Type two binary numbers, pick an
+          operation, and it shows the result in binary along with its decimal value, so you can
+          check your own working either way.
         </p>
 
-        <section>
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 mt-16 border-b border-blue-600 pb-4 mb-8">
-            How to Use the Binary Calculator Effectively
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <div className="mt-8 space-y-10">
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-                1. Enter Only Valid Binary Numbers (0s & 1s)
-              </h3>
-              <p className="text-gray-200 leading-relaxed mb-4">
-                Type or paste binary strings into both input boxes. The tool
-                strictly enforces binary rules — only digits <strong>0</strong>{" "}
-                and <strong>1</strong> are accepted. Any invalid character
-                (letters, 2–9, spaces, symbols) triggers an immediate clear
-                error message.
-              </p>
-              <p className="text-gray-300 italic">
-                Tip: Great for copying binary from code, registers, memory
-                dumps, or logic simulators.
-              </p>
-            </div>
-
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-                2. Select the Desired Operation
-              </h3>
-              <p className="text-gray-200 leading-relaxed mb-4">Pick one:</p>
-              <ul className="list-disc list-inside text-gray-200 space-y-2 pl-6">
-                <li>
-                  <strong>Addition (+)</strong> — Bit-by-bit with carry
-                </li>
-                <li>
-                  <strong>Subtraction (−)</strong> — Bit-by-bit with borrow
-                </li>
-                <li>
-                  <strong>Multiplication (×)</strong> — Shift-and-add style
-                </li>
-                <li>
-                  <strong>Division (÷)</strong> — Integer division via repeated
-                  subtraction
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-                3. Click “Calculate” – See Triple-Format Results
-              </h3>
-              <p className="text-gray-200 leading-relaxed mb-4">
-                Results appear instantly in:
-              </p>
-              <ul className="list-disc list-inside text-gray-200 space-y-2 pl-6">
-                <li>
-                  <strong>Binary</strong> — Raw arithmetic result
-                </li>
-                <li>
-                  <strong>Decimal</strong> — Easy-to-read base-10 value
-                </li>
-                <li>
-                  <strong>Hexadecimal</strong> — Compact 0x format (programming
-                  favorite)
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-                4. Reset for Instant New Calculations
-              </h3>
-              <p className="text-gray-200 leading-relaxed">
-                One-click reset clears inputs and output — ideal for testing
-                sequences of problems quickly.
-              </p>
-            </div>
-          </div>
+        {/* How to use */}
+        <section id="how-to-use" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Use the Binary Calculator
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Type a binary number into Value A and another into Value B. The boxes only accept 0
+            and 1, so anything else gets stripped out as you type.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Pick an operation: addition, subtraction, multiplication, or division. Hit Compute
+            and the result shows up in binary, with the matching decimal value right below it.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Once you have a result, you can copy a share link that carries both values and the
+            operator, so anyone who opens it sees the same calculation. Reset clears everything
+            and starts you over.
+          </p>
         </section>
 
-        <section className="mt-20">
+        {/* What are binary numbers */}
+        <section id="what-are-binary-numbers" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Standout Features of This Free Binary Calculator
+            What Are Binary Numbers
           </h2>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-semibold text-blue-300 mb-3">
-                ⚡ Instant & Precise Binary Operations
-              </h4>
-              <p className="text-gray-200">
-                Handles large bit lengths without slowdown.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-semibold text-blue-300 mb-3">
-                ↔ Full Conversions (Bin ↔ Dec ↔ Hex)
-              </h4>
-              <p className="text-gray-200">One-click multi-base visibility.</p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-semibold text-blue-300 mb-3">
-                📜 Local History via Browser Cookies
-              </h4>
-              <p className="text-gray-200">
-                Review previous calculations anytime.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-semibold text-blue-300 mb-3">
-                🧼 Modern Dark, Responsive Design
-              </h4>
-              <p className="text-gray-200">
-                Comfortable for long sessions on phone, tablet, or desktop.
-              </p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-semibold text-blue-300 mb-3">
-                🔒 100% Free • No Ads • No Login
-              </h4>
-              <p className="text-gray-200">Unlimited use, privacy-focused.</p>
-            </div>
-            <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700">
-              <h4 className="text-xl font-semibold text-blue-300 mb-3">
-                🛡️ Smart Input Validation & Guidance
-              </h4>
-              <p className="text-gray-200">
-                Teaches binary rules through helpful errors.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-8 p-6 bg-gray-800/40 rounded-xl border border-gray-700">
-            <p className="text-gray-200 mb-4">Need more number system tools?</p>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/calculators/math/hexadecimal-calculator"
-                className="inline-flex items-center px-4 py-2 bg-blue-600/30 hover:bg-blue-600/50 rounded-lg text-blue-300 hover:text-blue-200 transition-colors"
-              >
-                → Try Hex Calculator
-              </Link>
-              <Link
-                href="/calculators/math/lcm-calculator"
-                className="inline-flex items-center px-4 py-2 bg-purple-600/30 hover:bg-purple-600/50 rounded-lg text-purple-300 hover:text-purple-200 transition-colors"
-              >
-                → LCM Calculator (Least Common Multiple)
-              </Link>
-            </div>
-          </div>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Binary is a base-2 number system. It only uses two digits, 0 and 1, where decimal
+            uses ten (0 through 9). Computers run on binary because a transistor only has two
+            reliable states, off and on, and those map directly onto 0 and 1.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Every digit in a binary number is called a bit. Like decimal, binary is a positional
+            system: each bit is worth a power of 2 based on where it sits, counting from the
+            right. In decimal, the digit 3 in 300 is worth 3 hundreds. In binary, a 1 in the
+            third position from the right is worth 4, because that position holds 2 squared.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            The{" "}
+            <Link
+              href="/calculators/math/hexadecimal-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              hexadecimal calculator
+            </Link>{" "}
+            covers base 16, which lines up neatly with binary since every 4 bits make one hex
+            digit.
+          </p>
         </section>
 
-        <section className="mt-20">
+        {/* Conversion table 1-20 */}
+        <section id="binary-decimal-conversion-table" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Binary ↔ Decimal Conversions – Detailed with Multiple Examples
+            Binary/Decimal Conversion Table
           </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Here's decimal 1 through 20 next to their binary values. It's worth memorizing the
+            first 8 or so, since the pattern of doubling repeats at every higher range.
+          </p>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">
+                    Decimal
+                  </th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">
+                    Binary
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {conversionTable.map((row, index) => (
+                  <tr
+                    key={row.decimal}
+                    className={index % 2 === 0 ? "bg-gray-800/20" : "bg-gray-800/40"}
+                  >
+                    <td className="px-6 py-3 text-gray-200 text-base border-b border-gray-700/60">
+                      {row.decimal}
+                    </td>
+                    <td className="px-6 py-3 text-gray-200 text-base font-mono border-b border-gray-700/60">
+                      {row.binary}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-gray-400 text-sm mt-4">
+            Notice each binary value in the table above is one bit longer once the decimal
+            number passes a power of 2 (after 1, after 3, after 7, after 15).
+          </p>
+        </section>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
+        {/* Binary to Decimal */}
+        <section id="binary-to-decimal" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             Binary to Decimal: Positional Power-of-2 Method
-          </h3>
-
-          <p className="text-gray-200 mb-4">
-            Every position in a binary number represents a power of 2. We always
-            start counting positions from the <strong>rightmost bit</strong>{" "}
-            (called the Least Significant Bit – LSB), which is 2⁰ = 1.
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            To read a binary number as decimal, give each bit a position, starting at 0 on the
+            far right. Raise 2 to that position, multiply by the bit, and add up every column.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Take 1101. It has 4 bits, so the positions run 3, 2, 1, 0 from left to right.
           </p>
 
-          <p className="text-gray-200 mb-6">
-            Formula:
-            <br />
-            <strong>Decimal = Σ (bit × 2^position)</strong>, where position
-            starts at 0 from the right.
-          </p>
-
-          <p className="text-gray-200 font-medium mb-4">
-            Example 1: Convert <strong>1011₂</strong> (binary) to decimal (₁₀)
-          </p>
-          <div className="overflow-x-auto mt-6">
-            <table className="min-w-full text-sm md:text-base text-white border border-gray-600 border-collapse rounded-lg overflow-hidden">
+          <div className="overflow-x-auto rounded-xl border border-gray-700 mb-4">
+            <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-blue-900/60">
-                  <th className="p-3 md:p-4 text-left font-semibold whitespace-nowrap">
-                    Bit (from right to left)
-                  </th>
-                  <th className="p-3 md:p-4 text-left font-semibold whitespace-nowrap">
-                    Position
-                  </th>
-                  <th className="p-3 md:p-4 text-left font-semibold whitespace-nowrap">
-                    Power of 2
-                  </th>
-                  <th className="p-3 md:p-4 text-left font-semibold whitespace-nowrap">
-                    Calculation
-                  </th>
-                  <th className="p-3 md:p-4 text-left font-semibold whitespace-nowrap">
-                    Value
-                  </th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Position</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Power of 2</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Bit</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Value</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/40 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-3 md:p-4">
-                    1 <span className="text-xs opacity-70">(LSB)</span>
-                  </td>
-                  <td className="p-3 md:p-4">0</td>
-                  <td className="p-3 md:p-4">2⁰ = 1</td>
-                  <td className="p-3 md:p-4">1 × 1</td>
-                  <td className="p-3 md:p-4">1</td>
+                  <td className="px-6 py-3 text-gray-200">3</td>
+                  <td className="px-6 py-3 text-gray-200">2³ = 8</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                  <td className="px-6 py-3 text-gray-200">8</td>
                 </tr>
                 <tr>
-                  <td className="p-3 md:p-4">1</td>
-                  <td className="p-3 md:p-4">1</td>
-                  <td className="p-3 md:p-4">2¹ = 2</td>
-                  <td className="p-3 md:p-4">1 × 2</td>
-                  <td className="p-3 md:p-4">2</td>
+                  <td className="px-6 py-3 text-gray-200">2</td>
+                  <td className="px-6 py-3 text-gray-200">2² = 4</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                  <td className="px-6 py-3 text-gray-200">4</td>
                 </tr>
                 <tr>
-                  <td className="p-3 md:p-4">0</td>
-                  <td className="p-3 md:p-4">2</td>
-                  <td className="p-3 md:p-4">2² = 4</td>
-                  <td className="p-3 md:p-4">0 × 4</td>
-                  <td className="p-3 md:p-4">0</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                  <td className="px-6 py-3 text-gray-200">2¹ = 2</td>
+                  <td className="px-6 py-3 text-gray-200">0</td>
+                  <td className="px-6 py-3 text-gray-200">0</td>
                 </tr>
                 <tr>
-                  <td className="p-3 md:p-4">
-                    1 <span className="text-xs opacity-70">(MSB)</span>
-                  </td>
-                  <td className="p-3 md:p-4">3</td>
-                  <td className="p-3 md:p-4">2³ = 8</td>
-                  <td className="p-3 md:p-4">1 × 8</td>
-                  <td className="p-3 md:p-4">8</td>
+                  <td className="px-6 py-3 text-gray-200">0</td>
+                  <td className="px-6 py-3 text-gray-200">2⁰ = 1</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
                 </tr>
                 <tr className="font-bold bg-blue-900/40">
-                  <td colSpan={4} className="p-3 md:p-4 text-right">
-                    Total Decimal Value
-                  </td>
-                  <td className="p-3 md:p-4">11</td>
+                  <td colSpan={3} className="px-6 py-3 text-right">Total</td>
+                  <td className="px-6 py-3">13</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <p className="text-gray-300 text-sm mt-3 italic">
-            Quick reminder: 1011₂ = 8 + 2 + 1 = 11₁₀
+
+          <p className="text-gray-200 leading-relaxed text-base">
+            Add the value column: 8 plus 4 plus 0 plus 1 comes to 13. So 1101 in binary equals
+            13 in decimal. Only the positions holding a 1 count toward the total, which is why a
+            binary number with mostly zeros converts to a small decimal value even when it has
+            plenty of digits.
+          </p>
+        </section>
+
+        {/* Decimal to Binary */}
+        <section id="decimal-to-binary" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Decimal to Binary: Repeated Division by 2
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Going the other way, divide the decimal number by 2 and write down the remainder,
+            which will always be 0 or 1. Divide the quotient by 2 again, and keep going until
+            the quotient hits 0. Read the remainders from bottom to top, and that's the binary
+            value.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Take 26 as an example.
           </p>
 
-          <p className="text-gray-400 text-sm mt-4">
-            Only the 1s contribute to the final value — that's why binary is so
-            efficient for computers!
-          </p>
-
-          {/* Quick Reference Table – Updated (only Decimal + Binary) */}
-          <div className="mt-10">
-            <p className="text-gray-200 font-medium mb-4">
-              Quick Reference: Decimal 0–20 and Their Binary Equivalents
-            </p>
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm text-white border border-gray-600 border-collapse rounded-lg overflow-hidden">
-                <thead>
-                  <tr className="bg-blue-900/70">
-                    <th className="p-3 text-left font-semibold">Decimal</th>
-                    <th className="p-3 text-left font-semibold">Binary</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-gray-800/40 divide-y divide-gray-700">
-                  <tr>
-                    <td className="p-3">0</td>
-                    <td className="p-3 font-mono">0</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">1</td>
-                    <td className="p-3 font-mono">1</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">2</td>
-                    <td className="p-3 font-mono">10</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">3</td>
-                    <td className="p-3 font-mono">11</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">4</td>
-                    <td className="p-3 font-mono">100</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">5</td>
-                    <td className="p-3 font-mono">101</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">6</td>
-                    <td className="p-3 font-mono">110</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">7</td>
-                    <td className="p-3 font-mono">111</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">8</td>
-                    <td className="p-3 font-mono">1000</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">9</td>
-                    <td className="p-3 font-mono">1001</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">10</td>
-                    <td className="p-3 font-mono">1010</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">11</td>
-                    <td className="p-3 font-mono">1011</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">12</td>
-                    <td className="p-3 font-mono">1100</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">13</td>
-                    <td className="p-3 font-mono">1101</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">14</td>
-                    <td className="p-3 font-mono">1110</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">15</td>
-                    <td className="p-3 font-mono">1111</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">16</td>
-                    <td className="p-3 font-mono">10000</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">17</td>
-                    <td className="p-3 font-mono">10001</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">18</td>
-                    <td className="p-3 font-mono">10010</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">19</td>
-                    <td className="p-3 font-mono">10011</td>
-                  </tr>
-                  <tr>
-                    <td className="p-3">20</td>
-                    <td className="p-3 font-mono">10100</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p className="text-gray-400 text-xs mt-3 italic">
-              Simple binary representation (no leading zeros)
-            </p>
+          <div className="overflow-x-auto rounded-xl border border-gray-700 mb-4">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-blue-900/60">
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Step</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Division</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Quotient</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Remainder</th>
+                </tr>
+              </thead>
+              <tbody className="bg-gray-800/40 divide-y divide-gray-700">
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                  <td className="px-6 py-3 text-gray-200">26 ÷ 2</td>
+                  <td className="px-6 py-3 text-gray-200">13</td>
+                  <td className="px-6 py-3 text-gray-200">0</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">2</td>
+                  <td className="px-6 py-3 text-gray-200">13 ÷ 2</td>
+                  <td className="px-6 py-3 text-gray-200">6</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">3</td>
+                  <td className="px-6 py-3 text-gray-200">6 ÷ 2</td>
+                  <td className="px-6 py-3 text-gray-200">3</td>
+                  <td className="px-6 py-3 text-gray-200">0</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">4</td>
+                  <td className="px-6 py-3 text-gray-200">3 ÷ 2</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">5</td>
+                  <td className="px-6 py-3 text-gray-200">1 ÷ 2</td>
+                  <td className="px-6 py-3 text-gray-200">0</td>
+                  <td className="px-6 py-3 text-gray-200">1</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <p className="text-gray-200 mt-10 mb-4">
-            Example 2: Larger number — 110101₂ = 32 + 16 + 4 + 1 = 53₁₀
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Decimal to Binary: Repeated Division by 2
-          </h3>
-          <p className="text-gray-200 mb-4">Record remainders bottom → top.</p>
-
-          <p className="text-gray-200 font-medium mb-4">
-            Example: 29₁₀ → binary
-          </p>
-          <ul className="list-decimal list-inside text-gray-200 space-y-1.5 pl-6 mb-6">
-            <li>
-              29 ÷ 2 = 14 rem <strong>1</strong>
-            </li>
-            <li>
-              14 ÷ 2 = 7 rem <strong>0</strong>
-            </li>
-            <li>
-              7 ÷ 2 = 3 rem <strong>1</strong>
-            </li>
-            <li>
-              3 ÷ 2 = 1 rem <strong>1</strong>
-            </li>
-            <li>
-              1 ÷ 2 = 0 rem <strong>1</strong>
-            </li>
-          </ul>
-          <p className="text-green-400 font-bold">Binary: 11101</p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Binary Arithmetic Operations – Full Examples & Rules
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Binary Addition Rules & Example
-          </h3>
-          <p className="text-gray-200 mb-4">
-            0+0=0, 0+1=1, 1+0=1, 1+1=0 carry 1
-          </p>
-          <p className="text-gray-200 font-medium mb-3">
-            Example: 1101₂ (13) + 1011₂ (11)
-          </p>
-          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-tight">
-            1 1 0 1 (carry: 1 1 0) 1 1 0 1 + 1 0 1 1 --------- 1 1 0 0 0 → 24₁₀
-          </pre>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Binary Subtraction Rules & Example
-          </h3>
-          <p className="text-gray-200 mb-4">
-            0-0=0, 1-0=1, 1-1=0, 0-1=1 borrow 1 (becomes 10-1=1)
-          </p>
-          <p className="text-gray-200 font-medium mb-3">
-            Example: 11010₂ (26) − 1011₂ (11)
-          </p>
-          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-tight">
-            1 1 0 1 0 - 1 0 1 1 --------- 1 0 0 1 1 → 19₁₀
-          </pre>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Binary Multiplication Example
-          </h3>
-          <p className="text-gray-200 mb-4">
-            Like decimal — shift & add when bit=1
-          </p>
-          <p className="text-gray-200 font-medium mb-3">
-            Example: 1011₂ (11) × 101₂ (5)
-          </p>
-          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm">
-            1011 × 101 ------ 1011 (×1) 0000 (×0 shifted) 1011 (×1 shifted
-            twice) ------ 110111 → 55₁₀
-          </pre>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Binary Division (Integer) Example
-          </h3>
-          <p className="text-gray-200 mb-4">
-            Repeated subtraction or long division style.
-          </p>
-          <p className="text-gray-200 font-medium mb-3">
-            Example: 110110₂ (54) ÷ 11₂ (3)
-          </p>
-          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm">
-            Dividend: 110110 Divisor: 11 Quotient: 10010 (18₁₀) Remainder: 0
-          </pre>
-          <p className="text-gray-200 mt-4">
-            Note: Tool supports positive integers only. For signed/binary
-            negative numbers, consider two's complement tools separately.
+          <p className="text-gray-200 leading-relaxed text-base">
+            Reading the remainder column from the bottom row up gives 11010. Check it against
+            the positional method above and it holds up: 16 plus 8 plus 0 plus 2 plus 0 comes to
+            26. The scientific calculator and the fraction calculator on this site use the same
+            kind of step-by-step layout if you want more practice with worked examples.
           </p>
         </section>
 
-        <section className="mt-20">
+        {/* Binary Addition */}
+        <section id="binary-addition" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Results Format & Common Troubleshooting
+            Binary Addition
           </h2>
-
-          <p className="text-gray-200 mb-6">
-            Results shown in three bases for easy verification and learning:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Binary addition has four rules: 0 plus 0 is 0, 0 plus 1 is 1, 1 plus 0 is 1, and 1
+            plus 1 is 0 with a carry of 1 into the next column. That carry is the only part that
+            trips people up, since it behaves the same way carrying works in decimal once a
+            column adds up to 10 or more.
           </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-3">
-            <li>
-              <strong>Binary:</strong> Direct computation output
-            </li>
-            <li>
-              <strong>Decimal:</strong> Standard base-10 equivalent
-            </li>
-            <li>
-              <strong>Hexadecimal:</strong> 0x format (memory, colors, bitwise
-              debugging)
-            </li>
-          </ul>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Fixing Common Issues
-          </h3>
-          <ul className="list-disc list-inside text-gray-200 space-y-3">
-            <li>
-              <strong>Invalid Input Error:</strong> Only 0 & 1 allowed — remove
-              other characters
-            </li>
-            <li>
-              <strong>Division by Zero:</strong> Shows clear warning — change
-              divisor
-            </li>
-            <li>
-              <strong>Negative Results:</strong> Unsigned calculator only — for
-              negatives use two's complement elsewhere
-            </li>
-            <li>
-              <strong>Unexpected Result?:</strong> Verify inputs/operator →
-              reset → re-calculate
-            </li>
-          </ul>
-
-          <p className="text-gray-300 mt-12 text-center italic text-lg">
-            Jump in now — practice binary arithmetic, conversions, and build
-            real confidence in how computers think!
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Add 10110 (22) and 01111 (15), column by column from the right, carrying whenever a
+            column hits 2.
           </p>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose">
+{`  carry      1  1  1  1
+             0  1  0  1  1  0
+           +  0  0  1  1  1  1
+           ----------------------
+             1  0  0  1  0  1`}
+          </pre>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            The rightmost column, 0 plus 1, gives 1 with nothing to carry. The next column, 1
+            plus 1, gives 0 and carries a 1. That carry keeps landing in the next column for the
+            rest of the sum. The result, 100101, equals 37, which checks out against 22 plus 15.
+          </p>
+        </section>
+
+        {/* Binary Subtraction */}
+        <section id="binary-subtraction" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Binary Subtraction
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Subtraction rules: 0 minus 0 is 0, 1 minus 0 is 1, 1 minus 1 is 0, and 0 minus 1
+            needs a borrow. When you borrow, the 0 becomes 2 for that column (since you're
+            borrowing a full unit from the next column over), and the column you borrowed from
+            drops by 1.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Subtract 01011 (11) from 11010 (26).
+          </p>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose">
+{`  borrow     1  1  1  1
+             1  1  0  1  0
+           -  0  1  0  1  1
+           ----------------------
+             0  1  1  1  1`}
+          </pre>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            Starting from the right, 0 minus 1 forces a borrow: the column becomes 2 minus 1,
+            which is 1, and the next column loses 1 before it does its own subtraction. That
+            chain of borrowing runs through most of this example. The result, 01111, is 15, and
+            26 minus 11 is indeed 15.
+          </p>
+        </section>
+
+        {/* Binary Multiplication */}
+        <section id="binary-multiplication" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Binary Multiplication
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Binary multiplication only has two facts to remember: anything times 0 is 0, and
+            anything times 1 is itself. For each bit in the bottom number, you either write down
+            a row of zeros or copy the top number, shifted left by that bit's position, then add
+            every row together.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Multiply 1101 (13) by 110 (6).
+          </p>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose">
+{`           1  1  0  1
+        ×        1  1  0
+        ------------------
+           0  0  0  0
+        1  1  0  1
+     1  1  0  1
+     -------------------
+     1  0  0  1  1  1  0`}
+          </pre>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            The rightmost bit of 110 is 0, so the first row is all zeros. The next bit is 1, so
+            the second row is 1101 shifted one place left. The last bit is also 1, so the third
+            row is 1101 shifted two places left. Adding the three rows gives 1001110, which is
+            78, matching 13 times 6.
+          </p>
+        </section>
+
+        {/* Binary Division */}
+        <section id="binary-division" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Binary Division
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Binary division works the same way long division does in decimal. You bring down
+            digits from the dividend one at a time, and each time you bring one down, you check
+            whether what you're holding is large enough to subtract the divisor from. If it is,
+            that position in the quotient gets a 1 and you subtract. If not, it gets a 0 and you
+            bring down the next digit.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Divide 100101 (37) by 101 (5).
+          </p>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose">
+{`               1  1  1
+           --------------
+  101  )  1  0  0  1  0  1
+              1  0  1
+              --------
+               1  0  0  1
+                  1  0  1
+                  ------
+                   1  0  0  0
+                      1  0  1
+                      ------
+                       0  1  1`}
+          </pre>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            The first 3 digits of the dividend, 100, are smaller than the divisor, 101, so
+            nothing gets subtracted yet. Bringing down the next digit gives 1001, which is
+            larger than the divisor, so the quotient gets a 1 and 101 comes out, leaving 100.
+            That pattern repeats for the last two digits. The quotient reads 111, which is 7,
+            with a remainder of 011, which is 2. That matches 37 divided by 5: 7 with 2 left
+            over.
+          </p>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            Need the same kind of remainder logic for whole numbers instead of binary? The{" "}
+            <Link
+              href="/calculators/math/gcf-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              GCF calculator
+            </Link>{" "}
+            and the{" "}
+            <Link
+              href="/calculators/math/lcm-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              LCM calculator
+            </Link>{" "}
+            both lean on division and remainders to get their answers.
+          </p>
+        </section>
+
+        <section className="px-4 mb-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Math Calculators"
+            links={[
+              { label: "Hexadecimal Calculator", href: "/calculators/math/hexadecimal-calculator" },
+              { label: "LCM Calculator", href: "/calculators/math/lcm-calculator" },
+              { label: "GCF Calculator", href: "/calculators/math/gcf-calculator" },
+              { label: "Scientific Calculator", href: "/calculators/math/scientific-calculator" },
+            ]}
+            seeAllHref="/calculators/math"
+          />
         </section>
       </article>
-
-      {/* FAQ Section */}
-      <FAQ items={faqData} />
 
       <Footer />
     </main>

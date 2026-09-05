@@ -2,7 +2,7 @@
 
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import { Mail, MessageSquare, Phone } from 'lucide-react'
+import { Mail, MessageSquare, ShieldAlert } from 'lucide-react'
 
 export default function Contact() {
   return (
@@ -10,7 +10,7 @@ export default function Contact() {
       <Navbar />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        
+
         {/* Header */}
         <div className="mb-16 text-center">
           <h1 className="text-5xl md:text-6xl font-bold mb-6">
@@ -26,41 +26,47 @@ export default function Contact() {
 
           <div className="space-y-8">
 
-            {/* Email */}
+            {/* Feedback Email */}
             <div className="flex gap-4 items-start">
-              <Mail className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+              <MessageSquare className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold mb-1">Email</h3>
+                <h3 className="font-semibold mb-1">Feedback &amp; General Support</h3>
                 <p className="text-muted-foreground">
                   techbydevorg@gmail.com
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  For general inquiries, support, and feedback
+                  Use this for questions, bug reports, calculator requests,
+                  and general feedback about the site.
                 </p>
               </div>
             </div>
 
-            {/* WhatsApp */}
+            {/* Violations / abuse Email */}
             <div className="flex gap-4 items-start">
-              <Phone className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
+              <ShieldAlert className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold mb-1">WhatsApp</h3>
+                <h3 className="font-semibold mb-1">Report a Violation</h3>
                 <p className="text-muted-foreground">
-                  +92 318 643475
+                  itxabdullahdev@gmail.com
                 </p>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Available for quick support and communication
+                  Use this to report copyright concerns, policy violations,
+                  security issues, or anything that requires the site
+                  owner&apos;s direct attention.
                 </p>
               </div>
             </div>
 
-            {/* Feedback */}
+            {/* Email privacy note */}
             <div className="flex gap-4 items-start">
-              <MessageSquare className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
+              <Mail className="w-6 h-6 text-green-500 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="font-semibold mb-1">Feedback & Suggestions</h3>
-                <p className="text-muted-foreground">
-                  We are always working to improve LizoCalc. Your ideas and suggestions are welcome.
+                <h3 className="font-semibold mb-1">How We Use Your Email</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  If you email us, we use your address only to reply to
+                  your message. We don&apos;t add you to a mailing list,
+                  share your email with third parties, or use it for
+                  anything beyond that conversation.
                 </p>
               </div>
             </div>
@@ -93,10 +99,10 @@ export default function Contact() {
         {/* Extra Trust Section */}
         <div className="bg-card rounded-2xl border border-border p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">
-            We’re Here to Help
+            We&apos;re Here to Help
           </h2>
           <p className="text-muted-foreground">
-            Whether you need help using a calculator or want to suggest a new feature, feel free to reach out. 
+            Whether you need help using a calculator or want to suggest a new feature, feel free to reach out.
             Your feedback helps us improve and build better tools for everyone.
           </p>
         </div>

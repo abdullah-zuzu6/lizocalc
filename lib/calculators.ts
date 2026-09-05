@@ -42,7 +42,6 @@ export const calculators: Calculator[] = [
   { slug: 'permutation-combination-calculator', category: 'math' },
   { slug: 'z-score-calculator', category: 'math' },
   { slug: 'binary-calculator', category: 'math' },
-  { slug: 'conversion-calculator', category: 'math' },
  
 //Time calculators 
   { slug: 'age-calculator', category: 'time' },

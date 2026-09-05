@@ -380,14 +380,7 @@ export default function HalfLifePage() {
       If half-life = 10 years → t ≈ 33.22 years until only 10% remains.
     </p>
 
-    <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-      How do I convert minutes to years for half-life calculations?
-    </h3>
-    <p className="text-gray-200">
-      Use conversion: 1 year ≈ 525,600 minutes.<br />
-      For drug half-life of 120 minutes → in years: 120 / 525600 ≈ 0.000228 years.<br />
-      Our <Link href="/calculators/math/conversion-calculator" className="text-blue-400 hover:underline">Conversion Calculator</Link> or time tools handle this instantly.
-    </p>
+    
 
     <div className="overflow-x-auto mt-10">
       <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
@@ -419,7 +412,6 @@ export default function HalfLifePage() {
     </p>
     <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
       <li><Link href="/calculators/physics/density-calculator" className="text-blue-400 hover:underline">Density Calculator</Link> — related physics concepts</li>
-      <li><Link href="/calculators/math/conversion-calculator" className="text-blue-400 hover:underline">Unit Conversion Calculator</Link> — time & mass units</li>
     </ul>
 
     <p className="text-gray-300 italic text-center mt-16 text-lg font-medium leading-relaxed">

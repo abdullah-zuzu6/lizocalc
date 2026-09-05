@@ -68,7 +68,7 @@
 - [Permutation & Combination Calculator](https://www.lizocalc.com/calculators/math/permutation-combination-calculator)
 - [Z-Score Calculator](https://www.lizocalc.com/calculators/math/z-score-calculator)
 - [Binary Calculator](https://www.lizocalc.com/calculators/math/binary-calculator)
-- [Conversion Calculator](https://www.lizocalc.com/calculators/math/conversion-calculator)
+
 
 ## 🔬 Physics Calculators
 

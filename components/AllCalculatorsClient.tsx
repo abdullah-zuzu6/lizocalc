@@ -211,13 +211,7 @@ const allCalculators = [
     category: "Math",
     icon: Sigma,
   },
-  {
-    name: "Conversion Calculator",
-    description: "Convert between different units of measurement",
-    href: "/calculators/math/conversion-calculator",
-    category: "Math",
-    icon: Sigma,
-  },
+  
   {
     name: "Permutation & Combination Calculator",
     description: "Calculate permutations and combinations of items",
