@@ -145,6 +145,29 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/age-calculator#app",
+      name: "Age Calculator",
+      url: "https://www.lizocalc.com/calculators/time/age-calculator",
+      description:
+        "Free age calculator that finds exact age in years, months, and days from a date of birth, with total days, hours, minutes, and a countdown to the next birthday.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Age Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Exact age in years, months, and days",
+        "Age calculated as of any target date, not just today",
+        "Total days, hours, and minutes lived",
+        "Countdown to the next birthday",
+        "Leap year accurate calendar math",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 

@@ -129,6 +129,29 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/business-days-calculator#app",
+      name: "Business Days Calculator",
+      url: "https://www.lizocalc.com/calculators/time/business-days-calculator",
+      description:
+        "Free business days calculator that finds working days between two dates or the date after adding or subtracting business days, excluding weekends and U.S. federal holidays.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Business Days Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Business days between two dates",
+        "Add or subtract business days from a date",
+        "Exclude weekends, U.S. federal holidays, or both",
+        "Observed-holiday rules for Saturday and Sunday dates",
+        "List of excluded days shown for every result",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 

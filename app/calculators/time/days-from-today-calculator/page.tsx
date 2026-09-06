@@ -129,6 +129,28 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/days-from-today-calculator#app",
+      name: "Days From Today Calculator",
+      url: "https://www.lizocalc.com/calculators/time/days-from-today-calculator",
+      description:
+        "Free days from today calculator that adds or subtracts a set number of days from today or any date, with the result shown in multiple copyable date formats.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Date Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Add or subtract days from today or any chosen date",
+        "Result shown as full weekday date",
+        "Five copyable date formats including ISO",
+        "Preset day-count shortcuts",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 

@@ -140,6 +140,28 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/time-calculator#app",
+      name: "Time Calculator",
+      url: "https://www.lizocalc.com/calculators/time/time-calculator",
+      description:
+        "Free time calculator that finds the exact duration between two dates and times, or converts hours, minutes, and seconds into decimal hours.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Time Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Duration between two dates and times in days, hours, minutes, and seconds",
+        "Workdays-only duration option that excludes weekends",
+        "Convert hours, minutes, and seconds into decimal hours",
+        "Total seconds and total minutes output",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 

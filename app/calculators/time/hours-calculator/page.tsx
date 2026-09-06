@@ -138,6 +138,29 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/hours-calculator#app",
+      name: "Hours Calculator",
+      url: "https://www.lizocalc.com/calculators/time/hours-calculator",
+      description:
+        "Free hours calculator that finds the exact duration between two times or two full dates, with decimal hours, total minutes, and overnight shift support.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Hours Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Duration between two times in hours and minutes",
+        "Dates & times mode for spans crossing multiple days",
+        "Automatic overnight shift handling",
+        "Decimal hours conversion",
+        "Total minutes output",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 const tocItems = [

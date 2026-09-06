@@ -131,6 +131,28 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/date-calculator#app",
+      name: "Date Calculator",
+      url: "https://www.lizocalc.com/calculators/time/date-calculator",
+      description:
+        "Free date calculator that finds the exact difference between two dates or adds and subtracts years, months, weeks, and days from any date.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Date Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Difference between two dates in days, weeks, months, and years",
+        "Add or subtract years, months, weeks, and days from a date",
+        "Inclusive or exclusive end-date counting",
+        "Leap year and real month-length accurate",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 

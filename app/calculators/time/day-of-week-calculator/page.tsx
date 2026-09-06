@@ -134,6 +134,29 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/day-of-week-calculator#app",
+      name: "Day of the Week Calculator",
+      url: "https://www.lizocalc.com/calculators/time/day-of-week-calculator",
+      description:
+        "Free day of the week calculator that finds the weekday for any date, along with day of the year, days remaining, and weekday occurrence counts.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Day of the Week Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Weekday lookup for any past, present, or future date",
+        "Day of the year and days remaining in the year",
+        "Year progress percentage",
+        "Weekday occurrence count within the month and year",
+        "Quarter identification",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 const tocItems = [

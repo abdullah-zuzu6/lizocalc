@@ -129,9 +129,31 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/months-from-today-calculator#app",
+      name: "Months From Today Calculator",
+      url: "https://www.lizocalc.com/calculators/time/months-from-today-calculator",
+      description:
+        "Free months from today calculator that adds or subtracts a set number of calendar months from today or any date, with EDATE-style month-end clamping and day-count conversion.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Date Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Add or subtract calendar months from today or any chosen date",
+        "Automatic clamping to the last valid day of a shorter month",
+        "Result shown as full weekday date",
+        "Approximate day-count equivalent for the month span",
+        "Five copyable date formats including ISO",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
-
 const tocItems = [
   { id: "what-is-months-from-today", label: "What is a Months From Today Calculator" },
   { id: "how-it-works", label: "How it Works" },

@@ -129,6 +129,29 @@ const structuredData = {
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/time/days-between-dates-calculator#app",
+      name: "Days Between Two Dates Calculator",
+      url: "https://www.lizocalc.com/calculators/time/days-between-dates-calculator",
+      description:
+        "Free days between two dates calculator that finds the total days, weeks, hours, minutes, and seconds between any two dates, with options to include the start or end date.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Date Duration Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Total days between any two dates",
+        "Inclusive or exclusive start/end date counting",
+        "Weeks and remainder days breakdown",
+        "Total hours, minutes, and seconds",
+        "Automatic date swap handling when end is before start",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+    },
   ],
 };
 
