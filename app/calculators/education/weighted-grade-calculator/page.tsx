@@ -1,117 +1,71 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import Image from "next/image";
 import WeightedGradeCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
-
-const faqData = [
-  {
-    question: "What is a weighted grade calculator?",
-    answer:
-      "A weighted grade calculator computes your overall course grade by giving each assignment category a specific percentage weight. Instead of treating every assignment equally, it multiplies each score by its category weight (e.g., exams = 40%, homework = 30%, quizzes = 30%), sums those products, and divides by the total weight. This reflects how most real-world academic grading systems actually work.",
-  },
-  {
-    question: "How do I calculate a weighted grade manually?",
-    answer:
-      "Use this formula: Weighted Grade = Σ(Score × Weight) / ΣWeights. Step 1: Multiply each assignment score by its weight (e.g., 88 × 0.40 = 35.2). Step 2: Repeat for every category. Step 3: Add all results together. Step 4: Divide by the sum of all weights (usually 1.0 or 100%). For example, if exams are 40% (score 88), homework 30% (score 95), and quizzes 30% (score 78): (88×0.4)+(95×0.3)+(78×0.3) = 35.2+28.5+23.4 = 87.1%.",
-  },
-  {
-    question: "What is the difference between weighted and unweighted grades?",
-    answer:
-      "An unweighted grade treats every assignment equally — your overall grade is a simple average of all scores. A weighted grade assigns different levels of importance to different assignment types. For example, a final exam might count for 40% of your grade while daily homework only counts for 10%. Most college and high school courses use weighted grading because it better reflects mastery of the material.",
-  },
-  {
-    question: "How much does a final exam affect my grade?",
-    answer:
-      "It depends entirely on the weight assigned by your professor. If your final exam is worth 30% and you currently have an 85% in the course, use this formula: Target Final Grade = (Desired Grade − Current Grade × Current Weight) / Final Exam Weight. For example, to achieve a 90% overall when your current grade is 85% at 70% weight: (90 − 85×0.70) / 0.30 = (90 − 59.5) / 0.30 = 101.7% — meaning it may not be mathematically possible.",
-  },
-  {
-    question: "What grade do I need on my final exam to pass?",
-    answer:
-      "Use the formula: Required Final Score = (Target Overall Grade − (Current Grade × Pre-Final Weight)) / Final Exam Weight. For example, if your current grade is 72%, your pre-final work is worth 75% of the total grade, and your final exam is worth 25%, to pass with a 70%: Required Final = (70 − 72×0.75) / 0.25 = (70 − 54) / 0.25 = 64%. So you need at least a 64% on your final exam.",
-  },
-  {
-    question:
-      "Can I calculate weighted grades with different assignment weights?",
-    answer:
-      "Yes. Each assignment or category can have its own unique weight. The key rule is that all weights must add up to 100% (or 1.0 in decimal form). If your professor uses points instead of percentages, convert by dividing each assignment's points by the total possible points to get a percentage score first, then apply the weights. Our calculator handles both formats automatically.",
-  },
-  {
-    question:
-      "How do I calculate my semester grade with a weighted grading system?",
-    answer:
-      "List every grade category (homework, quizzes, midterm, final, projects), enter your average score for each, and note the weight percentage for each. Multiply score by weight for each category, then sum all results. For example: Homework 20% (avg 92%) + Quizzes 15% (avg 85%) + Midterm 25% (avg 79%) + Final 30% (avg 88%) + Project 10% (avg 95%) = 18.4+12.75+19.75+26.4+9.5 = 86.8%.",
-  },
-  {
-    question: "What is a weighted average calculator used for in academics?",
-    answer:
-      "A weighted average calculator in academics helps students determine their true course grade when different assessments carry different importance. It's used for computing semester grades, predicting the impact of upcoming exams, understanding what score is needed to achieve a target grade, and tracking cumulative academic performance across multiple categories of work.",
-  },
-  {
-    question: "How do weighted grades work in college vs high school?",
-    answer:
-      "In high school, weighted grades often refer to GPA weighting — AP or Honors courses count for more on a 5.0 scale instead of 4.0. In college, weighted grades usually refer to assignment category weights within a course (exams, labs, homework, participation). Our calculator handles the college-style assignment weight calculation. For GPA weighting, see our GPA Calculator.",
-  },
-  {
-    question: "What happens if my assignment weights don't add up to 100%?",
-    answer:
-      "If your weights don't total 100%, the formula still works — you divide by the sum of actual weights used. For example, if you've only completed assignments worth 70% of the total grade so far, your current weighted grade = Σ(Score × Weight) / 0.70. This gives you your grade based on work completed to date. Our calculator automatically handles partial weight totals so you always get accurate mid-semester tracking.",
-  },
-];
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
 export const metadata: Metadata = {
-  title: "Weighted Grade Calculator | Calculate Your Grade Fast",
+  title: "Weighted Grade Calculator – Course Grade by Category",
+
   description:
-    "Free weighted grade calculator for students and teachers. Enter scores and weights to instantly find your course grade, final exam requirement, and semester GPA.",
+    "Calculate your course grade from category weights like exams, homework, and labs. See a worked example, find the score you need on your final, and check common weighting mistakes.",
+
   keywords: [
     "weighted grade calculator",
     "weighted average calculator",
-    "grade calculator",
     "weighted grading system",
     "calculate weighted grade",
     "final grade calculator",
-    "weighted score calculator",
-    "grade percentage calculator",
-    "semester grade calculator",
-    "assignment grade calculator",
     "college weighted grade calculator",
-    "weighted GPA calculator",
-    "weighted grade calculator with percentages",
-    "weighted grade calculator with final exam",
-    "what grade do i need on my final",
+    "grade category weights",
   ],
+
   alternates: {
-    canonical:
-      "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+    canonical: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   openGraph: {
-    title: "Weighted Grade Calculator | LizoCalc",
+    title: "Weighted Grade Calculator – Course Grade by Category",
     description:
-      "Calculate your weighted course grade instantly. Supports any grading system — enter scores, weights, and get your final grade in seconds.",
+      "Enter your grade categories and weights to get your course grade instantly, then find what you need on the final.",
     url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Weighted Grade Calculator — Instant Course Grade",
+    title: "Weighted Grade Calculator – Course Grade by Category",
     description:
-      "Enter your assignment scores and weights to find your exact course grade. Free, accurate, works for any school.",
+      "Free weighted grade calculator. Enter category scores and weights, get your exact course grade.",
   },
 };
 
-// ─────────────────────────────────────────────
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
     {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#breadcrumb",
@@ -126,23 +80,57 @@ const structuredData = {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
       url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
-      name: "Weighted Grade Calculator — Calculate Your Course Grade Instantly | LizoCalc",
-      description: "Free weighted grade calculator. Enter your scores and category weights to compute your exact course grade, see the impact of your final exam, and understand your semester standing.",
+      name: "Weighted Grade Calculator – Course Grade by Category | LizoCalc",
+      description:
+        "Calculate a course grade from category weights, see the effect of a final exam, and check the score needed to hit a target grade.",
       inLanguage: "en",
       datePublished: "2026-05-21",
-      dateModified: "2026-08-20",
+      dateModified: "2026-09-10",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/education/weighted-grade-calculator#app",
+      name: "Weighted Grade Calculator",
+      url: "https://www.lizocalc.com/calculators/education/weighted-grade-calculator",
+      description:
+        "Free weighted grade calculator that turns category scores and weights into a single course grade.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Weighted Grade Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate course grade from category weights",
+        "Worked examples for weighted grading systems",
+        "Score needed on the final exam calculator",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
     },
   ],
 };
+
+const tocItems = [
+  { id: "what-are-weighted-grades", label: "What Weighted Grades Are" },
+  { id: "the-formula", label: "The Weighted Grade Formula" },
+  { id: "step-by-step", label: "Step by Step, By Hand" },
+  { id: "worked-examples", label: "Two Worked Examples" },
+  { id: "final-exam", label: "What You Need on the Final" },
+  { id: "common-mistakes", label: "Common Mistakes" },
+  { id: "grade-scale", label: "Percentage to Letter Grade" },
+];
+
 export default function WeightedGradePage() {
   return (
     <main className="min-h-screen bg-background">
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
 
-      {/* === STRUCTURED DATA ===
-          strategy="afterInteractive" lets the page paint first, then injects
-          this script — it no longer blocks FCP/LCP. */}
       <Script
         id="structured-data-weighted-grade"
         type="application/ld+json"
@@ -152,203 +140,159 @@ export default function WeightedGradePage() {
         }}
       />
 
-      {/* ── Hero Section ── */}
+      {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold">
-            Weighted Grade Calculator: Find Your Exact Course Grade Instantly
+            Weighted Grade Calculator
           </h1>
-          <ShareBar/>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Turn category scores and weights, like 40% exams and 20%
+            homework, into one course grade.
+          </p>
+          <ShareBar />
         </div>
       </section>
 
-      {/* ── Calculator Tool ── */}
+      {/* Calculator Tool */}
       <section className="px-4 py-8">
         <WeightedGradeCalculator />
       </section>
 
-      {/* ── SEO Article ── */}
-      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        {/* ── QUICK ANSWER BOX (AI Overview trigger) ── */}
-        <div className="bg-blue-900/30 border border-blue-600 rounded-2xl p-6 mb-10">
+      {/* Quick answer, written for people scanning fast or landing from a search snippet */}
+      <section className="px-4 pb-8">
+        <div className="max-w-6xl mx-auto bg-blue-900/30 border border-blue-600 rounded-2xl p-6 md:p-8">
           <p className="text-white font-semibold text-lg mb-2">
-            ⚡ Quick Answer: How to Calculate a Weighted Grade
+            How to calculate a weighted grade
           </p>
           <p className="text-gray-200 text-base leading-relaxed">
-            To calculate a weighted grade, multiply each assignment score by its
-            weight, add all results together, then divide by the total weight.
-            Formula:{" "}
-            <strong>Weighted Grade = Σ(Score × Weight) / ΣWeights</strong>.
-            Example: Homework 95% at 30% weight + Midterm 82% at 35% weight +
-            Final 88% at 35% weight ={" "}
-            <strong>
-              (95×0.30) + (82×0.35) + (88×0.35) = 28.5 + 28.7 + 30.8 = 88%
-            </strong>
-            .
+            Multiply each category's score by its weight, add the results,
+            then divide by the total weight. Formula: weighted grade =
+            Σ(score × weight) ÷ Σweight. Example: homework 95% at 30%
+            weight, midterm 82% at 35%, final 88% at 35%. (95×0.30) +
+            (82×0.35) + (88×0.35) = 28.5 + 28.7 + 30.8 = 88%.
           </p>
         </div>
+      </section>
 
-        {/* ── INTRO ── */}
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>weighted grade calculator</strong> — also called a
-          weighted average calculator, grade percentage calculator, or semester
-          grade calculator — is the most essential academic tool for students
-          who want to know exactly where they stand in any course. Most schools
-          and colleges use a <strong>weighted grading system</strong> where
-          different types of assignments count for different portions of your
-          final grade. A single homework assignment and a final exam are not
-          equal — and your grade calculator shouldn't treat them that way.
-        </p>
-        <p className="text-gray-200 leading-relaxed mb-6 text-base">
-          Whether you're a high school student tracking your semester GPA, a
-          college student figuring out what score you need on your final, or a
-          teacher building a transparent grading rubric, this guide explains
-          everything — the formula, worked examples, comparison tables, and a
-          complete step-by-step manual method.
+      {/* Article */}
+      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          Most college courses, and a lot of high school ones, don't grade
+          every assignment equally. A final exam might be 40% of your
+          grade while daily homework is 10%. This calculator takes your
+          score in each category and its weight, and gives you the actual
+          course grade those numbers add up to, not a plain average that
+          treats a quiz the same as a final.
         </p>
 
-        {/* ════════════════════════════════════════
-            SECTION 1 — WHAT ARE WEIGHTED GRADES
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            What Are Weighted Grades? — Weighted Grading System Explained
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            A weighted grade is a final course score that accounts for the
-            relative importance of each assignment type. In a{" "}
-            <strong>weighted grading system</strong>, your professor assigns a
-            percentage weight to every category — exams, homework,
-            participation, labs, projects — and your performance in each
-            category contributes proportionally to your overall grade.
+        {/* What weighted grades are */}
+        <section id="what-are-weighted-grades" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            What Weighted Grades Are
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            In a weighted grading system, your instructor assigns each
+            category, exams, homework, participation, labs, projects, a
+            percentage of your total grade. Your score in each category
+            counts toward the final grade in proportion to that weight.
           </p>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            This is why you can score 100% on every homework assignment but
-            still fail a course if you bomb the final exam — the final might be
-            worth 40% while homework is only worth 10%.
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            That's why a student can score 100% on every homework set and
+            still end up with a C: if homework is 10% of the grade and the
+            final exam is 40%, one bad final does more damage than a
+            semester of perfect homework can fix.
           </p>
 
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm mb-8">
-            <p className="text-white font-semibold text-lg mb-3">
-              📌 Key Takeaway: Why Weighted Grades Matter
-            </p>
-            <ul className="list-disc list-inside text-gray-200 space-y-2 text-base">
-              <li>
-                They reflect the academic importance of each assignment type
-              </li>
-              <li>
-                They prevent low-stakes work from masking poor exam performance
-              </li>
-              <li>
-                They give students a clear roadmap for where to focus effort
-              </li>
-              <li>
-                They are the standard in virtually all college courses worldwide
-              </li>
-            </ul>
-          </div>
-
-          {/* Weighted vs Unweighted Comparison Table */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Weighted vs Unweighted Grades — Key Differences
+          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
+            Weighted vs unweighted grading
           </h3>
-          <div className="overflow-x-auto mt-4 mb-10">
+          <div className="overflow-x-auto mb-4">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Factor</th>
-                  <th className="p-4 text-left font-semibold">
-                    Unweighted Grade
-                  </th>
-                  <th className="p-4 text-left font-semibold">
-                    Weighted Grade
-                  </th>
+                  <th className="p-4 text-left font-semibold">Unweighted</th>
+                  <th className="p-4 text-left font-semibold">Weighted</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 font-semibold">Calculation method</td>
+                  <td className="p-4 font-semibold">Calculation</td>
                   <td className="p-4">Simple average of all scores</td>
-                  <td className="p-4 text-green-300">
-                    Each category × its assigned weight
-                  </td>
+                  <td className="p-4 text-green-300">Each category × its weight</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold">Assignment importance</td>
-                  <td className="p-4">All assignments treated equally</td>
-                  <td className="p-4 text-green-300">
-                    Exams count more than homework
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold">Accuracy</td>
-                  <td className="p-4">Can be misleading</td>
-                  <td className="p-4 text-green-300">
-                    Reflects actual academic mastery
-                  </td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold">Used in</td>
-                  <td className="p-4">Some K-8 schools</td>
-                  <td className="p-4 text-green-300">
-                    Most high schools & all colleges
-                  </td>
+                  <td className="p-4">Every item counts the same</td>
+                  <td className="p-4 text-green-300">Exams count more than homework</td>
                 </tr>
                 <tr>
                   <td className="p-4 font-semibold">Formula</td>
-                  <td className="p-4">Σ(Scores) / n</td>
-                  <td className="p-4 text-green-300">
-                    Σ(Score × Weight) / ΣWeights
-                  </td>
+                  <td className="p-4">Σ(scores) ÷ n</td>
+                  <td className="p-4 text-green-300">Σ(score × weight) ÷ Σweight</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold">Example result</td>
-                  <td className="p-4">95% HW + 60% Exam = 77.5% avg</td>
-                  <td className="p-4 text-green-300">
-                    95×0.1 + 60×0.4 = 33.5% from those two
-                  </td>
+                  <td className="p-4 font-semibold">Common in</td>
+                  <td className="p-4">Some elementary and middle schools</td>
+                  <td className="p-4 text-green-300">Most high schools and virtually all colleges</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        {/* ════════════════════════════════════════
-            SECTION 2 — THE FORMULA
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
+        {/* The formula */}
+        <section id="the-formula" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            The Weighted Grade Formula — Explained Simply
+            The Weighted Grade Formula
           </h2>
 
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            The core <strong>weighted grade formula</strong> is:
-          </p>
-
           <div className="bg-gray-900/70 p-6 rounded-2xl border border-blue-700 font-mono text-green-300 text-base mb-6 overflow-x-auto">
-            <span className="text-blue-400 font-bold">Weighted Grade</span> =
-            Σ(Score × Weight) / ΣWeights
-            <br />
-            <br />
-            Where:
-            <br />
-            &nbsp;&nbsp;Σ = "sum of"
-            <br />
-            &nbsp;&nbsp;Score = your percentage score in each category (0–100)
-            <br />
-            &nbsp;&nbsp;Weight = the decimal form of each category's weight
-            (e.g., 40% → 0.40)
-            <br />
-            &nbsp;&nbsp;ΣWeights = total of all weights (should equal 1.0 or
-            100%)
+            Weighted Grade = Σ(Score × Weight) ÷ ΣWeight
           </div>
 
-          {/* Formula image */}
-          <div className="rounded-2xl overflow-hidden border border-gray-700 my-8">
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Σ means "sum of." Score is your percentage in that category, 0
+            to 100. Weight is that category's share of the grade, as a
+            decimal (40% becomes 0.40). ΣWeight is the total of every
+            weight you've entered, which should reach 1.0, or 100%, by the
+            end of the course.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            If your weights already total 100%, the sum of the products is
+            your grade and there's nothing left to divide by. Mid-semester,
+            when some categories haven't happened yet, divide by whatever
+            partial weight you have entered so far.
+          </p>
+
+          <div className="rounded-2xl overflow-hidden border border-gray-700">
             <Image
               src="/images/education/weighted-grade-formula-example.webp"
-              alt="Weighted grade formula example with score and percentage calculations"
+              alt="Weighted grade formula: score times weight, summed and divided by total weight"
               className="w-full h-auto object-cover"
               width={800}
               height={500}
@@ -357,72 +301,43 @@ export default function WeightedGradePage() {
               sizes="(max-width: 768px) 100vw, 800px"
             />
           </div>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            If all weights sum to exactly 1.0 (100%), you skip the division step
-            — the sum of products is already your weighted grade. If your
-            weights don't yet total 100% (mid-semester tracking), divide by the
-            partial sum to get your grade so far.
-          </p>
         </section>
 
-        {/* ════════════════════════════════════════
-            SECTION 3 — STEP BY STEP GUIDE
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
+        {/* Step by step */}
+        <section id="step-by-step" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate Weighted Grades Manually — Step-by-Step Guide
+            Step by Step, By Hand
           </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm mb-8">
+          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700">
             <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-              <li>
-                <strong>List all grade categories</strong> from your syllabus
-                (Homework, Quizzes, Midterm, Final, Labs, Projects, etc.)
-              </li>
-              <li>
-                <strong>Note the weight</strong> assigned to each category
-                (e.g., Final Exam = 40%)
-              </li>
-              <li>
-                <strong>Calculate your average score</strong> in each category
-                if there are multiple assignments
-              </li>
-              <li>
-                <strong>Convert weights to decimals</strong> (40% → 0.40)
-              </li>
-              <li>
-                <strong>Multiply each score by its weight</strong> (Score ×
-                Weight)
-              </li>
-              <li>
-                <strong>Add all products together</strong> — this is your
-                weighted grade if weights sum to 1.0
-              </li>
-              <li>
-                <strong>Divide by total weight</strong> if weights don't sum to
-                100% (for mid-semester tracking)
-              </li>
+              <li>List every category from your syllabus: homework, quizzes, midterm, final, labs, whatever applies.</li>
+              <li>Write down the weight for each one, straight from the syllabus.</li>
+              <li>Work out your average score in each category if it has more than one assignment.</li>
+              <li>Convert each weight to a decimal: 40% becomes 0.40.</li>
+              <li>Multiply each category's score by its weight.</li>
+              <li>Add the results together.</li>
+              <li>If the weights you used don't total 100%, divide the sum by the total weight instead of treating it as final.</li>
             </ol>
           </div>
+        </section>
 
-          {/* Worked Example 1 — High School */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Real-World Example 1: High School Course Grade
+        {/* Worked examples */}
+        <section id="worked-examples" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Two Worked Examples
+          </h2>
+
+          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
+            A typical high school breakdown
           </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            A typical high school grading breakdown with five categories:
-          </p>
-          <div className="overflow-x-auto mt-4 mb-8">
+          <div className="overflow-x-auto mb-10">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Category</th>
-                  <th className="p-4 text-left font-semibold">Your Score</th>
+                  <th className="p-4 text-left font-semibold">Score</th>
                   <th className="p-4 text-left font-semibold">Weight</th>
-                  <th className="p-4 text-left font-semibold">
-                    Contribution (Score × Weight)
-                  </th>
+                  <th className="p-4 text-left font-semibold">Contribution</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
@@ -439,59 +354,54 @@ export default function WeightedGradePage() {
                   <td className="p-4 font-bold text-green-400">12.75</td>
                 </tr>
                 <tr>
-                  <td className="p-4">Classwork / Participation</td>
+                  <td className="p-4">Participation</td>
                   <td className="p-4">98%</td>
                   <td className="p-4">10%</td>
                   <td className="p-4 font-bold text-green-400">9.80</td>
                 </tr>
                 <tr>
-                  <td className="p-4">Midterm Exam</td>
+                  <td className="p-4">Midterm exam</td>
                   <td className="p-4">78%</td>
                   <td className="p-4">25%</td>
                   <td className="p-4 font-bold text-green-400">19.50</td>
                 </tr>
                 <tr>
-                  <td className="p-4">Final Exam</td>
+                  <td className="p-4">Final exam</td>
                   <td className="p-4">84%</td>
                   <td className="p-4">30%</td>
                   <td className="p-4 font-bold text-green-400">25.20</td>
                 </tr>
                 <tr className="bg-blue-900/30">
-                  <td className="p-4 font-bold text-white" colSpan={2}>
-                    Total
-                  </td>
+                  <td className="p-4 font-bold text-white" colSpan={2}>Total</td>
                   <td className="p-4 font-bold text-yellow-300">100%</td>
-                  <td className="p-4 font-bold text-yellow-300 text-base">
-                    85.65% → B
-                  </td>
+                  <td className="p-4 font-bold text-yellow-300 text-base">85.65% (B)</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          {/* Worked Example 2 — College */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Real-World Example 2: College Course with Lab Component
+          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
+            A college course with a lab component
           </h3>
-          <div className="overflow-x-auto mt-4 mb-8">
+          <div className="overflow-x-auto mb-4">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Category</th>
-                  <th className="p-4 text-left font-semibold">Your Score</th>
+                  <th className="p-4 text-left font-semibold">Score</th>
                   <th className="p-4 text-left font-semibold">Weight</th>
                   <th className="p-4 text-left font-semibold">Contribution</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4">Online Homework</td>
+                  <td className="p-4">Online homework</td>
                   <td className="p-4">96%</td>
                   <td className="p-4">15%</td>
                   <td className="p-4 font-bold text-green-400">14.40</td>
                 </tr>
                 <tr>
-                  <td className="p-4">Lab Reports</td>
+                  <td className="p-4">Lab reports</td>
                   <td className="p-4">88%</td>
                   <td className="p-4">20%</td>
                   <td className="p-4 font-bold text-green-400">17.60</td>
@@ -509,80 +419,58 @@ export default function WeightedGradePage() {
                   <td className="p-4 font-bold text-green-400">12.15</td>
                 </tr>
                 <tr>
-                  <td className="p-4">Research Project</td>
+                  <td className="p-4">Research project</td>
                   <td className="p-4">91%</td>
                   <td className="p-4">10%</td>
                   <td className="p-4 font-bold text-green-400">9.10</td>
                 </tr>
                 <tr>
-                  <td className="p-4">Final Exam</td>
+                  <td className="p-4">Final exam</td>
                   <td className="p-4">79%</td>
                   <td className="p-4">25%</td>
                   <td className="p-4 font-bold text-green-400">19.75</td>
                 </tr>
                 <tr className="bg-blue-900/30">
-                  <td className="p-4 font-bold text-white" colSpan={2}>
-                    Total
-                  </td>
+                  <td className="p-4 font-bold text-white" colSpan={2}>Total</td>
                   <td className="p-4 font-bold text-yellow-300">100%</td>
-                  <td className="p-4 font-bold text-yellow-300 text-base">
-                    84.10% → B
-                  </td>
+                  <td className="p-4 font-bold text-yellow-300 text-base">84.10% (B)</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        {/* ════════════════════════════════════════
-            SECTION 4 — FINAL EXAM CALCULATOR
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
+        {/* Final exam */}
+        <section id="final-exam" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            What Grade Do I Need on My Final Exam?
+            What You Need on the Final
           </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            This is the most common question students have before finals week.
-            The <strong>final exam grade calculator</strong> formula is:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The formula for the score you need on a remaining exam:
+          </p>
+          <div className="bg-gray-900/70 p-6 rounded-2xl border border-blue-700 font-mono text-green-300 text-base mb-6 overflow-x-auto">
+            Required Final Score = (Target Grade − Current Grade × Pre-Final Weight) ÷ Final Weight
+          </div>
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            Example: your current grade is 80%, that's built from 70% of
+            the course, the final is worth the remaining 30%, and you want
+            an 85% overall.
+            (85 − 80×0.70) ÷ 0.30 = (85 − 56) ÷ 0.30 = 96.7% needed on the
+            final.
           </p>
 
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-blue-700 font-mono text-green-300 text-base mb-6 overflow-x-auto">
-            Required Final Score = (Target Grade − Current Grade × Pre-Final
-            Weight) / Final Exam Weight
-            <br />
-            <br />
-            Example:
-            <br />
-            &nbsp;&nbsp;Current grade: 80% | Pre-final weight: 70% | Final
-            weight: 30% | Target: 85%
-            <br />
-            &nbsp;&nbsp;= (85 − 80 × 0.70) / 0.30
-            <br />
-            &nbsp;&nbsp;= (85 − 56) / 0.30
-            <br />
-            &nbsp;&nbsp;= 29 / 0.30
-            <br />
-            &nbsp;&nbsp;= <strong>96.7%</strong> needed on final
-          </div>
-
-          {/* Final Exam Impact Table */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Final Exam Impact Examples — How Much Is My Final Worth?
+          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
+            How that plays out at different starting points
           </h3>
-          <div className="overflow-x-auto mt-4 mb-10">
+          <div className="overflow-x-auto mb-6">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Current Grade</th>
-                  <th className="p-4 text-left font-semibold">
-                    Pre-Final Weight
-                  </th>
-                  <th className="p-4 text-left font-semibold">Final Weight</th>
+                  <th className="p-4 text-left font-semibold">Current grade</th>
+                  <th className="p-4 text-left font-semibold">Pre-final weight</th>
+                  <th className="p-4 text-left font-semibold">Final weight</th>
                   <th className="p-4 text-left font-semibold">Target</th>
-                  <th className="p-4 text-left font-semibold">
-                    Score Needed on Final
-                  </th>
+                  <th className="p-4 text-left font-semibold">Score needed</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
@@ -591,341 +479,167 @@ export default function WeightedGradePage() {
                   <td className="p-4">75%</td>
                   <td className="p-4">25%</td>
                   <td className="p-4">90% (A)</td>
-                  <td className="p-4 font-bold text-yellow-300">105% ❌</td>
+                  <td className="p-4 font-bold text-red-400">105%, not reachable</td>
                 </tr>
                 <tr>
                   <td className="p-4">80%</td>
                   <td className="p-4">70%</td>
                   <td className="p-4">30%</td>
                   <td className="p-4">85% (B+)</td>
-                  <td className="p-4 font-bold text-green-400">96.7% ✅</td>
+                  <td className="p-4 font-bold text-green-400">96.7%</td>
                 </tr>
                 <tr>
                   <td className="p-4">72%</td>
                   <td className="p-4">75%</td>
                   <td className="p-4">25%</td>
                   <td className="p-4">70% (C)</td>
-                  <td className="p-4 font-bold text-green-400">64.0% ✅</td>
+                  <td className="p-4 font-bold text-green-400">64.0%</td>
                 </tr>
                 <tr>
                   <td className="p-4">65%</td>
                   <td className="p-4">60%</td>
                   <td className="p-4">40%</td>
                   <td className="p-4">70% (C)</td>
-                  <td className="p-4 font-bold text-green-400">77.5% ✅</td>
-                </tr>
-                <tr>
-                  <td className="p-4">90%</td>
-                  <td className="p-4">80%</td>
-                  <td className="p-4">20%</td>
-                  <td className="p-4">93% (A)</td>
-                  <td className="p-4 font-bold text-green-400">87.0% ✅</td>
+                  <td className="p-4 font-bold text-green-400">77.5%</td>
                 </tr>
                 <tr>
                   <td className="p-4 text-red-400">55%</td>
                   <td className="p-4">70%</td>
                   <td className="p-4">30%</td>
                   <td className="p-4">70% (C)</td>
-                  <td className="p-4 font-bold text-red-400">101.7% ❌</td>
+                  <td className="p-4 font-bold text-red-400">101.7%, not reachable</td>
                 </tr>
               </tbody>
             </table>
           </div>
-
-          <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 mb-8">
-            <p className="text-white font-semibold mb-2">
-              📌 Key Takeaway: Final Exam Reality Check
-            </p>
-            <p className="text-gray-200 text-base">
-              If the required score exceeds 100%, your target grade is
-              mathematically impossible regardless of how well you do on the
-              final. Use our calculator above to check your situation early —
-              not the night before.
-            </p>
-          </div>
+          <p className="text-gray-200 leading-relaxed text-base">
+            When the required score passes 100%, the target isn't
+            reachable on the final alone, no matter how well you do. Worth
+            checking a week or two out, not the night before, while there's
+            still time to talk to an instructor about extra credit or
+            adjust the goal.
+          </p>
         </section>
 
-        {/* ════════════════════════════════════════
-            SECTION 5 — COMMON MISTAKES
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
+        {/* Common mistakes */}
+        <section id="common-mistakes" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Common Mistakes Students Make with Weighted Grades
+            Common Mistakes
           </h2>
-
-          <div className="overflow-x-auto mt-4 mb-10">
+          <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Mistake</th>
-                  <th className="p-4 text-left font-semibold">
-                    Why It's Wrong
-                  </th>
-                  <th className="p-4 text-left font-semibold">
-                    Correct Approach
-                  </th>
+                  <th className="p-4 text-left font-semibold">Why it's wrong</th>
+                  <th className="p-4 text-left font-semibold">Fix</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 font-semibold text-red-400">
-                    Averaging all scores equally
-                  </td>
-                  <td className="p-4">
-                    Ignores the weight each category carries
-                  </td>
-                  <td className="p-4 text-green-300">
-                    Multiply each score by its weight first
-                  </td>
+                  <td className="p-4 font-semibold text-red-400">Averaging every score equally</td>
+                  <td className="p-4">Ignores the weight each category actually carries</td>
+                  <td className="p-4 text-green-300">Multiply each score by its weight first</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-red-400">
-                    Weights not summing to 100%
-                  </td>
-                  <td className="p-4">
-                    Missing categories give a falsely inflated grade
-                  </td>
-                  <td className="p-4 text-green-300">
-                    Always verify your total weight = 100%
-                  </td>
+                  <td className="p-4 font-semibold text-red-400">Weights that don't add up to 100%</td>
+                  <td className="p-4">A missing category inflates or deflates the result</td>
+                  <td className="p-4 text-green-300">Check your entered weights sum to what the syllabus says</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-red-400">
-                    Using points instead of percentages
-                  </td>
-                  <td className="p-4">
-                    Raw points aren't comparable across categories
-                  </td>
-                  <td className="p-4 text-green-300">
-                    Convert to % first: (earned / possible) × 100
-                  </td>
+                  <td className="p-4 font-semibold text-red-400">Entering raw points instead of percentages</td>
+                  <td className="p-4">42 out of 50 isn't comparable to 88 out of 100 without converting first</td>
+                  <td className="p-4 text-green-300">Convert to a percentage: (earned ÷ possible) × 100</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-red-400">
-                    Forgetting incomplete categories
-                  </td>
-                  <td className="p-4">
-                    Mid-semester grades are partial — weights don't total 100%
-                  </td>
-                  <td className="p-4 text-green-300">
-                    Divide by completed weight only, not 1.0
-                  </td>
+                  <td className="p-4 font-semibold text-red-400">Dividing by 100% mid-semester</td>
+                  <td className="p-4">If only 70% of the course has been graded, dividing by the full 100% understates your grade</td>
+                  <td className="p-4 text-green-300">Divide by the weight actually completed so far</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-red-400">
-                    Ignoring the final exam weight
-                  </td>
-                  <td className="p-4">A 40% final can drop an A to a C</td>
-                  <td className="p-4 text-green-300">
-                    Calculate required final score before exam week
-                  </td>
+                  <td className="p-4 font-semibold text-red-400">Not checking the final's weight until finals week</td>
+                  <td className="p-4">A 40% final can turn an A into a C on its own</td>
+                  <td className="p-4 text-green-300">Work out the required score as soon as the syllabus is out</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        {/* ════════════════════════════════════════
-            SECTION 6 — GRADE SCALE REFERENCE
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
+        {/* Grade scale */}
+        <section id="grade-scale" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Grade Scale Reference — Percentage to Letter Grade
+            Percentage to Letter Grade
           </h2>
-
-          <div className="overflow-x-auto mt-4 mb-10">
+          <div className="overflow-x-auto">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">
-                    Percentage Range
-                  </th>
-                  <th className="p-4 text-left font-semibold">Letter Grade</th>
-                  <th className="p-4 text-left font-semibold">
-                    GPA (4.0 Scale)
-                  </th>
-                  <th className="p-4 text-left font-semibold">Description</th>
+                  <th className="p-4 text-left font-semibold">Percentage</th>
+                  <th className="p-4 text-left font-semibold">Letter</th>
+                  <th className="p-4 text-left font-semibold">4.0 GPA</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-bold text-green-400">93–100%</td>
-                  <td className="p-4 font-bold text-green-400">A</td>
-                  <td className="p-4">4.0</td>
-                  <td className="p-4">Excellent</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-green-300">90–92%</td>
-                  <td className="p-4 font-bold text-green-300">A−</td>
-                  <td className="p-4">3.7</td>
-                  <td className="p-4">Excellent</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-blue-300">87–89%</td>
-                  <td className="p-4 font-bold text-blue-300">B+</td>
-                  <td className="p-4">3.3</td>
-                  <td className="p-4">Above Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-blue-300">83–86%</td>
-                  <td className="p-4 font-bold text-blue-300">B</td>
-                  <td className="p-4">3.0</td>
-                  <td className="p-4">Above Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-blue-200">80–82%</td>
-                  <td className="p-4 font-bold text-blue-200">B−</td>
-                  <td className="p-4">2.7</td>
-                  <td className="p-4">Above Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4">77–79%</td>
-                  <td className="p-4">C+</td>
-                  <td className="p-4">2.3</td>
-                  <td className="p-4">Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4">73–76%</td>
-                  <td className="p-4">C</td>
-                  <td className="p-4">2.0</td>
-                  <td className="p-4">Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4">70–72%</td>
-                  <td className="p-4">C−</td>
-                  <td className="p-4">1.7</td>
-                  <td className="p-4">Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 text-yellow-400">60–69%</td>
-                  <td className="p-4 text-yellow-400">D</td>
-                  <td className="p-4">1.0</td>
-                  <td className="p-4">Below Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 text-red-400">Below 60%</td>
-                  <td className="p-4 text-red-400">F</td>
-                  <td className="p-4">0.0</td>
-                  <td className="p-4">Failing</td>
-                </tr>
+                <tr><td className="p-4">93–100%</td><td className="p-4">A</td><td className="p-4">4.0</td></tr>
+                <tr><td className="p-4">90–92%</td><td className="p-4">A-</td><td className="p-4">3.7</td></tr>
+                <tr><td className="p-4">87–89%</td><td className="p-4">B+</td><td className="p-4">3.3</td></tr>
+                <tr><td className="p-4">83–86%</td><td className="p-4">B</td><td className="p-4">3.0</td></tr>
+                <tr><td className="p-4">80–82%</td><td className="p-4">B-</td><td className="p-4">2.7</td></tr>
+                <tr><td className="p-4">77–79%</td><td className="p-4">C+</td><td className="p-4">2.3</td></tr>
+                <tr><td className="p-4">73–76%</td><td className="p-4">C</td><td className="p-4">2.0</td></tr>
+                <tr><td className="p-4">70–72%</td><td className="p-4">C-</td><td className="p-4">1.7</td></tr>
+                <tr><td className="p-4">60–69%</td><td className="p-4">D</td><td className="p-4">1.0</td></tr>
+                <tr><td className="p-4">Below 60%</td><td className="p-4">F</td><td className="p-4">0.0</td></tr>
               </tbody>
             </table>
           </div>
-        </section>
-
-        {/* ════════════════════════════════════════
-            SECTION 7 — VOICE SEARCH / QUICK ANSWERS
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Voice Search Quick Answers — Common Student Questions
-          </h2>
-
-          <div className="space-y-4 mb-10">
-            {[
-              {
-                q: "How do weighted grades work?",
-                a: "Weighted grades assign each assignment type a percentage weight. Your score in each category is multiplied by its weight, and all results are summed. Categories worth more (like exams) impact your grade more than low-weight ones (like participation).",
-              },
-              {
-                q: "What is the weighted grade formula?",
-                a: "Weighted Grade = Σ(Score × Weight) / ΣWeights. Multiply each category score by its decimal weight, add all products, then divide by total weight (usually 1.0).",
-              },
-              {
-                q: "How much does my final exam affect my grade?",
-                a: "It depends on its assigned weight. A 25% final can shift your grade by up to 25 percentage points. Use the formula: Impact = (Final Exam Score − Current Grade) × Final Weight.",
-              },
-              {
-                q: "What grade do I need on my final to pass?",
-                a: "Required Final Score = (Target Grade − Current Grade × Pre-Final Weight) / Final Exam Weight. For example, needing a 70% with 65% current grade, 75% pre-final weight, 25% final weight: (70 − 65×0.75) / 0.25 = 85%.",
-              },
-              {
-                q: "Is a 85% a B or a B+?",
-                a: "On the standard US grading scale, 85% is a B (83–86%). Some schools with plus/minus grading count 85% as a B, while others may consider it B+. Check your school's specific grade cutoffs.",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="bg-gray-800/50 p-5 rounded-xl border border-gray-700"
-              >
-                <p className="text-blue-300 font-semibold mb-2">🎙 {item.q}</p>
-                <p className="text-gray-200 text-base">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ════════════════════════════════════════
-            SECTION 8 — INTERNAL LINKS / MORE TOOLS
-        ════════════════════════════════════════ */}
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Academic & Grade Calculators
-          </h2>
-          <p className="text-gray-200 text-base mb-6">
-            Pair this weighted grade calculator with our other free academic
-            tools:
+          <p className="text-gray-500 text-sm mt-4">
+            This is a common US mapping. Your school's cutoffs, and whether
+            it uses plus/minus grades at all, can differ. Check your
+            syllabus.
           </p>
+        </section>
+
+        <section className="mt-4 mb-16">
+          <h2 className="text-2xl font-bold text-blue-500 mb-4">
+            Related calculators
+          </h2>
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
-              <Link
-                href="/calculators/education/gpa-calculator"
-                className="text-blue-400 underline underline-offset-2 hover:text-blue-300"
-              >
-                GPA Calculator
+              <Link href="/calculators/education/grade-calculator" className="text-blue-400 underline hover:text-blue-300">
+                Grade Calculator
               </Link>{" "}
-              — Convert letter grades to a 4.0 GPA scale across all semesters
+              — track individual assignments instead of fixed categories
             </li>
             <li>
-              <Link
-                href="/calculators/math/percentage-calculator"
-                className="text-blue-400 underline underline-offset-2 hover:text-blue-300"
-              >
+              <Link href="/calculators/education/gpa-calculator" className="text-blue-400 underline hover:text-blue-300">
+                GPA Calculator
+              </Link>{" "}
+              — convert a course grade to a 4.0-scale GPA
+            </li>
+            <li>
+              <Link href="/calculators/math/percentage-calculator" className="text-blue-400 underline hover:text-blue-300">
                 Percentage Calculator
               </Link>{" "}
-              — Convert raw scores to percentage grades instantly
+              — convert raw points to a percentage score
             </li>
           </ul>
         </section>
 
-        {/* ── E-E-A-T BYLINE ── */}
-        <div className="flex items-center gap-4 mt-16 mb-8 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-            RA
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm">
-              Written by Rana Muhammad Abdullah
-            </p>
-            <p className="text-gray-300 text-xs">
-              MERN Stack Developer & Tool Maker · Mechatronics & Control
-              Engineering Student ·{" "}
-              <a
-                href="https://www.linkedin.com/in/abdullahsajjad06/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 underline underline-offset-2 hover:text-blue-300"
-              >
-                LinkedIn
-              </a>
-            </p>
-          </div>
-          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-300">
-            <span>📅 Published: Apr 1, 2026</span>
-            <span>🔄 Updated: August 20, 2026</span>
-            <span>✅ Formula verified</span>
-          </div>
-        </div>
-
-        <p className="text-gray-300 italic text-center mt-8 text-lg font-medium leading-relaxed">
-          Your grade is more than a number — it's the product of every
-          assignment you've put effort into, weighted by what your professor
-          values most. Use LizoCalc's Weighted Grade Calculator to stay ahead,
-          plan smart, and walk into finals week with confidence.
-        </p>
+       <section className="px-4 mt-16 flex justify-center">
+                 <SimilarCalculators
+                   title="Similar Education Calculators"
+                   links={[
+                     { label: "CGPA Calculator", href: "/calculators/education/cgpa-calculator" },
+                     { label: "Final Grade Calculator", href: "/calculators/education/final-grade-calculator" },
+                     { label: "Percentage Calculator", href: "/calculators/math/percentage-calculator" },
+                   ]}
+                   seeAllHref="/calculators/education"
+                 />
+               </section>
       </article>
 
-      <FAQ items={faqData} />
       <Footer />
     </main>
   );

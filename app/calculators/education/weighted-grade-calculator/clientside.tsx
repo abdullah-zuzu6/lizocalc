@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import {
   Trash2,
   GraduationCap,
@@ -10,6 +10,9 @@ import {
   Target,
   Layers,
   AlertCircle,
+  Share2,
+  Copy,
+  Check,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
@@ -26,6 +29,10 @@ type GradeComponent = {
   score: string;
 };
 
+function makeId(): string {
+  return Math.random().toString(36).substr(2, 9);
+}
+
 export default function WeightedGradeCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -36,6 +43,10 @@ export default function WeightedGradeCalculator() {
     { id: "2", name: "Midterm Exam", weight: "30", score: "85" },
     { id: "3", name: "Final Exam", weight: "50", score: "88" },
   ]);
+
+  const [shareUrl, setShareUrl] = useState("");
+  const [linkCopied, setLinkCopied] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const calculatorInfo = {
     name: "Weighted Grade Calculator",
@@ -50,13 +61,35 @@ export default function WeightedGradeCalculator() {
   // the entire calculator card would pop into the page after first paint.
   // We only use `isMounted` to guard browser-only APIs (localStorage) inside
   // effects below.
+  //
+  // A shared link (?data=...) wins over saved history, and auto-solves
+  // immediately so whoever opens the link sees the same result right away.
   useEffect(() => {
     setIsMounted(true);
-    const history = getCalculatorHistory();
-    if (history["weighted-grade-calc"]?.data?.components) {
-      setComponents(history["weighted-grade-calc"].data.components);
-      setShowResults(true);
+
+    const params = new URLSearchParams(window.location.search);
+    const sharedData = params.get("data");
+
+    if (sharedData) {
+      try {
+        const parsed: { name: string; weight: string; score: string }[] = JSON.parse(
+          decodeURIComponent(sharedData)
+        );
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setComponents(parsed.map((c) => ({ id: makeId(), ...c })));
+          setShowResults(true);
+        }
+      } catch {
+        // Malformed share link; fall back to the default components above.
+      }
+    } else {
+      const history = getCalculatorHistory();
+      if (history["weighted-grade-calc"]?.data?.components) {
+        setComponents(history["weighted-grade-calc"].data.components);
+        setShowResults(true);
+      }
     }
+
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((t) => t.href === calculatorInfo.href));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +108,7 @@ export default function WeightedGradeCalculator() {
   const addComponent = () => {
     setComponents((prev) => [
       ...prev,
-      { id: Math.random().toString(36).substr(2, 9), name: "", weight: "", score: "" },
+      { id: makeId(), name: "", weight: "", score: "" },
     ]);
   };
 
@@ -89,11 +122,14 @@ export default function WeightedGradeCalculator() {
     setComponents((prev) =>
       prev.map((c) => (c.id === id ? { ...c, [field]: value } : c))
     );
+    setShowResults(false);
   };
 
   const resetCalculator = () => {
     setComponents([{ id: "1", name: "Homework", weight: "20", score: "" }]);
     setShowResults(false);
+    setShareUrl("");
+    window.history.replaceState(null, "", window.location.pathname);
   };
 
   const gradeData = useMemo(() => {
@@ -123,13 +159,47 @@ export default function WeightedGradeCalculator() {
     };
   }, [components]);
 
+  // --- Build the shareable link once results are showing ---
+  useEffect(() => {
+    if (!showResults) {
+      setShareUrl("");
+      return;
+    }
+    const payload = components.map(({ name, weight, score }) => ({ name, weight, score }));
+    const params = new URLSearchParams();
+    params.set("data", encodeURIComponent(JSON.stringify(payload)));
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+  }, [showResults, components]);
+
+  const handleCopyShareLink = useCallback(async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      // Clipboard API can fail silently; the link is still visible/selectable.
+    }
+  }, [shareUrl]);
+
+  // --- Scroll results into view after Calculate, mobile/tablet only ---
+  useEffect(() => {
+    if (!showResults) return;
+    const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+    if (isMobileOrTablet && resultsRef.current) {
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [showResults]);
+
   return (
     <main className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
           {/* LEFT PANEL - Results */}
-          <div className="order-2 lg:order-1 lg:col-span-4 space-y-6">
+          <div className="order-2 lg:order-1 lg:col-span-4 space-y-6" ref={resultsRef}>
             <section className="bg-card border rounded-2xl p-6 shadow-sm relative">
               <button
                 type="button"
@@ -166,6 +236,38 @@ export default function WeightedGradeCalculator() {
                     {gradeData.isOver && <AlertCircle size={14} aria-hidden="true" />}
                     {gradeData.weightStatus}
                   </div>
+
+                  {/* SHARE RESULT */}
+                  {shareUrl && (
+                    <div className="space-y-2 pt-2">
+                      <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest flex items-center gap-2">
+                        <Share2 size={12} className="text-primary" aria-hidden="true" />
+                        Share This Result
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        <input
+                          type="text"
+                          readOnly
+                          value={shareUrl}
+                          onFocus={(e) => e.target.select()}
+                          aria-label="Shareable link for this weighted grade result"
+                          className="w-full px-3 py-2.5 bg-secondary rounded-lg border-2 border-transparent focus:border-primary outline-none text-xs font-medium truncate"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleCopyShareLink}
+                          className={`w-full py-2.5 rounded-lg font-black text-xs flex items-center justify-center gap-2 transition-all ${
+                            linkCopied ? "bg-green-600 text-white" : "bg-primary text-primary-foreground hover:opacity-90"
+                          }`}
+                        >
+                          {linkCopied ? (<><Check size={14} /> COPIED</>) : (<><Copy size={14} /> COPY LINK</>)}
+                        </button>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground">
+                        Anyone who opens this link sees the same components and the same grade.
+                      </p>
+                    </div>
+                  )}
 
                   <button
                     type="button"
@@ -278,12 +380,7 @@ export default function WeightedGradeCalculator() {
                 </button>
                 <button
                   type="button"
-                  onClick={() => {
-                    setShowResults(true);
-                    if (typeof window !== "undefined" && window.innerWidth < 1024) {
-                      window.scrollTo({ top: 800, behavior: "smooth" });
-                    }
-                  }}
+                  onClick={() => setShowResults(true)}
                   className={`w-full md:w-auto px-8 py-4 text-white rounded-xl font-black uppercase tracking-wide flex items-center justify-center gap-2 transition-all active:scale-[0.98] ${gradeData.isOver ? 'bg-red-600 hover:bg-red-700' : 'bg-green-600 hover:bg-green-700'}`}
                 >
                   Calculate Grade <CheckCircle2 size={18} aria-hidden="true" />

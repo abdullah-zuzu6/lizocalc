@@ -1,115 +1,63 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import FinalGradeCalculator from "./clientside";
-import Image from "next/image";
 import ShareBar from "@/components/Sharebar";
-
-const faqData = [
-  {
-    question: "How do I calculate my final grade?",
-    answer:
-      "To calculate your final course grade, multiply your current grade by its weight in the course, then add the product of your final exam score and its weight. The formula is: Final Grade = (Current Grade × Coursework Weight) + (Final Exam Score × Final Exam Weight). For example, if your current grade is 85%, coursework is worth 70%, you scored 90% on the final worth 30%: Final Grade = (85 × 0.70) + (90 × 0.30) = 59.5 + 27 = 86.5%.",
-  },
-  {
-    question: "What do I need on my final exam to get an A?",
-    answer:
-      "To find the score needed on your final exam to achieve an A (90%), use the formula: Required Final = (Target Grade − (Current Grade × Coursework Weight)) ÷ Final Exam Weight. For example, if your current grade is 86% and the final is worth 30%: Required Final = (90 − (86 × 0.70)) ÷ 0.30 = (90 − 60.2) ÷ 0.30 = 99.3%. You would need a 99.3% on your final exam.",
-  },
-  {
-    question: "Can I fail the final exam and still pass the class?",
-    answer:
-      "Yes, it is possible to fail the final exam and still pass the class if your current grade is high enough. For example, if your current grade is 85% and the final is worth 20%, even scoring 0% on the final gives you: Final Grade = (85 × 0.80) + (0 × 0.20) = 68%. That is still a passing grade. However, if the final is worth 50% or more, a failed exam significantly risks your overall pass. Use the calculator above to check your specific scenario.",
-  },
-  {
-    question: "How do weighted grades work?",
-    answer:
-      "Weighted grading means different assessments contribute different percentages to your final course grade. For example, if homework is 10%, quizzes 15%, midterm 20%, projects 25%, and final exam 30% — each score is multiplied by its weight before being summed. A 90% on the final exam (worth 30%) contributes 90 × 0.30 = 27 points to your overall grade, while a 90% on homework (worth 10%) contributes only 9 points.",
-  },
-  {
-    question: "What is a passing grade?",
-    answer:
-      "A passing grade varies by institution and country. In most US universities and Pakistani degree programmes, a grade of 50% or D is the minimum passing mark for individual courses, though many programmes require a minimum of 60% or C to earn course credit. For Grade Point Average (GPA) purposes, a D (60–69%) often carries a 1.0 GPA value and may not satisfy major or prerequisite requirements even if it technically 'passes'.",
-  },
-  {
-    question: "How much does the final exam affect my overall grade?",
-    answer:
-      "The impact of your final exam depends entirely on its percentage weight. If the final is worth 20%, a 30-point swing in your exam score (e.g., 60% vs 90%) changes your overall grade by only 6 percentage points. If the final is worth 50%, that same 30-point swing changes your overall grade by 15 points. The heavier the final, the more critical every percentage point on exam day becomes.",
-  },
-  {
-    question: "How do I calculate my semester grade?",
-    answer:
-      "To calculate your semester grade, identify the weight of each graded component (homework, quizzes, midterm, projects, final exam) and ensure they total 100%. Multiply each component's score by its weight (as a decimal) and sum all results. Example: Homework 10% (score 88), Quizzes 15% (score 82), Midterm 20% (score 79), Projects 25% (score 91), Final 30% (score 85). Semester Grade = (88×0.10) + (82×0.15) + (79×0.20) + (91×0.25) + (85×0.30) = 8.8 + 12.3 + 15.8 + 22.75 + 25.5 = 85.15%.",
-  },
-  {
-    question: "What grade do I need on my final if I have an 89?",
-    answer:
-      "It depends on the final exam weight and your target grade. If you have an 89% currently and the final is worth 30%, and you want a 90% (A): Required Final = (90 − (89 × 0.70)) ÷ 0.30 = (90 − 62.3) ÷ 0.30 = 92.3%. You need at least 92.3% on the final to achieve an A. If you only want to maintain a B (80%), Required Final = (80 − 62.3) ÷ 0.30 = 59%. You could score as low as 59% on the final and still keep your B.",
-  },
-  {
-    question: "What is the difference between weighted and unweighted grades?",
-    answer:
-      "Unweighted grades treat every assignment equally — your final grade is the simple average of all scores. Weighted grades assign different importance (percentage weight) to different assessment types. Most university and college courses use weighted grading because a final exam should carry more impact than a single homework assignment. Our calculator handles weighted grading automatically.",
-  },
-  {
-    question: "What if I need more than 100% on my final exam?",
-    answer:
-      "If the calculator shows you need more than 100% on your final exam, it means achieving your target grade is mathematically impossible given your current grade and the remaining weight. In this case, you should consider whether you can still pass with a lower target (e.g., aim for a B instead of an A), speak to your professor about extra credit opportunities, or focus on other remaining assignments that may still be gradeable before the final.",
-  },
-];
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
 export const metadata: Metadata = {
-  title: "Final Grade Calculator – What Score Do You Need on Your Final Exam?",
+  title: "Final Grade Calculator – What Score Do You Need on Your Final?",
   description:
-    "Use our free final grade calculator to find the exam score you need to reach your target course grade. Includes weighted grade formula, common grade scenarios, letter grade chart, and grading systems for Pakistan, US, and UK.",
-
+    "Calculate your final course grade from weighted components, or work backward to find the exact score you need on your final exam to hit a target grade. Free, no sign-up.",
   keywords: [
     "final grade calculator",
     "what do i need on my final exam",
-    "final exam score calculator",
-    "grade needed on final",
+    "required final exam score",
     "weighted grade calculator",
     "course grade calculator",
-    "exam grade calculator",
     "how to calculate final grade",
-    "semester grade calculator",
-    "grade calculator pakistan",
-    "lizocalc final grade tool",
   ],
-
   alternates: {
-    canonical:
-      "https://www.lizocalc.com/calculators/education/final-grade-calculator",
+    canonical: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
   },
-
   robots: {
     index: true,
     follow: true,
   },
-
   openGraph: {
-    title: "Final Grade Calculator – Find the Exam Score You Need | LizoCalc",
+    title: "Final Grade Calculator – What Score Do You Need on Your Final?",
     description:
-      "Calculate the exact score you need on your final exam to hit your target course grade. Includes weighted grade formula, scenario tables, and letter grade charts.",
+      "Weigh your assignments, quizzes, and exams into a final grade, or solve backward for the score you need on your final exam.",
     url: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Final Grade Calculator – What Score Do You Need on Your Final?",
     description:
-      "Enter your current grade, final exam weight, and target grade to instantly find the score you need on your final exam.",
+      "Free final grade calculator with a built-in solver for the exact score you need on your final exam.",
   },
 };
-// ─────────────────────────────────────────────
 
-const jsonLd = {
+const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
     {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator#breadcrumb",
@@ -124,43 +72,84 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator",
       url: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
-      name: "Final Grade Calculator – What Score Do You Need on Your Final Exam? | LizoCalc",
-      description: "Use our free final grade calculator to find the exact exam score needed to reach your target course grade. Includes weighted grade formula, common scenarios, and letter grade charts.",
+      name: "Final Grade Calculator – What Score Do You Need on Your Final? | LizoCalc",
+      description:
+        "Free online final grade calculator. Weigh assignments, quizzes, and exams into a final grade, or solve backward for the score you need on your final exam.",
       inLanguage: "en",
       datePublished: "2026-05-01",
-      dateModified: "2026-08-20",
+      dateModified: "2026-09-10",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/education/final-grade-calculator#app",
+      name: "Final Grade Calculator",
+      url: "https://www.lizocalc.com/calculators/education/final-grade-calculator",
+      description:
+        "Free final grade calculator for weighing components into a course grade and solving for the score needed on a remaining final exam.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Final Grade Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate final course grade from weighted components",
+        "Solve backward for the score needed on a final exam",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
     },
   ],
 };
+
+const tocItems = [
+  { id: "how-to-use", label: "How to Use This Calculator" },
+  { id: "what-is-it", label: "What a Final Grade Calculator Does" },
+  { id: "the-formulas", label: "The Two Formulas" },
+  { id: "worked-example", label: "Worked Example" },
+  { id: "required-score-example", label: "Solving for a Required Score" },
+  { id: "weighted-vs-unweighted", label: "Weighted vs Unweighted Grading" },
+  { id: "grade-table", label: "Percentage to Letter Grade Table" },
+];
+
+const gradeTable = [
+  { range: "97 – 100%", letter: "A+", points: "4.0" },
+  { range: "93 – 96%", letter: "A", points: "4.0" },
+  { range: "90 – 92%", letter: "A-", points: "3.7" },
+  { range: "87 – 89%", letter: "B+", points: "3.3" },
+  { range: "83 – 86%", letter: "B", points: "3.0" },
+  { range: "80 – 82%", letter: "B-", points: "2.7" },
+  { range: "77 – 79%", letter: "C+", points: "2.3" },
+  { range: "73 – 76%", letter: "C", points: "2.0" },
+  { range: "70 – 72%", letter: "C-", points: "1.7" },
+  { range: "67 – 69%", letter: "D+", points: "1.3" },
+  { range: "60 – 66%", letter: "D", points: "1.0" },
+  { range: "Below 60%", letter: "F", points: "0.0" },
+];
+
 export default function FinalGradePage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/*
-        FIX: plain <script> tag instead of next/script strategy="beforeInteractive".
-        This was your 430ms render-blocking cost.
-      */}
       <script
-      id="structured-data-final-grade-calculator"
+        id="structured-data-final-grade-calculator"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Final Grade Calculator
-            </h1>
-          </div>
-          <p className="text-gray-300 mt-3 text-lg">
-            Find your current grade, final exam weight, and required score to
-            reach your target course grade — instantly.
+          <h1 className="text-3xl md:text-4xl font-bold">Final Grade Calculator</h1>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Weigh your assignments, quizzes, and exams into a final grade, or find the
+            exact score you need on your final exam to hit a target.
           </p>
-          <ShareBar/>
+          <ShareBar />
         </div>
       </section>
 
@@ -171,1095 +160,267 @@ export default function FinalGradePage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-
-        {/* ── DIRECT ANSWER BOX (AI Overview trigger) ── */}
-        <div className="bg-blue-900/30 border border-blue-600 rounded-2xl p-6 mb-10">
-          <p className="text-white font-semibold text-lg mb-2">
-            ⚡ Quick Answer: How to Find What You Need on Your Final Exam
-          </p>
-          <p className="text-gray-200 text-base leading-relaxed">
-            To calculate the score needed on your final exam, subtract your
-            current weighted grade contribution from your target grade, then
-            divide by the final exam percentage weight:{" "}
-            <strong>
-              Required Final = (Target Grade − (Current Grade × Coursework
-              Weight)) ÷ Final Exam Weight
-            </strong>
-            . Example: Current grade 86%, final worth 30%, target 90% →
-            Required Final = (90 − (86 × 0.70)) ÷ 0.30 ={" "}
-            <strong>99.3%</strong>.
-          </p>
-        </div>
-
-        {/* ── INTRO ── */}
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Final Grade Calculator</strong> — also called an exam
-          score calculator, <strong>course grade calculator</strong>, grade
-          predictor, or{" "}
-          <strong>what do I need on my final exam calculator</strong> — is one
-          of the most searched academic tools during exam season. Whether you
-          are a university student in Lahore trying to secure an A, a college
-          student in Karachi protecting a scholarship GPA, or a high school
-          student in Sahiwal making sure you pass — knowing the exact score you
-          need on your final exam removes uncertainty and lets you study
-          strategically, not blindly.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A final grade calculator turns a list of weighted scores, assignments, quizzes,
+          a midterm, a final exam, into one course grade. This page has two tools for
+          that: the calculator above works forward from scores you already have, and the
+          solver underneath it works backward from a grade you're aiming for to tell you
+          what you need on the final.
         </p>
 
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          Our completely free, no-login-required{" "}
-          <strong>final grade calculator</strong> handles all weighted grading
-          scenarios instantly. Enter your current grade, your final exam weight
-          percentage, and your target course grade — and get your required exam
-          score in real time. Mobile-friendly, ad-free, 100% private, and built
-          for students across Pakistan and around the world. Use it now at our{" "}
-          <Link
-            href="/calculators/education/final-grade-calculator"
-            className="text-blue-400 underline hover:text-blue-300 font-semibold"
-          >
-            Final Grade Calculator page
-          </Link>
-          .
-        </p>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 1 — WHAT IS A FINAL GRADE CALCULATOR
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            What Is a Final Grade Calculator?
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            A <strong>final grade calculator</strong> is an academic tool that
-            answers one of the most common student questions before exam season:{" "}
-            <em>
-              &quot;What score do I need on my final exam to get the grade I
-              want?&quot;
-            </em>{" "}
-            It uses the weighted grading formula built into virtually every
-            university, college, and school course to reverse-engineer the
-            minimum exam performance required given your existing grade and your
-            target outcome.
-          </p>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Unlike a simple average calculator, a final grade calculator
-            accounts for the <strong>percentage weight</strong> that your final
-            exam carries in your overall course grade. In most academic
-            institutions — from universities in Islamabad to colleges across the
-            US — the final exam is the single largest weighted component,
-            typically carrying 25–40% of the total course grade. Getting this
-            calculation right is the difference between studying smart and
-            studying blind.
-          </p>
-
-          {/* Infographic Image */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-10">
-            <div className="rounded-2xl overflow-hidden border border-gray-700">
-              <Image
-                src="/images/education/weighted-final-grade-breakdown.webp"
-                alt="Academic coursework percentage breakdown donut chart showing total grade composition: Final Exam 30%, Major Assignments and Projects 25%, Midterm Exam 20%, Quizzes 15%, Homework and Exercises 10% — based on an example undergraduate syllabus"
-                className="w-full h-auto object-cover"
-                width={1200}
-                height={750}
-                loading="lazy"
-                quality={75}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-            <div className="space-y-3">
-              <p className="text-gray-200 text-base leading-relaxed">
-                The chart above shows a typical undergraduate course grade
-                breakdown. Notice that the{" "}
-                <strong>final exam alone accounts for 30%</strong> — the single
-                largest component — while homework only contributes 10%. This
-                means one great exam performance can recover an entire semester
-                of mediocre assignment scores, and one poor exam can undo weeks
-                of consistent work.
-              </p>
-              <p className="text-gray-200 text-base leading-relaxed">
-                Understanding how each component is weighted is why a{" "}
-                <strong>weighted final grade calculator</strong> is far more
-                useful than simply averaging your scores. Every percentage
-                point you earn is not equal — it depends entirely on which
-                component you earned it in.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-blue-900/20 border-l-4 border-blue-500 rounded-r-xl p-5 mb-6">
-            <p className="text-gray-200 text-base font-medium leading-relaxed">
-              <strong>Key insight:</strong> A final grade calculator works in
-              two directions. Use it to find the <em>minimum</em> exam score
-              needed to reach your target — but also use it to answer{" "}
-              <em>&quot;what happens if I score X on the final?&quot;</em> by
-              entering your projected exam score as the target and solving
-              backwards. Both uses are equally valuable for exam-week planning.
-            </p>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 2 — THE FORMULA
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Final Grade Formula — The Exact Equations Explained
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Formula 1: Required Final Exam Score
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            This is the primary formula — it calculates the minimum score you
-            need on your final exam to achieve a specific target course grade:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Required Final = (Target Grade − (Current Grade × Coursework
-            Weight)) ÷ Final Exam Weight
-            <br />
-            <br />
-            Where:
-            <br />
-            Target Grade = the overall course grade you want to achieve (%)
-            <br />
-            Current Grade = your grade before the final exam (%)
-            <br />
-            Coursework Weight = 1 − Final Exam Weight (as a decimal)
-            <br />
-            Final Exam Weight = the percentage weight of the final (as a
-            decimal)
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Formula 2: Final Course Grade (Weighted Average)
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            This formula calculates your actual final course grade when you
-            already know your final exam score:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Final Course Grade = (Current Grade × Coursework Weight) + (Final
-            Exam Score × Final Exam Weight)
-            <br />
-            <br />
-            Where:
-            <br />
-            Coursework Weight = 1 − Final Exam Weight (as a decimal)
-            <br />
-            Final Exam Weight = the decimal form of final exam percentage
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            What Each Variable Means
-          </h3>
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Variable</th>
-                  <th className="p-4 text-left font-semibold">What It Is</th>
-                  <th className="p-4 text-left font-semibold">Where to Find It</th>
-                  <th className="p-4 text-left font-semibold">Example</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-mono text-green-300">Current Grade</td>
-                  <td className="p-4">Your cumulative course grade before the final exam</td>
-                  <td className="p-4">Student portal, LMS (Blackboard, Canvas, etc.)</td>
-                  <td className="p-4 font-bold text-yellow-300">86%</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-mono text-green-300">Final Exam Weight</td>
-                  <td className="p-4">The percentage of your total grade the final exam is worth</td>
-                  <td className="p-4">Course syllabus — usually listed in the grading section</td>
-                  <td className="p-4 font-bold text-yellow-300">30% → 0.30</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-mono text-green-300">Coursework Weight</td>
-                  <td className="p-4">Everything except the final exam</td>
-                  <td className="p-4">1 minus the final exam weight</td>
-                  <td className="p-4 font-bold text-yellow-300">70% → 0.70</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-mono text-green-300">Target Grade</td>
-                  <td className="p-4">The final course grade you want to achieve</td>
-                  <td className="p-4">Your personal goal (e.g., 90 for an A)</td>
-                  <td className="p-4 font-bold text-yellow-300">90%</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-mono text-green-300">Required Final</td>
-                  <td className="p-4">The minimum exam score you need</td>
-                  <td className="p-4">Output of the formula / calculator</td>
-                  <td className="p-4 font-bold text-green-400">99.3%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 3 — WORKED EXAMPLES
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Manual Final Grade Examples — Step-by-Step Calculations
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Example 1: What Do I Need on My Final to Get an A?
-          </h3>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Student wants an A (90%)
-            <br />
-            Current Grade = 86% · Final Exam Weight = 30%
-            <br />
-            Coursework Weight = 1 − 0.30 = 0.70
-            <br />
-            <br />
-            Required Final = (90 − (86 × 0.70)) ÷ 0.30
-            <br />
-            = (90 − 60.2) ÷ 0.30
-            <br />
-            = 29.8 ÷ 0.30
-            <br />→ <strong>Required Final = 99.3%</strong>
-            <br />
-            <br />
-            This student needs a 99.3% on the final to achieve an A.
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Example 2: Can I Get a B if I Score 70% on the Final?
-          </h3>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Student has 88% currently · Final worth 25% · Scores 70%
-            <br />
-            Coursework Weight = 1 − 0.25 = 0.75
-            <br />
-            <br />
-            Final Course Grade = (88 × 0.75) + (70 × 0.25)
-            <br />
-            = 66 + 17.5
-            <br />→ <strong>Final Grade = 83.5% — B ✅</strong>
-            <br />
-            <br />
-            Yes, even a 70% on the final is enough to keep a solid B.
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Example 3: What If I Need to Just Pass? (60% Target)
-          </h3>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Student has 58% · Final worth 25% · Target = 60%
-            <br />
-            Coursework Weight = 0.75
-            <br />
-            <br />
-            Required Final = (60 − (58 × 0.75)) ÷ 0.25
-            <br />
-            = (60 − 43.5) ÷ 0.25
-            <br />
-            = 16.5 ÷ 0.25
-            <br />→ <strong>Required Final = 66%</strong>
-            <br />
-            <br />
-            This student needs a 66% on the final to just pass.
-          </div>
-
-          {/* ── COMMON SCENARIOS TABLE ── */}
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            Common Grade Scenarios — Quick Reference Table
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Below are the most-searched final grade calculation scenarios,
-            pre-solved using the required final formula. Use this as a reference
-            or enter your own numbers in the calculator above:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Current Grade</th>
-                  <th className="p-4 text-left font-semibold">Final Weight</th>
-                  <th className="p-4 text-left font-semibold">Target Grade</th>
-                  <th className="p-4 text-left font-semibold">Required Final</th>
-                  <th className="p-4 text-left font-semibold">Achievable?</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">85%</td>
-                  <td className="p-4">20%</td>
-                  <td className="p-4">90%</td>
-                  <td className="p-4 font-bold text-red-400">110.0%</td>
-                  <td className="p-4 text-red-400">❌ Impossible</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">88%</td>
-                  <td className="p-4">30%</td>
-                  <td className="p-4">90%</td>
-                  <td className="p-4 font-bold text-orange-400">94.7%</td>
-                  <td className="p-4 text-yellow-300">⚠️ Tough</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">86%</td>
-                  <td className="p-4">30%</td>
-                  <td className="p-4">90%</td>
-                  <td className="p-4 font-bold text-orange-400">99.3%</td>
-                  <td className="p-4 text-yellow-300">⚠️ Tough</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">80%</td>
-                  <td className="p-4">30%</td>
-                  <td className="p-4">85%</td>
-                  <td className="p-4 font-bold text-green-400">96.7%</td>
-                  <td className="p-4 text-yellow-300">⚠️ Tough</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">72%</td>
-                  <td className="p-4">40%</td>
-                  <td className="p-4">75%</td>
-                  <td className="p-4 font-bold text-green-400">79.5%</td>
-                  <td className="p-4 text-green-400">✅ Achievable</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">65%</td>
-                  <td className="p-4">35%</td>
-                  <td className="p-4">70%</td>
-                  <td className="p-4 font-bold text-green-400">79.2%</td>
-                  <td className="p-4 text-green-400">✅ Achievable</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">58%</td>
-                  <td className="p-4">25%</td>
-                  <td className="p-4">60%</td>
-                  <td className="p-4 font-bold text-green-400">66.0%</td>
-                  <td className="p-4 text-green-400">✅ Achievable</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">75%</td>
-                  <td className="p-4">20%</td>
-                  <td className="p-4">80%</td>
-                  <td className="p-4 font-bold text-green-400">105.0%</td>
-                  <td className="p-4 text-red-400">❌ Impossible</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">92%</td>
-                  <td className="p-4">25%</td>
-                  <td className="p-4">90%</td>
-                  <td className="p-4 font-bold text-green-400">83.4%</td>
-                  <td className="p-4 text-green-400">✅ Easy</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">50%</td>
-                  <td className="p-4">50%</td>
-                  <td className="p-4">60%</td>
-                  <td className="p-4 font-bold text-green-400">70.0%</td>
-                  <td className="p-4 text-green-400">✅ Achievable</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 mb-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-4">
-              What If I Need More Than 100%?
-            </h3>
-            <p className="text-gray-200 text-base leading-relaxed mb-3">
-              When the calculator returns a required final score above 100%, it
-              means your target grade is{" "}
-              <strong>mathematically impossible</strong> given your current
-              grade and the remaining exam weight. What to do:
-            </p>
-            <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-              Current Grade = 75% · Final Weight = 20% · Target = 90%
-              <br />
-              Required Final = (90 − (75 × 0.80)) ÷ 0.20 = (90 − 60) ÷ 0.20 =
-              150%
-              <br />
-              <br />
-              → This means: even a perfect 100% exam score would only give:
-              <br />
-              Final Grade = (75 × 0.80) + (100 × 0.20) = 60 + 20 = 80%
-              <br />
-              <br />→{" "}
-              <strong>
-                Lower your target to 80% or focus on extra credit opportunities.
-              </strong>
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 4 — GRADE NEEDED TO PASS
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            What Grade Do I Need to Pass My Class?
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Passing a course typically requires a minimum overall grade of 50%
-            or 60% depending on the institution. This section answers the most
-            common pass-or-fail final exam scenarios — use the calculator above
-            for your exact numbers:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Current Grade</th>
-                  <th className="p-4 text-left font-semibold">Final Weight</th>
-                  <th className="p-4 text-left font-semibold">Pass at 60%</th>
-                  <th className="p-4 text-left font-semibold">Pass at 50%</th>
-                  <th className="p-4 text-left font-semibold">Risk Level</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">55%</td>
-                  <td className="p-4">30%</td>
-                  <td className="p-4 font-bold text-orange-400">Need 70.7%</td>
-                  <td className="p-4 font-bold text-green-400">Need 53.3%</td>
-                  <td className="p-4 text-yellow-300">⚠️ Moderate</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">50%</td>
-                  <td className="p-4">25%</td>
-                  <td className="p-4 font-bold text-orange-400">Need 90.0%</td>
-                  <td className="p-4 font-bold text-green-400">Need 50.0%</td>
-                  <td className="p-4 text-red-400">🔴 High</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">45%</td>
-                  <td className="p-4">40%</td>
-                  <td className="p-4 font-bold text-orange-400">Need 82.5%</td>
-                  <td className="p-4 font-bold text-green-400">Need 57.5%</td>
-                  <td className="p-4 text-red-400">🔴 High</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">62%</td>
-                  <td className="p-4">20%</td>
-                  <td className="p-4 font-bold text-green-400">Need 55.5%</td>
-                  <td className="p-4 font-bold text-green-400">Need 11.0%</td>
-                  <td className="p-4 text-green-400">✅ Low</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">70%</td>
-                  <td className="p-4">35%</td>
-                  <td className="p-4 font-bold text-green-400">Need 34.3%</td>
-                  <td className="p-4 font-bold text-green-400">Already safe</td>
-                  <td className="p-4 text-green-400">✅ Safe</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="bg-blue-900/20 border-l-4 border-blue-500 rounded-r-xl p-5 mb-6">
-            <p className="text-gray-200 text-base font-medium leading-relaxed">
-              <strong>Pakistan-specific note:</strong> In most Pakistani
-              universities (HEC-affiliated), a minimum of 50% overall is
-              required to pass a course, with a CGPA of at least 2.0 needed to
-              remain in good academic standing. Many degree programmes require a
-              minimum of 60% in core subjects. Always check your specific
-              institution&apos;s policy — requirements vary between BSCS, BBA,
-              MBBS, and engineering programmes.
-            </p>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 5 — LETTER GRADE TABLE
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Letter Grade Chart — Percentage to Letter Grade Conversion
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Once you know your projected final course grade percentage, use
-            the table below to identify your corresponding letter grade and
-            GPA value across the three most common grading systems used by
-            students on LizoCalc:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Percentage</th>
-                  <th className="p-4 text-left font-semibold">Letter Grade</th>
-                  <th className="p-4 text-left font-semibold">GPA (4.0 Scale)</th>
-                  <th className="p-4 text-left font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-bold text-green-400">97 – 100%</td>
-                  <td className="p-4 font-bold text-green-400">A+</td>
-                  <td className="p-4 font-bold text-blue-300">4.0</td>
-                  <td className="p-4">Outstanding / Perfect</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-green-400">93 – 96%</td>
-                  <td className="p-4 font-bold text-green-400">A</td>
-                  <td className="p-4 font-bold text-blue-300">4.0</td>
-                  <td className="p-4">Excellent</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-green-400">90 – 92%</td>
-                  <td className="p-4 font-bold text-green-400">A−</td>
-                  <td className="p-4 font-bold text-blue-300">3.7</td>
-                  <td className="p-4">Excellent</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-blue-300">87 – 89%</td>
-                  <td className="p-4 font-bold text-blue-300">B+</td>
-                  <td className="p-4 font-bold text-blue-300">3.3</td>
-                  <td className="p-4">Very Good</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-blue-300">83 – 86%</td>
-                  <td className="p-4 font-bold text-blue-300">B</td>
-                  <td className="p-4 font-bold text-blue-300">3.0</td>
-                  <td className="p-4">Good</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-blue-300">80 – 82%</td>
-                  <td className="p-4 font-bold text-blue-300">B−</td>
-                  <td className="p-4 font-bold text-blue-300">2.7</td>
-                  <td className="p-4">Good</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-yellow-300">77 – 79%</td>
-                  <td className="p-4 font-bold text-yellow-300">C+</td>
-                  <td className="p-4 font-bold text-yellow-300">2.3</td>
-                  <td className="p-4">Above Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-yellow-300">73 – 76%</td>
-                  <td className="p-4 font-bold text-yellow-300">C</td>
-                  <td className="p-4 font-bold text-yellow-300">2.0</td>
-                  <td className="p-4">Average / Satisfactory</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-yellow-300">70 – 72%</td>
-                  <td className="p-4 font-bold text-yellow-300">C−</td>
-                  <td className="p-4 font-bold text-yellow-300">1.7</td>
-                  <td className="p-4">Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-orange-400">67 – 69%</td>
-                  <td className="p-4 font-bold text-orange-400">D+</td>
-                  <td className="p-4 font-bold text-orange-400">1.3</td>
-                  <td className="p-4">Below Average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-orange-400">60 – 66%</td>
-                  <td className="p-4 font-bold text-orange-400">D</td>
-                  <td className="p-4 font-bold text-orange-400">1.0</td>
-                  <td className="p-4">Passing — Minimum</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-bold text-red-400">Below 60%</td>
-                  <td className="p-4 font-bold text-red-400">F</td>
-                  <td className="p-4 font-bold text-red-400">0.0</td>
-                  <td className="p-4">Failing — No Credit</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 6 — GPA IMPACT
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How Final Grades Affect Your GPA
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Every course grade you earn contributes to both your{" "}
-            <strong>semester GPA</strong> and your{" "}
-            <strong>cumulative GPA (CGPA)</strong> — the most important
-            academic metric for scholarships, postgraduate admissions, and
-            employment in Pakistan and internationally. Understanding the GPA
-            impact of each final grade helps you prioritise which exams matter
-            most.
-          </p>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm mt-8 mb-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              GPA Calculation Formula
-            </h3>
-            <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-              Semester GPA = Σ (Grade Points × Credit Hours) ÷ Total Credit
-              Hours
-              <br />
-              <br />
-              Example:
-              <br />
-              Course A: A (4.0) × 3 credit hours = 12.0
-              <br />
-              Course B: B+ (3.3) × 3 credit hours = 9.9
-              <br />
-              Course C: C (2.0) × 2 credit hours = 4.0
-              <br />
-              Total Credits = 8 · Total Points = 25.9
-              <br />→ <strong>Semester GPA = 25.9 ÷ 8 = 3.24</strong>
-            </div>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            GPA Impact of Dropping One Letter Grade on the Final
-          </h3>
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Scenario</th>
-                  <th className="p-4 text-left font-semibold">Course Grade</th>
-                  <th className="p-4 text-left font-semibold">Grade Points</th>
-                  <th className="p-4 text-left font-semibold">GPA Impact (3 credits)</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">Nailed the final → A</td>
-                  <td className="p-4 font-bold text-green-400">93%+</td>
-                  <td className="p-4 font-bold text-green-400">4.0</td>
-                  <td className="p-4">+12.0 points</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Missed A by a bit → B+</td>
-                  <td className="p-4 font-bold text-blue-300">87–89%</td>
-                  <td className="p-4 font-bold text-blue-300">3.3</td>
-                  <td className="p-4">+9.9 points (−0.23 vs A)</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Dropped further → B</td>
-                  <td className="p-4 font-bold text-blue-300">83–86%</td>
-                  <td className="p-4 font-bold text-blue-300">3.0</td>
-                  <td className="p-4">+9.0 points (−0.38 vs A)</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Struggled → C</td>
-                  <td className="p-4 font-bold text-yellow-300">73–76%</td>
-                  <td className="p-4 font-bold text-yellow-300">2.0</td>
-                  <td className="p-4">+6.0 points (−0.75 vs A)</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Failed → F</td>
-                  <td className="p-4 font-bold text-red-400">Below 60%</td>
-                  <td className="p-4 font-bold text-red-400">0.0</td>
-                  <td className="p-4 text-red-400">+0 points (−1.5 vs A)</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 7 — WEIGHTED VS UNWEIGHTED
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Weighted vs Unweighted Grades — Key Differences
-          </h2>
-
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The method your course uses to calculate grades determines which
-            formula applies. Most university and college courses use weighted
-            grading:
-          </p>
-
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Feature</th>
-                  <th className="p-4 text-left font-semibold">Weighted Grading</th>
-                  <th className="p-4 text-left font-semibold">Unweighted Grading</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold">Definition</td>
-                  <td className="p-4">Each assessment type has a different percentage contribution</td>
-                  <td className="p-4">Every assignment/test counts equally toward the final average</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold">Formula</td>
-                  <td className="p-4 font-mono text-green-300 text-xs">Σ(Score × Weight) for each category</td>
-                  <td className="p-4 font-mono text-green-300 text-xs">Σ(All Scores) ÷ Number of Scores</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold">Where used</td>
-                  <td className="p-4">Universities, colleges, most secondary schools</td>
-                  <td className="p-4">Some primary schools, simple courses</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold">Final exam impact</td>
-                  <td className="p-4 font-bold text-yellow-300">High — carries defined % weight (e.g., 30%)</td>
-                  <td className="p-4">Equal to every other assessment</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold">Calculator needed?</td>
-                  <td className="p-4 font-bold text-green-400">✅ Yes — use our tool above</td>
-                  <td className="p-4">Simple average is sufficient</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700 mb-8">
-            <h3 className="text-xl font-semibold text-blue-300 mb-4">
-              Why Weighted Grading Matters — A Real Comparison
-            </h3>
-            <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-sm overflow-x-auto">
-              Student scores: Homework 90%, Quiz 70%, Midterm 75%, Final 85%
-              <br />
-              <br />
-              Unweighted average: (90+70+75+85) ÷ 4 = 80.0%
-              <br />
-              <br />
-              Weighted (HW 10%, Quiz 15%, Midterm 20%, Final 30%, Projects 25%
-              assumed 80%):
-              <br />
-              = (90×0.10) + (70×0.15) + (75×0.20) + (80×0.25) + (85×0.30)
-              <br />
-              = 9 + 10.5 + 15 + 20 + 25.5 = <strong>80.0%</strong>
-              <br />
-              <br />
-              In this case they match — but with different score distributions
-              the difference can be significant.
-            </div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 8 — GRADING SYSTEMS BY COUNTRY
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Grading Systems Around the World — US, UK, and Pakistan
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            United States Grading System
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            The US uses a letter grade system (A through F) mapped to a 4.0 GPA
-            scale. Final exams typically carry 20–40% of the course grade.
-            Passing is generally 60% (D), though many programmes require a C
-            (70%) for credit in major courses:
-          </p>
-          <div className="overflow-x-auto mt-4 mb-8">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Percentage</th>
-                  <th className="p-4 text-left font-semibold">Letter Grade</th>
-                  <th className="p-4 text-left font-semibold">GPA Points</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr><td className="p-4">90 – 100%</td><td className="p-4 font-bold text-green-400">A</td><td className="p-4">4.0</td></tr>
-                <tr><td className="p-4">80 – 89%</td><td className="p-4 font-bold text-blue-300">B</td><td className="p-4">3.0</td></tr>
-                <tr><td className="p-4">70 – 79%</td><td className="p-4 font-bold text-yellow-300">C</td><td className="p-4">2.0</td></tr>
-                <tr><td className="p-4">60 – 69%</td><td className="p-4 font-bold text-orange-400">D</td><td className="p-4">1.0</td></tr>
-                <tr><td className="p-4">Below 60%</td><td className="p-4 font-bold text-red-400">F</td><td className="p-4">0.0</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            United Kingdom Grading System (Undergraduate Degree Classes)
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            UK universities use degree classification rather than letter grades
-            for final awards. Final exams are typically worth 50–80% at UK
-            institutions:
-          </p>
-          <div className="overflow-x-auto mt-4 mb-8">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Percentage</th>
-                  <th className="p-4 text-left font-semibold">Classification</th>
-                  <th className="p-4 text-left font-semibold">Common Name</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr><td className="p-4">70%+</td><td className="p-4 font-bold text-green-400">First Class Honours</td><td className="p-4">First / 1st</td></tr>
-                <tr><td className="p-4">60 – 69%</td><td className="p-4 font-bold text-blue-300">Upper Second Class</td><td className="p-4">2:1</td></tr>
-                <tr><td className="p-4">50 – 59%</td><td className="p-4 font-bold text-yellow-300">Lower Second Class</td><td className="p-4">2:2</td></tr>
-                <tr><td className="p-4">40 – 49%</td><td className="p-4 font-bold text-orange-400">Third Class Honours</td><td className="p-4">Third / 3rd</td></tr>
-                <tr><td className="p-4">Below 40%</td><td className="p-4 font-bold text-red-400">Fail</td><td className="p-4">No Award</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Pakistan Grading System (HEC Framework)
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Pakistani universities follow the Higher Education Commission (HEC)
-            grading framework. Most degree programmes use a 4.0 GPA scale with
-            the following percentage-to-grade mapping:
-          </p>
-          <div className="overflow-x-auto mt-4 mb-8">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Marks / Percentage</th>
-                  <th className="p-4 text-left font-semibold">Grade</th>
-                  <th className="p-4 text-left font-semibold">GPA Points</th>
-                  <th className="p-4 text-left font-semibold">Description</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr><td className="p-4 font-semibold text-yellow-300">85 – 100%</td><td className="p-4 font-bold text-green-400">A</td><td className="p-4 font-bold text-green-400">4.0</td><td className="p-4">Excellent</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">80 – 84%</td><td className="p-4 font-bold text-green-400">A−</td><td className="p-4 font-bold text-green-400">3.7</td><td className="p-4">Very Good</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">75 – 79%</td><td className="p-4 font-bold text-blue-300">B+</td><td className="p-4 font-bold text-blue-300">3.3</td><td className="p-4">Good</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">71 – 74%</td><td className="p-4 font-bold text-blue-300">B</td><td className="p-4 font-bold text-blue-300">3.0</td><td className="p-4">Good</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">68 – 70%</td><td className="p-4 font-bold text-blue-300">B−</td><td className="p-4 font-bold text-blue-300">2.7</td><td className="p-4">Above Average</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">64 – 67%</td><td className="p-4 font-bold text-yellow-300">C+</td><td className="p-4 font-bold text-yellow-300">2.3</td><td className="p-4">Average</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">61 – 63%</td><td className="p-4 font-bold text-yellow-300">C</td><td className="p-4 font-bold text-yellow-300">2.0</td><td className="p-4">Satisfactory</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">58 – 60%</td><td className="p-4 font-bold text-yellow-300">C−</td><td className="p-4 font-bold text-yellow-300">1.7</td><td className="p-4">Pass</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">54 – 57%</td><td className="p-4 font-bold text-orange-400">D+</td><td className="p-4 font-bold text-orange-400">1.3</td><td className="p-4">Pass</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">50 – 53%</td><td className="p-4 font-bold text-orange-400">D</td><td className="p-4 font-bold text-orange-400">1.0</td><td className="p-4">Minimum Pass</td></tr>
-                <tr><td className="p-4 font-semibold text-yellow-300">Below 50%</td><td className="p-4 font-bold text-red-400">F</td><td className="p-4 font-bold text-red-400">0.0</td><td className="p-4">Fail</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 9 — HOW TO USE THE CALCULATOR
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Use the Final Grade Calculator — Step-by-Step
-          </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Get Your Required Exam Score in Under 30 Seconds
-            </h3>
-            <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-              <li>
-                <strong>Enter your current grade</strong> — type the percentage
-                grade you have right now in the course, before the final exam.
-                Find this in your student portal, LMS (Canvas, Blackboard,
-                Google Classroom), or calculate it from your graded assignments.
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
               </li>
-              <li>
-                <strong>Enter your final exam weight</strong> — this is the
-                percentage of your total course grade that the final exam is
-                worth. Find it in your course syllabus, usually listed under
-                &quot;Grading Policy&quot; or &quot;Assessment Breakdown.&quot;
-              </li>
-              <li>
-                <strong>Enter your target grade</strong> — the overall course
-                percentage you want to finish with (e.g., 90 for an A, 80 for a
-                B, 60 to pass). This is your goal, not your current grade.
-              </li>
-              <li>
-                <strong>Read your result instantly</strong> — the required final
-                exam score appears immediately, along with your projected letter
-                grade and a pass/fail indicator. No button press needed.
-              </li>
-              <li>
-                <strong>Test different scenarios</strong> — change the target
-                grade to see how a lower goal affects the required exam score.
-                This helps you decide whether to aim for an A or protect a B.
-              </li>
-            </ol>
-            <p className="text-gray-300 italic mt-6 text-base leading-relaxed">
-              Pro tip: If your required score shows as over 100%, your original
-              target is out of reach. Simply lower the target grade until you
-              find a realistic and achievable goal — then study specifically for
-              that score.
-            </p>
-          </div>
+            ))}
+          </ul>
+        </nav>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Common Final Exam Score Questions — Answered
-          </h3>
-
-          <div className="grid md:grid-cols-2 gap-6 mt-6 mb-8">
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-blue-300 mb-3">
-                What do I need on my final if I have an 89?
-              </h4>
-              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-xs overflow-x-auto">
-                Final worth 30% · Target A (90%)
-                <br />
-                = (90 − (89 × 0.70)) ÷ 0.30
-                <br />= (90 − 62.3) ÷ 0.30
-                <br />→ <strong>Need 92.3%</strong>
-              </div>
-            </div>
-
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-blue-300 mb-3">
-                What if the final is worth 40%?
-              </h4>
-              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-xs overflow-x-auto">
-                Current 75% · Final worth 40% · Target B (80%)
-                <br />
-                = (80 − (75 × 0.60)) ÷ 0.40
-                <br />= (80 − 45) ÷ 0.40
-                <br />→ <strong>Need 87.5%</strong>
-              </div>
-            </div>
-
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-blue-300 mb-3">
-                Can I pass if I fail my final?
-              </h4>
-              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-xs overflow-x-auto">
-                Current 80% · Final worth 20% · Score 40%
-                <br />
-                Grade = (80 × 0.80) + (40 × 0.20)
-                <br />= 64 + 8
-                <br />→ <strong>Final Grade = 72% — Pass ✅</strong>
-              </div>
-            </div>
-
-            <div className="bg-gray-800/50 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-blue-300 mb-3">
-                What do I need on my final to get an A if I have a 92?
-              </h4>
-              <div className="bg-gray-900/70 p-4 rounded-xl font-mono text-green-300 text-xs overflow-x-auto">
-                Current 92% · Final worth 25% · Target 90%
-                <br />
-                = (90 − (92 × 0.75)) ÷ 0.25
-                <br />= (90 − 69) ÷ 0.25
-                <br />→ <strong>Need 84.0% — Easy ✅</strong>
-              </div>
-            </div>
-          </div>
+        {/* How to use */}
+        <section id="how-to-use" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Use This Calculator
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            In the main tool, add a row for each graded component, its weight as a
+            percentage, and the score you got. Add or remove rows as needed, then hit
+            Calculate Final Grade. Your weights should add up to 100%, the tool tells you
+            if they don't.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Once you have a result, you can copy the number, or copy a share link that
+            reproduces your exact component list for anyone who opens it.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            If you haven't taken your final exam yet and want to know what score you need,
+            skip straight to the second tool. Enter your grade going into the final, the
+            final's weight, and your target grade, and it solves for the score directly.
+          </p>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 10 — MORE EDUCATION TOOLS
-        ══════════════════════════════════════════════════════════ */}
-
-        {/* ── TRUST / E-E-A-T BYLINE ── */}
-        <div className="flex items-center gap-4 my-12 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-            RA
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm">
-              Written by Rana Muhammad Abdullah
-            </p>
-            <p className="text-gray-400 text-xs">
-              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp; Control
-              Engineering Student ·{" "}
-              <a
-                href="https://www.linkedin.com/in/abdullahsajjad06/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 underline hover:text-blue-300"
-              >
-                LinkedIn
-              </a>
-            </p>
-          </div>
-          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
-            <span>📅 Published: May 01, 2026</span>
-            <span>🔄 Updated: August 20, 2026</span>
-            <span>✅ Verified accurate</span>
-          </div>
-        </div>
-
-        <section className="mt-20">
+        {/* What it does */}
+        <section id="what-is-it" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Education &amp; Academic Tools to Explore
+            What a Final Grade Calculator Does
           </h2>
-
-          <p className="text-gray-200 text-base mb-6">
-            Combine with these other free LizoCalc tools:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Most courses don't average every assignment equally. A final exam worth 40%
+            of your grade matters far more than a quiz worth 5%, so a simple average of
+            your scores gives you the wrong number. Weighted grading fixes that by
+            multiplying each score by its share of the total before adding everything up.
           </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            This matters most right before a final exam, when you don't have a complete
+            grade yet and want to know what's actually at stake. A 20-point gap between a
+            60% and an 80% final exam score can mean the difference between a B and a C
+            depending on how much weight that exam carries.
+          </p>
+        </section>
 
-          {/*
-            FIX (heading order): these were <h4>, which skips directly from
-            the section's <h2> to <h4> with no <h3> in between — a genuine
-            hierarchy violation. Changed to <h3> since these cards are the
-            first heading level under this section's <h2>.
-          */}
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-3">
-                GPA Calculator
-              </h3>
-              <p className="text-gray-200 text-base mb-4">
-                Calculate your semester and cumulative GPA instantly using your
-                course grades and credit hours — perfect for scholarship
-                eligibility checks.
-              </p>
-              <Link
-                href="/calculators/education/gpa-calculator"
-                className="text-blue-400 underline hover:text-blue-300 font-semibold inline-flex items-center"
-              >
-                Open GPA Calculator →
-              </Link>
-            </div>
+        {/* Formulas */}
+        <section id="the-formulas" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            The Two Formulas
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Everything on this page comes down to two formulas, depending on which
+            direction you're solving.
+          </p>
+          <h3 className="text-xl font-semibold text-blue-300 mb-3">
+            Final grade from known scores
+          </h3>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose mb-6">
+{`Final Grade = Σ(Score × Weight) ÷ Σ(Weight)`}
+          </pre>
+          <h3 className="text-xl font-semibold text-blue-300 mb-3">
+            Required score on the final
+          </h3>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose">
+{`Required Final = (Target Grade − Current Grade × Coursework Weight) ÷ Final Weight
 
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-3">
-                Grade Average Calculator
-              </h3>
-              <p className="text-gray-200 text-base mb-4">
-                Calculate the simple or weighted average of all your assignment
-                and test scores across an entire semester — great for tracking
-                ongoing course performance.
-              </p>
-              <Link
-                href="/calculators/education/grade-calculator"
-                className="text-blue-400 underline hover:text-blue-300 font-semibold inline-flex items-center"
-              >
-                Open Grade Calculator →
-              </Link>
-            </div>
+Coursework Weight = 1 − Final Weight`}
+          </pre>
+        </section>
 
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-3">
-                Percentage Calculator
-              </h3>
-              <p className="text-gray-200 text-base mb-4">
-                Instantly convert marks to percentages, find percentage
-                increase or decrease, or calculate what percentage one number
-                is of another — all in one place.
-              </p>
-              <Link
-                href="/calculators/math/percentage-calculator"
-                className="text-blue-400 underline hover:text-blue-300 font-semibold inline-flex items-center"
-              >
-                Open Percentage Calculator →
-              </Link>
-            </div>
+        {/* Worked example */}
+        <section id="worked-example" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Worked Example
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Four components: assignments at 20% (scored 88), quizzes at 15% (scored 92),
+            a midterm at 25% (scored 76), and a final exam at 40% (scored 85). These are
+            the calculator's default numbers, so you can check your own math against it.
+          </p>
+          <div className="overflow-x-auto rounded-xl border border-gray-700 mb-4">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-blue-900/60">
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Component</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Weight</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Score</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Contribution</th>
+                </tr>
+              </thead>
+              <tbody className="bg-gray-800/40 divide-y divide-gray-700">
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">Assignments</td>
+                  <td className="px-6 py-3 text-gray-200">20%</td>
+                  <td className="px-6 py-3 text-gray-200">88%</td>
+                  <td className="px-6 py-3 text-gray-200">17.6</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">Quizzes</td>
+                  <td className="px-6 py-3 text-gray-200">15%</td>
+                  <td className="px-6 py-3 text-gray-200">92%</td>
+                  <td className="px-6 py-3 text-gray-200">13.8</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">Midterm Exam</td>
+                  <td className="px-6 py-3 text-gray-200">25%</td>
+                  <td className="px-6 py-3 text-gray-200">76%</td>
+                  <td className="px-6 py-3 text-gray-200">19.0</td>
+                </tr>
+                <tr>
+                  <td className="px-6 py-3 text-gray-200">Final Exam</td>
+                  <td className="px-6 py-3 text-gray-200">40%</td>
+                  <td className="px-6 py-3 text-gray-200">85%</td>
+                  <td className="px-6 py-3 text-gray-200">34.0</td>
+                </tr>
+                <tr className="font-bold bg-blue-900/40">
+                  <td colSpan={3} className="px-6 py-3 text-right">Total</td>
+                  <td className="px-6 py-3">84.4</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-
-          <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Knowing the exact score you need on your final exam turns exam
-            preparation from guesswork into a precise, achievable target. Our
-            free Final Grade Calculator is fast, accurate, completely private,
-            and built for students in Sahiwal, across Pakistan, and around the
-            world. Bookmark it today — and walk into your final exam knowing
-            exactly what you need.
+          <p className="text-gray-200 leading-relaxed text-base">
+            The weights add up to 100%, so nothing needs adjusting. 17.6 + 13.8 + 19.0 +
+            34.0 = 84.4%.
           </p>
+        </section>
+
+        {/* Required score example */}
+        <section id="required-score-example" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Solving for a Required Score
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Say you're sitting at an 86% going into finals, the final is worth 30% of
+            your grade, and you want a 90% overall.
+          </p>
+          <pre className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm leading-loose mb-4">
+{`Coursework Weight = 1 − 0.30 = 0.70
+Required Final = (90 − 86 × 0.70) ÷ 0.30
+               = (90 − 60.2) ÷ 0.30
+               = 99.3%`}
+          </pre>
+          <p className="text-gray-200 leading-relaxed text-base">
+            You'd need a 99.3% on the final. If that feels out of reach, try the same
+            numbers with a target of 85 instead of 90, the solver above will show you a
+            more realistic score.
+          </p>
+        </section>
+
+        {/* Weighted vs unweighted */}
+        <section id="weighted-vs-unweighted" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Weighted vs Unweighted Grading
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Unweighted grading treats every score the same and just averages them.
+            Weighted grading assigns each component a share of the total grade, so a
+            final worth 40% has eight times the pull of a quiz worth 5%.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Most college and university courses use weighted grading, which is why this
+            tool asks for a weight next to every score instead of just averaging them.
+            Check your syllabus if you're not sure which one your course uses, it's
+            usually spelled out under the grading policy.
+          </p>
+        </section>
+
+        {/* Grade table */}
+        <section id="grade-table" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Percentage to Letter Grade Table
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            A common 4.0-scale conversion, once you have your final percentage. Schools
+            vary, some round A- up to a full 4.0, some set the pass mark lower than 60%,
+            so check your syllabus if the number needs to match a transcript exactly.
+          </p>
+          <div className="overflow-x-auto rounded-xl border border-gray-700">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-800/60">
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Percentage</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Letter Grade</th>
+                  <th className="px-6 py-3 text-blue-300 font-semibold text-base border-b border-gray-700">Grade Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {gradeTable.map((row, index) => (
+                  <tr
+                    key={row.letter}
+                    className={index % 2 === 0 ? "bg-gray-800/20" : "bg-gray-800/40"}
+                  >
+                    <td className="px-6 py-3 text-gray-200 text-base border-b border-gray-700/60">
+                      {row.range}
+                    </td>
+                    <td className="px-6 py-3 text-gray-200 text-base border-b border-gray-700/60">
+                      {row.letter}
+                    </td>
+                    <td className="px-6 py-3 text-gray-200 text-base font-mono border-b border-gray-700/60">
+                      {row.points}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            Once you have a percentage, the{" "}
+            <Link
+              href="/calculators/education/gpa-calculator"
+              className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
+            >
+              GPA calculator
+            </Link>{" "}
+            turns a full course list into a single grade point average.
+          </p>
+        </section>
+
+        <section className="px-4 mt-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Education Calculators"
+            links={[
+              { label: "GPA Calculator", href: "/calculators/education/gpa-calculator" },
+              { label: "CGPA Calculator", href: "/calculators/education/cgpa-calculator" },
+              { label: "Grade Calculator", href: "/calculators/education/grade-calculator" },
+              { label: "Percentage Calculator", href: "/calculators/math/percentage-calculator" },
+            ]}
+            seeAllHref="/calculators/education"
+          />
         </section>
       </article>
 
-      <FAQ items={faqData} />
+     
       <Footer />
     </main>
   );

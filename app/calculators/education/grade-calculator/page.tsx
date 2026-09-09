@@ -1,50 +1,24 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import AdvancedGradeCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
-
-const faqData = [
-  {
-    question: "How do I calculate my weighted grade?",
-    answer: "To calculate a weighted grade, multiply the average of each category (e.g., Homework, Exams) by its weight decimal. Then, add those totals together. For example, if Exams are 60% and you have a 90%, and Homework is 40% with an 80%, your grade is: (90 * 0.60) + (80 * 0.40) = 54 + 32 = 86%.",
-  },
-  {
-    question: "What grade do I need on my final exam to pass?",
-    answer: "You can find your required final exam grade using this formula: (Target Grade - (Current Grade * (100% - Final Weight))) / Final Weight. If you have an 85%, want a 90% overall, and the final is worth 20%, you need: (90 - (85 * 0.80)) / 0.20 = (90 - 68) / 0.20 = 110%. You'll need extra credit!",
-  },
-  {
-    question: "How do I convert a percentage to a letter grade?",
-    answer: "Most schools use a standard 10-point scale: 90-100% is an A, 80-89% is a B, 70-79% is a C, 60-69% is a D, and below 60% is an F. Some institutions use a +/- system where a B+ starts at 87% and an A- starts at 90%. Always check your course syllabus for the specific grading curve used by your instructor.",
-  },
-  {
-    question: "Does a 0 on an assignment ruin my grade?",
-    answer: "A zero has a high impact because it pulls down your average significantly. For instance, if you have four 100% scores and one 0%, your average drops to 80% (B-). To recover, you must earn high scores on future assignments to 'dilute' the zero's weight. Using a grade calculator helps you see exactly how many 100s you need to get back to an A.",
-  },
-  {
-    question: "How do I calculate my current class standing before finals?",
-    answer: "To find your current grade, sum the points you've earned and divide by the total points possible so far. If categories are weighted, calculate the average for each completed category, multiply by their relative weights, and divide the total by the percentage of the course grade already completed. This gives you your 'running' average.",
-  },
-  {
-    question: "What is the difference between a points-based and weighted system?",
-    answer: "In a points-based system, every point carries the same value (Total Points Earned / Total Points Possible). In a weighted system, certain categories like 'Final Projects' are worth a specific percentage of your total grade regardless of how many individual points they contain. Weighted systems allow instructors to prioritize mastery over busywork.",
-  },
-];
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
 export const metadata: Metadata = {
-  title: " Grade Calculator | Weighted & Final Grade Predictor",
-  description: "Estimate your semester GPA and project final exam requirements with our advanced grade calculator. Track academic performance using weighted categories and custom scales.",
+  title: "Grade Calculator – Weighted Grade & Final Exam Predictor",
+  description:
+    "Calculate your weighted grade from assignments, quizzes, and exams. Enter grades as a number or a letter, find what you need on the final, and share the result with a link.",
   keywords: [
     "grade calculator",
     "weighted grade calculator",
     "final grade calculator",
+    "what grade do I need on my final",
     "class grade tracker",
-    "advanced academic calculator",
-    "semester grade projector",
-    "college course grade calculator",
-    "high school grade tool",
+    "semester grade calculator",
+    "college grade calculator",
   ],
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/education/grade-calculator",
@@ -54,23 +28,37 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Advanced Grade Calculator | Track & Project Your Grades | LizoCalc",
-    description: "Take control of your academic success. Use our advanced tool to calculate weighted averages and find out exactly what you need on your final exam.",
+    title: "Grade Calculator – Weighted Grade & Final Exam Predictor",
+    description:
+      "Enter assignment grades and weights to get your current grade instantly, then find the score you need on remaining work.",
     url: "https://www.lizocalc.com/calculators/education/grade-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Advanced Grade Calculator | Professional Academic Tools",
-    description: "Project your final grades and manage weighted course categories with LizoCalc's professional-grade academic calculator.",
+    title: "Grade Calculator – Weighted Grade & Final Exam Predictor",
+    description:
+      "Free weighted grade calculator. Get your current grade and the score you need on what's left.",
   },
 };
-// ─────────────────────────────────────────────
 
-const jsonLd = {
+const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
     {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb",
@@ -85,36 +73,75 @@ const jsonLd = {
       "@type": "WebPage",
       "@id": "https://www.lizocalc.com/calculators/education/grade-calculator",
       url: "https://www.lizocalc.com/calculators/education/grade-calculator",
-      name: "Grade Calculator | Weighted & Final Grade Predictor | LizoCalc",
-      description: "Estimate your semester GPA and project final exam requirements with our advanced grade calculator. Track academic performance using weighted categories and custom scales.",
+      name: "Grade Calculator – Weighted Grade & Final Exam Predictor | LizoCalc",
+      description:
+        "Calculate a weighted course grade from assignments and exams, and find the score needed on remaining work to hit a target grade.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-20",
+      dateModified: "2026-09-10",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/education/grade-calculator#app",
+      name: "Grade Calculator",
+      url: "https://www.lizocalc.com/calculators/education/grade-calculator",
+      description:
+        "Free weighted grade calculator that accepts numeric or letter grades and predicts the score needed on remaining work.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Grade Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate weighted grade from assignments, quizzes, and exams",
+        "Accepts grades as a number or a letter",
+        "Final exam score predictor",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
     },
   ],
 };
 
+const tocItems = [
+  { id: "what-it-calculates", label: "What This Calculates" },
+  { id: "weighted-grade-formula", label: "The Weighted Grade Formula" },
+  { id: "how-to-use", label: "Entering Grades and Weights" },
+  { id: "worked-example", label: "A Worked Example" },
+  { id: "final-exam-predictor", label: "Final Exam Predictor" },
+  { id: "points-vs-percentage", label: "Points vs Percentage Grading" },
+  { id: "zero-impact", label: "How a Zero Affects Your Grade" },
+  { id: "common-mistakes", label: "Common Calculation Mistakes" },
+];
+
 export default function GradePage() {
   return (
     <main className="min-h-screen bg-background">
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
 
       <script
-      id="structured-data-grade-calculator"
+        id="structured-data-grade-calculator"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Grade Calculator: Track Your Class Standing and Final Exam Goals
-            </h1>
-          </div>
-          <ShareBar/>
+          <h1 className="text-3xl md:text-4xl font-bold">
+            Grade Calculator
+          </h1>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Work out your current weighted grade, and what you need on
+            what's left to hit a target.
+          </p>
+          <ShareBar />
         </div>
       </section>
 
@@ -125,256 +152,284 @@ export default function GradePage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Grade Calculator</strong> (also known as current grade tracker, final exam predictor, or weighted grade calculator) is an indispensable tool for students  — especially those in condition preparing for Matric, FSc, A-Levels, or university semesters. Whether you're anxiously checking your current standing after midterms, forecasting what you need on finals to secure an A, or planning how much weight each assignment category carries, knowing your exact grade at any moment removes stress and helps you study smarter. In competitive academic environments like Punjab boards, university merit lists, and scholarship applications, even 0.5–1% can make the difference between first division and second, or qualifying for UET/NUST/LUMS.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          This calculator takes your assignment grades and their weights and
+          gives you a single current grade, weighted the way your
+          instructor actually weights the course. Add a target grade and
+          the weight of what's left, and it also tells you the score you
+          need on the remaining work. Grades can be entered as a number or
+          a letter, so you don't need to convert a B+ to 87 in your head
+          before typing it in.
         </p>
 
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          Our completely free, no-registration-required <strong>LizoCalc Grade Calculator</strong> lets you:
-          <br />• Instantly see your current grade as you enter assignments
-          <br />• Use weighted categories (exams 50%, quizzes 20%, assignments 30%, etc.)
-          <br />• Predict final exam scores needed to reach any target grade
-          <br />• Handle both points-based and percentage-based grading
-          <br />• Support complex syllabi with multiple categories
-          <br />The tool is mobile-optimized, works offline after first load, saves your course data locally via functional cookies (with your consent), updates in real-time, and contains zero ads. Perfect for intermediate students in Sahiwal, university undergraduates, tuition-going kids, and parents tracking progress. Try it now on our{" "}
-          <Link
-            href="/calculators/education/grade-calculator"
-            className="text-blue-400 underline hover:text-blue-300 font-semibold"
-          >
-            Grade Calculator page
-          </Link>.
-        </p>
-
-        <section className="mt-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate Your Current Grade Instantly
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
           </h2>
-
-          <div className="mt-8 space-y-10">
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Step-by-Step: Adding Your Assignments and Categories
-              </h3>
-              <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-                <li>Create categories matching your syllabus (Exams, Quizzes, Assignments, Projects, Attendance)</li>
-                <li>Enter weight percentage for each category (must total 100%)</li>
-                <li>Add individual scores: assignment name, points earned / total points or percentage</li>
-                <li>Watch your current grade update live as you type</li>
-              </ol>
-            </div>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-12 mb-5">
-            The Weighted Average Formula
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Your overall grade is the sum of each category's contribution:
-          </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Current Grade (%) = (Category1 Score × Category1 Weight) + (Category2 Score × Category2 Weight) + ...
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            How to Input Points-Based vs. Percentage-Based Grades
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            The tool supports both systems:
-          </p>
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base ml-5">
-            <li><strong>Points-based</strong>: Enter earned / total (e.g., 42 / 50) → auto-converts to %</li>
-            <li><strong>Percentage-based</strong>: Directly enter 85% for a quiz</li>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
+        </nav>
 
-          <h4 className="text-xl font-bold text-blue-300 mt-8 mb-3">
-            Example: Calculating a grade with 60% Exams and 40% Homework
-          </h4>
-          <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 text-sm space-y-3 font-mono text-green-300">
-            <div>Exams (60% weight): 78% average so far</div>
-            <div>Homework (40% weight): 92% average</div>
-            <div className="pt-4 border-t border-gray-600">
-              Exam contribution = 78 * 0.60 = 46.8%<br />
-              Homework contribution = 92 * 0.40 = 36.8%<br />
-              Current Grade = <strong>46.8 + 36.8 = 83.6%</strong>
+        {/* What this calculates */}
+        <section id="what-it-calculates" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            What This Calculates
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Most courses don't grade everything equally. A final exam
+            might be worth 30% of your grade while a homework set is worth
+            2%. Averaging your raw scores ignores that difference and gives
+            you a number that doesn't match what's on your transcript.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            This tool multiplies each grade by its weight instead, so a
+            30%-weighted exam actually moves your grade 15 times more than
+            a 2%-weighted homework set. That's the same math your school
+            uses to post your official grade.
+          </p>
+        </section>
+
+        {/* Formula */}
+        <section id="weighted-grade-formula" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            The Weighted Grade Formula
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            For each assignment, multiply the grade by its weight. Add
+            those up, then divide by the total weight of everything you've
+            entered.
+          </p>
+          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-4 overflow-x-auto">
+            Current Grade = Σ (Grade × Weight) ÷ Σ Weight
+          </div>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Dividing by the total weight entered, not by 100, is what keeps
+            the number accurate before the course is finished. If you've
+            only been graded on 50% of the course so far, your current
+            grade should reflect that 50%, not get diluted by the other
+            half that hasn't happened yet.
+          </p>
+        </section>
+
+        {/* How to use */}
+        <section id="how-to-use" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Entering Grades and Weights
+          </h2>
+          <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700 mb-6">
+            <ol className="list-decimal list-inside text-gray-200 space-y-3 text-base">
+              <li>Add a row for each graded item: assignments, quizzes, exams, projects.</li>
+              <li>Type the grade as a number (90) or a letter (B+). Both work in the same field.</li>
+              <li>Enter that item's weight as a percentage of the total course grade.</li>
+              <li>The assignment name is optional. It's there so you can keep track of which row is which.</li>
+              <li>Press Calculate to see your current grade.</li>
+            </ol>
+          </div>
+          <p className="text-gray-200 leading-relaxed text-base">
+            The Final Grade Planning fields below the assignment list are
+            optional. Leave them blank if you only want your current grade.
+            Fill in a goal and the weight of what's left to also see the
+            score you need on it.
+          </p>
+        </section>
+
+        {/* Worked example */}
+        <section id="worked-example" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            A Worked Example
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Say exams are worth 60% of the grade so far and homework is
+            worth 40%. Your exam average is 78%, your homework average is
+            92%.
+          </p>
+          <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 text-sm space-y-2 font-mono text-green-300 mb-4">
+            <div>Exams: 78 × 60 = 4,680</div>
+            <div>Homework: 92 × 40 = 3,680</div>
+            <div className="pt-3 border-t border-gray-600">
+              Total = 4,680 + 3,680 = 8,360<br />
+              Total weight = 60 + 40 = 100<br />
+              Current grade = 8,360 ÷ 100 = <strong>83.6%</strong>
+            </div>
+          </div>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Now say the final exam is still ahead, worth 30% of the total
+            course grade, and your goal is an 85% overall. The 60/40 split
+            above only accounted for 70% of the course, so plug 30 into
+            "weight of remaining work" and 85 into the goal field to see
+            what you'd need on that final.
+          </p>
+        </section>
+
+        {/* Final exam predictor */}
+        <section id="final-exam-predictor" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Final Exam Predictor
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The required score comes from your goal, your current grade,
+            and how much weight is left:
+          </p>
+          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
+            Required % = (Goal − Locked-in contribution) ÷ (Remaining weight ÷ 100)
+          </div>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Example: your grade is 72% going into finals, the final is
+            worth 35%, and your goal is 85% overall.
+          </p>
+          <div className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 text-sm space-y-2 font-mono text-green-300">
+            <div>Locked-in contribution = 72 × 0.65 = 46.8</div>
+            <div>Required = (85 − 46.8) ÷ 0.35 = 109.14%</div>
+          </div>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            A required score over 100% means that specific goal isn't
+            reachable on the final alone. That's useful to know before
+            finals week, not during it: either the goal needs adjusting, or
+            the gap needs closing somewhere else, like extra credit if your
+            instructor offers it.
+          </p>
+        </section>
+
+        {/* Points vs percentage */}
+        <section id="points-vs-percentage" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Points vs Percentage Grading
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Some courses grade on raw points: total points earned divided
+            by total points possible, no separate weight assigned to
+            categories. Others grade on weighted percentages, where a
+            "Projects" category is worth a fixed 25% of the grade no matter
+            how many individual points it contains.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            If your course uses raw points, convert each item to a
+            percentage first (42 out of 50 is 84%) and give every item
+            equal weight. If it's weighted by category, use the actual
+            weight from your syllabus for each item.
+          </p>
+        </section>
+
+        {/* Zero impact */}
+        <section id="zero-impact" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How a Zero Affects Your Grade
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            A missed assignment scored as 0 pulls harder on your average
+            than most people expect, because it still carries its full
+            weight. Four scores of 100% and one 0%, all weighted equally,
+            average to 80%, not the 95%+ four good scores alone would
+            suggest.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Recovering from a zero takes more than one strong score to
+            offset. Enter it as 0 in the calculator to see exactly how much
+            it's costing you, and what the remaining assignments would need
+            to look like to recover.
+          </p>
+        </section>
+
+        {/* Common mistakes */}
+        <section id="common-mistakes" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Common Calculation Mistakes
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-3">
+                Averaging scores instead of weighting them
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Adding up raw percentages and dividing by the count only
+                works if every item has equal weight. A 40%-weighted final
+                and a 2%-weighted quiz are not equal.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-3">
+                Weights that don't add up to 100%
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                If entered assignments plus remaining work don't total
+                100%, the required-score projection will be off. Check your
+                syllabus weights against what you've entered.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-3">
+                Treating "current grade" as the final grade
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Your current grade only reflects work that's been graded so
+                far. It will move, sometimes a lot, once the remaining
+                weight is filled in with actual scores.
+              </p>
+            </div>
+
+            <div className="bg-gray-800/40 p-6 rounded-xl border border-gray-700">
+              <h3 className="text-lg font-semibold text-white mb-3">
+                Forgetting a course's grade-replacement rules
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed">
+                Some instructors drop your lowest score or let a final exam
+                replace a weak midterm. If your syllabus has a rule like
+                that, leave the dropped item out of the calculator rather
+                than entering it as a zero.
+              </p>
             </div>
           </div>
         </section>
 
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Final Grade Predictor: What Score Do You Need on the Final?
+        <section className="mt-4 mb-16">
+          <h2 className="text-2xl font-bold text-blue-500 mb-4">
+            Related calculators
           </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Using the "What If" Feature to Project Your Semester Result
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed">
-            Enter your current grade and the weight of the final exam → input different final scores to see your projected semester grade instantly.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Calculating the Minimum Final Exam Grade to Pass
-          </h3>
-          <p className="text-gray-200 text-base">
-            Set your target (e.g., 70% to pass or 85% for A) — the tool tells you exactly what you need on finals.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Understanding the Final Exam Weight Impact on Your Total Grade
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            A 30% final exam has massive leverage. If you're currently at 65% and finals are 30%, you still have room to reach 80% overall.
-          </p>
-
-          <h4 className="text-xl font-bold text-blue-300 mt-6 mb-3">
-            The "Final Exam Panic" Formula
-          </h4>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            Required Final % = (Goal - (Current * (1 - w))) / w<br /><br />
-            Where:<br />
-            • Goal = desired final grade (%)<br />
-            • Current = current grade before final (%)<br />
-            • w = final exam weight (decimal, e.g. 0.35 for 35%)<br /><br />
-            Example:<br />
-            Goal = 85%, Current = 72%, w = 0.35<br />
-            Required = (85 - (72 * 0.65)) / 0.35<br />
-            = (85 - 46.8) / 0.35<br />
-            = 38.2 / 0.35<br />
-            = <strong>109.14%</strong> (impossible → adjust goal or accept lower grade)
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Advanced Features for Professional Academic Tracking
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Dynamic Category Creation for Complex Course Syllabi
-          </h3>
-          <p className="text-gray-200 text-base">
-            Add as many categories as your syllabus requires (e.g., Midterm 25%, Final 40%, Labs 15%, Quizzes 10%, Attendance 10%).
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Real-Time Grade Updates with Instant Calculation Logic
-          </h3>
-          <p className="text-gray-200 text-base">
-            Change any score or weight — your current grade and final projections update immediately.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Save Your Data: Privacy-First Persistence with Functional Cookies
-          </h3>
-          <p className="text-gray-200 text-base">
-            Your course setup, assignments, and scores are saved locally in your browser — continue tomorrow without re-entering.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-8 mb-5">
-            Mobile-Optimized Interface for Fast Updates During Class
-          </h3>
-          <p className="text-gray-200 text-base">
-            Large input fields, quick-add buttons, and instant feedback — perfect for entering quiz scores right after class on your phone.
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Understanding Different Grading Scales and Systems
-          </h2>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Standard 4.0 GPA Scale vs. Percentage Grading
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Many Pakistani intermediate boards still use raw percentages, while universities often convert to 4.0 GPA. Our tool shows both views.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            How Plus/Minus Grading Affects Your Cumulative Standing
-          </h3>
-          <p className="text-gray-200 text-base">
-            A- (3.7) vs A (4.0) makes a big difference in CGPA over multiple courses — especially in credit-heavy subjects.
-          </p>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            The Difference Between Weighted and Unweighted Gradebooks
-          </h3>
-          <p className="text-gray-200 text-base">
-            Unweighted treats all courses equally. Weighted gives extra points for honors/AP/advanced classes — common in A-Levels and some top colleges.
-          </p>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Common Grading Scenarios & Calculations 
-          </h2>
-
-          <div className="overflow-x-auto mt-8 mb-12">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Scenario</th>
-                  <th className="p-4 text-left font-semibold">Current %</th>
-                  <th className="p-4 text-left font-semibold">Final Weight</th>
-                  <th className="p-4 text-left font-semibold">Target Grade</th>
-                  <th className="p-4 text-left font-semibold">Required on Final</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4">FSc Midterm Check</td>
-                  <td className="p-4">68%</td>
-                  <td className="p-4">40%</td>
-                  <td className="p-4">75% (Pass + margin)</td>
-                  <td className="p-4 font-bold text-green-400">86.25%</td>
-                </tr>
-                <tr>
-                  <td className="p-4">University Semester</td>
-                  <td className="p-4">82%</td>
-                  <td className="p-4">30%</td>
-                  <td className="p-4">90% (A grade)</td>
-                  <td className="p-4 font-bold text-green-400">106% → impossible, aim 88%</td>
-                </tr>
-                <tr>
-                  <td className="p-4">Heavy Final Weight</td>
-                  <td className="p-4">55%</td>
-                  <td className="p-4">50%</td>
-                  <td className="p-4">70% to pass</td>
-                  <td className="p-4 font-bold text-green-400">85%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Academic & Time Tools to Explore
-          </h2>
-
-          <p className="text-gray-200 text-base mb-6">
-            Combine grade tracking with these free LizoCalc companions:
-          </p>
-
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
             <li>
               <Link href="/calculators/education/gpa-calculator" className="text-blue-400 underline hover:text-blue-300">
                 GPA Calculator
-              </Link> — convert grades to 4.0 scale & track CGPA
+              </Link>{" "}
+              — convert course grades to a 4.0-scale semester GPA
             </li>
             <li>
-              <Link href="/calculators/time/time-calculator" className="text-blue-400 underline hover:text-blue-300">
-                Time Calculator
-              </Link> — convert study hours to decimal for productivity logs
+              <Link href="/calculators/education/cgpa-calculator" className="text-blue-400 underline hover:text-blue-300">
+                CGPA Calculator
+              </Link>{" "}
+              — combine semester GPAs into a cumulative GPA
             </li>
           </ul>
-
-          <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-           LizoCalc Grade Calculator gives you crystal-clear insight, final-exam predictions, and stress-free planning so you can focus on learning instead of worrying. Bookmark it today — your academic edge starts here!
-          </p>
+        </section>
+  <section className="px-4 mt-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Education Calculators"
+            links={[
+              { label: "CGPA Calculator", href: "/calculators/education/cgpa-calculator" },
+              { label: "Final Grade Calculator", href: "/calculators/education/final-grade-calculator" },
+              { label: "Percentage Calculator", href: "/calculators/math/percentage-calculator" },
+            ]}
+            seeAllHref="/calculators/education"
+          />
         </section>
       </article>
-      <FAQ items={faqData} />
 
       <Footer />
     </main>
