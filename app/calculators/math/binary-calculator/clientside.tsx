@@ -47,6 +47,7 @@ export default function BinaryCalculator() {
   // Share link
   const [shareUrl, setShareUrl] = useState("");
   const [linkCopied, setLinkCopied] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   // Converter States
   const [binaryInput, setBinaryInput] = useState("");
@@ -166,6 +167,17 @@ export default function BinaryCalculator() {
     }
   }, [shareUrl]);
 
+  // --- 4B. SCROLL RESULTS INTO VIEW AFTER CALCULATE, MOBILE/TABLET ONLY ---
+  useEffect(() => {
+    if (!showResults || !results) return;
+    const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+    if (isMobileOrTablet && resultsRef.current) {
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [results, showResults]);
+
   // --- 5. HANDLERS ---
   const handleCalculate = () => {
     setTrigger((prev) => prev + 1);
@@ -282,7 +294,7 @@ export default function BinaryCalculator() {
           </div>
 
           {/* RESULTS PANEL */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-8 space-y-6" ref={resultsRef}>
             {showResults && results && !("error" in results) ? (
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                 <div className="bg-blue-600 text-white rounded-[3rem] p-10 shadow-xl relative overflow-hidden group">

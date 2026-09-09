@@ -79,6 +79,7 @@ export default function FractionCalculator() {
   // Share link
   const [shareUrl, setShareUrl] = useState("");
   const [linkCopied, setLinkCopied] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const calculatorInfo = {
     name: "Fraction Calculator",
@@ -247,6 +248,17 @@ export default function FractionCalculator() {
     }
   }, [shareUrl]);
 
+  // --- 4B. SCROLL RESULTS INTO VIEW AFTER CALCULATE, MOBILE/TABLET ONLY ---
+  useEffect(() => {
+    if (!showResults || !results) return;
+    const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+    if (isMobileOrTablet && resultsRef.current) {
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [results, showResults]);
+
   // --- 5. HANDLERS ---
   const handleCalculate = () => {
     setTrigger((prev) => prev + 1);
@@ -379,7 +391,7 @@ export default function FractionCalculator() {
           </div>
 
           {/* RIGHT PANEL: RESULTS */}
-          <div className="lg:col-span-8 space-y-6">
+          <div className="lg:col-span-8 space-y-6" ref={resultsRef}>
             {showResults && results && !("error" in results) ? (
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-300 space-y-6">
                 <div className="bg-card border rounded-xl p-8 text-center shadow-sm relative overflow-hidden">

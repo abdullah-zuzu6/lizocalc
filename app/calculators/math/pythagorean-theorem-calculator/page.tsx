@@ -1,511 +1,539 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
 import Script from "next/script";
-
-import PythagoreanCalculator from "./clientside";
 import Link from "next/link";
+import PythagoreanCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
-const faqData = [
-  {
-    question: "What is the formula used in a Pythagorean theorem calculator?",
-    answer: "A Pythagorean theorem calculator uses the formula $a^2 + b^2 = c^2$. In this equation, 'a' and 'b' represent the two shorter sides (legs) that meet at a 90-degree angle, while 'c' represents the hypotenuse, which is the longest side opposite the right angle.",
-  },
-  {
-    question: "How do I calculate the hypotenuse of a right triangle?",
-    answer: "To find the hypotenuse (c), follow these three steps: 1. Square both legs ($a^2$ and $b^2$). 2. Add those two squares together. 3. Take the square root of the sum. For example, if the legs are 3 and 4, the calculation is $\\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$.",
-  },
-  {
-    question: "Can I use the Pythagorean theorem on any triangle?",
-    answer: "No, the Pythagorean theorem only works for right-angled triangles (triangles with one 180°/2 = 90° angle). If you try to apply it to acute or obtuse triangles, the results will be mathematically incorrect. For non-right triangles, you would typically use the Law of Cosines instead.",
-  },
-  {
-    question: "How do I find a missing leg (a or b) if I know the hypotenuse?",
-    answer: "If you have the hypotenuse (c) and one leg (a), you rearrange the formula to $b = \\sqrt{c^2 - a^2}$. You subtract the square of the known leg from the square of the hypotenuse, then find the square root of the remainder to determine the missing side's length.",
-  },
-  {
-    question: "What are some common 'Pythagorean Triples' to remember?",
-    answer: "Pythagorean Triples are sets of three whole numbers that perfectly fit the formula without decimals. The most common ones used in school and construction are (3, 4, 5), (5, 12, 13), (8, 15, 17), and (7, 24, 25). These are great for quickly verifying if a corner is perfectly 'square'.",
-  },
-  {
-    question: "What are the real-world applications of a Pythagorean theorem calculator?",
-    answer: "This calculation is essential in various fields. Architects and builders use it to ensure corners are square; painters use it to determine the ladder length needed to reach a certain height; and navigation experts use it to find the shortest 'as-the-crow-flies' distance between two points on a map.",
-  },
-];
-export const metadata: Metadata = {
-  title: "Pythagorean Theorem Calculator | Solve Right Triangles",
-  description:
-    "Calculate the hypotenuse, base, or perpendicular side of a right triangle instantly using our Pythagorean Theorem calculator with step-by-step steps.",
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
+export const metadata: Metadata = {
+  title: "Pythagorean Theorem Calculator",
+  description:
+    "Solve for the hypotenuse or a missing leg of any right triangle. See the 4-step working, the triangle's area, and share the result with one link.",
   keywords: [
     "pythagorean theorem calculator",
     "hypotenuse calculator",
     "right triangle solver",
-    "calculate triangle sides",
     "a2 b2 c2 calculator",
+    "pythagorean triples",
     "triangle area calculator",
-    "right angle triangle sides",
-    "geometry side finder",
+    "converse of the pythagorean theorem",
   ],
-
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
   },
-
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
-
   openGraph: {
-    title: "Pythagorean Theorem Calculator | LizoCalc",
+    title: "Pythagorean Theorem Calculator",
     description:
-      "Free Pythagorean calculator to solve triangle sides with an easy-to-use interface and formulas.",
+      "Solve for the hypotenuse or a missing leg of a right triangle, with a full 4-step breakdown and a shareable result link.",
     url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "Pythagorean Theorem Calculator | LizoCalc",
+    title: "Pythagorean Theorem Calculator",
     description:
-      "Solve for a, b, or c in any right-angled triangle with our free Pythagorean Theorem calculator.",
+      "Find a missing triangle side instantly, with the working shown step by step.",
   },
 };
+
+const tocItems = [
+  { id: "what-it-says", label: "What the Pythagorean Theorem Says" },
+  { id: "the-formula", label: "The Pythagorean Theorem Formula" },
+  { id: "how-to-use", label: "How to Use the Pythagorean Theorem Calculator" },
+  { id: "solving-hypotenuse", label: "Solving for the Hypotenuse (Side C)" },
+  { id: "solving-leg", label: "Solving for a Missing Leg (Side A or B)" },
+  { id: "triangle-area", label: "Finding the Triangle's Area" },
+  { id: "proof", label: "Why the Theorem Is True: A Quick Proof" },
+  { id: "pythagorean-triples", label: "Pythagorean Triples Worth Memorizing" },
+  { id: "converse", label: "The Converse: Checking If a Triangle Is Right-Angled" },
+  { id: "real-world-uses", label: "Real-World Uses of the Pythagorean Theorem" },
+  { id: "common-mistakes", label: "Common Mistakes to Avoid" },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Math", item: "https://www.lizocalc.com/calculators/math" },
+        { "@type": "ListItem", position: 4, name: "Pythagorean Theorem Calculator", item: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+      url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+      name: "Pythagorean Theorem Calculator",
+      description:
+        "Solve for the hypotenuse or a missing leg of a right triangle, with the working shown step by step.",
+      inLanguage: "en",
+      datePublished: "2025-06-01",
+      dateModified: "2026-09-09",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#app",
+      name: "Pythagorean Theorem Calculator",
+      url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
+      description:
+        "Solves a² + b² = c² for any missing side of a right triangle, shows the 4-step working and the triangle's area, and generates a shareable result link.",
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Solve for the hypotenuse (c)",
+        "Solve for either leg (a or b)",
+        "4-step mathematical breakdown",
+        "Triangle area calculation",
+        "Shareable result link",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+      potentialAction: {
+        "@type": "UseAction",
+        target: ["https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator"],
+      },
+    },
+  ],
+};
+
+/** Textbook-style stacked fraction: numerator over denominator, separated by a rule. */
+function Frac({ n, d }: { n: React.ReactNode; d: React.ReactNode }) {
+  return (
+    <span className="inline-flex flex-col items-center align-middle mx-1.5 leading-none text-sm">
+      <span className="px-1 pb-1">{n}</span>
+      <span className="px-1 pt-1 border-t-2 border-current">{d}</span>
+    </span>
+  );
+}
+
+/** A single formula row, laid out left-to-right so terms and exponents sit inline. */
+function FormulaLine({ children }: { children: React.ReactNode }) {
+  return <div className="flex items-center flex-wrap gap-1">{children}</div>;
+}
+
+/** Dark code-style box holding one or more FormulaLine rows, stacked vertically. */
+function FormulaBlock({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm space-y-3">
+      {children}
+    </div>
+  );
+}
 
 export default function PythagoreanPage() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
 
-      {/* === STRUCTURED DATA === */}
       <Script
-        id="structured-data"
+        id="structured-data-pythagorean-calculator"
         type="application/ld+json"
         strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Math",
-                    item: "https://www.lizocalc.com/calculators/math",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Pythagorean Theorem Calculator",
-                    item: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
-                  },
-                ],
-              },
-              {
-                "@type": "WebPage",
-                "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
-                url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
-                name: "Pythagorean Theorem Calculator",
-                description: "Estimate the missing sides of a right triangle instantly with our Pythagorean Theorem calculator.",
-                "inLanguage": "en",
-                "isPartOf": {
-                  "@type": "WebSite",
-                  "name": "LizoCalc",
-                  "url": "https://www.lizocalc.com"
-                },
-                "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#app" }
-              },
-              {
-                "@type": "SoftwareApplication",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator#app",
-                name: "Pythagorean Theorem Calculator",
-                url: "https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator",
-                description:
-                  "Online math tool to solve for the hypotenuse, base, or perpendicular using the Pythagorean Theorem.",
-                applicationCategory: "MathApplication",
-                applicationSubCategory: "Geometry Calculator",
-                operatingSystem: "Any",
-                inLanguage: "en",
-                browserRequirements:
-                  "Requires JavaScript. Works on modern browsers.",
-                featureList: [
-                  "Solve for Hypotenuse (c)",
-                  "Solve for Perpendicular (a)",
-                  "Solve for Base (b)",
-                  "Step-by-step calculation steps",
-                  "Triangle area calculation",
-                ],
-                offers: {
-                  "@type": "Offer",
-                  price: "0",
-                  priceCurrency: "USD",
-                },
-                creator: {
-                  "@type": "Organization",
-                  name: "LizoCalc",
-                  url: "https://www.lizocalc.com",
-                },
-                "potentialAction": {
-    "@type": "UseAction",
-    "target": ["https://www.lizocalc.com/calculators/math/pythagorean-theorem-calculator"]
-  }
-              },
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: {
-                    "@type": "Answer",
-                    text: item.answer,
-                  },
-                })),
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3">
-            
-            <h1 className="text-3xl md:text-4xl font-bold">
-              Pythagorean Theorem Calculator -Solve Right Triangles Instantly
-            </h1>
-          </div>
-          <ShareBar/>
+          <h1 className="text-3xl md:text-4xl font-bold">Pythagorean theorem calculator</h1>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Enter any 2 sides of a right triangle to solve the third. See the 4-step working, the
+            triangle's area, and share the finished result with one link.
+          </p>
+          <ShareBar />
         </div>
       </section>
 
-      {/* Calculator Tool */}
       <section className="px-4 py-8">
         <PythagoreanCalculator />
       </section>
 
-      {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-        <p className="text-gray-200 leading-relaxed mb-6 text-lg">
-          The <strong>Pythagorean Theorem</strong> — also known as the Pythagoras theorem — is one of the most powerful and widely used principles in geometry. Whether you're a student  preparing for your Class 8–10 board exams, a parent helping with right-triangle homework, a carpenter checking corners on a construction site in Punjab, or an engineer verifying squareness on a real-world project, this simple formula <span className="font-mono text-green-300">a² + b² = c²</span> saves hours of manual calculation.
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          The Pythagorean theorem is one equation, a² + b² = c², but it answers a surprising
+          number of practical questions once you know how to point it. Below, each way of using it
+          is worked out by hand, along with a short proof of why the equation holds at all.
         </p>
 
-        <p className="text-gray-200 leading-relaxed mb-8 text-lg">
-          Our completely free, no-registration-required{" "}
-          <strong>Pythagorean Theorem Calculator</strong> (also called the hypotenuse calculator or right-triangle solver) instantly finds the missing side and the area of any right-angled triangle. Just enter any two sides (or leave one field empty), click Calculate, and get the exact result with step-by-step working, highlighted formulas, and the triangle area — all displayed in big, clean numbers. The tool is fully mobile-friendly, works offline after first load, remembers your last inputs (with consent), handles decimal values perfectly, and never shows ads. Perfect for homework checks, exam revision, carpentry, construction, or quick field measurements. Jump right in and try it now on our{" "}
-          <Link
-            href="/calculators/math/pythagorean-theorem-calculator"
-            className="text-blue-400 hover:underline font-semibold"
-          >
-            Pythagorean Theorem Calculator page
-          </Link>
-          .
-        </p>
+        <nav aria-label="Table of contents" className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16">
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">Table Of Contents</h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a href={`#${item.id}`} className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base">
+                  <span aria-hidden="true">-&gt;</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-        <section className="mt-16">
+        {/* WHAT IT SAYS */}
+        <section id="what-it-says" className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Use the Pythagorean Theorem Solver
+            What the Pythagorean Theorem Says
           </h2>
-
-          <div className="mt-8 space-y-10">
-            {/* Finding the Hypotenuse */}
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Finding the Hypotenuse (Side C)
-              </h3>
-              <p className="text-gray-200 leading-relaxed text-base mb-4">
-                When you know the two legs (base <span className="font-mono">a</span> and perpendicular <span className="font-mono">b</span>), the calculator instantly solves for the longest side — the hypotenuse <span className="font-mono">c</span>.
-              </p>
-              <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-center text-xl mb-4">
-                c = √(a² + b²)
-              </div>
-              <p className="text-gray-200 text-base">
-                Example: a = 3, b = 4 → c = √(9 + 16) = √25 = <strong>5</strong> (classic 3-4-5 triangle).
-              </p>
-            </div>
-
-            {/* Calculating Base or Perpendicular */}
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Calculating the Base or Perpendicular (Side A or B)
-              </h3>
-              <p className="text-gray-200 leading-relaxed text-base mb-4">
-                Know the hypotenuse <span className="font-mono">c</span> and one leg? The solver finds the missing leg using rearrangement of the formula.
-              </p>
-              <div className="bg-gray-900/70 p-5 rounded-xl font-mono text-green-300 text-center text-xl mb-4">
-                a = √(c² − b²)&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;b = √(c² − a²)
-              </div>
-              <p className="text-gray-200 text-base">
-                Example: c = 13, b = 5 → a = √(169 − 25) = √144 = <strong>12</strong> (5-12-13 triple).
-              </p>
-            </div>
-
-            {/* Step-by-Step Guide */}
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-                Step-by-Step Guide to Entering Your Parameters
-              </h3>
-              <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base leading-relaxed">
-                <li>Enter any two known sides in the input fields (you can use decimals or whole numbers).</li>
-                <li>Leave the third side (the unknown) completely blank — the calculator will solve for it automatically.</li>
-                <li>Click the big <strong>Calculate</strong> button.</li>
-                <li>Instantly see the missing side displayed in large bold text plus the exact area of the triangle.</li>
-                <li>Scroll down for the detailed step-by-step working with formulas highlighted.</li>
-                <li>Need another calculation? Hit <strong>Reset</strong> — everything clears instantly.</li>
-              </ol>
-              <p className="text-gray-300 italic mt-6 text-base leading-relaxed">
-                Pro tip: The tool automatically detects which side is missing, validates that the hypotenuse is the longest side, and gives friendly error messages if your numbers don’t form a valid right triangle.
-              </p>
-            </div>
-
-            {/* Why leave Unknown empty */}
-            <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 shadow-sm">
-              <h4 className="text-xl font-bold text-blue-300 mb-3">
-                Why you should leave the "Unknown" field empty
-              </h4>
-              <p className="text-gray-200 text-base">
-                The calculator is smart — it only needs two values to solve for the third. Leaving the unknown field blank tells the tool exactly which side to calculate. If you accidentally fill all three fields, it will verify whether they satisfy <span className="font-mono text-green-300">a² + b² = c²</span> and show a green “Valid Right Triangle” message or a red warning.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            The Mathematics Behind $a^2 + b^2 = c^2$
-          </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-10">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Understanding the Geometry of Right-Angled Triangles
-            </h3>
-            <p className="text-gray-200 text-base leading-relaxed">
-              In any right-angled triangle, the two shorter sides (legs) are called the base (<span className="font-mono">a</span>) and perpendicular (<span className="font-mono">b</span>). The longest side, opposite the 90° angle, is the hypotenuse (<span className="font-mono">c</span>). The theorem states that the square of the hypotenuse equals the sum of the squares of the other two sides.
-            </p>
-            <div className="font-mono text-3xl text-green-300 text-center my-8">
-              a² + b² = c²
-            </div>
-          </div>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-10">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Detailed Breakdown of the Calculation Steps
-            </h3>
-            <ol className="list-decimal list-inside text-gray-200 space-y-4 text-base">
-              <li>Identify which side is missing.</li>
-              <li>Square the two known sides.</li>
-              <li>Add (or subtract) the squares depending on whether you are finding the hypotenuse or a leg.</li>
-              <li>Take the square root of the result.</li>
-            </ol>
-          </div>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700">
-            <h4 className="text-xl font-bold text-blue-300 mb-3">
-              Squaring the sides and extracting the square root
-            </h4>
-            <p className="text-gray-200 text-base mb-4">
-              Example calculation (finding hypotenuse):
-            </p>
-            <div className="font-mono text-green-300 bg-gray-900/70 p-5 rounded-xl leading-relaxed text-sm">
-              a = 6, b = 8<br />
-              a² = 36<br />
-              b² = 64<br />
-              a² + b² = 100<br />
-              c = √100 = <strong>10</strong>
-            </div>
-            <p className="text-gray-200 text-base mt-6">
-              Same steps work in reverse when finding a missing leg.
-            </p>
-          </div>
-
-          <div className="mt-12 bg-gray-800/50 p-7 rounded-2xl border border-gray-700">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              How We Calculate the Triangle Area ($0.5 \times a \times b$)
-            </h3>
-            <p className="text-gray-200 text-base mb-4">
-              Once both legs are known (or calculated), the area is simply:
-            </p>
-            <div className="font-mono text-green-300 text-2xl text-center mb-4">
-              Area = ½ × a × b
-            </div>
-            <p className="text-gray-200 text-base">
-              Example: legs 6 cm and 8 cm → Area = ½ × 6 × 8 = <strong>24 cm²</strong>. The calculator shows this automatically with every result.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Common Applications &amp; Pythagorean Triples
-          </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-10">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              What are Pythagorean Triples? (3, 4, 5 and beyond)
-            </h3>
-            <p className="text-gray-200 text-base mb-6">
-              A Pythagorean triple is any set of three positive integers (a, b, c) that perfectly satisfy a² + b² = c². These are extremely useful for quick mental checks on construction sites.
-            </p>
-            <div className="overflow-x-auto">
-              <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-                <thead>
-                  <tr className="bg-blue-900/70">
-                    <th className="p-4 text-left font-semibold">Triple</th>
-                    <th className="p-4 text-left font-semibold">a</th>
-                    <th className="p-4 text-left font-semibold">b</th>
-                    <th className="p-4 text-left font-semibold">c</th>
-                    <th className="p-4 text-left font-semibold">Common Use</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                  <tr>
-                    <td className="p-4 font-bold">3-4-5</td>
-                    <td className="p-4">3</td>
-                    <td className="p-4">4</td>
-                    <td className="p-4">5</td>
-                    <td className="p-4">Smallest &amp; most famous</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-bold">5-12-13</td>
-                    <td className="p-4">5</td>
-                    <td className="p-4">12</td>
-                    <td className="p-4">13</td>
-                    <td className="p-4">Roof framing</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-bold">6-8-10</td>
-                    <td className="p-4">6</td>
-                    <td className="p-4">8</td>
-                    <td className="p-4">10</td>
-                    <td className="p-4">Scaled 3-4-5 (multiply by 2)</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-bold">7-24-25</td>
-                    <td className="p-4">7</td>
-                    <td className="p-4">24</td>
-                    <td className="p-4">25</td>
-                    <td className="p-4">Larger construction checks</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-bold">8-15-17</td>
-                    <td className="p-4">8</td>
-                    <td className="p-4">15</td>
-                    <td className="p-4">17</td>
-                    <td className="p-4">Common in Pakistan building projects</td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-bold">9-12-15</td>
-                    <td className="p-4">9</td>
-                    <td className="p-4">12</td>
-                    <td className="p-4">15</td>
-                    <td className="p-4">Scaled 3-4-5 (multiply by 3)</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-10">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Using the Calculator for Construction and Carpentry
-            </h3>
-            <p className="text-gray-200 text-base">
-              Carpenters in Sahiwal and across Punjab use the 3-4-5 rule every day: measure 3 units along one wall, 4 units along the adjacent wall — if the diagonal is exactly 5 units, the corner is perfectly 90°. Our calculator instantly scales these for any size project (multiply by 10 → 30-40-50, etc.).
-            </p>
-          </div>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Determining "Squareness" in Real-World Projects
-            </h3>
-            <p className="text-gray-200 text-base">
-              To check if a rectangular frame or room is square, measure both diagonals. They must be equal. If you know length and width, enter them as a and b — the calculator gives the exact diagonal length you should measure on site.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Troubleshooting Common Calculation Errors
-          </h2>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Why the Hypotenuse Must Always Be the Longest Side
-            </h3>
-            <p className="text-gray-200 text-base">
-              In a right-angled triangle, the hypotenuse is always opposite the 90° angle and therefore longer than either leg. Mathematically: c = √(a² + b²) &gt; a and &gt; b. If your entered “hypotenuse” is shorter than a leg, the calculator shows a red error: “Hypotenuse must be the longest side”.
-            </p>
-          </div>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700 mb-8">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              Solving the "Hypotenuse must be longer than Side B" Error
-            </h3>
-            <p className="text-gray-200 text-base">
-              This error appears when you accidentally label a leg as the hypotenuse or enter numbers that violate the triangle inequality. Fix: swap the values so the longest side is in the hypotenuse field, or leave the longest field blank and let the calculator calculate it.
-            </p>
-          </div>
-
-          <div className="bg-gray-800/50 p-7 rounded-2xl border border-gray-700">
-            <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-              What to do if your triangle doesn't have a 90-degree angle
-            </h3>
-            <p className="text-gray-200 text-base">
-              Our tool is built exclusively for right-angled triangles. If a² + b² ≠ c² (within a tiny rounding tolerance), it will display “Not a valid right triangle”. In that case, you need the Law of Cosines calculator (available in our advanced geometry tools) or you must physically measure the angle to confirm it is exactly 90°.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Math Tools to Explore
-          </h2>
-
-          <p className="text-gray-200 text-base mb-6">
-            Pair your Pythagorean practice with these other free, fast calculators from our collection:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            A right triangle has one 90° angle. The 2 shorter sides that meet at that angle are
+            called legs, usually labeled a and b. The side opposite the right angle, always the
+            longest of the 3, is the hypotenuse, labeled c.
           </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            The theorem states that if you build a square on each of the 3 sides, the area of the
+            square on the hypotenuse exactly equals the combined area of the squares on the 2 legs.
+            Written as an equation instead of areas, that's a² + b² = c², and it holds for every
+            right triangle that exists, regardless of size.
+          </p>
+        </section>
 
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            
+        {/* THE FORMULA */}
+        <section id="the-formula" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            The Pythagorean Theorem Formula
+          </h2>
+          <FormulaBlock>
+            <FormulaLine><span>a² + b² = c²</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 mb-4 text-base">
+            a and b are the legs, in either order, since addition doesn't care which one you call
+            which. c is always the hypotenuse. Rearranged to solve for each variable:
+          </p>
+          <FormulaBlock>
+            <FormulaLine><span>c = √(a² + b²)</span></FormulaLine>
+            <FormulaLine><span>a = √(c² − b²)</span></FormulaLine>
+            <FormulaLine><span>b = √(c² − a²)</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            Notice the pattern: solving for the hypotenuse adds the 2 known squares, while solving
+            for a leg subtracts. Mixing those up, adding when you should subtract, is the single
+            most common arithmetic slip with this formula.
+          </p>
+        </section>
+
+        {/* HOW TO USE */}
+        <section id="how-to-use" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            How to Use the Pythagorean Theorem Calculator
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Each side has 2 boxes: a plain number and a number under a √ symbol. A side's value is
+            whatever you put in the first box plus the square root of whatever you put in the
+            second, so 2 in the first box and 5 in the second means that side equals 2 + √5. Most
+            of the time you'll only need the first box; the √ box exists for sides that are
+            genuinely irrational, like the diagonal of a non-square rectangle, where typing a
+            rounded decimal would lose precision.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Fill in both boxes for any 2 of the 3 sides, decimals are fine in either box, and
+            leave both boxes on the third side completely empty. That empty pair is what tells the
+            calculator which side to solve for.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Press Calculate Result. The solved side appears in large type on the left, the
+            triangle's area appears on the right, and a Mathematical Breakdown panel underneath
+            walks through all 4 steps of the arithmetic, from the raw equation down to the final
+            square root.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            A Share This Result panel appears once a result is showing. The link it generates
+            encodes the 2 known sides, so anyone who opens it lands on the exact same calculation
+            already solved.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Filling in all 3 fields, or leaving 2 or more blank, returns a message asking you to
+            leave exactly one field empty. If the value you entered as the hypotenuse is shorter
+            than a leg, the calculator flags that too, since the hypotenuse is always the longest
+            side in a right triangle.
+          </p>
+        </section>
+
+        {/* SOLVING FOR HYPOTENUSE */}
+        <section id="solving-hypotenuse" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Solving for the Hypotenuse (Side C)
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Known: both legs. Square each one, add the squares, then take the square root of the
+            sum.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-3 text-base">Example: a = 6, b = 8.</p>
+          <FormulaBlock>
+            <FormulaLine><span>c = √(6² + 8²)</span></FormulaLine>
+            <FormulaLine><span>c = √(36 + 64)</span></FormulaLine>
+            <FormulaLine><span>c = √100</span></FormulaLine>
+            <FormulaLine><span>c = 10</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            6, 8, 10 is exactly the 3-4-5 triple doubled, which is why the numbers come out this
+            clean; most real-world measurements won't land on a whole number, and that's expected.
+          </p>
+        </section>
+
+        {/* SOLVING FOR A LEG */}
+        <section id="solving-leg" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Solving for a Missing Leg (Side A or B)
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Known: the hypotenuse and 1 leg. Square both, subtract the leg's square from the
+            hypotenuse's square, then take the square root of what's left.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-3 text-base">Example: c = 13, b = 5.</p>
+          <FormulaBlock>
+            <FormulaLine><span>a = √(13² − 5²)</span></FormulaLine>
+            <FormulaLine><span>a = √(169 − 25)</span></FormulaLine>
+            <FormulaLine><span>a = √144</span></FormulaLine>
+            <FormulaLine><span>a = 12</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            The subtraction only works in this order, hypotenuse squared minus leg squared, since
+            c is always the largest of the 3 values. Subtracting the other way produces a negative
+            number under the square root, which has no real solution.
+          </p>
+        </section>
+
+        {/* TRIANGLE AREA */}
+        <section id="triangle-area" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Finding the Triangle's Area
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Once both legs are known, either given directly or solved above, the area follows the
+            standard triangle formula, simplified because the 2 legs of a right triangle are
+            already perpendicular to each other:
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>Area =</span>
+              <Frac n="1" d="2" />
+              <span>× a × b</span>
+            </FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mb-3 mt-6 text-base">
+            Example: legs 9 and 12.
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>Area =</span>
+              <Frac n="1" d="2" />
+              <span>× 9 × 12 = 54</span>
+            </FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            9, 12, 15 is a 3-4-5 triple scaled by 3, and the calculator's area figure always uses
+            the actual leg values, whether you typed them in directly or they came from solving the
+            hypotenuse or a leg first.
+          </p>
+        </section>
+
+        {/* PROOF */}
+        <section id="proof" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Why the Theorem Is True: A Quick Proof
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            One of the shortest proofs uses rearrangement instead of algebra tricks. Take 4 copies
+            of the same right triangle, legs a and b, hypotenuse c, and arrange them inside a big
+            square with side length (a + b), each triangle tucked into a corner, hypotenuses facing
+            inward. The empty space left in the middle is itself a smaller square, with side length
+            c.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The big square's area can be measured 2 different ways: directly, as (a + b)², or as
+            the sum of its pieces, the 4 triangles plus the small central square. Since both
+            descriptions measure the same area, they must be equal:
+          </p>
+          <FormulaBlock>
+            <FormulaLine><span>(a + b)² = 4 ×</span><Frac n="1" d="2" /><span>ab + c²</span></FormulaLine>
+            <FormulaLine><span>a² + 2ab + b² = 2ab + c²</span></FormulaLine>
+            <FormulaLine><span>a² + b² = c²</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            The 2ab term cancels from both sides, leaving exactly the Pythagorean theorem. This
+            particular argument dates back at least to ancient Chinese mathematics and doesn't
+            require anything beyond expanding a squared binomial.
+          </p>
+        </section>
+
+        {/* TRIPLES */}
+        <section id="pythagorean-triples" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Pythagorean Triples Worth Memorizing
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            A Pythagorean triple is a set of 3 whole numbers that satisfies a² + b² = c² exactly,
+            with no rounding. Recognizing them saves time, since any multiple of a known triple is
+            also a triple, 3-4-5 scaled by 2 is 6-8-10, scaled by 3 is 9-12-15, and so on.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
+              <thead>
+                <tr className="bg-blue-900/70">
+                  <th className="p-4 text-left">Triple</th>
+                  <th className="p-4 text-left">a</th>
+                  <th className="p-4 text-left">b</th>
+                  <th className="p-4 text-left">c</th>
+                  <th className="p-4 text-left">Notes</th>
+                </tr>
+              </thead>
+              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
+                <tr><td className="p-4 font-bold">3-4-5</td><td className="p-4">3</td><td className="p-4">4</td><td className="p-4">5</td><td className="p-4">Smallest and most recognizable triple</td></tr>
+                <tr><td className="p-4 font-bold">5-12-13</td><td className="p-4">5</td><td className="p-4">12</td><td className="p-4">13</td><td className="p-4">Second smallest "primitive" triple</td></tr>
+                <tr><td className="p-4 font-bold">8-15-17</td><td className="p-4">8</td><td className="p-4">15</td><td className="p-4">17</td><td className="p-4">Primitive; not a multiple of a smaller triple</td></tr>
+                <tr><td className="p-4 font-bold">7-24-25</td><td className="p-4">7</td><td className="p-4">24</td><td className="p-4">25</td><td className="p-4">Primitive; hypotenuse is 1 more than a leg</td></tr>
+                <tr><td className="p-4 font-bold">6-8-10</td><td className="p-4">6</td><td className="p-4">8</td><td className="p-4">10</td><td className="p-4">3-4-5 scaled ×2</td></tr>
+                <tr><td className="p-4 font-bold">9-12-15</td><td className="p-4">9</td><td className="p-4">12</td><td className="p-4">15</td><td className="p-4">3-4-5 scaled ×3</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            A triple is called "primitive" when a, b, and c share no common factor, meaning it
+            isn't just a scaled-up version of a smaller triple. 5-12-13, 8-15-17, and 7-24-25 are
+            all primitive; 6-8-10 and 9-12-15 are not, since both reduce back to 3-4-5.
+          </p>
+        </section>
+
+        {/* CONVERSE */}
+        <section id="converse" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            The Converse: Checking If a Triangle Is Right-Angled
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The theorem also runs in reverse. If you already have all 3 side lengths of a triangle
+            and want to know whether it contains a right angle, check whether the 2 shorter sides
+            squared and added equal the longest side squared. If they do, the triangle is
+            guaranteed to be right-angled, no protractor required.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-3 text-base">
+            Example: does a triangle with sides 8, 15, 17 have a right angle?
+          </p>
+          <FormulaBlock>
+            <FormulaLine><span>8² + 15² = 64 + 225 = 289</span></FormulaLine>
+            <FormulaLine><span>17² = 289</span></FormulaLine>
+            <FormulaLine><span>289 = 289 → right triangle, confirmed</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 mb-3 text-base">
+            Compare that to a triangle with sides 5, 6, 7:
+          </p>
+          <FormulaBlock>
+            <FormulaLine><span>5² + 6² = 25 + 36 = 61</span></FormulaLine>
+            <FormulaLine><span>7² = 49</span></FormulaLine>
+            <FormulaLine><span>61 ≠ 49 → not a right triangle</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            When the sum of the smaller squares comes out larger than the largest square, like it
+            did here, the triangle is obtuse instead. When it comes out smaller, the triangle is
+            acute. That comparison is a quick way to classify any triangle once you know its 3
+            sides.
+          </p>
+        </section>
+
+        {/* REAL WORLD USES */}
+        <section id="real-world-uses" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Real-World Uses of the Pythagorean Theorem
+          </h2>
+          <h3 className="text-xl font-semibold text-blue-300 mb-3">Squaring a corner in construction</h3>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Builders check that a corner is exactly 90° by measuring 3 units along one wall and 4
+            along the adjacent wall; the diagonal between those 2 marks should be exactly 5 units
+            if the corner is square. Any multiple of 3-4-5 works the same way at larger scale, 30
+            feet, 40 feet, and a 50-foot diagonal, for example.
+          </p>
+          <h3 className="text-xl font-semibold text-blue-300 mb-3">Screen and display sizing</h3>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            A monitor or TV's advertised size is the diagonal measurement, which is the hypotenuse
+            of a right triangle formed by the screen's width and height. A 16:9 screen that's 12
+            inches wide by 6.75 inches tall has a diagonal of √(12² + 6.75²) ≈ 13.8 inches.
+          </p>
+          <h3 className="text-xl font-semibold text-blue-300 mb-3">Straight-line distance between 2 points</h3>
+          <p className="text-gray-200 leading-relaxed text-base">
+            The distance formula used in navigation, mapping, and coordinate geometry, d = √((x₂ −
+            x₁)² + (y₂ − y₁)²), is the Pythagorean theorem applied to the horizontal and vertical
+            gap between 2 points, treating that gap as the 2 legs of a right triangle and the
+            straight-line distance as the hypotenuse.
+          </p>
+        </section>
+
+        {/* COMMON MISTAKES */}
+        <section id="common-mistakes" className="scroll-mt-24 mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Common Mistakes to Avoid
+          </h2>
+          <ul className="text-gray-200 space-y-3 text-base list-disc list-inside">
             <li>
-              <Link
-                href="/calculators/math/percentage-calculator"
-                className="text-blue-400 hover:underline"
-              >
-                Percentage Calculator
-              </Link>{" "}
-              — useful when scaling construction measurements
+              Applying the formula to a triangle that isn't right-angled. a² + b² = c² only holds
+              when one angle is exactly 90°; for any other triangle, use the Law of Cosines
+              instead.
+            </li>
+            <li>
+              Mislabeling the hypotenuse. c always sits opposite the right angle and is always the
+              longest side; labeling a leg as c produces a negative number under the square root
+              when solving for a missing leg.
+            </li>
+            <li>
+              Stopping at the squared value. c² = 100 is not the same as c = 100; the final step,
+              taking the square root, is easy to forget under time pressure.
+            </li>
+            <li>
+              Adding instead of subtracting, or the reverse. Solving for the hypotenuse adds the 2
+              known squares; solving for a leg subtracts the known leg's square from the
+              hypotenuse's square. Swapping these gives a plausible-looking but wrong answer.
             </li>
           </ul>
+        </section>
 
-          <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Master the Pythagorean theorem with our fast, accurate, completely free calculator — always ready for homework, exams, or your next construction project  or anywhere else. Bookmark it today and make geometry calculations effortless!
-          </p>
+        <section className="px-4 mb-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Math Calculators"
+            links={[
+              { label: "Triangle Calculator", href: "/calculators/math/triangle-calculator" },
+              { label: "Percentage Calculator", href: "/calculators/math/percentage-calculator" },
+              { label: "Scientific Calculator", href: "/calculators/math/scientific-calculator" },
+              { label: "GCF Calculator", href: "/calculators/math/gcf-calculator" },
+            ]}
+            seeAllHref="/calculators/math"
+          />
         </section>
       </article>
-
-      <FAQ items={faqData} />
 
       <Footer />
     </main>

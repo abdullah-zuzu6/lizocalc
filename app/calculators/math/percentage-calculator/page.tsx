@@ -1,85 +1,164 @@
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
-import FAQ from "@/components/FAQ";
 import Script from "next/script";
 import Link from "next/link";
 import PercentageCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
-const faqData = [
-  {
-    question: "What is the simplest formula to calculate a percentage of a number?",
-    answer:
-      "The easiest way to find a percentage is to multiply the total number by the percentage and then divide by 100. For example, to find 15% of 200: (15 × 200) / 100 = 3000 / 100 = 30. This formula is the foundation for calculating discounts, taxes, and tips.",
-  },
-  {
-    question: "How do I calculate a percentage increase between two values?",
-    answer:
-      "To find the percentage increase, subtract the old value from the new value, divide that result by the old value, and multiply by 100. Formula: ((New - Old) / Old) * 100. For instance, if a price goes from $80 to $100, the increase is ((100 - 80) / 80) * 100 = 25%.",
-  },
-  {
-    question: "What is the difference between percentage change and percentage difference?",
-    answer:
-      "Percentage change is used when comparing the same item over time (Old vs. New), while percentage difference is used to compare two different items of the same kind. Difference uses the average of the two numbers as the denominator: (|V1 - V2| / ((V1 + V2) / 2)) * 100.",
-  },
-  {
-    question: "How do I calculate what percentage one number is of another?",
-    answer:
-      "To find the percentage ratio, divide the 'part' by the 'whole' and multiply by 100. If you want to know what percent 20 is of 50, the calculation is (20 / 50) * 100 = 40%. This is highly useful for grading, market share analysis, and budget tracking.",
-  },
-  {
-    question: "Can you explain how to calculate a 20% tip without a calculator?",
-    answer:
-      "Yes! A quick mental trick is to find 10% first by moving the decimal one place to the left, then double that amount. For a $64.00 bill, 10% is $6.40. Doubling $6.40 gives you $12.80, which is exactly 20%. Our online tool does this instantly for any specific percentage.",
-  },
-  {
-    question: "How do I convert a fraction into a percentage percentage?",
-    answer:
-      "To convert any fraction to a percentage, divide the numerator (top) by the denominator (bottom) to get a decimal, then multiply by 100. For example, 3/4 becomes 0.75, and 0.75 * 100 = 75%. This is the same logic our calculator uses to simplify complex ratios for you.",
-  },
-];
 export const metadata: Metadata = {
-  title: "Percentage Calculator: Fast % Increase & Difference Solver",
+  title: "Percentage Calculator",
   description:
-    "Free online percentage calculator. Instantly find the percentage of a number, calculate percentage change, difference, and phrases with step-by-step steps.",
-  
+    "Solve the percent equation for any missing value, compare two numbers with percentage difference, or work out a percent increase or decrease from any two of the three numbers.",
   keywords: [
     "percentage calculator",
-    "calculate percentage increase",
+    "percent calculator",
     "percentage difference calculator",
-    "percent off calculator",
-    "find percentage of a number",
-    "percentage change formula",
-    "online math percentage tool",
-    "calculate tip percentage",
+    "percentage change calculator",
+    "percent increase calculator",
+    "percent decrease calculator",
   ],
-
   alternates: {
     canonical: "https://www.lizocalc.com/calculators/math/percentage-calculator",
   },
-
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
-
   openGraph: {
-    title: "Percentage Calculator | LizoCalc",
+    title: "Percentage Calculator",
     description:
-      "Easily calculate percentages for math, business, and daily tasks with our all-in-one percentage tool.",
+      "Solve for any missing value in the percent equation, compare two numbers, or find a percent increase or decrease from any two of the three numbers involved.",
     url: "https://www.lizocalc.com/calculators/math/percentage-calculator",
     siteName: "LizoCalc",
     type: "website",
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "Percentage Calculator | Fast % Change & Difference",
+    title: "Percentage Calculator",
     description:
-      "Instantly calculate percentage increase, decrease, and differences with our free, easy-to-use math tool.",
+      "Solve for percent, base, or result, compare two numbers, or find a percent increase or decrease from any two known values.",
   },
 };
+
+const tocItems = [
+  { id: "what-percent-means", label: "What A Percent Actually Is" },
+  { id: "the-percent-equation", label: "The Percent Equation" },
+  { id: "solving-for-unknowns", label: "Solving For Each Unknown" },
+  { id: "difference-vs-change", label: "Percentage Difference vs. Percentage Change" },
+  { id: "solving-change", label: "Solving Percentage Change For Any Unknown" },
+  { id: "why-recovery-is-asymmetric", label: "Why A 50% Drop Needs A 100% Gain" },
+  { id: "reference-table", label: "Quick-Reference Percent Table" },
+  { id: "common-mistakes", label: "Common Mistakes With Percentages" },
+];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#breadcrumb",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Math", item: "https://www.lizocalc.com/calculators/math" },
+        { "@type": "ListItem", position: 4, name: "Percentage Calculator", item: "https://www.lizocalc.com/calculators/math/percentage-calculator" },
+      ],
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator",
+      url: "https://www.lizocalc.com/calculators/math/percentage-calculator",
+      name: "Percentage Calculator",
+      description:
+        "Solve the percent equation for any missing value, compare two numbers with percentage difference, or find a percent increase or decrease from any two known values.",
+      inLanguage: "en",
+      datePublished: "2025-06-01",
+      dateModified: "2026-09-09",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#app",
+      name: "Percentage Calculator",
+      url: "https://www.lizocalc.com/calculators/math/percentage-calculator",
+      description:
+        "Solves the percent equation for any of its three variables, compares two numbers with percentage difference, and solves percentage change for old value, new value, or percent.",
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Solve for percent, base number, or result",
+        "Percentage difference between two numbers",
+        "Percentage change — solve for old value, new value, or percent",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
+      potentialAction: {
+        "@type": "UseAction",
+        target: ["https://www.lizocalc.com/calculators/math/percentage-calculator"],
+      },
+    },
+  ],
+};
+
+/** Textbook-style stacked fraction: numerator over denominator, separated by a rule. */
+function Frac({
+  n,
+  d,
+  size = "text-sm",
+}: {
+  n: React.ReactNode;
+  d: React.ReactNode;
+  size?: string;
+}) {
+  return (
+    <span className={`inline-flex flex-col items-center align-middle mx-1 leading-none ${size}`}>
+      <span className="px-1 pb-0.5">{n}</span>
+      <span className="px-1 pt-0.5 border-t border-current">{d}</span>
+    </span>
+  );
+}
+
+/** A single formula row, laid out left-to-right so fractions can sit inline. */
+function FormulaLine({ children }: { children: React.ReactNode }) {
+  return <div className="flex items-center flex-wrap gap-1">{children}</div>;
+}
+
+/** Dark code-style box holding one or more FormulaLine rows, stacked vertically. */
+function FormulaBlock({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="bg-gray-900 p-5 rounded-lg overflow-x-auto text-green-300 font-mono text-sm space-y-3">
+      {children}
+    </div>
+  );
+}
 
 export default function PercentagePage() {
   return (
@@ -87,100 +166,20 @@ export default function PercentagePage() {
       <Navbar />
 
       <Script
-        id="structured-data"
+        id="structured-data-percentage-calculator"
         type="application/ld+json"
         strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@graph": [
-              {
-                "@type": "BreadcrumbList",
-                "@id":
-                  "https://www.lizocalc.com/calculators/math/percentage-calculator#breadcrumb",
-                itemListElement: [
-                  {
-                    "@type": "ListItem",
-                    position: 1,
-                    name: "Home",
-                    item: "https://www.lizocalc.com",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 2,
-                    name: "Calculators",
-                    item: "https://www.lizocalc.com/calculators",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 3,
-                    name: "Math",
-                    item: "https://www.lizocalc.com/calculators/math",
-                  },
-                  {
-                    "@type": "ListItem",
-                    position: 4,
-                    name: "Percentage Calculator",
-                    item: "https://www.lizocalc.com/calculators/math/percentage-calculator",
-                  },
-                ],
-              },
-             {
-  "@type": "WebPage",
-  "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator",
-  "url": "https://www.lizocalc.com/calculators/math/percentage-calculator",
-  "name": "Advanced Percentage Calculator",
-  "description": "Calculate percentage increases, decreases, differences, and basic percentage values with our fast and accurate math tool.",
-  "inLanguage": "en",
-  "isPartOf": { "@type": "WebSite", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
-  "mainEntityOfPage": { "@type": "SoftwareApplication", "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#app" }
-},
-{
-  "@type": "SoftwareApplication",
-  "@id": "https://www.lizocalc.com/calculators/math/percentage-calculator#app",
-  "name": "Advanced Percentage Calculator",
-  "url": "https://www.lizocalc.com/calculators/math/percentage-calculator",
-  "description": "Comprehensive percentage tool to calculate change, value, and ratios.",
-  "applicationCategory": "EducationalApplication",
-  "applicationSubCategory": "Math Calculator",
-  "operatingSystem": "Any",
-  "inLanguage": "en",
-  "browserRequirements": "Requires JavaScript. Works on modern browsers.",
-  "featureList": [
-    "Calculate percentage of a number",
-    "Find percentage increase or decrease",
-    "Calculate percentage difference",
-    "Instant results as you type"
-  ],
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "creator": { "@type": "Organization", "name": "LizoCalc", "url": "https://www.lizocalc.com" },
-  "potentialAction": {
-    "@type": "UseAction",
-    "target": ["https://www.lizocalc.com/calculators/math/percentage-calculator"]
-  }
-},
-              {
-                "@type": "FAQPage",
-                mainEntity: faqData.map((item) => ({
-                  "@type": "Question",
-                  name: item.question,
-                  acceptedAnswer: { "@type": "Answer", text: item.answer },
-                })),
-              },
-            ],
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center gap-3">
-          
-            <h1 className="text-3xl md:text-4xl font-bold">
-               Percentage Calculator: Fast & Accurate Percent Solutions           
-                </h1>
-          </div>
-          <ShareBar/>
+          <h1 className="text-3xl md:text-4xl font-bold">Percentage calculator</h1>
+          <p className="mt-2 text-sm md:text-base text-muted-foreground max-w-2xl">
+            Solve the percent equation for whichever value you're missing, compare two numbers, or
+            find a percent increase or decrease from any two of the three numbers involved.
+          </p>
+          <ShareBar />
         </div>
       </section>
 
@@ -188,215 +187,343 @@ export default function PercentagePage() {
         <PercentageCalculator />
       </section>
 
-    <article className="max-w-6xl mx-auto px-6 py-16 prose prose-blue prose-lg lg:prose-xl">
-
-  <p>
-    Percentages are a crucial part of everyday life, used in finance, shopping, academics, and personal budgeting. From calculating discounts to determining interest rates or splitting bills, understanding percentages simplifies decision-making. Our <strong>Percentage Calculator</strong> is designed to help you perform all percentage calculations instantly and accurately, saving time and avoiding errors. Whether you are a student, professional, or managing household finances, this tool is an essential resource.
-  </p>
-
-  {/* H2: Core Features & Calculation Modes */}
-  <section className="mt-16">
-    <h2 className="text-3xl font-bold text-blue-500 mb-6">
-      Core Features & Calculation Modes
-    </h2>
-
-    <p>
-      Our online <strong>percentage calculator</strong> provides multiple calculation modes to meet all your needs. It is fast, reliable, and suitable for both simple and advanced percentage problems.
-    </p>
-
-    <ul className="list-disc list-inside text-gray-200 space-y-3">
-      <li>
-        <strong>Calculate Percentage of a Number Instantly:</strong> Quickly determine what $X$% of a given number $Y$.
-      </li>
-      <li>
-        <strong>Find Percentage Phrases and Ratios:</strong> Solve problems like "$X$ is what percent of $Y$?" with ease.
-      </li>
-      <li>
-        <strong>Percentage Difference Between Two Values:</strong> Compare two values and see their relative difference in percent.
-      </li>
-      <li>
-        <strong>Percentage Increase and Decrease:</strong> Determine how much a value has increased or decreased in percentage terms.
-      </li>
-      <li>
-        <strong>Integration with Other Math Tools:</strong> If your calculation involves fractions, decimals, or advanced math, try our{" "}
-        <Link
-          href="/calculators/math/fraction-calculator"
-          className="text-blue-400 hover:underline font-semibold"
-        >
-          Fraction Calculator
-        </Link>{" "}
-        or{" "}
-        <Link
-          href="/calculators/math/scientific-calculator"
-          className="text-blue-400 hover:underline font-semibold"
-        >
-          Scientific Calculator
-        </Link>
-        .
-      </li>
-    </ul>
-  </section>
-
-  {/* H2: Deep-Dive Subsections & Search Intent */}
-  <section className="mt-16">
-    <h2 className="text-3xl font-bold text-blue-500 mb-6">
-      Deep-Dive Subsections & Real-Life Applications
-    </h2>
-
-    <p>
-      Percentages are not only academic—they appear in almost every area of life. Below are the most common types of percentage calculations, formulas, and real-world examples.
-    </p>
-
-    <h3 className="text-2xl font-semibold text-blue-400 mt-8">
-      What is $X$ percent of $Y$? (Basic Percentage Calculation)
-    </h3>
-    <p>
-      The basic percentage calculation determines a part of a number. Use the formula:
-    </p>
-    <div className="bg-gray-900 p-5 rounded-lg text-green-300 font-mono mb-4">
-      (X / 100) × Y
-    </div>
-    <p>
-      Example: 20% of 150 = (20 / 100) × 150 = 30. You can quickly calculate this using our <strong>Percentage Calculator</strong>.
-    </p>
-
-    <h3 className="text-2xl font-semibold text-blue-400 mt-8">
-      $X$ is what percent of $Y$? (Finding the Percentage Ratio)
-    </h3>
-    <p>
-      To find what percent one number is of another:
-    </p>
-    <div className="bg-gray-900 p-5 rounded-lg text-green-300 font-mono mb-4">
-      (X / Y) × 100
-    </div>
-    <p>
-      Example: 45 out of 60 = (45 / 60) × 100 = 75%. This is useful for grades, survey results, or financial analysis.
-    </p>
-
-    <h3 className="text-2xl font-semibold text-blue-400 mt-8">
-      Percentage Difference Between Two Values
-    </h3>
-    <p>
-      Shows how much two numbers differ relative to their average. Formula:
-    </p>
-    <div className="bg-gray-900 p-5 rounded-lg text-green-300 font-mono mb-4">
-      ((Value2 − Value1) / ((Value1 + Value2) / 2)) × 100
-    </div>
-    <p>
-      Example: 50 vs 70 → ((70 − 50) / ((50 + 70) / 2)) × 100 = 33.33%. This is commonly used in finance, sales, and data analysis.
-    </p>
-
-    <h3 className="text-2xl font-semibold text-blue-400 mt-8">
-      Calculating Percentage Change: Old vs. New Values
-    </h3>
-    <p>
-      Percentage change tracks increases or decreases over time. Formula:
-    </p>
-    <div className="bg-gray-900 p-5 rounded-lg text-green-300 font-mono mb-4">
-      ((New − Old) / Old) × 100
-    </div>
-    <p>
-      Example: Price rises from $80 to $100 → ((100 − 80) / 80) × 100 = 25%. Percentage increase or decrease is vital in budgeting and financial planning.
-    </p>
-
-    <h3 className="text-2xl font-semibold text-blue-400 mt-8">
-      Using Percentages in Real Life: Discounts and Tips
-    </h3>
-    <p>
-      Percentages are everywhere: sales discounts, taxes, and restaurant tips. For example, a 15% discount on a $200 item = $30 off. You can calculate tips using our <Link
-          href="/calculators/math/percentage-calculator"
-          className="text-blue-400 hover:underline font-semibold"
-        >
-          Percentage Calculator
-        </Link> instantly.
-    </p>
-
-    <h3 className="text-2xl font-semibold text-blue-400 mt-8">
-      Comparison Table: Common Percentage Calculations
-    </h3>
-    <div className="overflow-x-auto mt-4 rounded-lg shadow-sm">
-  <table className="table-auto w-full min-w-[600px] text-left text-gray-200 bg-gray-800 rounded-lg">
-    <thead>
-      <tr>
-        <th className="px-4 py-2 border-b border-gray-700">Calculation Type</th>
-        <th className="px-4 py-2 border-b border-gray-700">Formula</th>
-        <th className="px-4 py-2 border-b border-gray-700">Example</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td className="px-4 py-2 border-b border-gray-700">Percentage of a Number</td>
-        <td className="px-4 py-2 border-b border-gray-700">(X / 100) × Y</td>
-        <td className="px-4 py-2 border-b border-gray-700">20% of 150 = 30</td>
-      </tr>
-      <tr>
-        <td className="px-4 py-2 border-b border-gray-700">Percentage Ratio</td>
-        <td className="px-4 py-2 border-b border-gray-700">(X / Y) × 100</td>
-        <td className="px-4 py-2 border-b border-gray-700">45 of 60 = 75%</td>
-      </tr>
-      <tr>
-        <td className="px-4 py-2 border-b border-gray-700">Percentage Difference</td>
-        <td className="px-4 py-2 border-b border-gray-700">((V2 − V1) / ((V1+V2)/2)) ×100</td>
-        <td className="px-4 py-2 border-b border-gray-700">50 vs 70 = 33.33%</td>
-      </tr>
-      <tr>
-        <td className="px-4 py-2 border-b border-gray-700">Percentage Change</td>
-        <td className="px-4 py-2 border-b border-gray-700">((New − Old)/Old) × 100</td>
-        <td className="px-4 py-2 border-b border-gray-700">80 → 100 = 25%</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-  </section>
-
-  {/* H4: FAQ & Semantic Queries */}
-  <section className="mt-16">
-    <h2 className="text-3xl font-bold text-blue-500 mb-6">FAQ & Semantic Queries</h2>
-
-    <div className="space-y-6">
-      <div>
-        <h4 className="text-2xl text-blue-400 font-semibold">
-          How do I calculate a 20% tip quickly?
-        </h4>
-        <p>
-          Multiply the total bill by 0.20. Example: $50 × 0.20 = $10 tip.
+      <article className="max-w-6xl mx-auto px-6 py-16 text-white">
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          Most percentage tools split "percent of a number," "what percent," and "percent
+          increase/decrease" into separate boxes that all do the same underlying algebra. The tool
+          above collapses the first three into one solver you point at whichever value is missing,
+          and does the same for percentage change. Below, each formula is worked out by hand so you
+          can see exactly where every number comes from.
         </p>
-      </div>
 
-      <div>
-        <h4 className="text-2xl text-blue-400 font-semibold">
-          What is the formula for percentage increase?
-        </h4>
-        <p>
-          ((New Value − Old Value) / Old Value) × 100. Useful for tracking price changes, salaries, or growth rates.
-        </p>
-      </div>
+        <nav aria-label="Table of contents" className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16">
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">Table Of Contents</h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a href={`#${item.id}`} className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base">
+                  <span aria-hidden="true">-&gt;</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-      <div>
-        <h4 className="text-2xl text-blue-400 font-semibold">
-          Can percentage difference be negative?
-        </h4>
-        <p>
-          No. Percentage difference is always positive. Only percentage change can be negative for decreases.
-        </p>
-      </div>
+        {/* WHAT A PERCENT IS */}
+        <section id="what-percent-means" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            What a percent actually is
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Percent means "per hundred." Saying 20% is just a shorthand for the fraction 20/100, or
+            0.2. Every percentage problem, no matter how it's phrased, is really a statement about
+            three numbers: a percent, a base number the percent applies to, and the result of applying
+            it.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            Once you see those three numbers, every "percent of," "what percent," and "percent
+            change" question turns out to be the same handful of algebra rearranged. That's the whole
+            idea behind the equation solver above: instead of memorizing three separate formulas,
+            you're solving one formula for three different unknowns.
+          </p>
+        </section>
 
-      <div>
-        <h4 className="text-2xl text-blue-400 font-semibold">
-          How to convert a fraction to a percentage?
-        </h4>
-        <p>
-          Multiply the fraction by 100. Example: 3/4 × 100 = 75%.
-        </p>
-      </div>
-    </div>
-  </section>
+        {/* THE PERCENT EQUATION */}
+        <section id="the-percent-equation" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            The percent equation
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-6 text-base">
+            Three letters cover every basic percentage question:
+          </p>
+          <ul className="text-gray-200 space-y-2 text-base mb-6 list-none">
+            <li><strong className="text-blue-300">P</strong> is the percent</li>
+            <li><strong className="text-blue-300">N</strong> is the base number the percent is taken of</li>
+            <li><strong className="text-blue-300">R</strong> is the result</li>
+          </ul>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>R = N ×</span>
+              <Frac n="P" d="100" />
+            </FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            That single line answers "what is P% of N," and rearranged, it answers the other two
+            common phrasings as well: "R is what percent of N" and "R is P% of what number."
+          </p>
+        </section>
 
-  {/* INTERNAL LINKS */}
- 
+        {/* SOLVING FOR EACH UNKNOWN */}
+        <section id="solving-for-unknowns" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Solving for each unknown
+          </h2>
 
-</article>
-      <FAQ items={faqData} />
+          <h3 className="text-xl font-semibold text-blue-300 mt-8 mb-3">
+            1. Finding the result: what is P% of N?
+          </h3>
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            A store discounts a $150 jacket by 20%. How much is the discount worth?
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>R = N ×</span>
+              <Frac n="P" d="100" />
+            </FormulaLine>
+            <FormulaLine>
+              <span>R = 150 ×</span>
+              <Frac n="20" d="100" />
+            </FormulaLine>
+            <FormulaLine><span>R = 150 × 0.20</span></FormulaLine>
+            <FormulaLine><span>R = $30</span></FormulaLine>
+          </FormulaBlock>
+
+          <h3 className="text-xl font-semibold text-blue-300 mt-10 mb-3">
+            2. Finding the percent: R is what % of N?
+          </h3>
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            A student answers 45 questions correctly out of 60. What percent is that?
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>P =</span>
+              <Frac n="R" d="N" />
+              <span>× 100</span>
+            </FormulaLine>
+            <FormulaLine>
+              <span>P =</span>
+              <Frac n="45" d="60" />
+              <span>× 100</span>
+            </FormulaLine>
+            <FormulaLine><span>P = 0.75 × 100</span></FormulaLine>
+            <FormulaLine><span>P = 75%</span></FormulaLine>
+          </FormulaBlock>
+
+          <h3 className="text-xl font-semibold text-blue-300 mt-10 mb-3">
+            3. Finding the base: R is P% of what number?
+          </h3>
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            A tip of $12 came out to 15% of the bill. What was the total bill?
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>N =</span>
+              <Frac n="R" d={<span>P / 100</span>} />
+            </FormulaLine>
+            <FormulaLine>
+              <span>N =</span>
+              <Frac n="12" d="0.15" />
+            </FormulaLine>
+            <FormulaLine><span>N = $80</span></FormulaLine>
+          </FormulaBlock>
+        </section>
+
+        {/* DIFFERENCE VS CHANGE */}
+        <section id="difference-vs-change" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Percentage difference vs. percentage change
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            These two get mixed up constantly, and the mix-up isn't really anyone's fault: both
+            compare two numbers and both produce a percent. The difference is what the two numbers
+            represent.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Percentage change compares an old value to a new one. It has a direction: a value went up
+            or it went down, and the old value is always the reference point. Percentage difference
+            compares two values that sit side by side with no before-and-after relationship, like two
+            competing prices. Neither number is the "starting" one, so the formula uses their average
+            as the reference instead, and the result is always positive.
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>Percentage change =</span>
+              <Frac n="new − old" d="old" />
+              <span>× 100</span>
+            </FormulaLine>
+            <div className="h-1" />
+            <FormulaLine>
+              <span>Percentage difference =</span>
+              <Frac n="|value 1 − value 2|" d="(value 1 + value 2) / 2" />
+              <span>× 100</span>
+            </FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            Run the same two numbers through both formulas and you'll get two different, equally
+            correct answers to two different questions. Going from $80 to $100 is a 25% change, since
+            $80 is the reference. But treated as two prices with no order, $80 and $100 differ by
+            about 22.2%, since the reference there is their average, $90.
+          </p>
+        </section>
+
+        {/* SOLVING CHANGE */}
+        <section id="solving-change" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Solving percentage change for any unknown
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            The change calculator above works forward or backward. Give it the old value and the
+            percent, it finds the new value. Give it the new value and the percent, it finds the old
+            value. Give it both values, it finds the percent and tells you whether that's an increase
+            or a decrease.
+          </p>
+
+          <h3 className="text-xl font-semibold text-blue-300 mt-8 mb-3">
+            Finding the new value
+          </h3>
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            A $250 laptop goes on sale for 30% off. What's the sale price?
+          </p>
+          <FormulaBlock>
+            <FormulaLine><span>new = old × (1 + signed percent / 100)</span></FormulaLine>
+            <FormulaLine><span>new = 250 × (1 − 0.30)</span></FormulaLine>
+            <FormulaLine><span>new = 250 × 0.70</span></FormulaLine>
+            <FormulaLine><span>new = $175</span></FormulaLine>
+          </FormulaBlock>
+          <p className="text-gray-200 leading-relaxed mt-4 text-base">
+            The percent is treated as negative for a decrease and positive for an increase, which is
+            what the direction dropdown in the calculator is doing behind the scenes.
+          </p>
+
+          <h3 className="text-xl font-semibold text-blue-300 mt-10 mb-3">
+            Finding the old value
+          </h3>
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            After a 12% raise, a salary is $56,000. What was it before the raise?
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>old =</span>
+              <Frac n="new" d="1 + signed percent / 100" />
+            </FormulaLine>
+            <FormulaLine>
+              <span>old =</span>
+              <Frac n="56,000" d="1.12" />
+            </FormulaLine>
+            <FormulaLine><span>old = $50,000</span></FormulaLine>
+          </FormulaBlock>
+
+          <h3 className="text-xl font-semibold text-blue-300 mt-10 mb-3">
+            Finding the percent
+          </h3>
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            A city's population went from 42,000 to 39,060. What's the percent change?
+          </p>
+          <FormulaBlock>
+            <FormulaLine>
+              <span>change =</span>
+              <Frac n="39,060 − 42,000" d="42,000" />
+              <span>× 100</span>
+            </FormulaLine>
+            <FormulaLine>
+              <span>change =</span>
+              <Frac n="−2,940" d="42,000" />
+              <span>× 100</span>
+            </FormulaLine>
+            <FormulaLine><span>change = −7%, a decrease</span></FormulaLine>
+          </FormulaBlock>
+        </section>
+
+        {/* WHY RECOVERY IS ASYMMETRIC */}
+        <section id="why-recovery-is-asymmetric" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Why a 50% drop needs a 100% gain to undo it
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            This trips people up constantly, and it's worth sitting with because it explains why
+            percentage change isn't symmetric. Start with $100. Drop it 50% and you're at $50. To get
+            back to $100 from $50, you don't need another 50%, that would only get you to $75. You
+            need $50 to double, which is a 100% increase.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The reason is the reference point moves. The 50% drop was measured against $100. The
+            recovery has to be measured against $50, a smaller base, so the same dollar amount is now
+            a bigger percentage. This is exactly why investment losses are harder to recover from than
+            they look: a 50% portfolio loss needs a 100% gain just to break even, not a matching 50%
+            gain.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            It's also why stacking two percentage changes doesn't simply add up. A 20% increase
+            followed by a 20% decrease doesn't return to the starting number, because the second 20%
+            is taken from a larger base than the first one was.
+          </p>
+        </section>
+
+        {/* REFERENCE TABLE */}
+        <section id="reference-table" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Quick-reference percent table
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-8 text-base">
+            Starting from 100, here's what a range of percent changes actually land on, next to what
+            percentage difference the same two numbers would report. The gap between the two columns
+            grows as the change gets bigger, which is the asymmetry from the last section showing up
+            in numbers.
+          </p>
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
+              <thead>
+                <tr className="bg-blue-900/70">
+                  <th className="p-4 text-left">From → To</th>
+                  <th className="p-4 text-left">Percentage change</th>
+                  <th className="p-4 text-left">Percentage difference</th>
+                </tr>
+              </thead>
+              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
+                <tr><td className="p-4">100 → 110</td><td className="p-4">+10%</td><td className="p-4">9.52%</td></tr>
+                <tr><td className="p-4">100 → 125</td><td className="p-4">+25%</td><td className="p-4">22.22%</td></tr>
+                <tr><td className="p-4">100 → 150</td><td className="p-4">+50%</td><td className="p-4">40.00%</td></tr>
+                <tr><td className="p-4">100 → 200</td><td className="p-4">+100%</td><td className="p-4">66.67%</td></tr>
+                <tr><td className="p-4">100 → 90</td><td className="p-4">−10%</td><td className="p-4">10.53%</td></tr>
+                <tr><td className="p-4">100 → 75</td><td className="p-4">−25%</td><td className="p-4">28.57%</td></tr>
+                <tr><td className="p-4">100 → 50</td><td className="p-4">−50%</td><td className="p-4">66.67%</td></tr>
+                <tr><td className="p-4">100 → 20</td><td className="p-4">−80%</td><td className="p-4">133.33%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        {/* COMMON MISTAKES */}
+        <section id="common-mistakes" className="scroll-mt-24 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Common mistakes with percentages
+          </h2>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Using percentage difference when the question is really about change is the most frequent
+            one. If there's a "before" and an "after," a start date and an end date, or an original
+            price and a sale price, that's percentage change, not difference. Difference only applies
+            when neither number is clearly the starting point.
+          </p>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Adding or subtracting percentages directly is another common slip. A shirt marked up 50%
+            and then discounted 50% is not back to its original price, because the discount is taken
+            from the marked-up price, not the original one. Work each step through the actual base
+            number rather than combining the percentages first.
+          </p>
+          <p className="text-gray-200 leading-relaxed text-base">
+            And watch the sign when the old value in a percentage-change problem is negative or zero.
+            A change from 0 has no defined percentage, since the formula divides by the old value, and
+            a negative old value can flip the sign of the result in ways that don't match the plain-
+            language "increase" or "decrease" you'd expect.
+          </p>
+        </section>
+
+        <section className="px-4 mb-16 flex justify-center">
+          <SimilarCalculators
+            title="Similar Math Calculators"
+            links={[
+              { label: "Fraction Calculator", href: "/calculators/math/fraction-calculator" },
+              { label: "Half-Life Calculator", href: "/calculators/math/half-life-calculator" },
+              { label: "Scientific Calculator", href: "/calculators/math/scientific-calculator" },
+              { label: "GCF Calculator", href: "/calculators/math/gcf-calculator" },
+            ]}
+            seeAllHref="/calculators/math"
+          />
+        </section>
+      </article>
+
       <Footer />
     </main>
   );

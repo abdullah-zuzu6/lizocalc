@@ -25,7 +25,7 @@ const NAV_ITEMS = [
   { name: 'Education',          href: '/calculators/education' },
   { name: 'Physics',            href: '/calculators/physics' },
   { name: 'Saved Calculators',  href: '/calculators/saved-calculators' },
-  { name: 'Blogs',              href: '/blogs' },
+  // { name: 'Blogs',              href: '/blogs' },
 ]
 
 export default function Navbar() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback, useRef } from "react";
 import {
   Code,
   RotateCcw,
@@ -9,7 +9,8 @@ import {
   Cpu,
   Heart,
   Copy,
-  Info
+  Check,
+  Share2,
 } from "lucide-react";
 import RelatedCalculators from "@/components/RelatedCalculators";
 import {
@@ -43,6 +44,9 @@ interface InputFieldProps {
   onChange: (v: string) => void;
 }
 
+type Operator = "+" | "-" | "*" | "/";
+const VALID_OPERATORS: Operator[] = ["+", "-", "*", "/"];
+
 export default function HexCalculator() {
   const [isMounted, setIsMounted] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
@@ -50,13 +54,18 @@ export default function HexCalculator() {
 
   const [valueA, setValueA] = useState("1A");
   const [valueB, setValueB] = useState("F2");
-  const [operator, setOperator] = useState<"+" | "-" | "*" | "/">("+");
+  const [operator, setOperator] = useState<Operator>("+");
 
   const [hexInput, setHexInput] = useState("");
   const [decimalResult, setDecimalResult] = useState<number | null>(null);
 
   const [decimalInput, setDecimalInput] = useState("");
   const [hexResult, setHexResult] = useState<string | null>(null);
+
+  // Share link
+  const [shareUrl, setShareUrl] = useState("");
+  const [linkCopied, setLinkCopied] = useState(false);
+  const resultsRef = useRef<HTMLDivElement>(null);
 
   const calculatorInfo = {
     name: "Hex Calculator",
@@ -74,19 +83,35 @@ export default function HexCalculator() {
   ];
 
   // --- Initialization ---
+  // A shared link (?a=&b=&op=) wins over saved history: the whole point of
+  // sharing a result is that whoever opens the link sees the same numbers.
   useEffect(() => {
     setIsMounted(true);
-    const history = getCalculatorHistory();
-    if (history["hex-calc"]?.data) {
-      const data = history["hex-calc"].data;
-      setValueA(data.valueA || "1A");
-      setValueB(data.valueB || "F2");
-      setOperator(data.operator || "+");
+
+    const params = new URLSearchParams(window.location.search);
+    const sharedA = params.get("a");
+    const sharedB = params.get("b");
+    const sharedOp = params.get("op") as Operator | null;
+
+    if (sharedA && sharedB && sharedOp && VALID_OPERATORS.includes(sharedOp)) {
+      setValueA(sharedA.toUpperCase());
+      setValueB(sharedB.toUpperCase());
+      setOperator(sharedOp);
       setShowResults(true);
+    } else {
+      const history = getCalculatorHistory();
+      if (history["hex-calc"]?.data) {
+        const data = history["hex-calc"].data;
+        setValueA(data.valueA || "1A");
+        setValueB(data.valueB || "F2");
+        setOperator(data.operator || "+");
+        setShowResults(true);
+      }
     }
 
     const savedTools = getSavedCalculators();
     setIsSaved(savedTools.some((tool) => tool.href === calculatorInfo.href));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Auto-Save & Sync ---
@@ -113,9 +138,9 @@ export default function HexCalculator() {
       case "+": res = numA + numB; break;
       case "-": res = numA - numB; break;
       case "*": res = numA * numB; break;
-      case "/": 
+      case "/":
         if (numB === 0) return { error: "Cannot divide by zero" };
-        res = Math.floor(numA / numB); 
+        res = Math.floor(numA / numB);
         break;
     }
 
@@ -128,6 +153,44 @@ export default function HexCalculator() {
       operation: `0x${valueA} ${operator === '*' ? '×' : operator === '/' ? '÷' : operator} 0x${valueB}`,
     };
   }, [showResults, valueA, valueB, operator]);
+
+  const resultsOk = results && !("error" in results) ? results : null;
+
+  // --- Share link ---
+  useEffect(() => {
+    if (!showResults || !resultsOk) {
+      setShareUrl("");
+      return;
+    }
+    const params = new URLSearchParams();
+    params.set("a", valueA);
+    params.set("b", valueB);
+    params.set("op", operator);
+    setShareUrl(`${window.location.origin}${window.location.pathname}?${params.toString()}`);
+  }, [showResults, resultsOk, valueA, valueB, operator]);
+
+  const handleCopyShareLink = useCallback(async () => {
+    if (!shareUrl) return;
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      // Clipboard access can fail without permission; the link is still
+      // visible in the field and can be selected and copied by hand.
+    }
+  }, [shareUrl]);
+
+  // --- Scroll results into view after Calculate, mobile/tablet only ---
+  useEffect(() => {
+    if (!showResults || !results) return;
+    const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth < 1024;
+    if (isMobileOrTablet && resultsRef.current) {
+      requestAnimationFrame(() => {
+        resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+  }, [results, showResults]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -163,7 +226,7 @@ export default function HexCalculator() {
 
         <div className="grid lg:grid-cols-12 gap-8">
           {/* RESULTS PANEL */}
-          <div className="lg:col-span-4 order-2 lg:order-1">
+          <div className="lg:col-span-4 order-2 lg:order-1" ref={resultsRef}>
             {showResults && results && !("error" in results) ? (
               <div className="space-y-4">
                 <div className="bg-primary text-white rounded-3xl p-8 shadow-lg shadow-primary/20 relative overflow-hidden group">
@@ -184,10 +247,37 @@ export default function HexCalculator() {
                   </div>
                 </div>
 
-                <div className="bg-card border rounded-3xl p-6 space-y-3">
-                  <StatRow label="Binary Representation" value={results.binary} />
-                  <StatRow label="Calculation Path" value={results.operation} />
-                </div>
+              
+                {/* SHARE RESULT */}
+                {shareUrl && (
+                  <div className="bg-card border rounded-3xl p-6 space-y-3">
+                    <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest flex items-center gap-2">
+                      <Share2 size={14} className="text-primary" />
+                      Share This Result
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      <input
+                        type="text"
+                        readOnly
+                        value={shareUrl}
+                        onFocus={(e) => e.target.select()}
+                        aria-label="Shareable link for this hex calculation"
+                        className="w-full px-4 py-3 bg-secondary rounded-xl border-2 border-transparent focus:border-primary outline-none text-xs font-medium truncate"
+                      />
+                      <button
+                        onClick={handleCopyShareLink}
+                        className={`w-full px-5 py-3 rounded-xl font-black text-xs flex items-center justify-center gap-2 transition-all ${
+                          linkCopied ? "bg-green-600 text-white" : "bg-primary text-white hover:opacity-90"
+                        }`}
+                      >
+                        {linkCopied ? (<><Check size={16} /> COPIED</>) : (<><Copy size={16} /> COPY LINK</>)}
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-muted-foreground">
+                      Anyone who opens this link sees the same two operands and the same result.
+                    </p>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="bg-secondary/20 border-2 border-dashed rounded-3xl p-12 text-center h-full flex flex-col items-center justify-center min-h-[300px]">
@@ -218,7 +308,7 @@ export default function HexCalculator() {
                 <div className="md:col-span-2">
                   <select
                     value={operator}
-                    onChange={(e) => { setOperator(e.target.value as any); setShowResults(false); }}
+                    onChange={(e) => { setOperator(e.target.value as Operator); setShowResults(false); }}
                     className="w-full p-4 bg-secondary rounded-xl text-center font-black text-xl border-2 border-transparent focus:border-primary transition-all outline-none cursor-pointer"
                   >
                     <option value="+">+</option>
@@ -248,6 +338,8 @@ export default function HexCalculator() {
                 <button
                   onClick={() => {
                     setValueA(""); setValueB(""); setOperator("+"); setShowResults(false);
+                    setShareUrl(""); setLinkCopied(false);
+                    window.history.replaceState(null, "", window.location.pathname);
                   }}
                   className="flex-1 py-4 bg-secondary text-muted-foreground rounded-2xl font-bold flex items-center justify-center gap-2 hover:text-foreground transition-all"
                 >
@@ -279,15 +371,7 @@ export default function HexCalculator() {
           />
         </div>
 
-        <div className="mt-8 p-6 bg-secondary/30 rounded-2xl border border-dashed border-muted-foreground/20">
-            <h4 className="text-sm font-black uppercase mb-2 flex items-center gap-2">
-                <Info size={14} /> Hexadecimal System
-            </h4>
-            <p className="text-xs text-muted-foreground leading-relaxed">
-                Hexadecimal is a base-16 numbering system that uses sixteen distinct symbols: **0–9** and **A–F**. It is widely used in computing because it provides a human-friendly representation of binary-coded values. Each hex digit represents four binary bits (a nibble).
-            </p>
-        </div>
-
+       
         <RelatedCalculators calculators={relatedCalculators} />
       </section>
     </main>
