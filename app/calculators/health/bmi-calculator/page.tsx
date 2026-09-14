@@ -1,71 +1,35 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import FAQ from "@/components/FAQ";
 import Link from "next/link";
 import BMICalculator from "./clientside";
-import Image from "next/image";
 import ShareBar from "@/components/Sharebar";
-
-const faqData = [
-  {
-    question: "What is a healthy BMI?",
-    answer:
-      "A healthy BMI for most adults falls between 18.5 and 24.9. This range is associated with the lowest risk of weight-related health conditions such as type 2 diabetes, heart disease, and hypertension. However, BMI is a screening tool — not a diagnosis — so always consult a doctor for a full health assessment.",
-  },
-  {
-    question: "How do I calculate BMI manually?",
-    answer:
-      "To calculate BMI manually using metric units, divide your weight in kilograms by the square of your height in meters: BMI = weight (kg) ÷ height (m)². For example, if you weigh 70 kg and are 1.75 m tall: BMI = 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = 22.86. For imperial units, the formula is: BMI = (weight in lbs × 703) ÷ height (in)².",
-  },
-  {
-    question: "Is BMI accurate?",
-    answer:
-      "BMI is a useful population-level screening tool but has well-known limitations for individuals. It does not distinguish between muscle and fat mass, so highly muscular athletes may register as 'overweight' despite having very low body fat. It also does not account for age, sex, bone density, or fat distribution. For a more complete picture, BMI should be used alongside waist circumference measurements and body fat percentage assessments.",
-  },
-  {
-    question: "What BMI is considered overweight?",
-    answer:
-      "A BMI of 25.0 to 29.9 is classified as overweight according to the World Health Organization (WHO). This range indicates that body weight relative to height is above the healthy range. At this stage, gradual lifestyle changes — including a moderate calorie deficit and increased physical activity — are recommended before the condition progresses to obesity.",
-  },
-  {
-    question: "What BMI is considered obese?",
-    answer:
-      "A BMI of 30.0 or higher is classified as obesity. It is further divided into three classes: Class I (30–34.9), Class II (35–39.9), and Class III (40 and above, also called severe or morbid obesity). Each class carries progressively higher risks for cardiovascular disease, sleep apnea, joint problems, and metabolic conditions.",
-  },
-  {
-    question: "Does BMI work the same for men and women?",
-    answer:
-      "The standard BMI formula and categories are the same for adult men and women, but their body compositions differ. Women naturally carry a higher percentage of body fat than men at the same BMI value — roughly 10% more — due to hormonal and reproductive physiological differences. Some researchers suggest gender-specific BMI thresholds would be more accurate, but current clinical guidelines still use the universal adult ranges.",
-  },
-  {
-    question: "Does BMI measure body fat?",
-    answer:
-      "No. BMI does not directly measure body fat percentage. It is a proxy measure calculated from height and weight only. Two people with identical BMI scores can have very different body compositions — one with 15% body fat and one with 35%. Methods that actually measure body fat include DEXA scans, hydrostatic weighing, skinfold calipers, and bioelectrical impedance analysis (BIA).",
-  },
-  {
-    question: "What is a normal BMI in Pakistan?",
-    answer:
-      "In Pakistan and across South Asian populations, health organisations — including the Pakistan National Institute of Health — suggest slightly lower BMI thresholds due to differences in body fat distribution. A BMI above 23 may be considered overweight and above 27.5 as obese for South Asian adults, compared to the global WHO thresholds of 25 and 30 respectively. Using these adjusted thresholds can provide a more accurate health risk assessment for people in Sahiwal, Lahore, Karachi, and across Pakistan.",
-  },
-];
+import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
 export const metadata: Metadata = {
-  title: "BMI Calculator – Calculate Body Mass Index by Height & Weight",
+  title: "BMI Calculator – Body Mass Index by Height & Weight (kg, cm, lbs)",
   description:
-    "Use our free BMI calculator to find your Body Mass Index instantly. Supports metric and imperial units. Includes BMI chart, healthy weight ranges, and categories for adults.",
+    "Calculate your BMI in seconds with metric or imperial units. See your weight category, your healthy weight range, and how BMI compares to real body fat percentage.",
 
   keywords: [
     "bmi calculator",
     "body mass index calculator",
+    "bmi calculator kg and cm",
+    "bmi calculator lbs and inches",
     "bmi chart by height and weight",
     "healthy weight for height",
     "bmi formula",
+    "normal bmi range",
+    "bmi calculator for men",
+    "bmi calculator for women",
     "overweight bmi",
-    "bmi categories",
+    "bmi categories explained",
     "bmi calculator pakistan",
     "ideal weight calculator",
-    "lizocalc bmi tool",
+    "bmi vs body fat percentage",
   ],
 
   alternates: {
@@ -78,9 +42,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "BMI Calculator – Instant Body Mass Index by Height & Weight",
+    title: "BMI Calculator – Body Mass Index by Height & Weight",
     description:
-      "Find your BMI in seconds. Our advanced BMI calculator includes metric and imperial support, a full BMI category chart, and healthy weight ranges for your height.",
+      "Find your BMI in seconds with metric or imperial units, plus the WHO category chart, your healthy weight range, and where BMI falls short as a health measure.",
     url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
     siteName: "LizoCalc",
     type: "website",
@@ -90,87 +54,128 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "BMI Calculator – Body Mass Index by Height & Weight",
     description:
-      "Instantly calculate your BMI with metric or imperial units. Includes BMI chart, categories, and healthy weight ranges.",
+      "Calculate your BMI with metric or imperial units. Includes the BMI chart, weight categories, and your healthy weight range.",
   },
 };
+
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
-      "@id":
-        "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
+      "@id": "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
       itemListElement: [
-        {
-          "@type": "ListItem",
-          position: 1,
-          name: "Home",
-          item: "https://www.lizocalc.com",
-        },
-        {
-          "@type": "ListItem",
-          position: 2,
-          name: "Calculators",
-          item: "https://www.lizocalc.com/calculators",
-        },
-        {
-          "@type": "ListItem",
-          position: 3,
-          name: "Health",
-          item: "https://www.lizocalc.com/calculators/health",
-        },
-        {
-          "@type": "ListItem",
-          position: 4,
-          name: "BMI Calculator",
-          item:
-            "https://www.lizocalc.com/calculators/health/bmi-calculator",
-        },
+        { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
+        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
+        { "@type": "ListItem", position: 3, name: "Health", item: "https://www.lizocalc.com/calculators/health" },
+        { "@type": "ListItem", position: 4, name: "BMI Calculator", item: "https://www.lizocalc.com/calculators/health/bmi-calculator" },
       ],
     },
     {
       "@type": "WebPage",
-      "@id":
-        "https://www.lizocalc.com/calculators/health/bmi-calculator",
-      url:
-        "https://www.lizocalc.com/calculators/health/bmi-calculator",
-      name:
-        "BMI Calculator – Calculate Body Mass Index by Height & Weight",
+      "@id": "https://www.lizocalc.com/calculators/health/bmi-calculator",
+      url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
+      name: "BMI Calculator – Body Mass Index by Height & Weight",
       description:
-        "Use our free BMI calculator to find your Body Mass Index instantly. Supports metric and imperial units and includes BMI categories and healthy weight ranges.",
+        "Calculate your BMI in seconds with metric or imperial units. See your weight category, your healthy weight range, and how BMI compares to real body fat percentage.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-20",
-      breadcrumb: {
-        "@id":
-          "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb",
-      },
+      dateModified: "2026-09-14",
+      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/health/bmi-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/health/bmi-calculator#app",
+      name: "BMI Calculator",
+      url: "https://www.lizocalc.com/calculators/health/bmi-calculator",
+      description:
+        "Free BMI calculator for finding your Body Mass Index, weight category, and healthy weight range in metric or imperial units.",
+      applicationCategory: "HealthApplication",
+      applicationSubCategory: "BMI Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate BMI from height and weight",
+        "Metric (kg, cm) and imperial (lbs, ft/in) units",
+        "WHO weight category classification",
+        "Healthy weight range for your height",
+        "Ponderal Index calculation",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
     },
   ],
 };
 
+// Small "textbook style" fraction — numerator over denominator, used the
+// same way the density calculator page uses it, so formulas read the same
+// across the site instead of switching between ÷ signs and stacked text.
+function Fraction({
+  numerator,
+  denominator,
+}: {
+  numerator: string;
+  denominator: string;
+}) {
+  return (
+    <span className="inline-flex flex-col items-center mx-1.5 align-middle text-green-300 leading-tight">
+      <span className="px-1.5 pb-0.5 border-b-2 border-green-300">
+        {numerator}
+      </span>
+      <span className="px-1.5 pt-0.5">{denominator}</span>
+    </span>
+  );
+}
+
+const tocItems = [
+  { id: "what-is-bmi", label: "What Is BMI" },
+  { id: "bmi-formula", label: "The BMI Formula" },
+  { id: "bmi-chart-categories", label: "BMI Chart & Categories" },
+  { id: "bmi-height-weight-chart", label: "BMI by Height & Weight" },
+  { id: "healthy-weight-range", label: "Healthy Weight Range" },
+  { id: "bmi-limitations", label: "Where BMI Gets It Wrong" },
+  { id: "bmi-by-group", label: "BMI for Men, Women & Kids" },
+  { id: "bmi-vs-body-fat", label: "BMI vs Body Fat %" },
+  { id: "improving-your-bmi", label: "Improving Your BMI" },
+];
+
 export default function BMIPage() {
   return (
     <main className="min-h-screen bg-background">
+      <style>{`html { scroll-behavior: smooth; }`}</style>
+
       <Navbar />
 
-     <script
-  id="structured-data-bmi-calculator"
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify(structuredData),
-  }}
-/>
+      <script
+        id="structured-data-bmi-calculator"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-secondary to-background py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
-            <h1 className="text-3xl md:text-4xl font-bold">
-              BMI Calculator 
-            </h1>
+            <h1 className="text-3xl md:text-4xl font-bold">BMI Calculator</h1>
           </div>
-          <ShareBar/>
+          <ShareBar />
         </div>
       </section>
 
@@ -181,207 +186,172 @@ export default function BMIPage() {
 
       {/* SEO Content */}
       <article className="max-w-6xl mx-auto px-6 py-16 text-white">
-
-        {/* ── DIRECT ANSWER BOX (AI Overview trigger) ── */}
+        {/* Quick answer box — the same job as the density page's opening
+            paragraph, sized for a featured-snippet pull */}
         <div className="bg-blue-900/30 border border-blue-600 rounded-2xl p-6 mb-10">
           <p className="text-white font-semibold text-lg mb-2">
-            ⚡ Quick Answer: How to Calculate BMI
+            Quick answer: how to calculate BMI
           </p>
           <p className="text-gray-200 text-base leading-relaxed">
-            BMI is calculated by dividing your weight in kilograms by the square of your height in meters:{" "}
-            <strong>BMI = weight (kg) ÷ height (m)²</strong>. A{" "}
-            <strong>healthy BMI range for most adults is 18.5 – 24.9</strong>.
-            Below 18.5 is underweight; 25–29.9 is overweight; 30 and above is obese.
-            BMI estimates body fat based on height and weight, but it does not directly measure
-            body fat percentage.
+            Divide your weight in kilograms by the square of your height in
+            meters: <strong>BMI = weight (kg) ÷ height (m)²</strong>. Most
+            adults fall in a healthy range between 18.5 and 24.9. Below 18.5
+            is underweight, 25 to 29.9 is overweight, and 30 or above is
+            classed as obese. BMI is a proxy for body fat based on height and
+            weight, not a direct measurement of it — the calculator above
+            works out the exact figure for your height and weight in either
+            unit system.
           </p>
         </div>
 
-      
+        <p className="text-gray-200 leading-relaxed mb-10 text-lg">
+          A BMI calculator tells you where your weight sits relative to your
+          height, using a formula doctors have leaned on since the 1970s.
+          The math takes seconds. Knowing what the number actually means for
+          you takes a bit more. Below, we cover the formula itself, the WHO
+          weight categories, the adjusted thresholds used across Pakistan and
+          South Asia, and the specific situations where BMI stops being
+          useful.
+        </p>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 1 — WHAT IS BMI
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-16">
+        {/* Jump-to-section navigation block */}
+        <nav
+          aria-label="Table of contents"
+          className="bg-gray-800/50 border border-gray-700 rounded-2xl p-6 sm:p-7 mb-16"
+        >
+          <AuthorBio />
+          <h2 className="text-xl sm:text-2xl font-bold text-blue-300 mb-4">
+            Table Of Contents
+          </h2>
+          <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+            {tocItems.map((item) => (
+              <li key={item.id}>
+                <a
+                  href={`#${item.id}`}
+                  className="flex items-center gap-2 text-blue-300 underline underline-offset-2 hover:text-blue-200 text-base"
+                >
+                  <span aria-hidden="true">→</span>
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* ── WHAT IS BMI ─────────────────────────────────────── */}
+        <section id="what-is-bmi" className="scroll-mt-24 mt-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            What Is BMI (Body Mass Index)?
+            What Is BMI?
           </h2>
 
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            <strong>Body Mass Index (BMI)</strong> is a numerical value derived from a person's
-            height and weight that serves as a proxy indicator of body fatness and associated
-            health risk. The concept was developed by Belgian mathematician Adolphe Quetelet in
-            the 1830s — which is why it was originally called the <em>Quetelet Index</em> — and
-            was formally adopted as a clinical screening tool by the World Health Organization
-            (WHO) and the U.S. National Institutes of Health (NIH) in the 1990s.
+            Body Mass Index is a number calculated from your height and
+            weight that estimates how much body fat you're likely carrying.
+            A Belgian mathematician named Adolphe Quetelet worked out the
+            formula in the 1830s while studying population averages across
+            Belgium, which is why BMI was originally called the Quetelet
+            Index. The World Health Organization and the US National
+            Institutes of Health adopted it as a standard screening tool in
+            the 1990s, and it's stayed the default weight-status check at
+            doctor's offices ever since.
           </p>
 
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            Doctors and public health professionals use BMI primarily because it is inexpensive,
-            non-invasive, and reproducible at scale. A single BMI calculation can flag whether a
-            patient warrants further investigation for conditions such as type 2 diabetes,
-            cardiovascular disease, hypertension, sleep apnea, or malnutrition — making it an
-            indispensable first step in a clinical encounter.
+            Doctors use it because it costs nothing and takes about ten
+            seconds with a scale and a tape measure. A high or low reading
+            doesn't diagnose anything by itself, but it flags who might need
+            a closer look for conditions like type 2 diabetes, high blood
+            pressure, or malnutrition.
           </p>
 
           <div className="bg-blue-900/20 border-l-4 border-blue-500 rounded-r-xl p-5 mb-6">
-            <p className="text-gray-200 text-base leading-relaxed font-medium">
-              <strong>Important trust statement:</strong> BMI estimates body fat based on height
-              and weight, but it does not directly measure body fat percentage. It is a screening
-              tool, not a medical diagnosis. Always consult a qualified healthcare professional for
-              a full health assessment.
+            <p className="text-gray-200 text-base leading-relaxed">
+              <strong>Worth remembering:</strong> BMI estimates body fat from
+              height and weight alone. It doesn't measure fat directly, and
+              it isn't a diagnosis. Treat it as a starting point, not a final
+              answer, and check anything unusual with a doctor.
             </p>
           </div>
 
           <p className="text-gray-200 text-base leading-relaxed">
-            In Pakistan, the Pakistan Society of Endocrinology and Metabolism and local public
-            health bodies recognise BMI as the standard first-line screening metric for
-            weight-related risk. However, because South Asian populations — including Pakistanis —
-            tend to accumulate visceral fat at lower BMI values than Western populations, adjusted
-            thresholds of 23 (overweight) and 27.5 (obese) are increasingly used alongside the
-            global WHO ranges.
+            In Pakistan, the Pakistan Society of Endocrinology and Metabolism
+            uses BMI as the first screening number too, but with adjusted
+            thresholds. South Asian bodies tend to store visceral fat at
+            lower body weights than Western populations do, so a BMI of 23 in
+            Lahore or Karachi carries roughly the same health risk as a BMI
+            of 25 in London. We've listed the adjusted numbers in the chart
+            further down.
           </p>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 2 — HOW TO CALCULATE BMI (FORMULA)
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── FORMULA ─────────────────────────────────────────── */}
+        <section id="bmi-formula" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Calculate BMI — The Exact Formula
+            The BMI Formula — Metric and Imperial
           </h2>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            Metric BMI Formula (kg and cm)
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            The standard metric formula — used in Pakistan, the UK, Europe, and most of the world — is:
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            The formula hasn't changed since Quetelet's day. In metric units,
+            used across Pakistan, the UK, and most of the world:
           </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
+
+          <p className="text-center text-2xl md:text-3xl font-mono text-green-300 my-6">
             BMI = weight (kg) ÷ [height (m)]²
-            <br />
-            <br />
-            Example: Weight = 70 kg, Height = 175 cm (1.75 m)
-            <br />
-            BMI = 70 ÷ (1.75 × 1.75)
-            <br />
-            BMI = 70 ÷ 3.0625
-            <br />→ <strong>BMI = 22.86 — Healthy Weight ✅</strong>
-          </div>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Note that height must be converted from centimetres to metres before squaring.
-            175 cm ÷ 100 = 1.75 m. Our calculator handles this conversion automatically.
           </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Imperial BMI Formula (lbs and inches)
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            For users working in pounds and inches (common in the US), the formula includes a
-            correction factor of 703:
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: weight = 70 kg, height = 175 cm (1.75 m).
           </p>
-          <div className="bg-gray-900/70 p-6 rounded-2xl border border-gray-700 font-mono text-green-300 text-sm mb-6 overflow-x-auto">
-            BMI = [weight (lbs) × 703] ÷ [height (inches)]²
-            <br />
-            <br />
-            Example: Weight = 154 lbs, Height = 5&apos;9&quot; = 69 inches
-            <br />
-            BMI = (154 × 703) ÷ (69 × 69)
-            <br />
-            BMI = 108,262 ÷ 4,761
-            <br />→ <strong>BMI = 22.74 — Healthy Weight ✅</strong>
-          </div>
-
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            Common BMI Examples by Weight and Height
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-6">
-            Below are manually calculated BMI values for the most commonly searched
-            height-and-weight combinations:
+          <p className="text-green-300 font-mono text-lg flex items-center flex-wrap mb-6">
+            BMI&nbsp;=&nbsp;
+            <Fraction numerator="70 kg" denominator="1.75 m × 1.75 m" />
+            &nbsp;= 70 ÷ 3.0625 ≈ 22.9 — a healthy weight.
           </p>
 
-          <div className="overflow-x-auto mt-4 mb-10">
-            <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
-              <thead>
-                <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">Weight</th>
-                  <th className="p-4 text-left font-semibold">Height</th>
-                  <th className="p-4 text-left font-semibold">BMI</th>
-                  <th className="p-4 text-left font-semibold">Category</th>
-                  <th className="p-4 text-left font-semibold">Calculation</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800/50 divide-y divide-gray-700">
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">70 kg</td>
-                  <td className="p-4 font-semibold text-yellow-300">170 cm</td>
-                  <td className="p-4 font-bold text-green-400">24.22</td>
-                  <td className="p-4">✅ Healthy Weight</td>
-                  <td className="p-4 text-gray-400">70 ÷ 1.70²</td>
-                </tr>
-                <tr>
-                  <td className="p-4">80 kg</td>
-                  <td className="p-4">180 cm</td>
-                  <td className="p-4 font-bold text-green-400">24.69</td>
-                  <td className="p-4">✅ Healthy Weight</td>
-                  <td className="p-4 text-gray-400">80 ÷ 1.80²</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">90 kg</td>
-                  <td className="p-4 font-semibold text-yellow-300">183 cm (6&apos;0&quot;)</td>
-                  <td className="p-4 font-bold text-orange-400">26.87</td>
-                  <td className="p-4">⚠️ Overweight</td>
-                  <td className="p-4 text-gray-400">90 ÷ 1.83²</td>
-                </tr>
-                <tr>
-                  <td className="p-4">60 kg</td>
-                  <td className="p-4">167 cm (5&apos;6&quot;)</td>
-                  <td className="p-4 font-bold text-green-400">21.51</td>
-                  <td className="p-4">✅ Healthy Weight</td>
-                  <td className="p-4 text-gray-400">60 ÷ 1.67²</td>
-                </tr>
-                <tr>
-                  <td className="p-4 font-semibold text-yellow-300">150 lbs</td>
-                  <td className="p-4 font-semibold text-yellow-300">5&apos;7&quot; (67 in)</td>
-                  <td className="p-4 font-bold text-green-400">23.49</td>
-                  <td className="p-4">✅ Healthy Weight</td>
-                  <td className="p-4 text-gray-400">(150×703)÷67²</td>
-                </tr>
-                <tr>
-                  <td className="p-4">100 kg</td>
-                  <td className="p-4">175 cm</td>
-                  <td className="p-4 font-bold text-red-400">32.65</td>
-                  <td className="p-4">❌ Obese Class I</td>
-                  <td className="p-4 text-gray-400">100 ÷ 1.75²</td>
-                </tr>
-                <tr>
-                  <td className="p-4">50 kg</td>
-                  <td className="p-4">165 cm</td>
-                  <td className="p-4 font-bold text-blue-300">18.37</td>
-                  <td className="p-4">⬇️ Underweight</td>
-                  <td className="p-4 text-gray-400">50 ÷ 1.65²</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <p className="text-gray-200 leading-relaxed mb-4 text-base">
+            Height has to be in meters before you square it. 175 cm ÷ 100 =
+            1.75 m — the calculator above handles that conversion for you.
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-4 text-base mt-8">
+            For pounds and inches, common in the US, the formula picks up a
+            correction factor of 703 so the units cancel out properly:
+          </p>
+
+          <p className="text-center text-2xl md:text-3xl font-mono text-green-300 my-6">
+            BMI = [weight (lbs) × 703] ÷ [height (in)]²
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mb-2 text-base">
+            Example: weight = 154 lbs, height = 5&apos;9&quot; (69 in).
+          </p>
+          <p className="text-green-300 font-mono text-lg flex items-center flex-wrap">
+            BMI&nbsp;=&nbsp;
+            <Fraction numerator="154 × 703" denominator="69 × 69" />
+            &nbsp;= 108,262 ÷ 4,761 ≈ 22.7
+          </p>
+
+          <p className="text-gray-200 leading-relaxed mt-6 text-base">
+            Both examples land close to 23 because 70 kg at 175 cm and 154
+            lbs at 5&apos;9&quot; describe roughly the same body. The
+            calculator above runs this math instantly and adds your exact
+            healthy weight range for the height you entered.
+          </p>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 3 — BMI CHART AND CATEGORIES
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── CHART & CATEGORIES ──────────────────────────────── */}
+        <section id="bmi-chart-categories" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            BMI Chart and Weight Categories — WHO Standard
+            BMI Chart and Weight Categories
           </h2>
 
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The World Health Organisation (WHO) defines five adult BMI weight categories.
-            Each range is associated with a different level of health risk. Knowing which
-            category your BMI falls into is the first step toward setting a targeted, realistic
-            health goal:
+            The WHO splits adult BMI into five bands. Each one carries a
+            different level of health risk, and knowing which band you're in
+            is the first step toward setting a realistic goal instead of an
+            arbitrary one.
           </p>
 
-          {/* BMI Image */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center my-10">
             <div className="rounded-2xl overflow-hidden border border-gray-700">
               <Image
@@ -396,10 +366,11 @@ export default function BMIPage() {
             </div>
             <div>
               <p className="text-gray-200 text-base leading-relaxed">
-                The BMI scale above illustrates how weight categories progress from
-                Underweight through to Obesity Class III. Each colour band represents a
-                different zone of health risk — with the green band (18.5–24.9) indicating the
-                range associated with the lowest risk of weight-related disease for most adults.
+                The green band, 18.5 to 24.9, carries the lowest risk of
+                weight-related disease for most adults. Everything below or
+                above it is worth a second look, though how much weight to
+                give it depends on the rest of your health picture, not the
+                number alone.
               </p>
             </div>
           </div>
@@ -409,9 +380,15 @@ export default function BMIPage() {
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">BMI Range</th>
-                  <th className="p-4 text-left font-semibold">WHO Category</th>
-                  <th className="p-4 text-left font-semibold">South Asian Adjusted</th>
-                  <th className="p-4 text-left font-semibold">Health Risk Level</th>
+                  <th className="p-4 text-left font-semibold">
+                    WHO Category
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    South Asian Adjusted
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    Health Risk Level
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
@@ -419,22 +396,30 @@ export default function BMIPage() {
                   <td className="p-4 font-bold text-blue-300">Below 18.5</td>
                   <td className="p-4">Underweight</td>
                   <td className="p-4 text-gray-400">Below 18.5</td>
-                  <td className="p-4 text-yellow-300">Moderate (malnutrition risk)</td>
+                  <td className="p-4 text-yellow-300">
+                    Moderate (malnutrition risk)
+                  </td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-bold text-green-400">18.5 – 24.9</td>
-                  <td className="p-4">✅ Healthy Weight</td>
+                  <td className="p-4 font-bold text-green-400">
+                    18.5 – 24.9
+                  </td>
+                  <td className="p-4">Healthy Weight</td>
                   <td className="p-4">18.5 – 22.9</td>
                   <td className="p-4 text-green-400">Lowest risk</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-bold text-yellow-300">25.0 – 29.9</td>
-                  <td className="p-4">⚠️ Overweight</td>
+                  <td className="p-4 font-bold text-yellow-300">
+                    25.0 – 29.9
+                  </td>
+                  <td className="p-4">Overweight</td>
                   <td className="p-4">23.0 – 27.4</td>
                   <td className="p-4 text-yellow-300">Increased risk</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-bold text-orange-400">30.0 – 34.9</td>
+                  <td className="p-4 font-bold text-orange-400">
+                    30.0 – 34.9
+                  </td>
                   <td className="p-4">Obesity Class I</td>
                   <td className="p-4">27.5 – 32.4</td>
                   <td className="p-4 text-orange-400">High risk</td>
@@ -446,7 +431,9 @@ export default function BMIPage() {
                   <td className="p-4 text-red-400">Very high risk</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-bold text-red-600">40 and above</td>
+                  <td className="p-4 font-bold text-red-600">
+                    40 and above
+                  </td>
                   <td className="p-4">Obesity Class III</td>
                   <td className="p-4">37.5+</td>
                   <td className="p-4 text-red-600">Extremely high risk</td>
@@ -456,19 +443,18 @@ export default function BMIPage() {
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 4 — BMI CHART BY HEIGHT AND WEIGHT
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── QUICK REFERENCE CHART ───────────────────────────── */}
+        <section id="bmi-height-weight-chart" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            BMI Chart by Height and Weight — Quick Reference
+            BMI Chart by Height and Weight
           </h2>
 
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The table below shows pre-calculated BMI values for common height and weight
-            combinations — one of the most-searched formats for BMI reference. Use this to
-            instantly find your approximate BMI without any calculation, then use the tool
-            above for a precise figure:
+            The table below covers the most-searched height and weight
+            combinations, so you can find your approximate BMI without
+            typing anything into the calculator. Use it for a quick read,
+            then run your exact numbers above for a precise figure and your
+            healthy weight range.
           </p>
 
           <div className="overflow-x-auto mt-4 mb-10">
@@ -476,17 +462,31 @@ export default function BMIPage() {
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Height</th>
-                  <th className="p-4 text-left font-semibold">50 kg / 110 lbs</th>
-                  <th className="p-4 text-left font-semibold">60 kg / 132 lbs</th>
-                  <th className="p-4 text-left font-semibold">70 kg / 154 lbs</th>
-                  <th className="p-4 text-left font-semibold">80 kg / 176 lbs</th>
-                  <th className="p-4 text-left font-semibold">90 kg / 198 lbs</th>
-                  <th className="p-4 text-left font-semibold">100 kg / 220 lbs</th>
+                  <th className="p-4 text-left font-semibold">
+                    50 kg / 110 lbs
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    60 kg / 132 lbs
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    70 kg / 154 lbs
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    80 kg / 176 lbs
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    90 kg / 198 lbs
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    100 kg / 220 lbs
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">155 cm / 5&apos;1&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    155 cm / 5&apos;1&quot;
+                  </td>
                   <td className="p-4 text-blue-300">20.8</td>
                   <td className="p-4 text-green-400">25.0</td>
                   <td className="p-4 text-yellow-300">29.1</td>
@@ -495,7 +495,9 @@ export default function BMIPage() {
                   <td className="p-4 text-red-600">41.6</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">160 cm / 5&apos;3&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    160 cm / 5&apos;3&quot;
+                  </td>
                   <td className="p-4 text-green-400">19.5</td>
                   <td className="p-4 text-green-400">23.4</td>
                   <td className="p-4 text-green-400">27.3</td>
@@ -504,7 +506,9 @@ export default function BMIPage() {
                   <td className="p-4 text-red-400">39.1</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">165 cm / 5&apos;5&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    165 cm / 5&apos;5&quot;
+                  </td>
                   <td className="p-4 text-green-400">18.4</td>
                   <td className="p-4 text-green-400">22.0</td>
                   <td className="p-4 text-green-400">25.7</td>
@@ -513,7 +517,9 @@ export default function BMIPage() {
                   <td className="p-4 text-red-400">36.7</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">170 cm / 5&apos;7&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    170 cm / 5&apos;7&quot;
+                  </td>
                   <td className="p-4 text-blue-300">17.3</td>
                   <td className="p-4 text-green-400">20.8</td>
                   <td className="p-4 text-green-400">24.2</td>
@@ -522,7 +528,9 @@ export default function BMIPage() {
                   <td className="p-4 text-orange-400">34.6</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">175 cm / 5&apos;9&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    175 cm / 5&apos;9&quot;
+                  </td>
                   <td className="p-4 text-blue-300">16.3</td>
                   <td className="p-4 text-green-400">19.6</td>
                   <td className="p-4 text-green-400">22.9</td>
@@ -531,7 +539,9 @@ export default function BMIPage() {
                   <td className="p-4 text-orange-400">32.7</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">180 cm / 5&apos;11&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    180 cm / 5&apos;11&quot;
+                  </td>
                   <td className="p-4 text-blue-300">15.4</td>
                   <td className="p-4 text-green-400">18.5</td>
                   <td className="p-4 text-green-400">21.6</td>
@@ -540,7 +550,9 @@ export default function BMIPage() {
                   <td className="p-4 text-yellow-300">30.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">183 cm / 6&apos;0&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    183 cm / 6&apos;0&quot;
+                  </td>
                   <td className="p-4 text-blue-300">14.9</td>
                   <td className="p-4 text-green-400">17.9</td>
                   <td className="p-4 text-green-400">20.9</td>
@@ -552,29 +564,28 @@ export default function BMIPage() {
             </table>
           </div>
           <p className="text-gray-300 text-sm italic">
-            Colour key: <span className="text-blue-300">Blue</span> = Underweight ·{" "}
-            <span className="text-green-400">Green</span> = Healthy Weight ·{" "}
-            <span className="text-yellow-300">Yellow</span> = Overweight ·{" "}
-            <span className="text-orange-400">Orange</span> = Obese Class I ·{" "}
-            <span className="text-red-400">Red</span> = Obese Class II ·{" "}
-            <span className="text-red-600">Dark Red</span> = Obese Class III
+            Color key: <span className="text-blue-300">blue</span> =
+            underweight · <span className="text-green-400">green</span> =
+            healthy weight · <span className="text-yellow-300">yellow</span>{" "}
+            = overweight · <span className="text-orange-400">orange</span> =
+            obese class I · <span className="text-red-400">red</span> =
+            obese class II · <span className="text-red-600">dark red</span> =
+            obese class III.
           </p>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 5 — HEALTHY WEIGHT RANGE FOR YOUR HEIGHT
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── HEALTHY WEIGHT RANGE ─────────────────────────────── */}
+        <section id="healthy-weight-range" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Healthy Weight Range for Your Height — Ideal Weight Chart
+            Healthy Weight Range for Your Height
           </h2>
 
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            The table below shows the <strong>healthy weight range</strong> for common heights —
-            calculated as the weights that produce a BMI of 18.5 to 24.9. Use this as your{" "}
-            <strong>ideal weight chart</strong> to set realistic, science-backed weight goals.
-            The calculator above also displays your personal healthy range the moment you enter
-            your height:
+            The table below lists the weight range that keeps you inside a
+            BMI of 18.5 to 24.9 for a given height — essentially an ideal
+            weight chart. The calculator above shows your own range the
+            moment you enter your height, but this is a handy reference if
+            you're just comparing numbers.
           </p>
 
           <div className="overflow-x-auto mt-4 mb-10">
@@ -582,56 +593,76 @@ export default function BMIPage() {
               <thead>
                 <tr className="bg-blue-900/70">
                   <th className="p-4 text-left font-semibold">Height</th>
-                  <th className="p-4 text-left font-semibold">Healthy Weight Range (kg)</th>
-                  <th className="p-4 text-left font-semibold">Healthy Weight Range (lbs)</th>
+                  <th className="p-4 text-left font-semibold">
+                    Healthy Weight Range (kg)
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    Healthy Weight Range (lbs)
+                  </th>
                   <th className="p-4 text-left font-semibold">BMI Range</th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">152 cm / 5&apos;0&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    152 cm / 5&apos;0&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">43 – 58 kg</td>
                   <td className="p-4">95 – 128 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">157 cm / 5&apos;2&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    157 cm / 5&apos;2&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">46 – 61 kg</td>
                   <td className="p-4">101 – 135 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">165 cm / 5&apos;5&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    165 cm / 5&apos;5&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">50 – 67 kg</td>
                   <td className="p-4">111 – 149 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">170 cm / 5&apos;7&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    170 cm / 5&apos;7&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">53 – 72 kg</td>
                   <td className="p-4">117 – 159 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">175 cm / 5&apos;9&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    175 cm / 5&apos;9&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">57 – 76 kg</td>
                   <td className="p-4">125 – 168 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">178 cm / 5&apos;10&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    178 cm / 5&apos;10&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">59 – 79 kg</td>
                   <td className="p-4">130 – 174 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">183 cm / 6&apos;0&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    183 cm / 6&apos;0&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">62 – 84 kg</td>
                   <td className="p-4">137 – 184 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
                 </tr>
                 <tr>
-                  <td className="p-4 font-semibold text-yellow-300">188 cm / 6&apos;2&quot;</td>
+                  <td className="p-4 font-semibold text-yellow-300">
+                    188 cm / 6&apos;2&quot;
+                  </td>
                   <td className="p-4 font-bold text-green-400">65 – 88 kg</td>
                   <td className="p-4">144 – 194 lbs</td>
                   <td className="p-4 text-blue-300">18.5 – 24.9</td>
@@ -641,350 +672,332 @@ export default function BMIPage() {
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 6 — BMI LIMITATIONS
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── LIMITATIONS ──────────────────────────────────────── */}
+        <section id="bmi-limitations" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            BMI Limitations: When BMI Is Not Accurate
+            Where BMI Gets It Wrong
           </h2>
 
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            BMI is a valuable screening tool, but it has well-documented limitations for
-            specific populations. Understanding these nuances is what separates a reliable
-            health resource from a simplistic one:
+            BMI is a decent screening tool at the population level, but it
+            breaks down for specific groups of people. Here's where to be
+            skeptical of your own number:
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 mt-8">
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-orange-300 mb-3">🏋️ Athletes and Bodybuilders</h4>
+              <h4 className="text-lg font-bold text-orange-300 mb-3">
+                Athletes and heavy lifters
+              </h4>
               <p className="text-gray-200 text-base">
-                Highly muscular individuals — such as rugby players, powerlifters, and
-                competitive bodybuilders — may register as overweight or obese on the BMI scale
-                despite having very low body fat percentages. Muscle is significantly denser
-                than fat, so BMI overestimates health risk in this group.
+                Rugby players, powerlifters, and bodybuilders often read as
+                overweight or obese on BMI despite low body fat. Muscle is
+                denser than fat, so someone carrying a lot of it weighs more
+                per inch of height than the formula expects.
               </p>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-orange-300 mb-3">🤰 Pregnancy</h4>
+              <h4 className="text-lg font-bold text-orange-300 mb-3">
+                Pregnancy
+              </h4>
               <p className="text-gray-200 text-base">
-                BMI is not a valid measure during pregnancy due to natural and necessary
-                weight gain. Pregnant women should use pregnancy-specific weight gain guidelines
-                provided by their obstetrician rather than standard BMI categories.
+                BMI isn't valid during pregnancy — the weight gain is normal
+                and necessary. Follow the pregnancy-specific weight
+                guidelines your obstetrician gives you instead.
               </p>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-orange-300 mb-3">👴 Older Adults</h4>
+              <h4 className="text-lg font-bold text-orange-300 mb-3">
+                Older adults
+              </h4>
               <p className="text-gray-200 text-base">
-                Elderly individuals tend to lose muscle mass (sarcopenia) while retaining or
-                gaining fat — a process called "sarcopenic obesity." This means a person in
-                their 70s or 80s can have a normal BMI while carrying a dangerously high
-                proportion of body fat.
+                People tend to lose muscle while gaining or holding onto fat
+                with age, a pattern called sarcopenic obesity. Someone in
+                their 70s can carry a normal BMI while their body fat
+                percentage is quietly high.
               </p>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-orange-300 mb-3">👧 Children and Teenagers</h4>
+              <h4 className="text-lg font-bold text-orange-300 mb-3">
+                Children and teens
+              </h4>
               <p className="text-gray-200 text-base">
-                Standard adult BMI categories do not apply to children or adolescents. For
-                those under 18, healthcare providers use <strong>BMI-for-age percentiles</strong>,
-                which account for normal growth patterns across different ages and biological
-                sexes, as defined by the WHO Child Growth Standards.
+                Adult categories don't apply under 18. Pediatricians use
+                BMI-for-age percentiles instead, which account for normal
+                growth at different ages and between sexes.
               </p>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-orange-300 mb-3">🌍 Ethnicity and South Asians</h4>
+              <h4 className="text-lg font-bold text-orange-300 mb-3">
+                South Asian populations
+              </h4>
               <p className="text-gray-200 text-base">
-                South Asian populations — including Pakistanis, Indians, and Bangladeshis —
-                have been shown to develop metabolic complications like insulin resistance and
-                cardiovascular disease at lower BMI values than Western populations. Adjusted
-                thresholds of 23.0 for overweight and 27.5 for obese are recommended by
-                several major health bodies for South Asian adults.
+                People from Pakistan, India, and Bangladesh tend to develop
+                insulin resistance and heart disease at lower BMI values than
+                Western populations. That's the reasoning behind the
+                adjusted 23 and 27.5 thresholds in the chart above.
               </p>
             </div>
 
             <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-lg font-bold text-orange-300 mb-3">📏 Fat Distribution</h4>
+              <h4 className="text-lg font-bold text-orange-300 mb-3">
+                Where fat is stored
+              </h4>
               <p className="text-gray-200 text-base">
-                BMI does not indicate where fat is stored in the body. Visceral fat (stored
-                around internal organs in the abdomen) is far more metabolically harmful than
-                subcutaneous fat (stored under the skin). Waist circumference — above 90 cm
-                for Asian men and 80 cm for Asian women — is a better predictor of cardiometabolic
-                risk than BMI alone.
+                BMI says nothing about fat location. Visceral fat around the
+                organs is far more harmful than fat under the skin, and
+                waist circumference — above 90 cm for Asian men, 80 cm for
+                Asian women — predicts that risk better than BMI does.
               </p>
             </div>
           </div>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 7 — BMI FOR ADULTS, MEN, WOMEN, CHILDREN
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── BY GROUP ──────────────────────────────────────────── */}
+        <section id="bmi-by-group" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            BMI for Adults, Men, Women, and Children
+            BMI for Men, Women, and Children
           </h2>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mb-5">
-            BMI for Adults — Universal Ranges
-          </h3>
           <p className="text-gray-200 text-base leading-relaxed mb-6">
-            For all adults aged 18 and over, the WHO applies the same BMI classification
-            table regardless of age or sex. The five categories (Underweight, Healthy Weight,
-            Overweight, Obesity Class I–III) remain constant. However, the clinical interpretation
-            of BMI should always consider individual factors such as muscle mass, ethnicity,
-            and waist circumference.
+            The formula and the five weight categories are identical for
+            adult men and women — there's no separate men's or women's BMI
+            scale. What differs is body composition underneath that number.
           </p>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            BMI for Men and Women — How They Differ
-          </h3>
-          <p className="text-gray-200 text-base leading-relaxed mb-4">
-            While the BMI formula and category thresholds are the same for adult men and women,
-            body composition differs significantly between the sexes:
-          </p>
           <ul className="list-disc list-inside text-gray-200 space-y-3 text-base ml-5 mb-6">
             <li>
-              <strong>Men</strong> naturally carry more muscle mass and less body fat. A man at
-              BMI 22 might have 15–20% body fat, which is within the athletic to normal range.
+              Men carry more muscle and less fat on average. A man at BMI 22
+              might sit around 15–20% body fat.
             </li>
             <li>
-              <strong>Women</strong> naturally carry a higher proportion of body fat — typically
-              10–13% more than men — due to hormonal differences and reproductive physiology.
-              A woman at BMI 22 might have 25–30% body fat, still within the normal range for
-              females but much higher than an equivalent male.
+              Women naturally carry roughly 10–13% more body fat than men at
+              the same BMI, due to hormonal and reproductive differences. A
+              woman at BMI 22 might sit around 25–30% body fat, which is
+              still normal for her.
             </li>
             <li>
-              During <strong>menopause</strong>, women often experience a redistribution of fat
-              toward the abdominal area, increasing cardiometabolic risk even without significant
-              BMI change.
+              During menopause, fat often shifts toward the abdomen even
+              without a change in BMI, which raises cardiometabolic risk on
+              its own.
             </li>
           </ul>
 
-          <h3 className="text-2xl font-semibold text-blue-300 mt-10 mb-5">
-            BMI for Kids and Teens — Age and Sex Percentiles
-          </h3>
           <p className="text-gray-200 text-base leading-relaxed mb-4">
-            For children and adolescents under 18, BMI is interpreted using
-            <strong> age- and sex-specific percentile charts</strong>, not the fixed adult thresholds.
-            The WHO and CDC define the following percentile-based categories for children:
+            For kids and teens under 18, BMI is read against age- and
+            sex-specific percentile charts instead of the fixed adult
+            thresholds:
           </p>
 
           <div className="overflow-x-auto mt-4 mb-8">
             <table className="min-w-full text-sm text-white border border-gray-700 rounded-xl overflow-hidden">
               <thead>
                 <tr className="bg-blue-900/70">
-                  <th className="p-4 text-left font-semibold">BMI Percentile Range</th>
-                  <th className="p-4 text-left font-semibold">Category (Children 2–18)</th>
+                  <th className="p-4 text-left font-semibold">
+                    BMI Percentile Range
+                  </th>
+                  <th className="p-4 text-left font-semibold">
+                    Category (Children 2–18)
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-gray-800/50 divide-y divide-gray-700">
                 <tr>
-                  <td className="p-4 text-blue-300">Below the 5th percentile</td>
+                  <td className="p-4 text-blue-300">
+                    Below the 5th percentile
+                  </td>
                   <td className="p-4">Underweight</td>
                 </tr>
                 <tr>
-                  <td className="p-4 text-green-400">5th to less than the 85th percentile</td>
-                  <td className="p-4">✅ Healthy Weight</td>
+                  <td className="p-4 text-green-400">
+                    5th to less than the 85th percentile
+                  </td>
+                  <td className="p-4">Healthy Weight</td>
                 </tr>
                 <tr>
-                  <td className="p-4 text-yellow-300">85th to less than the 95th percentile</td>
-                  <td className="p-4">⚠️ Overweight</td>
+                  <td className="p-4 text-yellow-300">
+                    85th to less than the 95th percentile
+                  </td>
+                  <td className="p-4">Overweight</td>
                 </tr>
                 <tr>
-                  <td className="p-4 text-red-400">95th percentile and above</td>
+                  <td className="p-4 text-red-400">
+                    95th percentile and above
+                  </td>
                   <td className="p-4">Obese</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <p className="text-gray-200 text-base leading-relaxed">
-            Paediatricians in Pakistan and worldwide use WHO Child Growth Standard charts to
-            plot a child's BMI against these percentiles, accounting for both age and biological
-            sex. If you are concerned about a child's BMI, always consult a qualified paediatrician.
+            Pediatricians in Pakistan and elsewhere plot a child's BMI
+            against WHO Child Growth Standard charts, which account for both
+            age and sex. Talk to a pediatrician directly if you're concerned
+            about a child's weight — this page isn't built for that.
           </p>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 8 — HOW TO IMPROVE BMI
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
+        {/* ── BMI VS BODY FAT ──────────────────────────────────── */}
+        <section id="bmi-vs-body-fat" className="scroll-mt-24 mt-20">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            How to Improve Your BMI Safely
+            BMI vs Body Fat Percentage
+          </h2>
+
+          <p className="text-gray-200 text-base leading-relaxed mb-4">
+            BMI doesn't measure body fat. It's a proxy built from two
+            numbers, height and weight, and two people with the same BMI can
+            have very different bodies underneath it. One might sit at 15%
+            body fat, the other at 35%, and BMI has no way to tell them
+            apart.
+          </p>
+
+          <p className="text-gray-200 text-base leading-relaxed mb-4">
+            If you want a number that reflects actual composition rather
+            than a height-weight ratio, our{" "}
+            <Link
+              href="/calculators/health/body-fat-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Body Fat Calculator
+            </Link>{" "}
+            uses the US Navy tape-measurement method to estimate your fat
+            percentage directly. It takes a couple more measurements than
+            BMI does — neck, waist, and for women, hips — but it gives you a
+            figure that actually changes when you build muscle or lose fat,
+            which a static BMI reading won't show you.
+          </p>
+
+          <p className="text-gray-200 text-base leading-relaxed">
+            Methods that measure body fat properly, like DEXA scans,
+            hydrostatic weighing, and skinfold calipers, cost money and
+            usually need a clinic visit. The Body Fat Calculator won't match
+            a DEXA scan exactly, but it's a free way to get closer to the
+            real picture than BMI alone gives you.
+          </p>
+        </section>
+
+        {/* ── IMPROVING BMI ─────────────────────────────────────── */}
+        <section id="improving-your-bmi" className="scroll-mt-24 mt-20">
+          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
+            Improving Your BMI Safely
           </h2>
 
           <div className="bg-blue-900/20 border-l-4 border-blue-500 rounded-r-xl p-5 mb-8">
             <p className="text-gray-200 text-base italic">
-              <strong>Medical disclaimer:</strong> The following is general wellness information,
-              not medical advice. Always consult a qualified doctor or dietitian before making
-              significant changes to your diet or exercise routine, especially if you have an
-              existing health condition.
+              This is general wellness information, not medical advice.
+              Check with a doctor or dietitian before changing your diet or
+              training, especially if you have an existing health condition.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 mt-8">
-            <div className="bg-gray-800/40 p-7 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-4">
-                If You Are Underweight (BMI Below 18.5)
-              </h3>
-              <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-                <li>
-                  <strong>Calorie surplus:</strong> Aim to eat 300–500 calories more than
-                  your TDEE per day using nutrient-dense whole foods.
-                </li>
-                <li>
-                  <strong>Protein priority:</strong> Consume 1.6–2.2 g of protein per kg
-                  of body weight to support lean muscle building.
-                </li>
-                <li>
-                  <strong>Resistance training:</strong> Weight training 3–4 times per week
-                  directs surplus calories into muscle rather than fat storage.
-                </li>
-                <li>
-                  <strong>Frequent meals:</strong> Eating 5–6 smaller, calorie-dense meals
-                  makes it easier to reach daily calorie goals without discomfort.
-                </li>
-              </ul>
-            </div>
+          <p className="text-gray-200 text-base leading-relaxed mb-6">
+            If your BMI came back below 18.5, the usual fix is a calorie
+            surplus of 300 to 500 calories a day from real food, paired with
+            resistance training 3 to 4 times a week so the extra calories
+            build muscle instead of just fat. Aim for 1.6 to 2.2 g of
+            protein per kg of body weight. Our{" "}
+            <Link
+              href="/calculators/health/calorie-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Calorie Calculator
+            </Link>{" "}
+            works out a daily target based on your activity level, and the{" "}
+            <Link
+              href="/calculators/health/macros-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Macros Calculator
+            </Link>{" "}
+            splits that number into protein, carbs, and fat, so you're not
+            just eating more — you're eating enough of the right things.
+          </p>
 
-            <div className="bg-gray-800/40 p-7 rounded-2xl border border-gray-700">
-              <h3 className="text-xl font-bold text-blue-300 mb-4">
-                If You Are Overweight or Obese (BMI 25+)
-              </h3>
-              <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-                <li>
-                  <strong>Moderate calorie deficit:</strong> A deficit of 300–500 kcal/day
-                  produces safe, sustainable fat loss of 0.3–0.5 kg per week without
-                  metabolic adaptation.
-                </li>
-                <li>
-                  <strong>Mixed exercise:</strong> Combine 150 minutes of moderate cardio
-                  (walking, cycling) per week with 2–3 resistance training sessions.
-                </li>
-                <li>
-                  <strong>Sleep quality:</strong> Poor sleep raises cortisol and ghrelin
-                  (hunger hormone), making fat loss much harder. Aim for 7–9 hours.
-                </li>
-                <li>
-                  <strong>Hydration and protein:</strong> High protein intake (1.2–1.6 g/kg)
-                  preserves muscle during a deficit. Staying well-hydrated also reduces
-                  false hunger signals.
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <p className="text-gray-200 text-base leading-relaxed mt-8">
-            For a precise daily calorie target based on your activity level, use our{" "}
-            <Link href="/calculators/health/tdee-calculator" className="text-blue-400 hover:underline">
+          <p className="text-gray-200 text-base leading-relaxed mb-6">
+            If your BMI landed at 25 or above, a moderate deficit of 300 to
+            500 calories a day is the standard starting point, and it
+            produces roughly 0.3 to 0.5 kg of fat loss a week without your
+            metabolism fighting back. Our{" "}
+            <Link
+              href="/calculators/health/calorie-deficit-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Calorie Deficit Calculator
+            </Link>{" "}
+            builds that target for you. It's worth pairing with the{" "}
+            <Link
+              href="/calculators/health/tdee-calculator"
+              className="text-blue-400 hover:underline"
+            >
               TDEE Calculator
             </Link>{" "}
-            to find your Total Daily Energy Expenditure, and our{" "}
-            <Link href="/calculators/health/bmr-calculator" className="text-blue-400 hover:underline">
+            and{" "}
+            <Link
+              href="/calculators/health/bmr-calculator"
+              className="text-blue-400 hover:underline"
+            >
               BMR Calculator
             </Link>{" "}
-            to find the minimum calories your body needs at complete rest.
+            first, so you know both your resting burn and your real-world
+            daily burn before setting a deficit on top of it.
+          </p>
+
+          <p className="text-gray-200 text-base leading-relaxed">
+            Sleep matters here more than people give it credit for. Poor
+            sleep raises cortisol and ghrelin, the hormone that drives
+            hunger, which makes any calorie target harder to stick to. Our{" "}
+            <Link
+              href="/calculators/health/sleep-calculator"
+              className="text-blue-400 hover:underline"
+            >
+              Sleep Calculator
+            </Link>{" "}
+            works backward from your wake-up time to suggest bedtimes that
+            line up with full 90-minute sleep cycles, so you wake up at the
+            end of one instead of in the middle.
           </p>
         </section>
 
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 9 — TRUST / E-E-A-T BYLINE
-        ══════════════════════════════════════════════════════════ */}
-        <div className="flex items-center gap-4 my-12 p-4 bg-gray-800/50 rounded-xl border border-gray-700">
-          <div className="w-12 h-12 rounded-full bg-blue-700 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-            RA
-          </div>
-          <div>
-            <p className="text-white font-semibold text-sm">
-              Written by Rana Muhammad Abdullah
-            </p>
-            <p className="text-gray-400 text-xs">
-              MERN Stack Developer &amp; Tool Maker · Mechatronics &amp; Control Engineering
-              Student ·{" "}
-              <a
-                href="https://www.linkedin.com/in/abdullahsajjad06/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-400 hover:underline"
-              >
-                LinkedIn
-              </a>
-            </p>
-          </div>
-          <div className="ml-auto flex flex-wrap gap-3 text-xs text-gray-400">
-            <span>📅 Published: Apr 1, 2026</span>
-            <span>🔄 Updated: May 01, 2026</span>
-            <span>✅ Verified accurate</span>
-          </div>
-        </div>
-
-        {/* ══════════════════════════════════════════════════════════
-            SECTION 10 — MORE TOOLS
-        ══════════════════════════════════════════════════════════ */}
-        <section className="mt-20">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            Explore More Health and Fitness Tools
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-6 mt-8">
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-xl font-bold text-blue-300 mb-3">
-                Find Your Resting Calorie Burn (BMR)
-              </h4>
-              <p className="text-gray-200 text-base mb-4">
-                Discover exactly how many calories your body burns at complete rest using the
-                Mifflin-St Jeor equation — the most accurate modern formula.
-              </p>
-              <Link
-                href="/calculators/health/bmr-calculator"
-                className="text-blue-400 hover:underline font-semibold inline-flex items-center"
-              >
-                Open BMR Calculator →
-              </Link>
-            </div>
-
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-xl font-bold text-blue-300 mb-3">
-                Estimate Your Body Fat Percentage
-              </h4>
-              <p className="text-gray-200 text-base mb-4">
-                Go beyond BMI with the Navy tape measurement method — a far more actionable
-                indicator of real body composition than weight alone.
-              </p>
-              <Link
-                href="/calculators/health/body-fat-calculator"
-                className="text-blue-400 hover:underline font-semibold inline-flex items-center"
-              >
-                Open Body Fat Calculator →
-              </Link>
-            </div>
-
-            <div className="bg-gray-800/40 p-6 rounded-2xl border border-gray-700">
-              <h4 className="text-xl font-bold text-blue-300 mb-3">
-                Calculate Your Activity-Based Calorie Needs (TDEE)
-              </h4>
-              <p className="text-gray-200 text-base mb-4">
-                Turn your BMR into a real-world daily calorie target by factoring in your
-                activity level — essential for any weight management plan.
-              </p>
-              <Link
-                href="/calculators/health/tdee-calculator"
-                className="text-blue-400 hover:underline font-semibold inline-flex items-center"
-              >
-                Open TDEE Calculator →
-              </Link>
-            </div>
-          </div>
-
-          <p className="text-gray-300 italic text-center mt-20 text-lg font-medium leading-relaxed">
-            Knowing your BMI is the first step — but it is just the beginning. Pair it with your BMR,
-            body fat percentage, and TDEE to build a complete, data-driven picture of your health.
-            Our free tools are fast, accurate, completely private, and built for real people in
-            Sahiwal, across Pakistan, and around the world. Bookmark this page and take control
-            of your health — one precise calculation at a time!
-          </p>
+        {/* ── RELATED TOOLS ─────────────────────────────────────── */}
+        <section className="px-4 mt-20 mb-4 flex justify-center">
+          <SimilarCalculators
+            title="Similar Health Calculators"
+            links={[
+              {
+                label: "Calorie Calculator",
+                href: "/calculators/health/calorie-calculator",
+              },
+              {
+                label: "Body Fat Calculator",
+                href: "/calculators/health/body-fat-calculator",
+              },
+              {
+                label: "BMR Calculator",
+                href: "/calculators/health/bmr-calculator",
+              },
+              {
+                label: "TDEE Calculator",
+                href: "/calculators/health/tdee-calculator",
+              },
+              {
+                label: "Calorie Deficit Calculator",
+                href: "/calculators/health/calorie-deficit-calculator",
+              },
+              {
+                label: "Macros Calculator",
+                href: "/calculators/health/macros-calculator",
+              },
+              {
+                label: "Sleep Calculator",
+                href: "/calculators/health/sleep-calculator",
+              },
+            ]}
+            seeAllHref="/calculators/health"
+          />
         </section>
       </article>
 
@@ -993,3 +1006,56 @@ export default function BMIPage() {
     </main>
   );
 }
+
+const faqData = [
+  {
+    question: "What is a healthy BMI?",
+    answer:
+      "A healthy BMI for most adults falls between 18.5 and 24.9. This range carries the lowest risk of weight-related conditions like type 2 diabetes, heart disease, and high blood pressure. It's a screening number, not a diagnosis, so check anything unusual with a doctor.",
+  },
+  {
+    question: "How do I calculate BMI manually?",
+    answer:
+      "Divide your weight in kilograms by your height in meters, squared: BMI = weight (kg) ÷ height (m)². Example: 70 kg at 1.75 m gives 70 ÷ (1.75 × 1.75) = 70 ÷ 3.0625 = 22.86. In pounds and inches, use BMI = (weight in lbs × 703) ÷ height (in)².",
+  },
+  {
+    question: "Is BMI accurate?",
+    answer:
+      "It's a useful screening tool at the population level, but it has real limits for individuals. It can't tell muscle from fat, so very muscular people often read as overweight despite low body fat. It also ignores age, sex, and where fat is stored. Pair it with waist circumference or a body fat percentage for a fuller picture.",
+  },
+  {
+    question: "What BMI is considered overweight?",
+    answer:
+      "25.0 to 29.9 counts as overweight under WHO guidelines. At this stage, gradual changes — a moderate calorie deficit and more physical activity — are usually recommended before it progresses further.",
+  },
+  {
+    question: "What BMI is considered obese?",
+    answer:
+      "30.0 or higher is classed as obesity, split into three classes: Class I (30–34.9), Class II (35–39.9), and Class III (40 and above). Each class carries progressively higher risk for heart disease, sleep apnea, joint problems, and metabolic conditions.",
+  },
+  {
+    question: "Does BMI work the same for men and women?",
+    answer:
+      "The formula and category thresholds are identical for adult men and women. Body composition isn't, though — women naturally carry roughly 10% more body fat than men at the same BMI, due to hormonal and reproductive differences.",
+  },
+  {
+    question: "Does BMI measure body fat?",
+    answer:
+      "No. BMI is calculated from height and weight only, and it doesn't measure fat directly. Two people with the same BMI can have very different body fat percentages. For an estimate that reflects composition instead of a height-weight ratio, try our Body Fat Calculator.",
+  },
+  {
+    question: "Is BMI accurate for athletes and muscular people?",
+    answer:
+      "Not reliably. Muscle weighs more than fat for the same volume, so heavily muscled people — rugby players, powerlifters, bodybuilders — often score as overweight or obese on BMI despite low body fat. In this case, a body fat percentage or waist measurement tells you more than BMI does.",
+  },
+  {
+    question: "How can I lower a high BMI safely?",
+    answer:
+      "A moderate calorie deficit of 300 to 500 calories a day, combined with regular activity and enough protein to protect muscle, is the standard starting point. Aim for roughly 0.3 to 0.5 kg of loss per week rather than a crash diet — it's more sustainable and easier on your metabolism.",
+  },
+  {
+    question: "What is a normal BMI in Pakistan?",
+    answer:
+      "Pakistani and South Asian health bodies generally recommend lower thresholds than the global WHO scale, because South Asian populations tend to develop metabolic complications at lower body weights. A BMI above 23 is considered overweight and above 27.5 obese for South Asian adults, compared to 25 and 30 globally.",
+  },
+];

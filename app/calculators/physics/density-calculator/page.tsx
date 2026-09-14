@@ -6,6 +6,7 @@ import Link from "next/link";
 import DensityCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
 import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
 export const metadata: Metadata = {
   title: "Density Calculator - Density in Multiple Units",
@@ -54,6 +55,19 @@ const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://www.lizocalc.com/#website",
+      url: "https://www.lizocalc.com",
+      name: "LizoCalc",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Person",
+      "@id": "https://www.lizocalc.com/#person-abdullah",
+      name: "Rana Muhammad Abdullah",
+      url: "https://www.linkedin.com/in/abdullahsajjad06/",
+    },
+    {
       "@type": "BreadcrumbList",
       "@id": "https://www.lizocalc.com/calculators/physics/density-calculator#breadcrumb",
       itemListElement: [
@@ -68,11 +82,38 @@ const structuredData = {
       "@id": "https://www.lizocalc.com/calculators/physics/density-calculator",
       url: "https://www.lizocalc.com/calculators/physics/density-calculator",
       name: "Density Calculator | LizoCalc",
-      description: "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
+      description:
+        "Calculate density instantly using ρ = m ÷ V. Features unit conversions for kg/m³, g/cm³, and lb/ft³ with step-by-step solutions.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-25",
+      dateModified: "2026-09-14",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/physics/density-calculator#breadcrumb" },
+      isPartOf: { "@id": "https://www.lizocalc.com/#website" },
+      author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://www.lizocalc.com/calculators/physics/density-calculator#app",
+      name: "Density Calculator",
+      url: "https://www.lizocalc.com/calculators/physics/density-calculator",
+      description:
+        "Free density calculator for finding density, mass, or volume, with conversions across kg/m³, g/cm³, lb/ft³, and more.",
+      applicationCategory: "UtilitiesApplication",
+      applicationSubCategory: "Density Calculator",
+      operatingSystem: "Any",
+      inLanguage: "en",
+      browserRequirements: "Requires JavaScript. Works on modern browsers.",
+      featureList: [
+        "Calculate density from mass and volume",
+        "Solve for mass given density and volume",
+        "Solve for volume given mass and density",
+        "Support for mass units: kg, g, mg, t, lb, oz, ct",
+        "Support for volume units: m³, L, mL, gallons, ft³, yd³, in³, cm³",
+        "Support for density units: kg/m³, g/cm³, lb/ft³, and more",
+        "Shareable result links",
+      ],
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      creator: { "@type": "Organization", name: "LizoCalc", url: "https://www.lizocalc.com" },
     },
   ],
 };
@@ -662,7 +703,7 @@ export default function DensityPage() {
           </p>
         </section>
 
-        <section className="mt-20">
+        <section className="scroll-mt-24 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
             A Few Related Ideas Worth Knowing
           </h2>
@@ -695,6 +736,18 @@ export default function DensityPage() {
             much lift a wing can generate.
           </p>
         </section>
+
+         <section className="px-4 mb-16 flex justify-center">
+                          <SimilarCalculators
+                            title="Similar physics Calculators"
+                            links={[
+                              { label: "mass Calculator", href: "/calculators/physics/mass-calculator" },
+                              { label: "speed Calculator", href: "/calculators/physics/speed-calculator" },
+                              { label: "date Calculator", href: "/calculators/time/date-calculator" },
+                            ]}
+                            seeAllHref="/calculators/physics"
+                          />
+                        </section>
 
       </article>
 

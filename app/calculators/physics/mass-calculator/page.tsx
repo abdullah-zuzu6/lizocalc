@@ -7,6 +7,7 @@ import Link from "next/link";
 import MassCalculator from "./clientside";
 import ShareBar from "@/components/Sharebar";
 import AuthorBio from "@/components/AuthorBio";
+import SimilarCalculators from "@/components/Similarcalculator";
 
 
 
@@ -115,7 +116,7 @@ const structuredData = {
       description: "Free online mass calculator using m = ρ × V. Enter density and volume in any unit and instantly get mass in kg, g, lb, or oz with step-by-step working.",
       inLanguage: "en",
       datePublished: "2026-04-01",
-      dateModified: "2026-08-20",
+      dateModified: "2026-09-14",
       breadcrumb: { "@id": "https://www.lizocalc.com/calculators/physics/mass-calculator#breadcrumb" },
     },
   ],
@@ -459,27 +460,17 @@ export default function MassCalculatorPage() {
           </p>
         </section>
 
-        {/* <section className="mt-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-500 border-b border-blue-600 pb-4 mb-8">
-            More Physics Tools to Explore
-          </h2>
-
-          <p className="text-gray-200 text-base mb-6">
-            Complement your mass calculations with these free tools:
-          </p>
-
-          <ul className="list-disc list-inside text-gray-200 space-y-3 text-base">
-            <li>
-              <Link
-                href="/calculators/physics/density-calculator"
-                className="text-blue-300 underline underline-offset-2 hover:text-blue-200"
-              >
-                Density Calculator
-              </Link>{" "}
-              — find density from mass and volume
-            </li>
-          </ul>
-        </section> */}
+        <section className="px-4 mb-16 flex justify-center">
+                  <SimilarCalculators
+                    title="Similar physics Calculators"
+                    links={[
+                      { label: "density Calculator", href: "/calculators/physics/density-calculator" },
+                      { label: "speed Calculator", href: "/calculators/physics/speed-calculator" },
+                      { label: "date Calculator", href: "/calculators/time/date-calculator" },
+                    ]}
+                    seeAllHref="/calculators/physics"
+                  />
+                </section>
       </article>
 
       <FAQ items={faqData} />
