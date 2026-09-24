@@ -15,14 +15,84 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // Old PHP URLs
       {
         source: "/:path*(.php)",
         destination: "/",
         permanent: true,
       },
+
+      // Old WordPress admin URLs
       {
         source: "/wp-admin/:path*",
         destination: "/",
+        permanent: true,
+      },
+
+      // Old Days From Today URLs → New Info URLs
+      {
+        source: "/calculators/time/7-days-from-today-calculator",
+        destination: "/info/days/7-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/14-days-from-today-calculator",
+        destination: "/info/days/14-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/21-days-from-today-calculator",
+        destination: "/info/days/21-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/28-days-from-today-calculator",
+        destination: "/info/days/28-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/30-days-from-today-calculator",
+        destination: "/info/days/30-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/45-days-from-today-calculator",
+        destination: "/info/days/45-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/60-days-from-today-calculator",
+        destination: "/info/days/60-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/90-days-from-today-calculator",
+        destination: "/info/days/90-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/120-days-from-today-calculator",
+        destination: "/info/days/120-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/150-days-from-today-calculator",
+        destination: "/info/days/150-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/time/180-days-from-today-calculator",
+        destination: "/info/days/180-days-from-today",
+        permanent: true,
+      },
+      {
+        source: "/calculators/statistics/z-score-calculator",
+        destination: "/calculators/math/z-score-calculator",
+        permanent: true,
+      },
+      {
+        source: "/calculators/saved-calculator",
+        destination: "/calculators/saved-calculators",
         permanent: true,
       },
     ];
@@ -95,6 +165,7 @@ const nextConfig = {
         ],
       },
 
+      // Cache images
       {
         source: "/:path*(.png|.jpg|.jpeg|.webp|.svg|.ico)",
         headers: [
@@ -105,6 +176,7 @@ const nextConfig = {
         ],
       },
 
+      // Cache fonts
       {
         source: "/fonts/:path*",
         headers: [
