@@ -187,9 +187,7 @@ export default function DaysLeftInYearPage() {
       "@id": "https://www.lizocalc.com/info/days/days-left-in-year#breadcrumb",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
-        { "@type": "ListItem", position: 2, name: "Info", item: "https://www.lizocalc.com/info" },
-        { "@type": "ListItem", position: 3, name: "Days", item: "https://www.lizocalc.com/info/days" },
-        { "@type": "ListItem", position: 4, name: `Days Left in ${year}`, item: "https://www.lizocalc.com/info/days/days-left-in-year" },
+        { "@type": "ListItem", position: 2, name: `Days Left in ${year}`, item: "https://www.lizocalc.com/info/days/days-left-in-year" },
       ],
     },
     {

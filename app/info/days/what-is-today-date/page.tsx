@@ -169,9 +169,7 @@ export default function WhatIsTodayDatePage() {
       "@id": "https://www.lizocalc.com/info/days/what-is-today-date#breadcrumb",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
-        { "@type": "ListItem", position: 2, name: "Info", item: "https://www.lizocalc.com/info" },
-        { "@type": "ListItem", position: 3, name: "Days", item: "https://www.lizocalc.com/info/days" },
-        { "@type": "ListItem", position: 4, name: "What Is Today's Date?", item: "https://www.lizocalc.com/info/days/what-is-today-date" },
+        { "@type": "ListItem", position: 2, name: "What Is Today's Date?", item: "https://www.lizocalc.com/info/days/what-is-today-date" },
       ],
     },
     {

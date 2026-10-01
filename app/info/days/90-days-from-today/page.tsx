@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
+    canonical: "https://www.lizocalc.com/info/days/90-days-from-today",
   },
 
   robots: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "90 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 90 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
-    url: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
+    url: "https://www.lizocalc.com/info/days/90-days-from-today",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -133,25 +133,23 @@ export default function NinetyDaysFromTodayPage() {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator#breadcrumb",
+      "@id": "https://www.lizocalc.com/info/days/90-days-from-today#breadcrumb",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
-        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
-        { "@type": "ListItem", position: 4, name: "90 Days From Today Calculator", item: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator" },
+        { "@type": "ListItem", position: 2, name: "90 Days From Today", item: "https://www.lizocalc.com/info/days/90-days-from-today" },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
-      url: "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator",
+      "@id": "https://www.lizocalc.com/info/days/90-days-from-today",
+      url: "https://www.lizocalc.com/info/days/90-days-from-today",
       name: "90 Days From Today | LizoCalc",
       description:
         "Calculate the date 90 days from today instantly, with a live countdown, every common date format, and a calendar view.",
       inLanguage: "en",
       datePublished: "2026-09-01",
       dateModified: todayISO,
-      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/90-days-from-today-calculator#breadcrumb" },
+      breadcrumb: { "@id": "https://www.lizocalc.com/info/days/90-days-from-today#breadcrumb" },
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },

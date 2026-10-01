@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
 
   alternates: {
-    canonical: "https://www.lizocalc.com/calculators/time/21-days-from-today",
+    canonical: "https://www.lizocalc.com/info/days/21-days-from-today",
   },
 
   robots: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "21 Days From Today - Calculator & Countdown",
     description:
       "Find out exactly what date is 21 days from today. Multiple formats, calendar view, live countdown timer. Free and instant.",
-    url: "https://www.lizocalc.com/calculators/time/21-days-from-today",
+    url: "https://www.lizocalc.com/info/days/21-days-from-today",
     siteName: "LizoCalc",
     type: "website",
   },
@@ -134,25 +134,23 @@ export default function TwentyOneDaysFromTodayPage() {
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://www.lizocalc.com/calculators/time/21-days-from-today#breadcrumb",
+      "@id": "https://www.lizocalc.com/info/days/21-days-from-today#breadcrumb",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://www.lizocalc.com" },
-        { "@type": "ListItem", position: 2, name: "Calculators", item: "https://www.lizocalc.com/calculators" },
-        { "@type": "ListItem", position: 3, name: "Time", item: "https://www.lizocalc.com/calculators/time" },
-        { "@type": "ListItem", position: 4, name: "21 Days From Today Calculator", item: "https://www.lizocalc.com/calculators/time/21-days-from-today" },
+        { "@type": "ListItem", position: 2, name: "21 Days From Today", item: "https://www.lizocalc.com/info/days/21-days-from-today" },
       ],
     },
     {
       "@type": "WebPage",
-      "@id": "https://www.lizocalc.com/calculators/time/21-days-from-today",
-      url: "https://www.lizocalc.com/calculators/time/21-days-from-today",
+      "@id": "https://www.lizocalc.com/info/days/21-days-from-today",
+      url: "https://www.lizocalc.com/info/days/21-days-from-today",
       name: "21 Days From Today | LizoCalc",
       description:
         "Calculate the date 21 days from today instantly, with a live countdown, every common date format, and a calendar view.",
       inLanguage: "en",
       datePublished: "2026-09-01",
       dateModified: todayISO,
-      breadcrumb: { "@id": "https://www.lizocalc.com/calculators/time/21-days-from-today#breadcrumb" },
+      breadcrumb: { "@id": "https://www.lizocalc.com/info/days/21-days-from-today#breadcrumb" },
       isPartOf: { "@id": "https://www.lizocalc.com/#website" },
       author: { "@id": "https://www.lizocalc.com/#person-abdullah" },
     },
